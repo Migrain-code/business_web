@@ -1,5 +1,4 @@
-//Ürün Satış Liste
-
+// Ürün Satış Liste
 $('.productSale').on('click', function () {
     var customerId = $(this).data('customer');
     $.ajax({
@@ -8,30 +7,28 @@ $('.productSale').on('click', function () {
         dataType: "JSON",
         success: function (response) {
             let container = document.getElementById('productSaleTable');
-            container.innerHTML="";
+            container.innerHTML = "";
             var items = "";
             $.each(response, function (index, item) {
                 var item = `
                     <tr>
-                            <td class="fs-6">${item.seller_date}</td>
-                            <td class="fs-6">${item.productName}</td>
-                            <td class="fs-6">${item.piece}</td>
-                            <td class="fw-bold">₺${item.total}</td>
-                            <td class="fs-6">${item.personelName}</td>
-                     </tr>
-               `;
+                        <td class="fs-6">${item.seller_date}</td>
+                        <td class="fs-6">${item.productName}</td>
+                        <td class="fs-6">${item.piece}</td>
+                        <td class="fw-bold">₺${item.total}</td>
+                        <td class="fs-6">${item.personelName}</td>
+                    </tr>
+                `;
                 items += item;
             });
             container.innerHTML = items;
-
             initProductSaleTable();
-
         },
         error: function (xhr) {
             Swal.fire({
                 icon: 'error',
                 title: 'Hata!',
-                html: 'Sistemsel Bir Hata Sebebiyle Parapuan Listesi Alınamadı',
+                html: 'Sistemsel Bir Hata Sebebiyle Ürün Satış Listesi Alınamadı',
                 buttonsStyling: false,
                 confirmButtonText: "Tamam",
                 customClass: {
@@ -45,10 +42,8 @@ $('.productSale').on('click', function () {
 var datatable;
 
 function initProductSaleTable() {
-    if ($.fn.DataTable.isDataTable('#productSaleDataTable')) {
-        datatable = $('#productSaleDataTable').DataTable();
-    } else {
-        // DataTables henüz başlatılmamışsa, yeni bir örneği başlat
+    const reportTitle = "Ürün Satış Raporu";
+    if (!$.fn.DataTable.isDataTable('#productSaleDataTable')) {
         datatable = $('#productSaleDataTable').DataTable({
             "language": {
                 "url": "https://cdn.datatables.net/plug-ins/1.11.2/i18n/tr.json"
@@ -58,36 +53,25 @@ function initProductSaleTable() {
             'order': [0],
             dom: 'Bfrtip',
             buttons: [
-                'copy', 'excel', 'csv', 'pdf'
-            ],
+                {extend: "copyHtml5", title: reportTitle},
+                {extend: "excelHtml5", title: reportTitle},
+                {extend: "csvHtml5", title: reportTitle},
+                {extend: "pdfHtml5", title: reportTitle}
+            ]
         });
     }
 
-    // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
+    // Re-init functions on every table re-draw
     datatable.on('draw', function () {
-
-        setTimeout(() => {
-            $('.dataTables_filter').css('display', 'none');
-            $('.dt-buttons').css('display', 'none');
-        }, 1);
+        $('.dataTables_filter, .dt-buttons').hide();
     });
-
-    const reportTitle = "Ürün Satış Raporu";
-    new $.fn.dataTable.Buttons('#productSaleDataTable', {
-        buttons: [
-            {extend: "copyHtml5", title: reportTitle},
-            {extend: "excelHtml5", title: reportTitle},
-            {extend: "csvHtml5", title: reportTitle},
-            {extend: "pdfHtml5", title: reportTitle}
-        ]
-    }).container().appendTo($("#kt_ecommerce_report_customer_orders_export"));
 
     document.querySelectorAll("#kt_ecommerce_report_customer_orders_export_menu [data-kt-ecommerce-export]").forEach(button => {
         button.addEventListener("click", event => {
             event.preventDefault();
             const exportType = event.target.getAttribute("data-kt-ecommerce-export");
             if (exportType == "print") {
-                print();
+                printProductList();
             } else {
                 setTimeout(() => {
                     const exportButton = document.querySelector(".dt-buttons .buttons-" + exportType);
@@ -98,7 +82,6 @@ function initProductSaleTable() {
                     }
                 }, 0);
             }
-
         });
     });
 }
@@ -145,7 +128,7 @@ $('select[name="listType"]').on('change', function () {
     datatable.draw();
 });
 
-function print() {
+function printProductList() {
     var tableElement = document.getElementById('productSaleDataTable');
 
     var printWindow = window.open('', '_blank');

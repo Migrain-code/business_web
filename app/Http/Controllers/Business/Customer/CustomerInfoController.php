@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Comment\CustomerCommentListResource;
 use App\Http\Resources\Customer\CashPointList2Resoruce;
 use App\Http\Resources\Customer\CustomerCashPointList;
-use App\Http\Resources\PackageSale\CustomerPackageSaleListResource;
+use App\Http\Resources\Customer\CustomerPackageSaleListResource;
 use App\Http\Resources\Customer\CustomerProductSaleListResource;
 use App\Http\Resources\Receivable\ReceivableListResource;
 use App\Models\AppointmentCollectionEntry;
@@ -73,25 +73,8 @@ class CustomerInfoController extends Controller
      */
     public function packageSaleList(Customer $customer, Request $request)
     {
-        /*$packageSales = $customer->packageSales()->where('business_id', $this->business->id)
-            ->when($request->filled('listType'), function ($q) use ($request) {
-                if ($request->listType == "thisWeek") {
-                    $startOfWeek = now()->startOfWeek();
-                    $endOfWeek = now()->endOfWeek();
-                    $q->whereBetween('seller_date', [$startOfWeek, $endOfWeek]);
-                } elseif ($request->listType == "thisMonth") {
-                    $startOfMonth = now()->startOfMonth();
-                    $endOfMonth = now()->endOfMonth();
-                    $q->whereBetween('seller_date', [$startOfMonth, $endOfMonth]);
-                } elseif ($request->listType == "thisYear") {
-                    $startOfYear = now()->startOfYear();
-                    $endOfYear = now()->endOfYear();
-                    $q->whereBetween('seller_date', [$startOfYear, $endOfYear]);
-                } else {
-                    $q->whereDate('seller_date', now()->toDateString());
-                }
-            })->get();
-        return response()->json(CustomerPackageSaleListResource::collection($packageSales));*/
+        $packageSales = $customer->packageSales()->where('business_id', $this->business->id)->get();
+        return response()->json(CustomerPackageSaleListResource::collection($packageSales));
     }
 
     /**

@@ -1,7 +1,13 @@
 @extends('business.layouts.master')
 @section('title', 'Müşteri Detayı')
 @section('styles')
-
+    <style>
+        table.dataTable>tbody>tr.child span.dtr-data {
+            padding-left: 5px;
+            color: white;
+            font-weight: 700;
+        }
+    </style>
 @endsection
 @section('breadcrumbs')
     <!--begin::Item-->
@@ -60,8 +66,8 @@
                     <!--end:::Tab item-->
                     <!--begin:::Tab item-->
                     <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
-                           href="#kt_ecommerce_customer_advanced">Paket Satışları</a>
+                        <a class="nav-link text-active-primary pb-4 packageSale" data-customer="{{$customer->id}}" data-bs-toggle="tab"
+                           href="#kt_ecommerce_customer_packageSale">Paket Satışları</a>
                     </li>
                     <!--end:::Tab item-->
                     <!--begin:::Tab item-->
@@ -97,6 +103,7 @@
                     @include('business.customer.detail.component.tabs.comments')
                     @include('business.customer.detail.component.tabs.cash-points')
                     @include('business.customer.detail.component.tabs.productSale')
+                    @include('business.customer.detail.component.tabs.packageSale')
 
 
                 </div>
@@ -115,6 +122,7 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="/business/assets/js/project/customers/details/fetcInfo.js"></script>
+    <script src="/business/assets/js/project/customers/details/fetchPackageSaleList.js"></script>
     <script src="/business/assets/js/project/customers/details/fetchProductSaleList.js"></script>
 
     @if($customer->city_id)

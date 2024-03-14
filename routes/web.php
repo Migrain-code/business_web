@@ -38,6 +38,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
         Route::prefix('customer/{customer}')->group(function (){
             Route::get('cash-point-list', [CustomerInfoController::class, 'cashPointList']);
             Route::get('product-sale-list', [CustomerInfoController::class, 'productSaleList']);
+            Route::get('package-sale-list', [CustomerInfoController::class, 'packageSaleList']);
 
         });
         Route::controller(AjaxController::class)->as('ajax.')->prefix('ajax')->group(function () {
