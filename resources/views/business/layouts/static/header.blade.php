@@ -26,4 +26,19 @@
         <!--begin::Page-->
         <div class="app-page  flex-column flex-column-fluid " id="kt_app_page">
             @include('business.layouts.menu.top')
+            <div class="app-wrapper  d-flex " id="kt_app_wrapper">
 
+                @include('business.dashboard.parts.side-personel')
+
+                <!--begin::Wrapper container-->
+                <div class="app-container  container-fluid ">
+
+                    <!--begin::Main-->
+                    <div class="app-main flex-column flex-row-fluid " id="kt_app_main">
+
+                        <!--begin::Content wrapper-->
+                        <div class="d-flex flex-column flex-column-fluid">
+
+                            <!--begin::Toolbar-->
+                            @include('business.layouts.components.breadcrumb')
+                            <!--end::Toolbar-->

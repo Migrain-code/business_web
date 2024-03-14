@@ -5,6 +5,59 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ *
+ *
+ * @property int $id
+ * @property int|null $business_id
+ * @property int|null $customer_id
+ * @property string|null $start_time
+ * @property string|null $end_time
+ * @property int|null $status
+ * @property float $total
+ * @property int $discount
+ * @property int|null $campaign_id
+ * @property float $point
+ * @property float $earned_point kazanılan puan
+ * @property string|null $note
+ * @property int $comment_status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $is_verify_phone
+ * @property-read \App\Models\Business|null $business
+ * @property-read \App\Models\CustomerCashPoint|null $cashPoint
+ * @property-read \App\Models\Customer $customer
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AppointmentCollectionEntry> $payments
+ * @property-read int|null $payments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AppointmentPhoto> $photos
+ * @property-read int|null $photos_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AppointmentReceivable> $receivables
+ * @property-read int|null $receivables_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductSales> $sales
+ * @property-read int|null $sales_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AppointmentServices> $services
+ * @property-read int|null $services_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment whereBusinessId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment whereCampaignId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment whereCommentStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment whereCustomerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment whereDiscount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment whereEarnedPoint($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment whereEndTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment whereIsVerifyPhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment whereNote($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment wherePoint($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment whereStartTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment whereTotal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Appointment whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Appointment extends Model
 {
     use HasFactory;
@@ -12,37 +65,37 @@ class Appointment extends Model
 
     const STATUS_LIST=[
         0 => [
-            'html' => '<span class="badge light badge-warning fw-bolder px-2 py-2">Onay Bekliyor</span>',
+            'html' => '<span class="badge badge-warning fw-bolder px-2 py-2" style="color:#fff04f">Onay Bekliyor</span>',
             'text' => 'Onay Bekliyor',
             "color" => "#fff04f"
         ],
         1 => [
-            'html' => '<span class="badge light badge-success fw-bolder px-2 py-2">Onaylandı</span>',
+            'html' => '<span class="badge badge-success fw-bolder px-2 py-2">Onaylandı</span>',
             'text' => 'Onaylandı',
             "color" => "#6aab73"
         ],
         2 => [
-            'html' => '<span class="badge badge-outline-success fw-bolder px-2 py-2">Tamamlandı</span>',
+            'html' => '<span class="badge badge-success fw-bolder px-2 py-2">Tamamlandı</span>',
             'text' => 'Tamamlandı',
             "color" => "#4a7750"
         ],
         3 => [
-            'html' => '<span class="badge light badge-danger fw-bolder px-2 py-2">İptal Edildi</span>',
+            'html' => '<span class="badge badge-danger fw-bolder px-2 py-2">İptal Edildi</span>',
             'text' => 'İptal Edildi',
             "color" => "#bf0d36"
         ],
         4 => [
-            'html' => '<span class="badge badge-outline-info fw-bolder px-2 py-2">Gelmedi</span>',
+            'html' => '<span class="badge badge-info fw-bolder px-2 py-2">Gelmedi</span>',
             'text' => 'Gelmedi',
             "color" => "#bf0d36"
         ],
         5 => [
-            'html' => '<span class="badge badge-outline-info fw-bolder px-2 py-2">Geldi</span>',
+            'html' => '<span class="badge badge-info fw-bolder px-2 py-2">Geldi</span>',
             'text' => 'Geldi',
             "color" => "#4a7750"
         ],
         6 => [
-            'html' => '<span class="badge badge-outline-info fw-bolder px-2 py-2">Tahsilatsız Kapatıldı</span>',
+            'html' => '<span class="badge badge-info fw-bolder px-2 py-2">Tahsilatsız Kapatıldı</span>',
             'text' => 'Tahsilatsız Kapatıldı',
             "color" => "#2f4aaf"
         ],

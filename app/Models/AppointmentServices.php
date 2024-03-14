@@ -5,6 +5,35 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * 
+ *
+ * @property int $id
+ * @property int|null $appointment_id
+ * @property int|null $personel_id
+ * @property int|null $service_id
+ * @property string|null $start_time
+ * @property string|null $end_time
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Appointment|null $appointment
+ * @property-read \App\Models\Personel|null $personel
+ * @property-read \App\Models\BusinessService|null $service
+ * @method static \Illuminate\Database\Eloquent\Builder|AppointmentServices newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|AppointmentServices newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|AppointmentServices query()
+ * @method static \Illuminate\Database\Eloquent\Builder|AppointmentServices whereAppointmentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AppointmentServices whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AppointmentServices whereEndTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AppointmentServices whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AppointmentServices wherePersonelId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AppointmentServices whereServiceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AppointmentServices whereStartTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AppointmentServices whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AppointmentServices whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class AppointmentServices extends Model
 {
     use HasFactory;

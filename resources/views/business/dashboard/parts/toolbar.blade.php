@@ -36,7 +36,7 @@
             <div class="page-title d-flex align-items-center me-3">
                 <!--begin::Title-->
                 <h1 class="page-heading d-flex text-dark fw-bolder fs-1 flex-column justify-content-center my-0">
-                    {{authUser()->name}}
+                    Dashboard
                 </h1>
                 <!--end::Title-->
             </div>

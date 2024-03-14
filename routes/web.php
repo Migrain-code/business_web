@@ -1,8 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Business\Auth\LoginController;
+use App\Http\Controllers\Business\Customer\CustomerController;
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Business\AjaxController;
+use \App\Http\Controllers\Business\Customer\CustomerInfoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,10 +30,24 @@ Route::get('login', [HomeController::class, 'loginTypes'])->name('loginTypes');
 Route::prefix('isletme')->as('business.')->group(function (){
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [LoginController::class, 'login']);
+    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::middleware('auth:official')->group(function () {
         Route::get('/home', [\App\Http\Controllers\Business\HomeController::class, 'index'])->name('home');
+        Route::resource('customer', CustomerController::class);
+        Route::prefix('customer/{customer}')->group(function (){
+            Route::get('cash-point-list', [CustomerInfoController::class, 'cashPointList']);
+            Route::get('product-sale-list', [CustomerInfoController::class, 'productSaleList']);
 
+        });
+        Route::controller(AjaxController::class)->as('ajax.')->prefix('ajax')->group(function () {
+            Route::post('/update-featured', 'updateFeatured')->name('updateFeatured');
+            Route::post('/delete/object', 'deleteFeatured')->name('deleteFeatured');
+            Route::post('/delete/all/object', 'deleteAllFeatured')->name('deleteAllFeatured');
+            Route::post('/get/district', 'getDistrict')->name('getDistrictUrl');
+        });
     });
+
+
 });
 

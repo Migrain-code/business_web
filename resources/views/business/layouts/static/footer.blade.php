@@ -1,6 +1,14 @@
 </div>
+</div>
+</div>
+</div>
+
+</div>
 <!--end::Page-->
 </div>
+<script>
+    var csrf_token = "{{csrf_token()}}";
+</script>
 <!--end::App-->
 @include('business.layouts.components.scripts')
 </body>
