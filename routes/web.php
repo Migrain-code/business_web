@@ -39,7 +39,10 @@ Route::prefix('isletme')->as('business.')->group(function (){
             Route::get('cash-point-list', [CustomerInfoController::class, 'cashPointList']);
             Route::get('product-sale-list', [CustomerInfoController::class, 'productSaleList']);
             Route::get('package-sale-list', [CustomerInfoController::class, 'packageSaleList']);
-
+            Route::get('receivable-list', [CustomerInfoController::class, 'receivableList']);
+            Route::get('payment-list', [CustomerInfoController::class, 'payments']);
+            Route::get('gallery', [CustomerInfoController::class, 'gallery']);
+            Route::post('add-gallery', [CustomerInfoController::class, 'addGallery']);
         });
         Route::controller(AjaxController::class)->as('ajax.')->prefix('ajax')->group(function () {
             Route::post('/update-featured', 'updateFeatured')->name('updateFeatured');

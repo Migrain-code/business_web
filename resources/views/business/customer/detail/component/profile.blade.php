@@ -23,7 +23,7 @@
             <div class="d-flex flex-stack fs-4 py-3">
                 <div class="fw-bold">Detaylar</div>
                 <!--begin::Badge-->
-                @if($customer->business->status == 1)
+                @if($customer->business()->where('business_id', authUser()->business->id)->first()->status == 1)
                     <div class="badge badge-light-info d-inline">Aktif</div>
                 @else
                     <div class="badge badge-light-danger d-inline" data-bs-toggle="tooltip" data-bs-original-title="Bu müşteri sizden randevu alamaz">Engellendi</div>

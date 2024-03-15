@@ -49,7 +49,7 @@
                     <!--begin:::Tab item-->
                     <li class="nav-item">
                         <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
-                           href="#kt_ecommerce_customer_general">Genel Ayarlar</a>
+                           href="#kt_ecommerce_customer_general">Bilgileri</a>
                     </li>
                     <!--end:::Tab item-->
                     <!--begin:::Tab item-->
@@ -72,14 +72,14 @@
                     <!--end:::Tab item-->
                     <!--begin:::Tab item-->
                     <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
-                           href="#kt_ecommerce_customer_advanced">Salona Borçları</a>
+                        <a class="nav-link text-active-primary pb-4 receivable" data-customer="{{$customer->id}}" data-bs-toggle="tab"
+                           href="#kt_ecommerce_customer_recevivable">Salona Borçları</a>
                     </li>
                     <!--end:::Tab item-->
                     <!--begin:::Tab item-->
                     <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
-                           href="#kt_ecommerce_customer_advanced">Ödemeleri</a>
+                        <a class="nav-link text-active-primary pb-4 payments" data-customer="{{$customer->id}}" data-bs-toggle="tab"
+                           href="#kt_ecommerce_customer_payments">Ödemeleri</a>
                     </li>
                     <!--end:::Tab item-->
                     <!--begin:::Tab item-->
@@ -90,8 +90,8 @@
                     <!--end:::Tab item-->
                     <!--begin:::Tab item-->
                     <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
-                           href="#kt_ecommerce_customer_notifications">Bildirimler</a>
+                        <a class="nav-link text-active-primary pb-4 gallery" id="gallleryTab" data-customer="{{$customer->id}}" data-bs-toggle="tab"
+                           href="#kt_ecommerce_customer_gallery">Galeri</a>
                     </li>
                     <!--end:::Tab item-->
                 </ul>
@@ -104,8 +104,9 @@
                     @include('business.customer.detail.component.tabs.cash-points')
                     @include('business.customer.detail.component.tabs.productSale')
                     @include('business.customer.detail.component.tabs.packageSale')
-
-
+                    @include('business.customer.detail.component.tabs.receivable')
+                    @include('business.customer.detail.component.tabs.payment')
+                    @include('business.customer.detail.component.tabs.gallery')
                 </div>
                 <!--end:::Tab content-->
             </div>
@@ -124,7 +125,10 @@
     <script src="/business/assets/js/project/customers/details/fetcInfo.js"></script>
     <script src="/business/assets/js/project/customers/details/fetchPackageSaleList.js"></script>
     <script src="/business/assets/js/project/customers/details/fetchProductSaleList.js"></script>
-
+    <script src="/business/assets/js/project/customers/details/fetchReceviableList.js"></script>
+    <script src="/business/assets/js/project/customers/details/fetchPaymentList.js"></script>
+    <script src="/business/assets/js/project/customers/details/fetchGalleryList.js"></script>
+    <script src="/business/assets/js/project/customers/details/update-profile.js"></script>
     @if($customer->city_id)
         <script>
 
@@ -134,7 +138,7 @@
             var district = $('[name="district_id"]');
             district.empty();
             $.ajax({
-                url: ajax_urls.getDistrictUrl,
+                url: '/isletme/ajax/get/district',
                 type: "POST",
                 data: {
                     "_token": csrf_token,

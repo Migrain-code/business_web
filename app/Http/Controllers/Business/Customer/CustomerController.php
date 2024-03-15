@@ -24,14 +24,6 @@ class CustomerController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(CustomerAddRequest $request)
@@ -60,14 +52,6 @@ class CustomerController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Customer $customer)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(BusinessCustomer $customer)
@@ -82,9 +66,15 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
+        if ($customer->business()->where('business_id', authUser()->business->id)->first()->type == 0){
+            return response()->json([
+                'status' => "error",
+                'message' => "Bu Müşteri Randevu Alarak Gelmiş olan bir müşteri olduğu için bilgilerini düzenleyemezsiniz"
+            ]);
+        }
         $customer->name = $request->input('name');
         $customer->email = $request->input('email');
-        $customer->app_phone = clearPhone($request->input('app_phone'));
+        $customer->phone = clearPhone($request->input('app_phone'));
         $customer->gender = $request->input('gender');
         $customer->birthday = $request->input('birthday');
         $customer->city_id = $request->input('city_id');
@@ -97,23 +87,6 @@ class CustomerController extends Controller
             return response()->json([
                 'status' => "success",
                 'message' => "Müşteri Başarılı Bir Şekilde Güncellendi"
-            ]);
-        }
-    }
-
-    public function updatePhone(Request $request)
-    {
-        if ($this->existPhone(clearPhone($request->phone))) {
-            return response()->json([
-                'status' => "warning",
-                'message' => "Bu telefon numarası ile kayıtlı kullanıcı bulunmakta."
-            ]);
-        } else {
-
-            $this->createVerifyCode($request->phone);
-            return response()->json([
-                'status' => "success",
-                'message' => "Telefon Numarasına Gelen Doğrulama Kodunu Giriniz"
             ]);
         }
     }

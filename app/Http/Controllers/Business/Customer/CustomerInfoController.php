@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Comment\CustomerCommentListResource;
 use App\Http\Resources\Customer\CashPointList2Resoruce;
 use App\Http\Resources\Customer\CustomerCashPointList;
+use App\Http\Resources\Customer\CustomerGalleryResource;
 use App\Http\Resources\Customer\CustomerPackageSaleListResource;
 use App\Http\Resources\Customer\CustomerProductSaleListResource;
 use App\Http\Resources\Receivable\ReceivableListResource;
 use App\Models\AppointmentCollectionEntry;
 use App\Models\Customer;
+use App\Models\CustomerGallery;
+use App\Services\UploadFile;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -29,6 +32,7 @@ class CustomerInfoController extends Controller
             return $next($request);
         });
     }
+
     /**
      * Parapuan Listesi
      *
@@ -36,8 +40,9 @@ class CustomerInfoController extends Controller
      */
     public function cashPointList(Customer $customer)
     {
-        return response()->json(CustomerCashPointList::collection($customer->cashPoints));
+        return response()->json(CustomerCashPointList::collection($customer->withBusinessCashpoints));
     }
+
     /**
      * Ürün Satış Listesi
      *
@@ -84,9 +89,13 @@ class CustomerInfoController extends Controller
      */
     public function receivableList(Customer $customer)
     {
-        /*$receivables = $customer->receivables()->where('business_id', $this->business->id)->get();
-        return response()->json(ReceivableListResource::collection($receivables));*/
+        $receivables = $customer->receivables()->where('business_id', $this->business->id)->get();
+        return response()->json([
+            'receivables' => ReceivableListResource::collection($receivables),
+            'total' => $receivables->sum('price')
+        ]);
     }
+
     /**
      * Yorumları
      *
@@ -98,6 +107,7 @@ class CustomerInfoController extends Controller
 
         return response()->json(CustomerCommentListResource::collection($comments));*/
     }
+
     /**
      * Ödemeleri
      *
@@ -105,10 +115,12 @@ class CustomerInfoController extends Controller
      */
     public function payments(Customer $customer)
     {
-        /*$payments = [];
+        $total = 0;
+        $payments = [];
         $packageSales = $customer->packageSales()->where('business_id', $this->business->id)->get();
-        foreach ($packageSales as $packageSale){
-            foreach ($packageSale->payeds as $payed){
+        foreach ($packageSales as $packageSale) {
+            foreach ($packageSale->payeds as $payed) {
+                $total += $payed->price;
                 $payments[] = [
                     "id" => $payed->package_id,
                     "price" => $payed->price,
@@ -121,7 +133,8 @@ class CustomerInfoController extends Controller
 
         $appointmentIds = $customer->appointments()->has('payments')->pluck('id')->toArray();
         $appointmentPayed = AppointmentCollectionEntry::whereIn('appointment_id', [$appointmentIds])->get();
-        foreach ($appointmentPayed as $payed){
+        foreach ($appointmentPayed as $payed) {
+            $total += $payed->price;
             $payments[] = [
                 "id" => $payed->appointment_id,
                 "price" => $payed->price,
@@ -131,15 +144,53 @@ class CustomerInfoController extends Controller
             ];
         }
 
-        return response()->json($this->sortedCreatedAt($payments));*/
+        return response()->json([
+            'payments' => $this->sortedCreatedAt($payments),
+            'total' => formatPrice($total),
+        ]);
     }
 
     public function sortedCreatedAt($data) // tarihe göre sırala yeniden eskiye
     {
-        usort($data, function($a, $b) {
+        usort($data, function ($a, $b) {
             return strtotime($b['created_at']) - strtotime($a['created_at']);
         });
 
         return $data;
+    }
+
+    /**
+     * Müşteri Galerisi
+     * @param Customer $customer
+     * @return JsonResponse
+     */
+    public function gallery(Customer $customer)
+    {
+        $images = CustomerGallery::where('customer_id', $customer->id)
+            ->where('business_id', $this->business->id)
+            ->get();
+
+        return response()->json(CustomerGalleryResource::collection($images));
+    }
+
+    /**
+     * Müşteri Galeri Ekleme
+     * @param Customer $customer
+     * @return JsonResponse
+     */
+    public function addGallery(Customer $customer, Request $request)
+    {
+        $customerGallery = new CustomerGallery();
+        $customerGallery->customer_id = $customer->id;
+        $customerGallery->business_id = $this->business->id;
+        $response = UploadFile::uploadFile($request->file('profilePhoto'));
+        $customerGallery->image = $response["image"]["way"];
+
+        if ($customerGallery->save()){
+            return response()->json([
+                'status' => 'success',
+                'message' => "Fotoğraf Yüklendi"
+            ]);
+        }
     }
 }

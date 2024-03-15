@@ -136,7 +136,7 @@
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="dashboards/online-courses.html" class="menu-link ">
+                                                    <a href="{{route('business.customer.index')}}" class="menu-link ">
                                                         <span
                                                             class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
                                                             <i class="ki-duotone ki-color-swatch text-success fs-1"><span
@@ -163,9 +163,9 @@
                                                                     class="path21"></span></i>                                </span>
 
                                                         <span class="d-flex flex-column">
-                                                            <span class="fs-6 fw-bold text-gray-800">Galeri</span>
+                                                            <span class="fs-6 fw-bold text-gray-800">Müşteriler</span>
                                                             <span
-                                                                class="fs-7 fw-semibold text-muted">Tüm Fotoğraflar</span>
+                                                                class="fs-7 fw-semibold text-muted">Tüm Müşteriler</span>
                                                         </span>
                                                     </a>
                                                     <!--end:Menu link-->

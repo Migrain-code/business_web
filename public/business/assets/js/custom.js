@@ -1,5 +1,6 @@
 $(document).on('click', '.delete-btn', function () {
     let model = $(this).data('model')
+    let isReload = $(this).data('reload')
     let content = $(this).data('content')
     let title = $(this).data('title')
     let id = $(this).data('object-id')
@@ -34,6 +35,11 @@ $(document).on('click', '.delete-btn', function () {
                         text: res.message,
                         confirmButtonText: 'Tamam'
                     })
+                    if (isReload){
+                        setTimeout(function (){
+                            location.reload();
+                        }, 700);
+                    }
                     if ($('#datatable').length > 0 && $.fn.DataTable.isDataTable('#datatable')) {
                         $('#datatable').DataTable().ajax.reload();
                     }

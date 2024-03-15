@@ -26,7 +26,7 @@
                     <!--begin::Image input wrapper-->
                     <div class="mt-1">
                         <!--begin::Image input placeholder-->
-                        <style>.image-input-placeholder { background-image: url('/assets/media/svg/files/blank-image.svg'); } [data-theme="dark"] .image-input-placeholder { background-image: url('/assets/media/svg/files/blank-image-dark.svg'); }</style>
+                        <style>.image-input-placeholder { background-image: url('/business/assets/media/svg/files/blank-image.svg'); } [data-theme="dark"] .image-input-placeholder { background-image: url('/assets/media/svg/files/blank-image-dark.svg'); }</style>
                         <!--end::Image input placeholder-->
                         <!--begin::Image input-->
                         <div class="image-input image-input-outline image-input-placeholder" data-kt-image-input="true">
@@ -93,12 +93,12 @@
                         <div class="fv-row mb-7">
                             <!--begin::Label-->
                             <label class="fs-6 fw-semibold mb-2">
-                                <span>Randevu Telefonu</span>
+                                <span>Telefon Numarası</span>
                                 <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Email address must be active"></i>
                             </label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="text" class="form-control form-control-solid" data-inputmask="'mask': '(999) 999-9999'" placeholder="Randevu telefonu" name="app_phone" value="{{$customer->app_phone}}" />
+                            <input type="text" class="form-control form-control-solid" data-inputmask="'mask': '0(999) 999-9999'" placeholder="Telefon Numarası" name="app_phone" value="{{$customer->phone}}" />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
@@ -112,7 +112,7 @@
                             <!--begin::Label-->
                             <label class="fs-6 fw-semibold mb-2">
                                 <span class="required">Şehir</span>
-                                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Country of origination"></i>
+                                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Yaşadığı Şehir"></i>
                             </label>
                             <!--end::Label-->
                             <!--begin::Input-->

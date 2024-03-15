@@ -67,7 +67,7 @@ class Customer extends Authenticatable
 
     public function business()
     {
-        return $this->hasOne(BusinessCustomer::class, 'customer_id', 'id');
+        return $this->hasMany(BusinessCustomer::class, 'customer_id', 'id');
     }
     public function appointments()
     {
@@ -111,6 +111,11 @@ class Customer extends Authenticatable
     public function cashPoints()
     {
         return $this->hasMany(CustomerCashPoint::class, 'customer_id', 'id')->where('price', '>', 0);
+    }
+
+    public function withBusinessCashpoints()
+    {
+        return $this->cashPoints()->where('business_id', authUser()->business_id);
     }
 
     public function productSales()
