@@ -78,12 +78,13 @@ function create_info_button($content = null)
 {
     return html()->a('#', html()->i('')->class('fa fa-question-circle'))->class('btn btn-warning btn-sm me-1 ' . $additional_class);
 }
-function create_delete_button($model, $id, $title, $content)
+function create_delete_button($model, $id, $title, $content, $route = '/isletme/ajax/delete/object')
 {
     return html()->a('#', html()->i('')->class('fa fa-trash'))
         ->class('btn btn-danger btn-sm me-1 delete-btn')
         ->attribute('data-toggle', 'popover')
         ->attribute('data-object-id', $id)
+        ->attribute('data-route', $route)
         ->attribute('data-model', 'App\Models\\' . str_replace('App\Models\\', '', $model))
         ->attribute('data-content', $content)
         ->attribute('data-title', $title);

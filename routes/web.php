@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Business\AjaxController;
 use \App\Http\Controllers\Business\Customer\CustomerInfoController;
+use App\Http\Controllers\Business\ProductSale\ProductSaleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +35,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
 
     Route::middleware('auth:official')->group(function () {
         Route::get('/home', [\App\Http\Controllers\Business\HomeController::class, 'index'])->name('home');
+        /*-----------------------  Müşteri  ------------------------*/
         Route::resource('customer', CustomerController::class);
         Route::prefix('customer/{customer}')->group(function (){
             Route::get('cash-point-list', [CustomerInfoController::class, 'cashPointList']);
@@ -44,9 +46,13 @@ Route::prefix('isletme')->as('business.')->group(function (){
             Route::get('gallery', [CustomerInfoController::class, 'gallery']);
             Route::post('add-gallery', [CustomerInfoController::class, 'addGallery']);
         });
+        /*-----------------------  Ürün Satış ------------------------*/
+        Route::resource('sale', ProductSaleController::class);
+
+
         Route::controller(AjaxController::class)->as('ajax.')->prefix('ajax')->group(function () {
             Route::post('/update-featured', 'updateFeatured')->name('updateFeatured');
-            Route::post('/delete/object', 'deleteFeatured')->name('deleteFeatured');
+            Route::delete('/delete/object', 'deleteFeatured')->name('deleteFeatured');
             Route::post('/delete/all/object', 'deleteAllFeatured')->name('deleteAllFeatured');
             Route::post('/get/district', 'getDistrict')->name('getDistrictUrl');
         });

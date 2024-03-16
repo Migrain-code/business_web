@@ -25,8 +25,6 @@
 
             </ul>
             <!--end::Breadcrumb-->
-
-
             <!--begin::Page title-->
             <div class="page-title d-flex align-items-center me-3">
                 <!--begin::Title-->
@@ -38,7 +36,7 @@
             <!--end::Page title-->
         </div>
         <!--end::Toolbar wrapper-->
-
+        @yield('toolbar')
     </div>
     <!--end::Toolbar container-->
 </div>

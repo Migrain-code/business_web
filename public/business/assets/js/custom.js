@@ -1,6 +1,7 @@
 $(document).on('click', '.delete-btn', function () {
     let model = $(this).data('model')
     let isReload = $(this).data('reload')
+    let route = $(this).data('route')
     let content = $(this).data('content')
     let title = $(this).data('title')
     let id = $(this).data('object-id')
@@ -18,10 +19,11 @@ $(document).on('click', '.delete-btn', function () {
         if (result.isConfirmed) {
 
             $.ajax({
-                url: '/isletme/ajax/delete/object',
+                url: route,
                 type: "POST",
                 data: {
                     "_token": csrf_token,
+                    "_method": 'DELETE',
                     'id': id,
                     'model': model,
                     'content': content,

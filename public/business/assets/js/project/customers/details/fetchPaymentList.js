@@ -151,7 +151,7 @@ $('select[name="listTypePayment"]').on('change', function () {
     datatablePayment.draw();
 });
 
-var printWindowPayment; // Bu değişkeni global olarak tanımlayın
+var printWindowPayment;
 
 function printPayment() {
     // Eğer zaten bir yazdırma penceresi açıksa, işlemi iptal edin
