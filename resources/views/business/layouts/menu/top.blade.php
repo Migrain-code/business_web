@@ -14,10 +14,10 @@
 
         <!--begin::Logo-->
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-5 me-lg-0">
-            <a href="index.html">
+            <a href="{{route('business.home')}}">
                 <img alt="Logo" style="width: 200px;margin-top: -5px;" src="/front/assets/images/header-logo.svg"
                      class="d-none d-sm-block">
-                <img alt="Logo" src="/business/assets/media/logos/demo46-small.svg" class="d-block d-sm-none">
+                <img alt="Logo" src="/front/assets/images/header-logo-mobile.png" style="height: 50px;width: 87px;" class="d-block d-sm-none">
             </a>
         </div>
         <!--end::Logo-->

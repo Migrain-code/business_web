@@ -142,6 +142,7 @@ class ProductSaleController extends Controller
         $sale->piece = $request->input('amount');
         $sale->total = ($productFind->price * $request->amount) - $discount;
         $sale->note = $request->input('note');
+        $sale->created_at = Carbon::parse($request->input('seller_date'));
 
         if ($sale->save()) {
             $productFind->piece = $productFind->piece - $sale->piece;
