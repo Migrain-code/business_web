@@ -104,11 +104,11 @@ var KTCustomersList = function () {
 
         var tableElementPayment = document.getElementById('datatable');
         $('#datatable').find('tr').each(function() {
-            $(this).find('td:eq(7), th:eq(7)').hide(); // 0 tabanlı indexleme olduğu için 4. sütunu gizliyoruz
+            $(this).find('td:eq(6), th:eq(6)').hide(); // 0 tabanlı indexleme olduğu için 4. sütunu gizliyoruz
         });
         // Yazdırma penceresini aç
         printWindowPayment = window.open('', '_blank');
-        printWindowPayment.document.write('<html><head><title>Ürün Satış Raporu</title>');
+        printWindowPayment.document.write('<html><head><title>Ürün Raporu</title>');
 
         // Orijinal sayfanızda tanımlanan CSS stillerini yazdırma penceresine ekleyin
         var links = document.getElementsByTagName("link");
@@ -121,7 +121,7 @@ var KTCustomersList = function () {
         var now = new Date();
         var formattedDateTime = now.toLocaleString();
         printWindowPayment.document.write('</head><body style="padding-left: 20px">');
-        printWindowPayment.document.write('</head><div class="card-header p-3 text-center d-flex justify-content-between"><h3>Ürün Satış Raporu</h3><span>'+formattedDateTime+'</span></div>');
+        printWindowPayment.document.write('</head><div class="card-header p-3 text-center d-flex justify-content-between"><h3>Ürün Raporu</h3><span>'+formattedDateTime+'</span></div>');
         printWindowPayment.document.write(tableElementPayment.outerHTML);
         printWindowPayment.document.write('</body></html>');
         printWindowPayment.document.close();
@@ -131,7 +131,6 @@ var KTCustomersList = function () {
             printWindowPayment.print();
         }, 1000);
         location.reload();
-
     }
     // Public methods
     return {

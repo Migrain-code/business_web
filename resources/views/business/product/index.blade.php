@@ -1,5 +1,5 @@
 @extends('business.layouts.master')
-@section('title', 'Ürün Satışları')
+@section('title', 'Ürünler')
 @section('styles')
 @endsection
 @section('breadcrumbs')
@@ -14,7 +14,7 @@
     <!--begin::Item-->
     <!--begin::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-        Ürün Satışları
+        Ürünler
     </li>
     <!--end::Item-->
 @endsection
@@ -32,13 +32,13 @@
                                 class="path1"></span><span class="path2"></span></i> <input
                             type="text" data-kt-sale-table-filter="search"
                             class="form-control form-control-solid w-250px ps-13"
-                            placeholder="Ürün Satışlarında Ara">
+                            placeholder="Ürünlerde Ara">
                     </div>
                     <!--end::Search-->
                 </div>
                 <!--begin::Card title-->
 
-                @include('business.product-sale.parts.toolbar')
+                @include('business.product.parts.toolbar')
             </div>
             <!--end::Card header-->
 
@@ -49,15 +49,12 @@
                 <table class="table align-middle table-row-dashed fs-6 gy-5" id="datatable">
                     <thead>
                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                        <th class="w-10px pe-2">
-                            #
-                        </th>
-                        <th class="min-w-125px">Satış Tarihi</th>
-                        <th class="min-w-125px">Müşteri</th>
-                        <th class="min-w-125px">Ürün</th>
-                        <th class="min-w-125px">Satıcı</th>
-                        <th class="min-w-125px">Adet</th>
-                        <th class="min-w-125px">Toplam Tutar</th>
+                        <th class="min-w-125px">Eklenme Tarihi</th>
+                        <th class="min-w-125px">Ürün Adı</th>
+                        <th class="min-w-125px">Fiyatı</th>
+                        <th class="min-w-125px">Stok</th>
+                        <th class="min-w-125px">Barkod</th>
+                        <th class="min-w-125px">Satılan</th>
                         <th class="text-end min-w-70px">İşlemler</th>
                     </tr>
                     </thead>
@@ -69,24 +66,25 @@
             <!--end::Card body-->
         </div>
         <!--end::Card-->
-
+        @include('business.product.parts.add-product')
     </div>
+
 @endsection
 @section('scripts')
-    <!-- DataTables Buttons JS -->
-    <script src="/business/assets/js/project/product-sale/listing/listing.js"></script>
-
     <script>
-        let DATA_URL = "{{route('business.sale.datatable')}}";
+        let DATA_URL = "{{route('business.product.datatable')}}";
         let DATA_COLUMNS = [
-            {data: 'id'},
             {data: 'created_at'},
-            {data: 'customerName'},
-            {data: 'productName'},
-            {data: 'personelName'},
+            {data: 'name'},
+            {data: 'price'},
             {data: 'piece'},
+            {data: 'barcode'},
             {data: 'total'},
             {data: 'action'}
         ];
     </script>
+    <script src="/business/assets/js/project/product/listing/listing.js"></script>
+    <script src="/business/assets/js/project/product/listing/add.js"></script>
+
+
 @endsection

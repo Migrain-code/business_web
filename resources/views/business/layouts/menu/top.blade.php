@@ -65,7 +65,7 @@
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="index.html" class="menu-link active">
+                                                    <a href="index.html" class="menu-link">
                                                         <span
                                                             class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
                                                             <i class="ki-duotone ki-element-11 text-primary fs-1"><span
@@ -89,7 +89,7 @@
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="{{route('business.sale.index')}}" class="menu-link ">
+                                                    <a href="{{route('business.sale.index')}}" class="menu-link @if(request()->routeIs('business.sale.*')) active @endif">
                                                         <span
                                                             class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
                                                             <i class="ki-duotone ki-basket text-danger fs-1"><span
@@ -114,7 +114,7 @@
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="dashboards/projects.html" class="menu-link ">
+                                                    <a href="{{route('business.product.index')}}" class="menu-link @if(request()->routeIs('business.product.*')) active @endif">
                                                         <span
                                                             class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
                                                             <i class="ki-duotone ki-abstract-44 text-info fs-1"><span
@@ -136,7 +136,7 @@
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="{{route('business.customer.index')}}" class="menu-link ">
+                                                    <a href="{{route('business.customer.index')}}" class="menu-link @if(request()->routeIs('business.customer.*')) active @endif">
                                                         <span
                                                             class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
                                                             <i class="ki-duotone ki-color-swatch text-success fs-1"><span
@@ -178,7 +178,7 @@
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="dashboards/marketing.html" class="menu-link ">
+                                                    <a href="{{route('business.package-sale.index')}}" class="menu-link @if(request()->routeIs('business.package-sale.*')) active @endif">
                                                         <span
                                                             class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
                                                             <i class="ki-duotone ki-chart-simple text-dark fs-1"><span

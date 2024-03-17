@@ -112,6 +112,7 @@ $(document).on('click', '.delete-btn-gallery', function () {
                 type: "POST",
                 data: {
                     "_token": csrf_token,
+                    "_method": 'DELETE',
                     'id': id,
                     'model': model,
                     'content': content,

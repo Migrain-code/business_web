@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Business\AjaxController;
 use \App\Http\Controllers\Business\Customer\CustomerInfoController;
 use App\Http\Controllers\Business\ProductSale\ProductSaleController;
+use App\Http\Controllers\Business\Product\ProductController;
+use \App\Http\Controllers\Business\PackageSale\PackageSaleController;
+use App\Http\Controllers\Business\PackageSale\PackageSaleOperationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,9 +49,23 @@ Route::prefix('isletme')->as('business.')->group(function (){
             Route::get('gallery', [CustomerInfoController::class, 'gallery']);
             Route::post('add-gallery', [CustomerInfoController::class, 'addGallery']);
         });
+        /*-----------------------  Ürünler ------------------------*/
+        Route::resource('product', ProductController::class);
         /*-----------------------  Ürün Satış ------------------------*/
         Route::resource('sale', ProductSaleController::class);
 
+        /* ---------------------- Paket Satışı --------------------------------------- */
+        Route::resource('package-sale', PackageSaleController::class);
+
+        Route::prefix('package-sale/{packageSale}')->group(function () {
+            Route::get('/payments', [PackageSaleOperationController::class, 'payments']);
+            Route::get('/usages', [PackageSaleOperationController::class, 'usages']);
+
+            Route::post('/add-payment', [PackageSaleOperationController::class, 'paymentsAdd']);
+            Route::post('/add-usage', [PackageSaleOperationController::class, 'usagesAdd']);
+        });
+        Route::delete('package-sale/{packagePayment}/delete-payment', [PackageSaleOperationController::class, 'deletePayment']);
+        Route::delete('package-sale/{packageUsage}/delete-usage', [PackageSaleOperationController::class, 'deleteUsage']);
 
         Route::controller(AjaxController::class)->as('ajax.')->prefix('ajax')->group(function () {
             Route::post('/update-featured', 'updateFeatured')->name('updateFeatured');

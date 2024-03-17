@@ -108,7 +108,7 @@ var KTCustomersList = function () {
         });
         // Yazdırma penceresini aç
         printWindowPayment = window.open('', '_blank');
-        printWindowPayment.document.write('<html><head><title>Ürün Satış Raporu</title>');
+        printWindowPayment.document.write('<html><head><title>Paket Satış Raporu</title>');
 
         // Orijinal sayfanızda tanımlanan CSS stillerini yazdırma penceresine ekleyin
         var links = document.getElementsByTagName("link");
@@ -121,7 +121,7 @@ var KTCustomersList = function () {
         var now = new Date();
         var formattedDateTime = now.toLocaleString();
         printWindowPayment.document.write('</head><body style="padding-left: 20px">');
-        printWindowPayment.document.write('</head><div class="card-header p-3 text-center d-flex justify-content-between"><h3>Ürün Satış Raporu</h3><span>'+formattedDateTime+'</span></div>');
+        printWindowPayment.document.write('</head><div class="card-header p-3 text-center d-flex justify-content-between"><h3>Paket Satış Raporu</h3><span>'+formattedDateTime+'</span></div>');
         printWindowPayment.document.write(tableElementPayment.outerHTML);
         printWindowPayment.document.write('</body></html>');
         printWindowPayment.document.close();
