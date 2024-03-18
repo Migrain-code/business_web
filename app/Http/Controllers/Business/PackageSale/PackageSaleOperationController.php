@@ -50,7 +50,9 @@ class PackageSaleOperationController extends Controller
      */
     public function usagesAdd(PackageSaleAddUsageRequest $request, PackageSale $packageSale)
     {
-        if ($packageSale->amount >= $request->amount) {
+        $remainingUsage = $packageSale->amount - $packageSale->usages->sum('amount');
+
+        if ($remainingUsage >= $request->amount) {
             $usage = new PackageUsage();
             $usage->package_id = $packageSale->id;
             $usage->personel_id = $request->personel_id;
@@ -63,7 +65,7 @@ class PackageSaleOperationController extends Controller
                 ]);
             }
         } else {
-            $message = "Kullanım Eklerken pakete tanımlı olan kullanım miktarından daha büyük bir değer giremezsiniz. Paketin Maximum Kullanım Miktarı : " . $packageSale->amount;
+            $message = "Paketin Maximum Kullanım Miktarı : " . $packageSale->amount. " Ekleyebileceğiniz kullanım miktarı: ". $remainingUsage;
             return response()->json([
                 'status' => "error",
                 'message' => $message
@@ -82,16 +84,16 @@ class PackageSaleOperationController extends Controller
     {
         $remainingPrice = $packageSale->total - $packageSale->payeds->sum('price');
         $remainingAmount = $packageSale->amount - $packageSale->payeds->sum('amount');
-        if ($request->price > $remainingPrice){
+        if ($request->price > $remainingPrice) {
             return response()->json([
                 'status' => "error",
-                'message' => "Bu paketin ". $remainingPrice. " ödemesi kaldı. Paketin Kalan ödemesinden büyük fiyat bilgisi giremezsiniz"
+                'message' => "Bu paketin " . $remainingPrice . " ödemesi kaldı. Paketin Kalan ödemesinden büyük fiyat bilgisi giremezsiniz"
             ]);
         }
-        if ($request->amount > $remainingAmount){
+        if ($request->amount > $remainingAmount) {
             return response()->json([
                 'status' => "error",
-                'message' => "Bu paketin ". $remainingAmount." ". $packageSale->packageType('name'). " ödemesi kaldı. Bu değerden büyük bir değer giremezsiniz"
+                'message' => "Bu paketin " . $remainingAmount . " " . $packageSale->packageType('name') . " ödemesi kaldı. Bu değerden büyük bir değer giremezsiniz"
             ]);
         }
         $payment = new PackagePayment();

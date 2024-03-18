@@ -37,7 +37,7 @@ class PackageSaleAddUsageRequest extends FormRequest
         return [
             'personel_id' => 'Personel',
             'amount' => 'Adet',
-            "operation_date" => "İşlem Tarihi"
+            "operation_date" => "Kullanım Yapılan Tarih"
         ];
     }
 

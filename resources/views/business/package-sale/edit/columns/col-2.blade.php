@@ -13,7 +13,7 @@
                     <!--end:::Tab item-->
                     <!--begin:::Tab item-->
                     <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4" data-package="{{$packageSale->id}}" style="font-size: 2rem;" data-bs-toggle="tab"
+                        <a class="nav-link text-active-primary pb-4 usages" data-package="{{$packageSale->id}}" style="font-size: 2rem;" data-bs-toggle="tab"
                            href="#kt_ecommerce_customer_usages">Kullanımlar</a>
                     </li>
                     <!--end:::Tab item-->
@@ -23,6 +23,8 @@
 
         <div class="tab-content" id="myTabContent">
             @include('business.package-sale.edit.tabs.payments')
+            @include('business.package-sale.edit.tabs.usages')
+
         </div>
 
 

@@ -1,7 +1,10 @@
 @extends('business.layouts.master')
-@section('title', 'Yeni Ürün Satışı')
+@section('title', 'Paket Satış Detayı')
 @section('styles')
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+@endsection
+@section('toolbar')
+    <x-tool-button title="Yeni Paket Satışı" link="{{route('business.package-sale.index')}}"></x-tool-button>
 @endsection
 @section('breadcrumbs')
     <!--begin::Item-->
@@ -25,6 +28,7 @@
     </li>
     <!--end::Item-->
 @endsection
+
 @section('content')
     <div id="kt_app_content" class="app-content ">
         <div class="swiper-container mb-5">
@@ -194,15 +198,23 @@
         <!--end::Form-->
     </div>
     @include('business.package-sale.edit.modals.add-payment')
+    @include('business.package-sale.edit.modals.add-usage')
+
 @endsection
 @section('scripts')
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
         var packageSaleId = "{{$packageSale->id}}"
     </script>
+    <!-- Ödeme İşlemleri -->
     <script src="/business/assets/js/project/package-sale/edit/fetchPaymentList.js"></script>
     <script src="/business/assets/js/project/package-sale/edit/delete-payment.js"></script>
     <script src="/business/assets/js/project/package-sale/edit/add-payment.js"></script>
+    <!-- Kullanım İşlemleri -->
+    <script src="/business/assets/js/project/package-sale/edit/usage/fetchUsageList.js"></script>
+    <script src="/business/assets/js/project/package-sale/edit/usage/delete-usage.js"></script>
+    <script src="/business/assets/js/project/package-sale/edit/usage/add-usage.js"></script>
+
     <script src="/business/assets/js/project/package-sale/listing/edit.js"></script>
 
     <script>
