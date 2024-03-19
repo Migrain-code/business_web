@@ -41,11 +41,12 @@ function formatPhone($phone)
 {
     return preg_replace('~.*(\d{3})[^\d]{0,7}(\d{3})[^\d]{0,7}(\d{4}).*~', '($1) $2-$3', $phone);
 }
-function createCheckbox($id,$model, $title , $additional_class = null) {
+function createCheckbox($id,$model, $title , $additional_class = null, $isDelete = true) {
     return html()->div(
         html()->input()->class('form-check-input delete')->type('checkbox')
             ->attribute('data-model', 'App\Models\\' . str_replace('App\Models\\', '', $model))
             ->attribute('data-title', $title)
+            ->attribute('data-delete', $isDelete)
             ->value($id),
         'form-check form-check-sm form-check-custom form-check-solid ' . $additional_class
     );
@@ -78,7 +79,7 @@ function create_info_button($content = null)
 {
     return html()->a('#', html()->i('')->class('fa fa-question-circle'))->class('btn btn-warning btn-sm me-1 ' . $additional_class);
 }
-function create_delete_button($model, $id, $title, $content, $route = '/isletme/ajax/delete/object')
+function create_delete_button($model, $id, $title, $content, $route = '/isletme/ajax/delete/object', $deleteType = true)
 {
     return html()->a('#', html()->i('')->class('fa fa-trash'))
         ->class('btn btn-danger btn-sm me-1 delete-btn')
@@ -87,6 +88,7 @@ function create_delete_button($model, $id, $title, $content, $route = '/isletme/
         ->attribute('data-route', $route)
         ->attribute('data-model', 'App\Models\\' . str_replace('App\Models\\', '', $model))
         ->attribute('data-content', $content)
+        ->attribute('data-delete-type', $deleteType)
         ->attribute('data-title', $title);
 }
 

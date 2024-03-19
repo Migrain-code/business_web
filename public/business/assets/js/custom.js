@@ -5,6 +5,11 @@ $(document).on('click', '.delete-btn', function () {
     let content = $(this).data('content')
     let title = $(this).data('title')
     let id = $(this).data('object-id')
+    let delete_type = true;
+
+    if ($(this).data('delete-type')){
+        delete_type = $(this).data('delete-type');
+    }
 
     Swal.fire({
         title: 'İşlemi Yapmak İstiyormusun',
@@ -27,7 +32,8 @@ $(document).on('click', '.delete-btn', function () {
                     'id': id,
                     'model': model,
                     'content': content,
-                    'title': title
+                    'title': title,
+                    'delete_type': delete_type,
                 },
                 dataType: "JSON",
                 success: function (res) {
@@ -80,16 +86,17 @@ $(document).on('click', '[data-kt-customer-table-select="delete_selected"]', fun
     let count = 0;
     let model = "";
     let title = "";
+    let is_delete = true;// true ise kayıt silinir değilse arşive atılır
     let values = [];
     allCheckboxes.forEach(c => {
         if (c.checked) {
             count++;
             model = c.dataset.model;
             title = c.dataset.title;
+            is_delete = c.dataset.delete;
             values.push(c.value);
         }
     });
-
 
     Swal.fire({
         title: 'İşlemi Yapmak İstiyormusun',
@@ -109,12 +116,13 @@ $(document).on('click', '[data-kt-customer-table-select="delete_selected"]', fun
                     "_token": csrf_token,
                     'ids': values,
                     'model': model,
-                    'title': title
+                    'title': title,
+                    'is_delete': is_delete,
                 },
                 dataType: "JSON",
                 success: function (res) {
                     Swal.fire({
-                        title: "Deleted!",
+                        title: "Silindi!",
                         icon: res.status,
                         text: res.message,
                     })

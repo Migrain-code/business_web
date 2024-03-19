@@ -15,6 +15,15 @@ use Yajra\DataTables\DataTables;
 
 class CustomerController extends Controller
 {
+    private $business;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->business = auth('official')->user()->business;
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      */
@@ -54,9 +63,15 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(BusinessCustomer $customer)
+    public function edit(Customer $customer)
     {
-        $customer = $customer->customer;
+        $existCustomer = $this->business->customers()->where('customer_id', $customer->id)->exists();
+        if (!$existCustomer){
+            return to_route('business.customer.index')->with('response',[
+                'status' => "error",
+                'message' => "Bu müşteri sizin listenize kayıtlı olmadığı için görüntüleyemezsiniz"
+            ]);
+        }
         $noticifationIcons = NotificationIcon::all();
         return view('business.customer.detail.show', compact('customer', 'noticifationIcons'));
     }
@@ -123,7 +138,7 @@ class CustomerController extends Controller
 
     public function datatable(Request $request)
     {
-        $business = authUser()->business;
+        $business = $this->business;
         $customers = $business->customers;
 
         return DataTables::of($customers)
@@ -131,7 +146,7 @@ class CustomerController extends Controller
                 return createCheckbox($q->id, 'BusinessCustomer', 'Müşterileri');
             })
             ->editColumn('name', function ($q) {
-                return createName(route('business.customer.edit', $q->id), $q->customer->name);
+                return createName(route('business.customer.edit', $q->customer->id), $q->customer->name);
             })
             ->editColumn('phone', function ($q) {
                 return createPhone($q->customer->phone, formatPhone($q->customer->phone));
@@ -147,7 +162,7 @@ class CustomerController extends Controller
             })
             ->addColumn('action', function ($q) {
                 $html = "";
-                $html .= create_edit_button(route('business.customer.edit', $q->id));
+                $html .= create_edit_button(route('business.customer.edit', $q->customer->id));
                 $html .= create_delete_button('BusinessCustomer', $q->id, 'Müşteri', 'Müşteri Kaydını Silmek İstediğinize Eminmisiniz? Kayıt Sadece İşletmenizden Silinecektir');
 
                 return $html;

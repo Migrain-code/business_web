@@ -312,7 +312,7 @@
                                         <!--begin:Menu item-->
                                         <div class="menu-item p-0 m-0">
                                             <!--begin:Menu link-->
-                                            <a href="dashboards/logistics.html" class="menu-link py-2 ">
+                                            <a href="{{route('business.personel.index')}}" class="menu-link py-2 ">
                                                 <span class="menu-title">
                                                     Personeller
                                                 </span>

@@ -8,7 +8,7 @@ use PhpParser\Node\Expr\AssignOp\Mod;
 
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string|null $name
@@ -170,7 +170,7 @@ class Business extends Model
 
     public function personels()
     {
-        return $this->hasMany(Personel::class, 'business_id', 'id')->latest();
+        return $this->hasMany(Personel::class, 'business_id', 'id')->whereIsDelete(0)->latest();
     }
 
     public function costs()

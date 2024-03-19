@@ -10,6 +10,7 @@ use App\Http\Controllers\Business\ProductSale\ProductSaleController;
 use App\Http\Controllers\Business\Product\ProductController;
 use \App\Http\Controllers\Business\PackageSale\PackageSaleController;
 use App\Http\Controllers\Business\PackageSale\PackageSaleOperationController;
+use \App\Http\Controllers\Business\Personel\PersonelController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -66,6 +67,30 @@ Route::prefix('isletme')->as('business.')->group(function (){
         });
         Route::delete('package-sale/{packagePayment}/delete-payment', [PackageSaleOperationController::class, 'deletePayment']);
         Route::delete('package-sale/{packageUsage}/delete-usage', [PackageSaleOperationController::class, 'deleteUsage']);
+
+        /* -------------------- Personeller --------------------------*/
+        Route::resource('personel', PersonelController::class);
+        Route::prefix('personel/{personel}')->as('personel.')->group(function (){
+           Route::get('case', [PersonelController::class, 'case'])->name('case');//kasa
+           Route::get('payments', [PersonelController::class, 'payments'])->name('payments');//ödemeler
+           Route::post('/add-payment', [PersonelController::class, 'paymentsAdd']);//ödeme ekle
+           Route::get('stay-off-day', [PersonelController::class, 'stayOffDays'])->name('stayOffDays');//izin günleri
+           Route::post('add-stay-off-day', [PersonelController::class, 'addStayOffDays']);//izin günü ekle
+           Route::get('notification', [PersonelController::class, 'notifications'])->name('notifications');
+           Route::post('add-notification', [PersonelController::class, 'sendNotify']);
+           Route::get('setting', [PersonelController::class, 'setting'])->name('setting');
+
+        });
+
+
+
+
+
+
+
+
+
+
 
         Route::controller(AjaxController::class)->as('ajax.')->prefix('ajax')->group(function () {
             Route::post('/update-featured', 'updateFeatured')->name('updateFeatured');

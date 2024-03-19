@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\HasApiTokens;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $business_id
@@ -110,7 +112,10 @@ class Personel extends Authenticatable
     {
         return $this->hasMany(PersonelRestDay::class, 'personel_id', 'id')->where('status', 1);
     }
-
+    public function restDayAll()
+    {
+        return $this->hasMany(PersonelRestDay::class, 'personel_id', 'id');
+    }
     public function appointments()
     {
         return $this->hasMany(AppointmentServices::class, 'personel_id', 'id');
@@ -121,11 +126,32 @@ class Personel extends Authenticatable
         return $this->hasMany(ProductSales::class, 'personel_id', 'id');
     }
 
+    public function packages()
+    {
+        return $this->hasMany(PackageSale::class, 'personel_id', 'id');
+    }
+
+    public function getMonthlyPackageSales()
+    {
+        $sales = [];
+        for ($i = 1; $i <= 12; $i++){
+            $sales[]= $this->packages()->whereMonth('seller_date', $i)->count();
+        }
+        return $sales;
+    }
+    public function getMonthlyProductSales()
+    {
+        $sales = [];
+        for ($i = 1; $i <= 12; $i++){
+            $sales[]= $this->sales()->whereMonth('created_at', $i)->sum('piece');
+        }
+        return $sales;
+    }
     public function stayOffDays()
     {
-        return $this->hasOne(PersonelStayOffDay::class, 'personel_id', 'id');
+        return $this->hasMany(PersonelStayOffDay::class, 'personel_id', 'id');
     }
-    public function checkDateIsOff($getDate)
+    /*public function checkDateIsOff($getDate)
     {
         // stayOffDays ilişkisini kullanarak izin tarihlerini alıyoruz.
         $offDays = $this->stayOffDays;
@@ -135,7 +161,7 @@ class Personel extends Authenticatable
         }
         // Eğer tarih izin tarihleri arasında değilse,false döndürüyoruz.
         return false;
-    }
+    }*/
     protected static function booted()
     {
         static::deleted(function ($personel) {

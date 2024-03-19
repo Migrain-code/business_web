@@ -31,7 +31,13 @@ class AjaxController extends Controller
         $query = $request->model::find($request->id);
 
         if ($query){
-            $query->delete();
+            if ($request->delete_type == 1){
+                $query->delete();
+            } else{
+                $query->is_delete = 1;
+                $query->save();
+            }
+
             return response()->json([
                 'status' => 'success',
                 'message' => $request->input('title'). " Kaydı Silindi"
@@ -49,10 +55,16 @@ class AjaxController extends Controller
     {
         foreach ($request->ids as $id){
             $query = $request->model::find($id);
-            if ($query){
-                $query->delete();
-
+            if ($request->is_delete == 1){
+                if ($query){
+                    $query->delete();
+                }
             }
+            else{
+                $query->is_delete = 1;
+                $query->save();
+            }
+
         }
 
         return response()->json([
