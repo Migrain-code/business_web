@@ -71,7 +71,7 @@
 @section('scripts')
     <script>
         // Select the input element
-        let validateInput = document.getElementById('validatorPhone');
+        /*let validateInput = document.getElementById('validatorPhone');
         // Define the regex pattern for numbers only
         let regexPattern =  /^\s*0?\d+\s*$/;
 
@@ -88,7 +88,7 @@
 
             }
         }
-        validateInput.addEventListener('input', validatePhoneNumber);
+        validateInput.addEventListener('input', validatePhoneNumber);*/
 
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.60/inputmask/jquery.inputmask.js"></script>

@@ -113,6 +113,10 @@ class Appointment extends Model
             'name' => "Silinmiş Müşteri"
         ]);
     }
+    public function campaign()
+    {
+        return $this->hasOne(Campaign::class, 'id', 'campaign_id');
+    }
     public function services()
     {
         return $this->hasMany(AppointmentServices::class, 'appointment_id', 'id');
@@ -161,6 +165,17 @@ class Appointment extends Model
 
         }
     }
+    public function calculateAppointmentEarnedPoint()
+    {
+        $promossion = $this->business->promossions;
+        $discountRate = 0;
+        $discountRate = $promossion->cash;
+
+        //dd($discountRate);
+        $discountTotal= ($this->calculateTotal() * $discountRate) / 100;
+        return $discountTotal;
+
+    }
     public function calculateTotal()
     {
         $total=0;
@@ -168,5 +183,10 @@ class Appointment extends Model
             $total+=$service->service->price;
         }
         return $total;
+    }
+
+    public function calculateCampaignDiscount()
+    {
+        return ($this->calculateTotal() * $this->discount) / 100;
     }
 }

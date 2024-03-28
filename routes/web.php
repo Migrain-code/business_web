@@ -11,6 +11,9 @@ use App\Http\Controllers\Business\Product\ProductController;
 use \App\Http\Controllers\Business\PackageSale\PackageSaleController;
 use App\Http\Controllers\Business\PackageSale\PackageSaleOperationController;
 use \App\Http\Controllers\Business\Personel\PersonelController;
+use App\Http\Controllers\Business\Appointment\AppointmentController;
+use App\Http\Controllers\Business\Appointment\AppointmentServicesController;
+use App\Http\Controllers\Business\Appointment\AppointmentCreateController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -82,15 +85,24 @@ Route::prefix('isletme')->as('business.')->group(function (){
 
         });
 
+        /* -------------------- Randevular --------------------------*/
 
+        Route::resource('appointment', AppointmentController::class);
+        Route::post('appointment/{appointment}/service', [AppointmentServicesController::class,'store'])->name('appointment.service.add');
+        Route::delete('appointmentServices/{appointmentServices}', [AppointmentServicesController::class,'destroy'])->name('appointment.service.destroy');
 
+        /* -------------------- Randevular --------------------------*/
 
-
-
-
-
-
-
+        Route::prefix('appointment-create')->as('appointmentCreate.')->controller(AppointmentCreateController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('get/services', 'getService');
+            Route::get('get/customers', 'getCustomer');
+            Route::post('get/personel', 'getPersonel');
+            Route::get('get/date', 'getDate');
+            Route::post('get/clock', 'getClock');
+            Route::post('/store', 'appointmentCreate')->name('store');
+            Route::post('/summary', 'summary');
+        });
 
         Route::controller(AjaxController::class)->as('ajax.')->prefix('ajax')->group(function () {
             Route::post('/update-featured', 'updateFeatured')->name('updateFeatured');

@@ -31,7 +31,7 @@
     <div id="kt_app_content" class="app-content ">
 
         <!--begin::Form-->
-        <form id="kt_ecommerce_edit_order_form" class="form d-flex flex-column flex-lg-row" data-kt-redirect="{{route('business.sale.index')}}">
+        <form id="kt_ecommerce_edit_order_form" class="form row" data-kt-redirect="{{route('business.sale.index')}}">
             @include('business.product-sale.edit.columns.col-1')
             @include('business.product-sale.edit.columns.col-2')
         </form>

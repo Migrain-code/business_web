@@ -65,7 +65,7 @@
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="index.html" class="menu-link">
+                                                    <a href="{{route('business.appointment.index')}}" class="menu-link">
                                                         <span
                                                             class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
                                                             <i class="ki-duotone ki-element-11 text-primary fs-1"><span
