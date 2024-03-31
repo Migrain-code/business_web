@@ -37,21 +37,25 @@ $(document).on('click', '.delete-btn', function () {
                 },
                 dataType: "JSON",
                 success: function (res) {
-                    if (res.status == "successs"){
+                    if (res.status == "success"){
                         Swal.fire({
                             title: "Kayıt Silindi!",
                             icon: res.status,
                             text: res.message,
                             confirmButtonText: 'Tamam'
                         })
+
                         if (isReload){
                             setTimeout(function (){
                                 location.reload();
                             }, 700);
                         }
-                        if ($('#datatable').length > 0 && $.fn.DataTable.isDataTable('#datatable')) {
-                            $('#datatable').DataTable().ajax.reload();
+                        else{
+                            if ($('#datatable').length > 0 && $.fn.DataTable.isDataTable('#datatable')) {
+                                $('#datatable').DataTable().ajax.reload();
+                            }
                         }
+
                     }
                     else {
                         Swal.fire({

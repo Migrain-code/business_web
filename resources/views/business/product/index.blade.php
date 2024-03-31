@@ -53,6 +53,7 @@
                         <th class="min-w-125px">Ürün Adı</th>
                         <th class="min-w-125px">Fiyatı</th>
                         <th class="min-w-125px">Stok</th>
+                        <th class="min-w-125px">Durum</th>
                         <th class="min-w-125px">Barkod</th>
                         <th class="min-w-125px">Satılan</th>
                         <th class="text-end min-w-70px">İşlemler</th>
@@ -78,6 +79,7 @@
             {data: 'name'},
             {data: 'price'},
             {data: 'piece'},
+            {data: 'status'},
             {data: 'barcode'},
             {data: 'total'},
             {data: 'action'}

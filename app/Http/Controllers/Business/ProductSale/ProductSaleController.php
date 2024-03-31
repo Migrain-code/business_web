@@ -50,52 +50,47 @@ class ProductSaleController extends Controller
      */
     public function store(ProductSaleAddRequest $request)
     {
-        if (in_array(false, $this->checkAmount($request))) {
+        $productFind = Product::find($request->product_id);
+        $newAmount = $productFind->piece - $request->amount;
+        if ($newAmount < 0) {
             return response()->json([
                 'status' => "error",
                 'message' => "Satışını Yapmaya Çalıştığınız Bir Ürünün Stoğu Yetersiz. Ürüne Stok Eklemesi Yaparak Satışı Gerçekleştirebilirsiniz"
             ]);
         }
-        $discount = 0;
-        if ($request->filled('discount')) {
-            $discount = $request->discount / count($request->product_id);
-        }
-        foreach ($request->product_id as $index => $productId) {
-            $id = explode('_', $productId)[1]; //ürün idsi
-            $productFind = Product::find($id);
-            $productSale = new ProductSales();
-            $productSale->business_id = $this->business->id;
-            $productSale->customer_id = $request->input('customer_id');
-            $productSale->product_id = $id;
-            $productSale->personel_id = $request->input('personel_id');
-            $productSale->payment_type = $request->input('payment_type');
-            $productSale->piece = $request->qty_cart[$index];
-            $productSale->total = ($productFind->price * $request->qty_cart[$index]) - $discount;
-            $productSale->note = $request->input('note');
-            $productSale->created_at = Carbon::parse($request->input('seller_date'));
-            $productSale->save();
-            $productFind->piece = $productFind->piece - $productSale->piece;
-            $productFind->save();
-        }
+        $productFind = Product::find($request->product_id);
+        $productSale = new ProductSales();
+        $productSale->business_id = $this->business->id;
+        $productSale->customer_id = $request->input('customer_id');
+        $productSale->product_id = $request->product_id;
+        $productSale->personel_id = $request->input('personel_id');
+        $productSale->payment_type = $request->input('payment_type');
+        $productSale->piece = $request->amount;
+        $productSale->total = $request->price;
+        $productSale->note = $request->input('note');
+        $productSale->created_at = Carbon::parse($request->input('seller_date'));
+        $productSale->save();
+
+        $productFind->piece = $productFind->piece - $productSale->piece;
+        $productFind->save();
         return response()->json([
             'status' => "success",
-            'message' => count($request->product_id) . " Ürünün Satışı Başarılı Bir Şekilde Yapıldı"
+            'message' => "Ürünün Satışı Başarılı Bir Şekilde Yapıldı"
         ]);
     }
 
     public function checkAmount($request)
     {
         $checkStock = [];
-        foreach ($request->product_id as $index => $productId) {
-            $id = explode('_', $productId)[1];
-            $productFind = Product::find($id);
-            $newAmount = $productFind->piece - $request->qty_cart[$index];
-            if ($newAmount < 0) {
-                $checkStock[] = false;
-            } else {
-                $checkStock[] = true;
-            }
+
+        $productFind = Product::find($request->product_id);
+        $newAmount = $productFind->piece - $request->amount;
+        if ($newAmount < 0) {
+            $checkStock[] = false;
+        } else {
+            $checkStock[] = true;
         }
+
 
         return $checkStock;
     }

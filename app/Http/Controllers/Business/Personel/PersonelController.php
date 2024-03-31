@@ -311,7 +311,7 @@ class PersonelController extends Controller
     {
         $lastNotify = $personel->notifications()->latest()->first();
 
-        if (now()->diffInMinutes($lastNotify->created_at) < 3) {
+        if ($lastNotify && now()->diffInMinutes($lastNotify->created_at) < 3) {
             return response()->json([
                 'status' => "error",
                 'message' => "Yeni Bildirim Göndermek için 3 Dakikada Beklemeniz Gerekmektedir",

@@ -38,6 +38,7 @@ var KTCustomersList = function () {
                 url: DATA_URL,
                 data: function (d) {
                     d.listType = $('#listType').val();
+                    d.stockType = $('#stockType').val();
                 }
             },
         });
@@ -63,8 +64,11 @@ var KTCustomersList = function () {
     $('#listType').on('change', function () {
         datatable.ajax.reload();
     });
+    $('#stockType').on('change', function () {
+        datatable.ajax.reload();
+    });
     function initExportButtons() {
-        const reportTitle = "Customer Orders Report";
+        const reportTitle = "Ürün Raporu";
         new $.fn.dataTable.Buttons(table, {
             buttons: [
                 {extend: "copyHtml5", title: reportTitle},

@@ -202,7 +202,7 @@
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="dashboards/bidding.html" class="menu-link ">
+                                                    <a href="{{route('business.adission.index')}}" class="menu-link ">
                                                         <span
                                                             class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
                                                             <i class="ki-duotone ki-switch text-warning fs-1"><span
@@ -301,7 +301,7 @@
                                         <!--begin:Menu item-->
                                         <div class="menu-item p-0 m-0">
                                             <!--begin:Menu link-->
-                                            <a href="dashboards/logistics.html" class="menu-link py-2 ">
+                                            <a href="{{route('business.service.index')}}" class="menu-link py-2 ">
                                                 <span class="menu-title">
                                                     Hizmetler
                                                 </span>
@@ -1037,7 +1037,7 @@
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item p-0 m-0">
                                                         <!--begin:Menu link-->
-                                                        <a href="authentication/email/welcome-message.html"
+                                                        <a href="{{route('business.adission.index')}}"
                                                            class="menu-link ">
                                                             <span class="menu-title">Tüm Adisyonlar</span>
                                                         </a>
@@ -2605,7 +2605,7 @@
                             <!--end:Item-->
                             <!--begin:Item-->
                             <div class="col-6">
-                                <a href="apps/projects/users.html"
+                                <a href="{{route('business.adission.index')}}"
                                    class="d-flex flex-column flex-center h-100 p-6 bg-hover-light">
                                     <i class="ki-duotone ki-file-sheet fs-3x text-primary mb-2">
                                         <span class="path1"></span>
@@ -2618,7 +2618,7 @@
                             <!--end:Item-->
                             <!--begin:Item-->
                             <div class="col-6">
-                                <a href="apps/projects/users.html"
+                                <a href="{{route('business.service.index')}}"
                                    class="d-flex flex-column flex-center h-100 p-6 bg-hover-light">
                                     <i class="ki-duotone ki-abstract fs-3x text-primary mb-2">
                                         <span class="path1"></span>

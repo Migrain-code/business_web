@@ -40,7 +40,8 @@ class AppointmentCreateController extends Controller
         $womanServicesArray = $business->services()->where('type', 1)->with('categorys')->get();
         $womanServiceCategories = $womanServicesArray->groupBy('categorys.name');
         $womanServices = $this->transformServices($womanServiceCategories);
-
+       // dd($womanServices);
+        //todo: Burada kontrol olacak
         $manServicesArray = $business->services()->where('type', 2)->with('categorys')->get();
         $manServiceCategories = $manServicesArray->groupBy('categorys.name');
         $manServices = $this->transformServices($manServiceCategories);

@@ -90,6 +90,10 @@ class PackageSale extends Model
     {
         return $this->hasMany(PackagePayment::class, 'package_id', 'id');
     }
+    public function policies()
+    {
+        return $this->hasMany(PackageSalePolicy::class, 'package_sale_id', 'id');
+    }
 
     protected static function booted()
     {

@@ -14,6 +14,11 @@ use \App\Http\Controllers\Business\Personel\PersonelController;
 use App\Http\Controllers\Business\Appointment\AppointmentController;
 use App\Http\Controllers\Business\Appointment\AppointmentServicesController;
 use App\Http\Controllers\Business\Appointment\AppointmentCreateController;
+use \App\Http\Controllers\Business\Service\ServiceController;
+use \App\Http\Controllers\Business\Adission\AdissionController;
+use \App\Http\Controllers\Business\Adission\AdissionProductSaleController;
+use App\Http\Controllers\Business\Adission\AdissionPaymentController;
+use App\Http\Controllers\Business\Adission\AdissionAddCashPointController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,12 +66,13 @@ Route::prefix('isletme')->as('business.')->group(function (){
         /* ---------------------- Paket Satışı --------------------------------------- */
         Route::resource('package-sale', PackageSaleController::class);
 
-        Route::prefix('package-sale/{packageSale}')->group(function () {
+        Route::prefix('package-sale/{packageSale}')->as('packageSale.')->group(function () {
             Route::get('/payments', [PackageSaleOperationController::class, 'payments']);
             Route::get('/usages', [PackageSaleOperationController::class, 'usages']);
 
             Route::post('/add-payment', [PackageSaleOperationController::class, 'paymentsAdd']);
             Route::post('/add-usage', [PackageSaleOperationController::class, 'usagesAdd']);
+            Route::post('/add-policy', [PackageSaleOperationController::class, 'addPolicy'])->name('addPolicy');
         });
         Route::delete('package-sale/{packagePayment}/delete-payment', [PackageSaleOperationController::class, 'deletePayment']);
         Route::delete('package-sale/{packageUsage}/delete-usage', [PackageSaleOperationController::class, 'deleteUsage']);
@@ -84,6 +90,8 @@ Route::prefix('isletme')->as('business.')->group(function (){
            Route::get('setting', [PersonelController::class, 'setting'])->name('setting');
 
         });
+        /* -------------------- Hizmetler --------------------------*/
+        Route::resource('service', ServiceController::class);
 
         /* -------------------- Randevular --------------------------*/
 
@@ -91,8 +99,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
         Route::post('appointment/{appointment}/service', [AppointmentServicesController::class,'store'])->name('appointment.service.add');
         Route::delete('appointmentServices/{appointmentServices}', [AppointmentServicesController::class,'destroy'])->name('appointment.service.destroy');
 
-        /* -------------------- Randevular --------------------------*/
-
+        /* -------------------- Randevu Oluşturma --------------------------*/
         Route::prefix('appointment-create')->as('appointmentCreate.')->controller(AppointmentCreateController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('get/services', 'getService');
@@ -103,6 +110,37 @@ Route::prefix('isletme')->as('business.')->group(function (){
             Route::post('/store', 'appointmentCreate')->name('store');
             Route::post('/summary', 'summary');
         });
+
+        /* -------------------- Adisyonlar --------------------------*/
+        Route::resource('adission', AdissionController::class);
+        Route::prefix('adission')->as('adission.')->group(function () {
+
+            Route::get('/{adission}/sale/datatable', [AdissionProductSaleController::class, 'index'])->name('sale.datatable');
+            Route::get('/{adission}/sale/create', [AdissionProductSaleController::class, 'create']);
+            Route::post('/{adission}/sale/add', [AdissionProductSaleController::class, 'store'])->name('sale.add');
+
+            Route::get('/{adission}/payment', [AdissionPaymentController::class, 'index']);//tahsilat listesi
+            Route::get('/{adission}/payment/create', [AdissionPaymentController::class, 'create']);//tahsilat oluştur
+            Route::post('/{adission}/payment/add', [AdissionPaymentController::class, 'store']);//tahsilat ekle
+            Route::get('/{adission}/payment/{payment}/edit', [AdissionPaymentController::class, 'edit']);// tahsilat düzenle
+            Route::put('/{adission}/payment/{payment}', [AdissionPaymentController::class, 'update']);//tahsilat güncelle
+            Route::delete('/{adission}/payment/{payment}', [AdissionPaymentController::class, 'destroy']);//tahsilat sil
+
+            Route::post('/{adission}/payment/save', [AdissionPaymentController::class, 'paymentSave']);
+            Route::get('/{adission}/payment/close', [AdissionPaymentController::class, 'closePayment']);
+
+            //Parapuan Kullan
+            Route::get('/{adission}/cash-point', [AdissionAddCashPointController::class, 'index']);
+            Route::post('/{adission}/cash-point', [AdissionAddCashPointController::class, 'store'])->name('cashPoint.add');
+
+            //Alacak Ekle
+            Route::get('/{adission}/receivable', [AdissionAddCashPointController::class, 'receivableList']);
+            Route::post('/{adission}/receivable', [AdissionAddCashPointController::class, 'receivableAdd']);
+            Route::delete('/{adission}/receivable/{receivable}', [AdissionAddCashPointController::class, 'receivableDelete']);
+            Route::put('/{adission}/receivable/{receivable}', [AdissionAddCashPointController::class, 'receivableUpdate']);
+        });
+
+
 
         Route::controller(AjaxController::class)->as('ajax.')->prefix('ajax')->group(function () {
             Route::post('/update-featured', 'updateFeatured')->name('updateFeatured');

@@ -133,7 +133,21 @@ class ProductController extends Controller
                 } elseif ($request->listType == "thisDay") {
                     $q->whereDate('created_at', now()->toDateString());
                 }
-            })->get();
+            })
+            ->when($request->filled('stockType'), function ($q) use ($request){
+                if ($request->stockType == "outStock"){
+                    $q->where('piece', 0);
+                } elseif ($request->stockType == "midStock"){
+                    $q->whereBetween('piece', [1, 30]);
+                }
+                elseif ($request->stockType == "inStock"){
+                    $q->where('piece','>', 30);
+                }
+                else{
+                    $q->where('piece', '>=', 0);
+                }
+            })
+            ->get();
         return DataTables::of($sales)
             ->editColumn('created_at', function ($q) {
                 return $q->created_at->format('d.m.Y H:i');
@@ -143,6 +157,15 @@ class ProductController extends Controller
             })
             ->addColumn('total', function ($q) {
                 return $q->sales->sum('piece');
+            })
+            ->addColumn('status', function ($q){
+                if ($q->piece == 0){
+                    return html()->span()->class('badge badge-light-danger')->text("Stok Tükendi");
+                } elseif ($q->piece  > 0 && $q->piece <= 30){
+                    return html()->span()->class('badge badge-light-warning')->text("Stoğu Azaldı");
+                } else{
+                    return html()->span()->class('badge badge-light-primary')->text("Stokta");
+                }
             })
             ->addColumn('action', function ($q) {
                 $html = "";

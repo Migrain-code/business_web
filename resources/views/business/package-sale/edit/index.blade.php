@@ -5,6 +5,7 @@
 @endsection
 @section('toolbar')
     <x-tool-button title="Yeni Paket Satışı" link="{{route('business.package-sale.index')}}"></x-tool-button>
+    <button type="button" class="btn btn-light-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_policy"><i class="fa fa-paper-plane"></i> Sözleşme Ekle</button>
 @endsection
 @section('breadcrumbs')
     <!--begin::Item-->
@@ -199,6 +200,7 @@
     </div>
     @include('business.package-sale.edit.modals.add-payment')
     @include('business.package-sale.edit.modals.add-usage')
+    @include('business.package-sale.edit.modals.add-policy')
 
 @endsection
 @section('scripts')
@@ -256,5 +258,16 @@
             initialSlide: 4,
         });
     </script>
-    <script></script>
+    <script>
+        $('.printFile').on('click', function(e) {
+            e.preventDefault(); // Tıklama eylemini engelle
+            var fileUrl = $(this).data('file'); // data-file özelliğindeki değeri al
+            var newWindow = window.open(fileUrl, '_blank'); // Yeni sekme aç
+            if (newWindow) {
+                newWindow.onload = function() {
+                    newWindow.print(); // Yeni sekmeyi yazdır
+                };
+            }
+        });
+    </script>
 @endsection

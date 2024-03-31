@@ -30,14 +30,14 @@
         <!--begin::Form-->
         <form id="kt_ecommerce_edit_order_form" class="form d-flex flex-column flex-lg-row" data-kt-redirect="{{route('business.sale.index')}}">
             @include('business.product-sale.create.columns.col-1')
-            @include('business.product-sale.create.columns.col-2')
+
         </form>
         <!--end::Form-->
     </div>
 
 @endsection
 @section('scripts')
-    <script src="/business/assets/js/project/product-sale/listing/formrepeater.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/tr.js"></script>
     <script src="/business/assets/js/project/product-sale/listing/create.js"></script>
     <script></script>
 @endsection

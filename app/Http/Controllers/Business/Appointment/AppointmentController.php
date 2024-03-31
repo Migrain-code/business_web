@@ -74,12 +74,7 @@ class AppointmentController extends Controller
         //Randevudaki hizmetler bu listede bulunmayacaktır
         $appointmentServiceIds = $appointment->services()->pluck('service_id')->toArray();
         //Randevudaki personeller listeye eklenecek
-        $appointmentPersonelIds = $appointment->services()->pluck('personel_id')->toArray();
-        // aynı olan id leri ele
-        $personelIds = array_unique($appointmentPersonelIds);
-        // collection olarak personelleri al
-        $personels = Personel::whereIn('id', $personelIds)->get();
-        // collection olarak hizmetleri al
+        $personels = $this->business->personels;
         $services = $this->business->services()->whereNotIn('id', $appointmentServiceIds)->get();
         return view('business.appointment.edit.index', compact('appointment', 'personels', 'services'));
     }

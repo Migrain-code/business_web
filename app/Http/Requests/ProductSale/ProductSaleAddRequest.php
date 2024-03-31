@@ -30,7 +30,8 @@ class ProductSaleAddRequest extends FormRequest
             "product_id" => "required",
             "personel_id" => "required",
             "payment_type" => "required",
-            "qty_cart" => "required",
+            "amount" => "required",
+            "price" => "required",
             "seller_date" => "required|date",
         ];
     }
@@ -42,7 +43,8 @@ class ProductSaleAddRequest extends FormRequest
             'product_id' => 'Ürün',
             'personel_id' => 'Satıcı',
             'payment_type' => 'Ödeme Türü',
-            'qty_cart' => 'Satış Adedi',
+            'amount' => 'Satış Adedi',
+            'price' => 'Fiyat',
             'seller_date' => 'Satış Tarihi',
         ];
     }

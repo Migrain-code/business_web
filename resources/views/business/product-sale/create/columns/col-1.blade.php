@@ -1,5 +1,5 @@
 <!--begin::Aside column-->
-<div class="w-100 flex-lg-row-auto w-lg-300px mb-7 me-7 me-lg-10">
+<div class="w-100 flex-lg-row-auto mb-7 me-7 me-lg-10">
 
     <!--begin::Order details-->
     <div class="card card-flush py-4">
@@ -21,8 +21,7 @@
                     <!--end::Label-->
 
                     <!--begin::Select2-->
-                    <select class="form-select mb-2" data-control="select2" data-hide-search="true"
-                            data-placeholder="Ödeme Yöntemi Seçiniz" name="payment_type" id="kt_ecommerce_edit_order_payment">
+                    <select name="payment_type" id="payment_type_select" aria-label="Ödeme Yöntemi Seçiniz" data-control="select2" data-placeholder="Ödeme Yöntemi..."  class="form-select form-select-solid fw-bold">
                         <option></option>
                         @foreach($paymentMethods as $row)
                             <option value="{{$row['id']}}">{{$row['name']}}</option>
@@ -39,8 +38,7 @@
                     <!--end::Label-->
 
                     <!--begin::Select2-->
-                    <select class="form-select mb-2" data-control="select2" data-hide-search="true"
-                            data-placeholder="Personel Seçiniz" name="personel_id" id="kt_ecommerce_edit_order_shipping">
+                    <select name="personel_id" id="personel_select" aria-label="Personel Seçiniz" data-control="select2" data-placeholder="Personel Seçiniz..."  class="form-select form-select-solid fw-bold">
                         <option value=""></option>
                         @foreach($personels as $personel)
                             <option value="{{$personel->id}}">{{$personel->name}}</option>
@@ -56,14 +54,52 @@
                     <!--end::Label-->
 
                     <!--begin::Select2-->
-                    <select class="form-select mb-2" data-control="select2" data-hide-search="true"
-                            data-placeholder="Müşteri Seçiniz" name="customer_id" id="kt_ecommerce_edit_order_customer">
+                    <select name="customer_id" id="customer_select" aria-label="Müşteri Seçiniz" data-control="select2" data-placeholder="Müşteri Seçiniz..."  class="form-select form-select-solid fw-bold">
                         <option value=""></option>
                         @foreach($customers as $row)
                             <option value="{{$row->customer_id}}">{{$row->customer->name}}</option>
                         @endforeach
                     </select>
                     <!--end::Select2-->
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="fv-row">
+                    <!--begin::Label-->
+                    <label class="required form-label">Ürün Seçiniz</label>
+                    <!--end::Label-->
+                    <select name="product_id" id="product_id" aria-label="Ürün Seçiniz" data-control="select2" data-placeholder="Ürün Seçiniz..."  class="form-select form-select-solid fw-bold">
+
+                        <option value=""></option>
+                        @foreach($products as $row)
+                            <option value="{{$row->id}}">{{$row->name}}</option>
+                        @endforeach
+                    </select>
+                    <!--end::Select2-->
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="fv-row">
+                    <!--begin::Label-->
+                    <label class="required form-label">Adet</label>
+                    <!--end::Label-->
+
+                    <!--begin::Editor-->
+                    <input type="number" name="amount" placeholder="Kaç Adet Ürün Satıldı Örn. 5" class="form-control mb-2" value="">
+                    <!--end::Editor-->
+
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="fv-row">
+                    <!--begin::Label-->
+                    <label class="required form-label">Fiyat</label>
+                    <!--end::Label-->
+
+                    <!--begin::Editor-->
+                    <input type="number" name="price" placeholder="Satılan Ürünlerin Toplam Fiyatı" class="form-control mb-2" value="">
+                    <!--end::Editor-->
+
                 </div>
                 <!--end::Input group-->
                 <!--begin::Input group-->
@@ -91,8 +127,27 @@
                 </div>
                 <!--end::Input group-->
             </div>
+            <div class="d-flex justify-content-end align-items-center">
+                <!--begin::Button-->
+                <a href="{{route('business.sale.index')}}" id="kt_ecommerce_edit_order_cancel" class="btn btn-light me-5">
+                    İptal Et
+                </a>
+                <!--end::Button-->
+
+                <!--begin::Button-->
+                <button type="submit" id="kt_ecommerce_edit_order_submit" class="btn btn-primary">
+                <span class="indicator-label">
+                    Ürün Satışını Kaydet
+                </span>
+                    <span class="indicator-progress">
+                    Satış Yapılıyor... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </span>
+                </button>
+                <!--end::Button-->
+            </div>
         </div>
         <!--end::Card header-->
     </div>
-    <!--end::Order details-->    </div>
+    <!--end::Order details-->
+</div>
 <!--end::Aside column-->

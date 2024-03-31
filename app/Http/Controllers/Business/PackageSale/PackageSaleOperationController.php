@@ -9,8 +9,10 @@ use App\Http\Resources\PackageSale\PackageSalePaymentsListResource;
 use App\Http\Resources\PackageSale\PackageSaleUsagesListResource;
 use App\Models\PackagePayment;
 use App\Models\PackageSale;
+use App\Models\PackageSalePolicy;
 use App\Models\PackageUsage;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 /**
@@ -19,6 +21,15 @@ use Illuminate\Http\Response;
  */
 class PackageSaleOperationController extends Controller
 {
+    private $business;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->business = auth('official')->user()->business;
+            return $next($request);
+        });
+    }
     /**
      * Paket Satışı Ödemeler
      *
@@ -138,6 +149,26 @@ class PackageSaleOperationController extends Controller
             return response()->json([
                 'status' => "success",
                 'message' => "Kullanım Silindi"
+            ]);
+        }
+    }
+
+    public function addPolicy(Request $request, PackageSale $packageSale)
+    {
+        //$request->dd();
+        $packagesalePolicy = new PackageSalePolicy();
+        $packagesalePolicy->business_id = $this->business->id;
+        $packagesalePolicy->package_sale_id = $packageSale->id;
+        $packagesalePolicy->file_name = $request->file_number;
+
+        if ($request->hasFile('policy_file')) {
+            //$response = UploadFile::uploadFile($request->file('profilePhoto'));
+            //$packagesalePolicy->policy_file  = $response["image"]["way"];
+        }
+        if ($packagesalePolicy->save()){
+            return back()->with('response', [
+               'status' => "success",
+               'message' => "Dosya Yüklendi"
             ]);
         }
     }

@@ -41,7 +41,7 @@
             <div class="card-header border-0">
                 <!--begin::Card title-->
                 <div class="" style="display: block;">
-                    <h2 style="margin-bottom: 10px;margin-top: 5px;">Paket Ödemeleri</h2>
+                    <h2 style="margin-bottom: 10px;margin-top: 5px;">Personel Ödemeleri</h2>
                 </div>
                 <div class="d-flex align-items-center">
                     <!--begin::Filter-->

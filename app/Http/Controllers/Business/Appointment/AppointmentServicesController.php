@@ -47,7 +47,7 @@ class AppointmentServicesController extends Controller
         $appointmentService->end_time = Carbon::parse($endTime)->addMinutes($findService->time);
         $appointmentService->save();
 
-        return to_route('business.appointment.show', $appointment->id)->with('response',[
+        return back()->with('response',[
             'status' => "success",
             'message' => "Randevuya Hizmet Eklendi"
         ]);

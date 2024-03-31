@@ -95,7 +95,7 @@ var KTModalCustomersAdd = function () {
                                             if (result.isConfirmed) {
                                                 $('.payments').click();
                                                 // Enable submit button after loading
-
+                                                window.location.reload();
                                                 // Redirect to customers list page
                                                 //window.location = form.getAttribute("data-kt-redirect");
                                             }

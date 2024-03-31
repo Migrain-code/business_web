@@ -130,7 +130,7 @@ class PackageSaleController extends Controller
                 } elseif($request->listType == "thisDay") {
                     $q->whereDate('seller_date', now()->toDateString());
                 }
-            })->get();
+            })->latest();
         return DataTables::of($sales)
             ->editColumn('created_at', function ($q) {
                 return Carbon::parse($q->seller_date)->format('d.m.Y H:i');

@@ -1,25 +1,34 @@
 <!--begin::Card toolbar-->
 <div class="card-toolbar">
     <!--begin::Toolbar-->
-    <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
+    <div class="d-flex justify-content-end align-items-center w-100" data-kt-customer-table-toolbar="base">
         <!--begin::Filter-->
-        <div class="w-150px me-3">
+        <div class="d-flex w-400px">
             <!--begin::Select2-->
-            <form method="get" action="" id="filterForm">
-                <select id="listType" class="form-select form-select-solid" data-control="select2"
-                        data-hide-search="true" data-placeholder="Status"
-                        data-kt-ecommerce-order-filter="status">
-                    <option></option>
-                    <option value="all" selected>Tümü</option>
-                    <option value="thisDay">Bu Gün</option>
-                    <option value="thisWeek">Bu Hafta</option>
-                    <option value="thisMonth">Bu Ay</option>
-                    <option value="thisYear">Bu Yıl</option>
-                </select>
-            </form>
+            <select id="listType" class="form-select form-select-solid" data-control="select2"
+                    data-hide-search="true" data-placeholder="Tarih Seçiniz"
+                    data-kt-ecommerce-order-filter="status">
+                <option></option>
+                <option value="all">Tümü</option>
+                <option value="thisDay">Bu Gün</option>
+                <option value="thisWeek">Bu Hafta</option>
+                <option value="thisMonth">Bu Ay</option>
+                <option value="thisYear">Bu Yıl</option>
+            </select>
+            <select id="stockType" class="form-select form-select-solid" data-control="select2"
+                    data-hide-search="true" data-placeholder="Stok Durumu">
+                <option></option>
+                <option value="all">Tümü</option>
+                <option value="outStock">Stoğu Tükenmiş</option>
+                <option value="midStock">Az Kalmış</option>
+                <option value="inStock">Stokta</option>
+
+            </select>
+
 
             <!--end::Select2-->
         </div>
+
         <!--end::Filter-->
 
         <!--begin::Add customer-->
