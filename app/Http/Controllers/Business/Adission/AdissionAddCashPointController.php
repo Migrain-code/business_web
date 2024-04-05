@@ -88,30 +88,30 @@ class AdissionAddCashPointController extends Controller
             return response()->json([
                 'status' => "error",
                 'message' => "Bu adisyonun tüm ücreti tahsil edildi.Yeni Alacak ekleyemezsiniz."
-            ], 422);
+            ]);
         }
         $totalReceivable = $adission->receivables()->whereStatus(0)->sum('price');
         if ($request->price > $this->remainingTotal($adission) - $totalReceivable){
 
             $sum = $this->remainingTotal($adission) - $totalReceivable;
 
-            if ($sum <= 0){
+            if ($sum == 0){
                 return response()->json([
-                    'status' => "error",
-                    'message' => "Bu adisyonun tutarına denk gelecek kadar alacak eklediniz. Daha Fazla Alacak Ekleyemezsiniz."
-                ], 422);
+                    'status' => "success",
+                    'message' => "Eklediğiniz alacak ile birlikte bu adisyonun tüm tutarı alınmış oldu. Bu adisyon için daha fazla alacak ekleme yapamazsınız"
+                ]);
             }
 
             return response()->json([
                 'status' => "error",
                 'message' => "Adisyona Eklediğiniz Alacakların Toplamı ve Gönderdiğini Tutar Adisyonun Kalan Ücretini Geçemez. ". $sum . " TL'den fazla fiyat giremezsiniz."
-            ], 422);
+            ]);
         }
         if ($request->price  > $this->remainingTotal($adission)){
             return response()->json([
                 'status' => "error",
                 'message' => "Gönderdiğiniz Tutar. Adisyonun Kalan Ücretini Geçemez. ". $this->remainingTotal($adission). " TL'den fazla fiyat giremezsiniz."
-            ], 422);
+            ]);
         }
         $receivable = new AppointmentReceivable();
         $receivable->appointment_id = $adission->id;

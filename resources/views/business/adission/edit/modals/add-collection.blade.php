@@ -5,14 +5,14 @@
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Form-->
-            <form class="form" action="#" id="kt_modal_add_customer_form">
+            <form id="kt_modal_add_payment_form">
                 <!--begin::Modal header-->
                 <div class="modal-header" id="kt_modal_add_customer_header">
                     <!--begin::Modal title-->
-                    <h2 class="fw-bold">Tahsilat Ekle</h2>
+                    <h2 class="fw-bold">Ödeme Ekle</h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
-                    <div id="kt_modal_add_customer_close" class="btn btn-icon btn-sm btn-active-icon-primary">
+                    <div id="kt_modal_add_payment_close" class="btn btn-icon btn-sm btn-active-icon-primary">
                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                         <span class="svg-icon svg-icon-1">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,6 +41,7 @@
 
                             </select>
                         </div>
+
                         <div class="fv-row mb-7">
                             <!--begin::Label-->
                             <label class="fs-6 fw-semibold mb-2">
@@ -60,10 +61,10 @@
                 <!--begin::Modal footer-->
                 <div class="modal-footer flex-center">
                     <!--begin::Button-->
-                    <button type="reset" id="kt_modal_add_customer_cancel" class="btn btn-light me-3">İptal Et</button>
+                    <button type="reset" id="kt_modal_add_payment_cancel" class="btn btn-light me-3">İptal Et</button>
                     <!--end::Button-->
                     <!--begin::Button-->
-                    <button type="submit" id="kt_modal_add_customer_submit" class="btn btn-primary">
+                    <button type="submit" id="kt_modal_add_payment_submit" class="btn btn-primary">
                         <span class="indicator-label">Kaydet</span>
                         <span class="indicator-progress">Lütfen Bekleyin...
 															<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>

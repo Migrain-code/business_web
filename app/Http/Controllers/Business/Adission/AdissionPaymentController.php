@@ -73,14 +73,14 @@ class AdissionPaymentController extends Controller
             return response()->json([
                 'status' => "error",
                 'message' => "Bu Adisyonda tüm ücretler tahsil edildi. Başka Tahsilat Ekleyemezsiniz."
-            ], 422);
+            ]);
         }
         if($request->price > $this->remainingTotal($adission)){
             return response()->json([
                'status' => "error",
                'message' => "Adisyonda tahsil edilecek tutar ". $this->remainingTotal($adission). " TL'dir. Bu ücretten daha yüksek bir ücret giremezsiniz",
                'price' => $this->remainingTotal($adission)
-            ], 422);
+            ]);
         }
 
 
@@ -88,7 +88,7 @@ class AdissionPaymentController extends Controller
         if ($adissionEarnedPoint){
             $appointmentCollection = new AppointmentCollectionEntry();
             $appointmentCollection->appointment_id = $adission->id;
-            $appointmentCollection->payment_type_id = $request->payment_type_id;
+            $appointmentCollection->payment_type_id = $request->paymentType;
             $appointmentCollection->price = $request->price;
             $appointmentCollection->save();
             return response()->json([
@@ -100,7 +100,7 @@ class AdissionPaymentController extends Controller
         return response()->json([
             'status' => "error",
             'message' => "Hata! Ödeme Yöntemi Bulunamadı"
-        ], 422);
+        ]);
     }
     /**
      * Adisyon Ödeme Kayıt Apisi
@@ -246,9 +246,10 @@ class AdissionPaymentController extends Controller
     public function saveAppointmentEarnedPoint($request, $adission)
     {
         $promossion = $this->business->promossions;
+
         $discountRate = 0;
-        if (in_array($request->payment_type_id,[0,1,2])){
-            switch ($request->payment_type_id){
+        if (in_array($request->paymentType,[0,1,2])){
+            switch ($request->paymentType){
                 case 0:
                     $discountRate = $promossion->cash;
                     break;
@@ -276,7 +277,7 @@ class AdissionPaymentController extends Controller
         $promossion = $this->business->promossions;
         $discountRate = 0;
 
-        switch ($request->payment_type_id){
+        switch ($request->paymentType){
             case 0:
                 $discountRate = $promossion->cash;
                 break;

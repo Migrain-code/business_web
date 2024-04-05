@@ -120,10 +120,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
             Route::post('/{adission}/sale/add', [AdissionProductSaleController::class, 'store'])->name('sale.add');
 
             Route::get('/{adission}/payment', [AdissionPaymentController::class, 'index']);//tahsilat listesi
-            Route::get('/{adission}/payment/create', [AdissionPaymentController::class, 'create']);//tahsilat oluştur
             Route::post('/{adission}/payment/add', [AdissionPaymentController::class, 'store']);//tahsilat ekle
-            Route::get('/{adission}/payment/{payment}/edit', [AdissionPaymentController::class, 'edit']);// tahsilat düzenle
-            Route::put('/{adission}/payment/{payment}', [AdissionPaymentController::class, 'update']);//tahsilat güncelle
             Route::delete('/{adission}/payment/{payment}', [AdissionPaymentController::class, 'destroy']);//tahsilat sil
 
             Route::post('/{adission}/payment/save', [AdissionPaymentController::class, 'paymentSave']);
@@ -137,10 +134,13 @@ Route::prefix('isletme')->as('business.')->group(function (){
             Route::get('/{adission}/receivable', [AdissionAddCashPointController::class, 'receivableList']);
             Route::post('/{adission}/receivable', [AdissionAddCashPointController::class, 'receivableAdd']);
             Route::delete('/{adission}/receivable/{receivable}', [AdissionAddCashPointController::class, 'receivableDelete']);
-            Route::put('/{adission}/receivable/{receivable}', [AdissionAddCashPointController::class, 'receivableUpdate']);
         });
 
+        /* -------------------- Destek Talepleri --------------------------*/
 
+        
+
+        /* -------------------- Global Ajax İstekleri --------------------------*/
 
         Route::controller(AjaxController::class)->as('ajax.')->prefix('ajax')->group(function () {
             Route::post('/update-featured', 'updateFeatured')->name('updateFeatured');

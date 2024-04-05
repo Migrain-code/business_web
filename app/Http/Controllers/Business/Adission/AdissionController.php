@@ -56,6 +56,7 @@ class AdissionController extends Controller
         $personels = Personel::whereIn('id', $personelIds)->get();
         // collection olarak hizmetleri al
         $services = $this->business->services()->whereNotIn('id', $appointmentServiceIds)->get();
+
         return view('business.adission.edit.index', compact('appointment', 'personels', 'services'));
 
     }
@@ -71,7 +72,7 @@ class AdissionController extends Controller
         $adission->status = 4;
         $adission->save();
 
-        return response()->json([
+        return back()->with('response',[
             'status' => "success",
             'message' => "Adisyon durumu güncellendi"
         ]);
@@ -89,7 +90,7 @@ class AdissionController extends Controller
         $adission->status = 5;
         $adission->save();
 
-        return response()->json([
+        return back()->with('response',[
             'status' => "success",
             'message' => "Adisyon durumu güncellendi"
         ]);
@@ -105,9 +106,9 @@ class AdissionController extends Controller
     {
         $adission->status = 3;
         $adission->save();
-        return response()->json([
+        return back()->with('response',[
             'status' => "success",
-            'message' => "Ürün Satışı Yapıldı"
+            'message' => "Adisyon durumu güncellendi"
         ]);
     }
 

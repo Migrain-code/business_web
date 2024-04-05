@@ -26,16 +26,16 @@ class PaymentAddRequest extends FormRequest
     public function rules()
     {
         return [
-            "payment_type_id" => "required",
             "price" => "required",
+            "paymentType" => "required",
         ];
     }
 
     public function attributes()
     {
         return [
-            'payment_type_id' => 'Ödeme Türü',
             'price' => 'Tahsil Edilen Tutar',
+            'paymentType' => 'Ödeme Türü',
         ];
     }
 

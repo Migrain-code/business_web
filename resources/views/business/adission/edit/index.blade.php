@@ -62,8 +62,14 @@
                     <!--end:::Tab item-->
                     <!--begin:::Tab item-->
                     <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4" onclick="fethPaymentInfo()" data-bs-toggle="tab"
-                           href="#kt_ecommerce_adission_receible">Tahsilatlar</a>
+                        <a class="nav-link text-active-primary pb-4" onclick="" data-bs-toggle="tab"
+                           href="#kt_ecommerce_adission_collection">Tahsilatlar</a>
+                    </li>
+                    <!--end:::Tab item-->
+                    <!--begin:::Tab item-->
+                    <li class="nav-item">
+                        <a class="nav-link text-active-primary pb-4" onclick="" data-bs-toggle="tab"
+                           href="#kt_ecommerce_adission_receivables">Alacaklar</a>
                     </li>
                     <!--end:::Tab item-->
                 </ul>
@@ -86,6 +92,13 @@
                             class="btn btn-light-primary btn-sm">Hizmet Ekle
                     </button>
                     <!--end::Button-->
+                    {{--
+                        <button type="button" data-bs-toggle="modal" onclick="createCollection()"
+                            data-bs-target="#kt_modal_add_payment" style="padding: 10px 20px !important;" class="btn btn-light-info me-2  btn-sm">
+                        <i class="ki-duotone ki-exit-up fs-2"><span class="path1"></span><span class="path2"></span></i>
+                        Tahsilat Ekle
+                    </button>
+                    --}}
                 </div>
             </div>
             <!--begin::Order summary-->
@@ -125,9 +138,9 @@
                                     <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">İşlemler</div>
                                 </div>
                                 <!--end::Heading-->
-                                @if($appointment->status == 0)
+
                                     <form method="post"
-                                          action="{{route('business.appointment.update', $appointment->id)}}"
+                                          action="{{route('business.adission.update', $appointment->id)}}"
                                           id="approveForm">
                                         @csrf
                                         @method('PUT')
@@ -135,14 +148,17 @@
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-3">
                                         <a href="javascript:void(0)" onclick="$('#approveForm').submit()"
-                                           class="menu-link px-3">Onayla</a>
+                                           class="menu-link px-3 flex-stack">Geldi
+                                            <i class="fas fa-check-circle ms-2 fs-7">
+                                            </i>
+                                        </a>
                                     </div>
                                     <!--end::Menu item-->
-                                @endif
+
                                 <!--begin::Menu item-->
-                                @if($appointment->status != 3)
+
                                     <form method="post"
-                                          action="{{route('business.appointment.destroy', $appointment->id)}}"
+                                          action="{{route('business.adission.destroy', $appointment->id)}}"
                                           id="cancelForm">
                                         @csrf
                                         @method('DELETE')
@@ -158,20 +174,20 @@
                                             </i>
                                         </a>
                                     </div>
-                                @endif
+
                                 <!--end::Menu item-->
-                                @if($appointment->status != 0)
+
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-3">
 
-                                        <a href="{{route('business.appointment.edit', $appointment->id)}}"
-                                           class="menu-link flex-stack px-3">Tamamla
-                                            <i class="fas fa-check-circle ms-2 fs-7">
+                                        <a href="{{route('business.adission.edit', $appointment->id)}}"
+                                           class="menu-link flex-stack px-3">Gelmedi
+                                            <i class="fas fa-user-slash ms-2 fs-7">
                                             </i>
                                         </a>
                                     </div>
                                     <!--end::Menu item-->
-                                @endif
+
                             </div>
                         </div>
 
@@ -405,6 +421,8 @@
                 @include('business.adission.edit.parts.tab-1')
                 @include('business.adission.edit.parts.tab-2')
                 @include('business.adission.edit.parts.tab-3')
+                @include('business.adission.edit.parts.tab-4')
+                @include('business.adission.edit.parts.tab-5')
 
 
             </div>
@@ -415,6 +433,9 @@
     @include('business.adission.edit.modals.add-service')
     @include('business.adission.edit.modals.add-sale')
     @include('business.adission.edit.modals.add-cash-point')
+    @include('business.adission.edit.modals.add-collection')
+    @include('business.adission.edit.modals.add-receivable')
+
 @endsection
 @section('scripts')
     {{-- Ürün Satış Listesi --}}
@@ -460,6 +481,7 @@
                 }
             });
         }
+
         function fethPaymentInfo() {
             $.ajax({
                 url: '/isletme/adission/' + {{$appointment->id}} + '/payment',
@@ -475,7 +497,8 @@
                 }
             });
         }
-        function fetchCashPointInfos(){
+
+        function fetchCashPointInfos() {
             var cashPointSelect = $('#cashPoint_select');
             $.ajax({
                 url: '/isletme/adission/' + {{$appointment->id}} + '/cash-point',
@@ -485,11 +508,38 @@
                     cashPointSelect.append('<option value="">Parapuan Seçiniz</option>');
 
                     $.each(res, function (index, item) {
-                        cashPointSelect.append('<option value="' + item.id + '">' + item.price+"₺" + '</option>');
+                        cashPointSelect.append('<option value="' + item.id + '">' + item.price + "₺" + '</option>');
+                    });
+                }
+            });
+        }
+
+        function createCollection() {
+            var paymentTypeSelector = $('#kt_ecommerce_payment_type_select');
+
+            paymentTypeSelector.empty();
+
+            $.ajax({
+                url: '/isletme/adission/' + {{$appointment->id}} + '/sale/create',
+                type: "GET",
+                dataType: "JSON",
+                success: function (res) {
+                    paymentTypeSelector.append('<option value="">Ödeme Yöntemi Seçiniz</option>');
+                    $.each(res.paymentTypes, function (index, item) {
+                        paymentTypeSelector.append('<option value="' + item.id + '">' + item.name + '</option>');
                     });
                 }
             });
         }
     </script>
+    <script>
+        var adissionId = '{{$appointment->id}}';
+    </script>
 
+    <script src="/business/assets/js/project/adission/edit/payments/add-payment.js"></script>
+    <script src="/business/assets/js/project/adission/edit/payments/fetchPaymentList.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/tr.js"></script>
+    <script src="/business/assets/js/project/adission/edit/receivable/add-receivable.js"></script>
+    <script src="/business/assets/js/project/adission/edit/receivable/fetchReceivableList.js"></script>
 @endsection
