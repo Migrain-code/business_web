@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $is_admin
@@ -73,5 +73,10 @@ class BusinessOfficial extends Authenticatable
     public function notifications()
     {
         return $this->hasMany(BusinessNotification::class, 'business_id', 'id');
+    }
+
+    public function supportRequests()
+    {
+        return $this->hasMany(SupportRequest::class, 'user_id', 'id');
     }
 }

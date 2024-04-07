@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $category_id
@@ -27,5 +28,18 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BusinessFaq extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
+
+    protected $translatable = ['question', 'answer'];
+
+    public function getAnswer()
+    {
+        return $this->translate('answer');
+    }
+
+    public function getQuestion()
+    {
+        return $this->translate('question');
+
+    }
 }

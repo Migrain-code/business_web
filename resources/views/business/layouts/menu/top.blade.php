@@ -223,7 +223,7 @@
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="dashboards/pos.html" class="menu-link ">
+                                                    <a href="{{route('business.case')}}" class="menu-link ">
                                                         <span
                                                             class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
                                                             <i class="ki-duotone ki-abstract-42 text-danger fs-1"><span
@@ -244,7 +244,7 @@
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="dashboards/call-center.html" class="menu-link ">
+                                                    <a href="{{route('business.support-center.index')}}" class="menu-link ">
                                                         <span
                                                             class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
                                                             <i class="ki-duotone ki-call text-primary fs-1"><span

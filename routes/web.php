@@ -19,6 +19,9 @@ use \App\Http\Controllers\Business\Adission\AdissionController;
 use \App\Http\Controllers\Business\Adission\AdissionProductSaleController;
 use App\Http\Controllers\Business\Adission\AdissionPaymentController;
 use App\Http\Controllers\Business\Adission\AdissionAddCashPointController;
+use App\Http\Controllers\Business\SupportCenter\SupportController;
+use App\Http\Controllers\Business\SupportCenter\SupportOptionController;
+use App\Http\Controllers\Business\Case\CaseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -138,7 +141,17 @@ Route::prefix('isletme')->as('business.')->group(function (){
 
         /* -------------------- Destek Talepleri --------------------------*/
 
-        
+        Route::resource('support-center', SupportController::class);
+        Route::prefix('support')->as('support.')->group(function (){
+            Route::get('tutorial', [SupportOptionController::class, 'tutorials'])->name('tutorials');
+            Route::get('sss', [SupportOptionController::class, 'faq'])->name('faq');
+            Route::get('documents', [SupportOptionController::class, 'document'])->name('document');
+            Route::get('documents/folder/{documentFolder}', [SupportOptionController::class, 'files'])->name('document.folder');
+        });
+
+        /* -------------------- Kasa --------------------------*/
+
+        Route::get('case', [CaseController::class, 'index'])->name('case');
 
         /* -------------------- Global Ajax İstekleri --------------------------*/
 

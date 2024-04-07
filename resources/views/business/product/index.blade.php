@@ -19,7 +19,7 @@
     <!--end::Item-->
 @endsection
 @section('content')
-    <div id="kt_app_content" class="app-content ">
+    <div id="kt_app_content" class="app-content">
         <!--begin::Card-->
         <div class="card">
             <!--begin::Card header-->
