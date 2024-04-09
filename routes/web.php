@@ -22,6 +22,7 @@ use App\Http\Controllers\Business\Adission\AdissionAddCashPointController;
 use App\Http\Controllers\Business\SupportCenter\SupportController;
 use App\Http\Controllers\Business\SupportCenter\SupportOptionController;
 use App\Http\Controllers\Business\Case\CaseController;
+use App\Http\Controllers\Business\Case\PrimController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -150,10 +151,18 @@ Route::prefix('isletme')->as('business.')->group(function (){
         });
 
         /* -------------------- Kasa --------------------------*/
-
         Route::get('case', [CaseController::class, 'index'])->name('case');
+        /* -------------------- Prim --------------------------*/
+        Route::get('prim', [PrimController::class, 'index'])->name('prim');
+
+        /* -------------------- Şubeler --------------------------*/
+        Route::resource('branche', \App\Http\Controllers\Business\Branche\BusinessBrancheController::class);
+
+        /* -------------------- Yetkililer --------------------------*/
+        Route::resource('business-official', \App\Http\Controllers\Business\Official\BusinessOfficialController::class);
 
         /* -------------------- Global Ajax İstekleri --------------------------*/
+
 
         Route::controller(AjaxController::class)->as('ajax.')->prefix('ajax')->group(function () {
             Route::post('/update-featured', 'updateFeatured')->name('updateFeatured');

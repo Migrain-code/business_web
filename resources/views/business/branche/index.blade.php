@@ -1,5 +1,5 @@
 @extends('business.layouts.master')
-@section('title', 'Müşteriler')
+@section('title', 'Şubeler')
 @section('styles')
     <style>
         .image-input .image-input-wrapper {
@@ -22,7 +22,7 @@
     <!--end::Item-->
     <!--begin::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-        <a href="{{route('business.customer.index')}}"> Müşteriler </a>
+        <a href="{{route('business.branche.index')}}"> Şubeler </a>
     </li>
     <!--end::Item-->
 @endsection
@@ -41,13 +41,13 @@
                                 class="path1"></span><span class="path2"></span></i> <input
                             type="text" data-kt-customer-table-filter="search"
                             class="form-control form-control-solid w-250px ps-13"
-                            placeholder="Müşterilerde Ara">
+                            placeholder="Şubelerde Ara">
                     </div>
                     <!--end::Search-->
                 </div>
                 <!--begin::Card title-->
 
-                @include('business.customer.parts.toolbar')
+                @include('business.branche.parts.toolbar')
             </div>
             <!--end::Card header-->
 
@@ -59,18 +59,14 @@
                     <thead>
                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                         <th class="w-10px pe-2">
-                            <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                       data-kt-check-target="#kt_customers_table .form-check-input"
-                                       value="1">
-                            </div>
+                            #
                         </th>
-                        <th class="min-w-125px">Müşteri Adı</th>
-                        <th class="min-w-125px">Telefon Numarası</th>
+                        <th class="min-w-125px">Şube Adı</th>
+                        <th class="min-w-125px">Yetkili</th>
                         <th class="min-w-125px">Yasak</th>
                         <th class="min-w-125px">Randevu Sayısı</th>
                         <th class="min-w-125px">Kayıt Tarihi</th>
-                        <th class="text-end min-w-70px">İşlemler</th>
+                        <th class="min-w-70px">İşlemler</th>
                     </tr>
                     </thead>
                     <tbody class="fw-semibold text-gray-600">
@@ -91,15 +87,15 @@
 @endsection
 @section('scripts')
     <!-- DataTables Buttons JS -->
-    <script src="/business/assets/js/project/customers/listing/listing.js"></script>
-    <script src="/business/assets/js/project/customers/listing/add.js"></script>
+    <script src="/business/assets/js/project/branche/listing/listing.js"></script>
+    <script src="/business/assets/js/project/branche/listing/add.js"></script>
 
     <script>
-        let DATA_URL = "{{route('business.customer.datatable')}}";
+        let DATA_URL = "{{route('business.branche.datatable')}}";
         let DATA_COLUMNS = [
             {data: 'id'},
-            {data: 'name'},
-            {data: 'phone'},
+            {data: 'branch_name'},
+            {data: 'official'},
             {data: 'status'},
             {data: 'appointmentCount'},
             {data: 'created_at'},

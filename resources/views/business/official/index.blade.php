@@ -1,15 +1,7 @@
 @extends('business.layouts.master')
-@section('title', 'Müşteriler')
+@section('title', 'Yetkililer')
 @section('styles')
-    <style>
-        .image-input .image-input-wrapper {
-            background-image: url('/business/assets/media/svg/avatars/blank.svg');
-        }
 
-        [data-bs-theme="dark"] .image-input .image-input-wrapper {
-            background-image: url('/business/assets/media/svg/avatars/blank-dark.svg');
-        }
-    </style>
 @endsection
 @section('breadcrumbs')
     <!--begin::Item-->
@@ -22,7 +14,7 @@
     <!--end::Item-->
     <!--begin::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-        <a href="{{route('business.customer.index')}}"> Müşteriler </a>
+        <a href="{{route('business.branche.index')}}"> Yetkililer </a>
     </li>
     <!--end::Item-->
 @endsection
@@ -41,13 +33,13 @@
                                 class="path1"></span><span class="path2"></span></i> <input
                             type="text" data-kt-customer-table-filter="search"
                             class="form-control form-control-solid w-250px ps-13"
-                            placeholder="Müşterilerde Ara">
+                            placeholder="Yetkililerde Ara">
                     </div>
                     <!--end::Search-->
                 </div>
                 <!--begin::Card title-->
 
-                @include('business.customer.parts.toolbar')
+                @include('business.official.parts.toolbar')
             </div>
             <!--end::Card header-->
 
@@ -59,52 +51,55 @@
                     <thead>
                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                         <th class="w-10px pe-2">
-                            <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                       data-kt-check-target="#kt_customers_table .form-check-input"
-                                       value="1">
-                            </div>
+                            #
                         </th>
-                        <th class="min-w-125px">Müşteri Adı</th>
-                        <th class="min-w-125px">Telefon Numarası</th>
+                        <th class="min-w-125px">Yetkili Adı</th>
+                        <th class="min-w-125px">Şube</th>
                         <th class="min-w-125px">Yasak</th>
-                        <th class="min-w-125px">Randevu Sayısı</th>
+                        <th class="min-w-125px">Telefon</th>
                         <th class="min-w-125px">Kayıt Tarihi</th>
-                        <th class="text-end min-w-70px">İşlemler</th>
+                        <th class="min-w-70px">İşlemler</th>
                     </tr>
                     </thead>
                     <tbody class="fw-semibold text-gray-600">
                     </tbody>
                     <!--end::Table body-->
                 </table>
-                <!--end::Table-->    </div>
+                <!--end::Table-->
+            </div>
             <!--end::Card body-->
         </div>
         <!--end::Card-->
 
         <!--begin::Modals-->
         <!--begin::Modal - Customers - Add-->
-        @include('business.branche.parts.add-customer')
+        @include('business.official.parts.add-customer')
 
     </div>
 
 @endsection
 @section('scripts')
     <!-- DataTables Buttons JS -->
-    <script src="/business/assets/js/project/customers/listing/listing.js"></script>
-    <script src="/business/assets/js/project/customers/listing/add.js"></script>
+    <script src="/business/assets/js/project/official/listing/listing.js"></script>
+    <script src="/business/assets/js/project/official/listing/add.js"></script>
 
     <script>
-        let DATA_URL = "{{route('business.customer.datatable')}}";
+        let DATA_URL = "{{route('business.business-official.datatable')}}";
         let DATA_COLUMNS = [
             {data: 'id'},
             {data: 'name'},
-            {data: 'phone'},
+            {data: 'business'},
             {data: 'status'},
-            {data: 'appointmentCount'},
+            {data: 'phone'},
             {data: 'created_at'},
             {data: 'action'}
         ];
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.60/inputmask/jquery.inputmask.js"></script>
 
+    <script>
+        $(document).ready(function(){
+            $("#phone").inputmask({"mask": "0999 999 9999"});
+        });
+    </script>
 @endsection

@@ -42,6 +42,9 @@ function calculateTotal($services)
 
 function clearPhone($phoneNumber)
 {
+    if (substr($phoneNumber, 1) != 0){
+        $phoneNumber = "0".$phoneNumber;
+    }
     $newPhoneNumber = str_replace([' ', '(', ')', '-'], '', $phoneNumber);
     $newPhoneNumber = substr($newPhoneNumber, 1);
     return $newPhoneNumber;
@@ -116,7 +119,13 @@ function create_edit_button($route, $additional_class = null)
 {
     return html()->a($route, html()->i('')->class('fa fa-edit'))->class('btn btn-primary btn-sm me-1 ' . $additional_class);
 }
-
+function create_swap_button($route, $additional_class = null)
+{
+    return html()->a($route, html()->i('')->class('fa fa-arrows-turn-to-dots'))
+        ->class('btn btn-warning btn-sm me-1 ' . $additional_class)
+        ->data('bs-toggle', 'tooltip')
+        ->attribute('title','İşletmenizin adı.');
+}
 function create_info_button($content = null, $additional_class = null)
 {
     return html()->a('#', html()->i('')->class('fa fa-question-circle'))->class('btn btn-warning btn-sm me-1 ' . $additional_class);
