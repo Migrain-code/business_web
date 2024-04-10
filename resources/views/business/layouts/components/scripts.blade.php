@@ -1,3 +1,6 @@
+
+@include('business.layouts.components.modal.password-update-modal')
+
 <script>
     var hostUrl = "{{asset('/')}}";
 </script>

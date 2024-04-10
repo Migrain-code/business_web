@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Business\Official;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BusinessOfficial\BusinessOfficialAddRequest;
+use App\Http\Requests\BusinessOfficial\BusinessOfficialPasswordUpdateRequest;
 use App\Http\Requests\BusinessOfficial\BusinessOfficialUpdateRequest;
-use App\Http\Resources\Branches\BusinessBrancesResource;
-use App\Http\Resources\Business\BusinessOfficialResource;
 use App\Models\Business;
 use App\Models\BusinessOfficial;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\DataTables;
 
@@ -19,11 +19,13 @@ use Yajra\DataTables\DataTables;
 class BusinessOfficialController extends Controller
 {
     private $business;
+    private $user;
 
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            $this->business = auth()->user()->business;
+            $this->user = auth()->user();
+            $this->business = $this->user->business;
             return $next($request);
         });
     }
@@ -130,6 +132,17 @@ class BusinessOfficialController extends Controller
         }
     }
 
+    public function passwordUpdate(BusinessOfficialPasswordUpdateRequest $request)
+    {
+        $user = $this->user;
+        $user->password = Hash::make($request->input('password'));
+        if ($user->save()){
+            return back()->with('response',[
+                'status' => "success",
+                'message' => "Şifreniz Güncellendi"
+            ]);
+        }
+    }
     /**
      * Yetkili Silme
      *

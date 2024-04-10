@@ -8,6 +8,7 @@ use App\Http\Resources\Branches\BusinessBrancesResource;
 use App\Http\Resources\BusinessOfficial\BusinessOfficialListResource;
 use App\Models\Business;
 use App\Models\BusinessOfficial;
+use App\Models\BusinessPromossion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
@@ -125,6 +126,8 @@ class BusinessBrancheController extends Controller
         $branche->company_id = $this->business->company_id;
         $branche->package_id = 1;
         if ($branche->save()){
+
+            $this->addPromotion($branche->id);
             return response()->json([
                 'status' => "success",
                 'message' => "Şube Bilgileri Güncellendi"
@@ -147,6 +150,14 @@ class BusinessBrancheController extends Controller
         }
     }
 
+    public function addPromotion($businessId)
+    {
+        $promossions = new BusinessPromossion();
+        $promossions->business_id = $businessId;
+        $promossions->save();
+
+        return $promossions;
+    }
     public function existBusiness($businessName)
     {
         return Business::where('slug', $businessName)->exists();

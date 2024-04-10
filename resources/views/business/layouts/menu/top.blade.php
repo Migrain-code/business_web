@@ -345,7 +345,7 @@
                                         <!--begin:Menu item-->
                                         <div class="menu-item p-0 m-0">
                                             <!--begin:Menu link-->
-                                            <a href="dashboards/logistics.html" class="menu-link py-2 ">
+                                            <a href="{{route('business.business-official.index')}}" class="menu-link py-2 ">
                                                 <span class="menu-title">
                                                     Yetkililer
                                                 </span>
@@ -356,7 +356,7 @@
                                         <!--begin:Menu item-->
                                         <div class="menu-item p-0 m-0">
                                             <!--begin:Menu link-->
-                                            <a href="dashboards/logistics.html" class="menu-link py-2 ">
+                                            <a href="{{route('business.customer.index')}}" class="menu-link py-2 ">
                                                 <span class="menu-title">
                                                     Müşteriler
                                                 </span>
@@ -367,7 +367,7 @@
                                         <!--begin:Menu item-->
                                         <div class="menu-item p-0 m-0">
                                             <!--begin:Menu link-->
-                                            <a href="dashboards/logistics.html" class="menu-link py-2 ">
+                                            <a href="{{route('business.product.index')}}" class="menu-link py-2 ">
                                                 <span class="menu-title">
                                                     Ürünler
                                                 </span>
@@ -411,23 +411,6 @@
                                             </a>
                                         </li>
                                         <!--end:Nav item-->
-                                        <!--begin:Nav item-->
-                                        <li class="nav-item mx-lg-1">
-                                            <a class="nav-link py-3 py-lg-6  text-active-primary" href="#"
-                                               data-bs-toggle="tab" data-bs-target="#kt_app_header_menu_pages_account">
-                                                Hesap
-                                            </a>
-                                        </li>
-                                        <!--end:Nav item-->
-                                        <!--begin:Nav item-->
-                                        <li class="nav-item mx-lg-1">
-                                            <a class="nav-link py-3 py-lg-6  text-active-primary" href="#"
-                                               data-bs-toggle="tab"
-                                               data-bs-target="#kt_app_header_menu_pages_authentication">
-                                                Raporlar
-                                            </a>
-                                        </li>
-                                        <!--end:Nav item-->
                                     </ul>
                                 </div>
                                 <!--end:Tabs nav-->
@@ -445,15 +428,15 @@
                                                     <!--begin:Col-->
                                                     <div class="col-lg-3 mb-6 mb-lg-0">
                                                         <!--begin:Menu heading-->
-                                                        <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Profilim</h4>
+                                                        <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Genel</h4>
                                                         <!--end:Menu heading-->
 
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="pages/user-profile/overview.html"
+                                                            <a href="{{route('business.appointmentCreate.index')}}"
                                                                class="menu-link ">
-                                                                <span class="menu-title">Hesap</span>
+                                                                <span class="menu-title">Online Randevu</span>
                                                             </a>
                                                             <!--end:Menu link-->
                                                         </div>
@@ -463,7 +446,27 @@
                                                             <!--begin:Menu link-->
                                                             <a href="pages/user-profile/campaigns.html"
                                                                class="menu-link ">
-                                                                <span class="menu-title">Ayarlar</span>
+                                                                <span class="menu-title">Müşteri Geri Bildirimleri</span>
+                                                            </a>
+                                                            <!--end:Menu link-->
+                                                        </div>
+                                                        <!--begin:Menu item-->
+                                                        <div class="menu-item p-0 m-0">
+                                                            <!--begin:Menu link-->
+                                                            <a href="{{route('business.gallery.index')}}"
+                                                               class="menu-link ">
+                                                                <span class="menu-title">İşletme Galerisi</span>
+                                                            </a>
+                                                            <!--end:Menu link-->
+                                                        </div>
+                                                        <!--end:Menu item-->
+                                                        <!--end:Menu item-->
+                                                        <!--begin:Menu item-->
+                                                        <div class="menu-item p-0 m-0">
+                                                            <!--begin:Menu link-->
+                                                            <a href="{{route('business.customer-gallery.index')}}"
+                                                               class="menu-link ">
+                                                                <span class="menu-title">Müşteri Fotoğrafları</span>
                                                             </a>
                                                             <!--end:Menu link-->
                                                         </div>
@@ -471,9 +474,9 @@
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="pages/user-profile/documents.html"
+                                                            <a href="{{route('business.appointment.index')}}"
                                                                class="menu-link ">
-                                                                <span class="menu-title">Bildirim İzinleri</span>
+                                                                <span class="menu-title">Müşteri Online Randevuları</span>
                                                             </a>
                                                             <!--end:Menu link-->
                                                         </div>
@@ -486,14 +489,14 @@
                                                         <!--begin:Menu section-->
                                                         <div class="mb-6">
                                                             <!--begin:Menu heading-->
-                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">İşletme</h4>
+                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Raporlar</h4>
                                                             <!--end:Menu heading-->
 
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="pages/about.html" class="menu-link ">
-                                                                    <span class="menu-title">Hesabım</span>
+                                                                <a href="{{route('business.cost.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Masraflar</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
                                                             </div>
@@ -501,8 +504,26 @@
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="pages/team.html" class="menu-link ">
-                                                                    <span class="menu-title">Aylarlarım</span>
+                                                                <a href="{{route('business.product.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Ürünler</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.sale.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Ürün Satışları</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.package-sale.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Paket Satışları</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
                                                             </div>
@@ -511,7 +532,25 @@
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
                                                                 <a href="pages/contact.html" class="menu-link ">
-                                                                    <span class="menu-title">İletişim Bilgilerim</span>
+                                                                    <span class="menu-title">Alacaklar</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="pages/contact.html" class="menu-link ">
+                                                                    <span class="menu-title">Borçlar</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.case')}}" class="menu-link ">
+                                                                    <span class="menu-title">Kasa</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
                                                             </div>
@@ -527,14 +566,14 @@
                                                         <!--begin:Menu section-->
                                                         <div class="mb-6">
                                                             <!--begin:Menu heading-->
-                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Destek</h4>
+                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Kurumsal</h4>
                                                             <!--end:Menu heading-->
 
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="pages/faq/classic.html" class="menu-link ">
-                                                                    <span class="menu-title">Hızlı Destek</span>
+                                                                <a href="{{route('business.customer.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Müşteriler</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
                                                             </div>
@@ -542,8 +581,26 @@
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="pages/faq/extended.html" class="menu-link ">
-                                                                    <span class="menu-title">Destek Talepleri</span>
+                                                                <a href="{{route('business.personel.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Personeller</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.business-official.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Yetkililer</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.branche.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Şubeler</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
                                                             </div>
@@ -554,23 +611,24 @@
                                                         <!--begin:Menu section-->
                                                         <div class="mb-6">
                                                             <!--begin:Menu heading-->
-                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Ürünler</h4>
+                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">İletişim</h4>
                                                             <!--end:Menu heading-->
 
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="pages/blog/home.html" class="menu-link ">
-                                                                    <span class="menu-title">Stok Listesi</span>
+                                                                <a href="{{route('business.notifications.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Bildirimler</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
                                                             </div>
                                                             <!--end:Menu item-->
+
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="pages/blog/post.html" class="menu-link ">
-                                                                    <span class="menu-title">Satış Listesi</span>
+                                                                <a href="{{route('business.notification-permission.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Bildirim İzinleri</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
                                                             </div>
@@ -578,32 +636,7 @@
                                                         </div>
                                                         <!--end:Menu section-->
 
-                                                        <!--begin:Menu section-->
-                                                        <div class="mb-0">
-                                                            <!--begin:Menu heading-->
-                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Fiyatlandırma</h4>
-                                                            <!--end:Menu heading-->
 
-                                                            <!--begin:Menu item-->
-                                                            <div class="menu-item p-0 m-0">
-                                                                <!--begin:Menu link-->
-                                                                <a href="pages/pricing.html" class="menu-link ">
-                                                                    <span class="menu-title">Fiyat Listesi</span>
-                                                                </a>
-                                                                <!--end:Menu link-->
-                                                            </div>
-                                                            <!--end:Menu item-->
-                                                            <!--begin:Menu item-->
-                                                            <div class="menu-item p-0 m-0">
-                                                                <!--begin:Menu link-->
-                                                                <a href="pages/pricing/table.html" class="menu-link ">
-                                                                    <span class="menu-title">Fiyat Tablosu</span>
-                                                                </a>
-                                                                <!--end:Menu link-->
-                                                            </div>
-                                                            <!--end:Menu item-->
-                                                        </div>
-                                                        <!--end:Menu section-->
                                                     </div>
                                                     <!--end:Col-->
 
@@ -612,14 +645,30 @@
                                                         <!--begin:Menu section-->
                                                         <div class="mb-0">
                                                             <!--begin:Menu heading-->
-                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Sosyal</h4>
+                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Promosyonlar</h4>
                                                             <!--end:Menu heading-->
 
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="pages/social/feeds.html" class="menu-link ">
-                                                                    <span class="menu-title">Galeri</span>
+                                                                <a href="{{route('business.promossion.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Promosyon Ayarları</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                        </div>
+                                                        <!--end:Menu section-->
+                                                        <!--begin:Menu section-->
+                                                        <div class="mb-0">
+                                                            <!--begin:Menu heading-->
+                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Hesap</h4>
+                                                            <!--end:Menu heading-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.business-official.edit', authUser()->id)}}" class="menu-link ">
+                                                                    <span class="menu-title">Hesap Ayarları</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
                                                             </div>
@@ -627,8 +676,8 @@
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="pages/social/activity.html" class="menu-link ">
-                                                                    <span class="menu-title">İletişim</span>
+                                                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#kt_modal_password_update" class="menu-link ">
+                                                                    <span class="menu-title">Şifre Değiştir</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
                                                             </div>
@@ -636,9 +685,8 @@
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="pages/social/followers.html"
-                                                                   class="menu-link ">
-                                                                    <span class="menu-title">Hesap Önizleme</span>
+                                                                <a href="javascript:void(0)" onclick="$('#logoutForm').submit()" class="menu-link ">
+                                                                    <span class="menu-title">Çıkış Yap</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
                                                             </div>
@@ -662,429 +710,11 @@
                                         <!--end:Row-->
                                     </div>
                                     <!--end:Tab pane-->
-
-                                    <!--begin:Tab pane-->
-                                    <div class="tab-pane  w-lg-600px" id="kt_app_header_menu_pages_account">
-                                        <!--begin:Row-->
-                                        <div class="row">
-                                            <!--begin:Col-->
-                                            <div class="col-lg-5 mb-6 mb-lg-0">
-                                                <!--begin:Row-->
-                                                <div class="row">
-                                                    <!--begin:Col-->
-                                                    <div class="col-lg-6">
-                                                        <!--begin:Menu item-->
-                                                        <div class="menu-item p-0 m-0">
-                                                            <!--begin:Menu link-->
-                                                            <a href="account/overview.html" class="menu-link ">
-                                                                <span class="menu-title">Dashboard</span>
-                                                            </a>
-                                                            <!--end:Menu link-->
-                                                        </div>
-                                                        <!--end:Menu item-->
-                                                        <!--begin:Menu item-->
-                                                        <div class="menu-item p-0 m-0">
-                                                            <!--begin:Menu link-->
-                                                            <a href="account/settings.html" class="menu-link ">
-                                                                <span class="menu-title">Ayarlar</span>
-                                                            </a>
-                                                            <!--end:Menu link-->
-                                                        </div>
-                                                        <!--end:Menu item-->
-                                                        <!--begin:Menu item-->
-                                                        <div class="menu-item p-0 m-0">
-                                                            <!--begin:Menu link-->
-                                                            <a href="account/security.html" class="menu-link ">
-                                                                <span class="menu-title">Güvenlik</span>
-                                                            </a>
-                                                            <!--end:Menu link-->
-                                                        </div>
-                                                        <!--end:Menu item-->
-                                                        <!--begin:Menu item-->
-                                                        <div class="menu-item p-0 m-0">
-                                                            <!--begin:Menu link-->
-                                                            <a href="account/activity.html" class="menu-link ">
-                                                                <span class="menu-title">Faturalar</span>
-                                                            </a>
-                                                            <!--end:Menu link-->
-                                                        </div>
-                                                        <!--end:Menu item-->
-                                                        <!--begin:Menu item-->
-                                                        <div class="menu-item p-0 m-0">
-                                                            <!--begin:Menu link-->
-                                                            <a href="account/billing.html" class="menu-link ">
-                                                                <span class="menu-title">Ödemeler</span>
-                                                            </a>
-                                                            <!--end:Menu link-->
-                                                        </div>
-                                                        <!--end:Menu item-->
-                                                    </div>
-                                                    <!--end:Col-->
-                                                </div>
-                                                <!--end:Row-->
-                                            </div>
-                                            <!--end:Col-->
-
-                                            <!--begin:Col-->
-                                            <div class="col-lg-7">
-                                                <img src="/business/assets/media/stock/900x600/46.jpg" class="rounded mw-100"
-                                                     alt="">
-                                            </div>
-                                            <!--end:Col-->
-                                        </div>
-                                        <!--end:Row-->
-                                    </div>
-                                    <!--end:Tab pane-->
-
-                                    <!--begin:Tab pane-->
-                                    <div class="tab-pane  w-lg-1000px" id="kt_app_header_menu_pages_authentication">
-                                        <!--begin:Row-->
-                                        <div class="row">
-                                            <!--begin:Col-->
-                                            <div class="col-lg-3 mb-6 mb-lg-0">
-                                                <!--begin:Menu section-->
-                                                <div class="mb-6">
-                                                    <!--begin:Menu heading-->
-                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Satışlar</h4>
-                                                    <!--end:Menu heading-->
-
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/layouts/corporate/sign-in.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Ürün Satış Raporu</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/layouts/corporate/sign-up.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Paket Satış Raporu</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                </div>
-                                                <!--end:Menu section-->
-
-                                                <!--begin:Menu section-->
-                                                <div class="mb-0">
-                                                    <!--begin:Menu heading-->
-                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Ödemeler</h4>
-                                                    <!--end:Menu heading-->
-
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/layouts/overlay/sign-in.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Alacaklar</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/layouts/overlay/sign-up.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Borçlar</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/layouts/overlay/two-factor.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Masraflar</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                </div>
-                                                <!--end:Menu section-->
-                                            </div>
-                                            <!--end:Col-->
-
-                                            <!--begin:Col-->
-                                            <div class="col-lg-3 mb-6 mb-lg-0">
-                                                <!--begin:Menu section-->
-                                                <div class="mb-6">
-                                                    <!--begin:Menu heading-->
-                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Müşteriler</h4>
-                                                    <!--end:Menu heading-->
-
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/layouts/creative/sign-in.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Müşteri Listesi</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/layouts/creative/sign-up.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Gelmeyen Müşteri Listesi</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/layouts/creative/two-factor.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Randevu Kayıtlı Müşteri Listesi</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/layouts/creative/reset-password.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Yorumları</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--end:Menu item-->
-
-                                                </div>
-                                                <!--end:Menu section-->
-
-                                                <!--begin:Menu section-->
-                                                <div class="mb-6">
-                                                    <!--begin:Menu heading-->
-                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Ürünler</h4>
-                                                    <!--end:Menu heading-->
-
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/layouts/fancy/sign-in.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Stok Raporu</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/layouts/fancy/sign-up.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Analiz Raporu</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                </div>
-                                                <!--end:Menu section-->
-                                            </div>
-                                            <!--end:Col-->
-
-                                            <!--begin:Col-->
-                                            <div class="col-lg-3 mb-6 mb-lg-0">
-                                                <!--begin:Menu section-->
-                                                <div class="mb-0">
-                                                    <!--begin:Menu heading-->
-                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Personeller</h4>
-                                                    <!--end:Menu heading-->
-
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/extended/multi-steps-sign-up.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Personel Listesi</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/general/welcome.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Kasa Raporu</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/general/verify-email.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Prim Raporu</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/general/coming-soon.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Maaş Raporu</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/general/password-confirmation.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Randevu Raporu</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/general/account-deactivated.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Ürün Satış Raporu</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/general/error-404.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Paket Satış Raporu</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/general/error-500.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Hizmet Raporu</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                </div>
-                                                <!--end:Menu section-->
-                                            </div>
-                                            <!--end:Col-->
-
-                                            <!--begin:Col-->
-                                            <div class="col-lg-3 mb-6 mb-lg-0">
-                                                <!--begin:Menu section-->
-                                                <div class="mb-0">
-                                                    <!--begin:Menu heading-->
-                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Randevular</h4>
-                                                    <!--end:Menu heading-->
-
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/email/welcome-message.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Tüm Randevular</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/email/reset-password.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">İptal Edilenler</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/email/subscription-confirmed.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Tamamlananlar</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                </div>
-                                                <!--end:Menu section-->
-                                                <div class="mb-0">
-                                                    <!--begin:Menu heading-->
-                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Adisyonlar</h4>
-                                                    <!--end:Menu heading-->
-
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="{{route('business.adission.index')}}"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Tüm Adisyonlar</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/email/reset-password.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">İptal Edilenler</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/email/subscription-confirmed.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Gelenler</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                    <!--begin:Menu item-->
-                                                    <div class="menu-item p-0 m-0">
-                                                        <!--begin:Menu link-->
-                                                        <a href="authentication/email/subscription-confirmed.html"
-                                                           class="menu-link ">
-                                                            <span class="menu-title">Gelmeyenler</span>
-                                                        </a>
-                                                        <!--end:Menu link-->
-                                                    </div>
-                                                    <!--end:Menu item-->
-                                                </div>
-                                            </div>
-                                            <!--end:Col-->
-                                        </div>
-                                        <!--end:Row-->        </div>
-                                    <!--end:Tab pane-->
-
                                 </div>
                                 <!--end:Tab content-->
                             </div>
-                            <!--end:Pages menu--></div><!--end:Menu sub--></div><!--end:Menu item-->
+                            <!--end:Pages menu-->
+                        </div><!--end:Menu sub--></div><!--end:Menu item-->
                     <!--begin:Menu item-->
                     <!--begin:Menu item-->
                     <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"

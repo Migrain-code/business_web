@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $business_id
@@ -40,7 +40,7 @@ use Illuminate\Database\Eloquent\Model;
 class BusinessCost extends Model
 {
     use HasFactory;
-    protected $dates = ['operation_date'];
+    protected $casts = ['operation_date' => "date"];
     const PAYMENT_TYPES = [
         0 => ["id" => 0, "name" => "Nakit"],
         1 => ["id" => 1, "name" => "Banka / Kredi Kartı"],
@@ -48,9 +48,9 @@ class BusinessCost extends Model
         3 => ["id" => 3, "name" => "Diğer"],
     ];
 
-    public function type()
+    public function type($type = "id")
     {
-        return self::PAYMENT_TYPES[$this->payment_type_id] ?? null;
+        return self::PAYMENT_TYPES[$this->payment_type_id][$type];
     }
     public function category()
     {

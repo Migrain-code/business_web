@@ -23,6 +23,15 @@ use App\Http\Controllers\Business\SupportCenter\SupportController;
 use App\Http\Controllers\Business\SupportCenter\SupportOptionController;
 use App\Http\Controllers\Business\Case\CaseController;
 use App\Http\Controllers\Business\Case\PrimController;
+use \App\Http\Controllers\Business\Branche\BusinessBrancheController;
+use App\Http\Controllers\Business\Official\BusinessOfficialController;
+use \App\Http\Controllers\Business\Promossion\BusinessPromossionController;
+use \App\Http\Controllers\Business\Notification\NotificationController;
+use App\Http\Controllers\Business\Notification\BusinessNotificationPermissionController;
+use App\Http\Controllers\Business\Gallery\GalleryController;
+use \App\Http\Controllers\Business\Gallery\CustomerGalleryController;
+use App\Http\Controllers\Business\Cost\BusinessCostController;
+use App\Http\Controllers\Business\Receivable\AppointmentReceivableController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -156,13 +165,34 @@ Route::prefix('isletme')->as('business.')->group(function (){
         Route::get('prim', [PrimController::class, 'index'])->name('prim');
 
         /* -------------------- Şubeler --------------------------*/
-        Route::resource('branche', \App\Http\Controllers\Business\Branche\BusinessBrancheController::class);
+        Route::resource('branche', BusinessBrancheController::class);
 
         /* -------------------- Yetkililer --------------------------*/
-        Route::resource('business-official', \App\Http\Controllers\Business\Official\BusinessOfficialController::class);
+        Route::resource('business-official', BusinessOfficialController::class);
+
+        /* -------------------- Promosyonlar --------------------------*/
+        Route::resource('promossion', BusinessPromossionController::class);
+
+        /* -------------------- Bildirimler --------------------------*/
+        Route::resource('notifications', NotificationController::class);
+
+        /* -------------------- Bildirim İzinleri --------------------------*/
+        Route::resource('notification-permission', BusinessNotificationPermissionController::class);
+
+        /* -------------------- İşletme Galerisi --------------------------*/
+        Route::resource('gallery', GalleryController::class);
+
+        /* -------------------- Müşteri Galerisi --------------------------*/
+        Route::resource('customer-gallery', CustomerGalleryController::class);
+
+        /* -------------------- Masraflar --------------------------*/
+        Route::resource('cost', BusinessCostController::class);
+
+        /* -------------------- Alacaklar --------------------------*/
+        Route::resource('receivable', AppointmentReceivableController::class);
 
         /* -------------------- Global Ajax İstekleri --------------------------*/
-
+        Route::post('password-update', [BusinessOfficialController::class, 'passwordUpdate'])->name('passwordUpdate');
 
         Route::controller(AjaxController::class)->as('ajax.')->prefix('ajax')->group(function () {
             Route::post('/update-featured', 'updateFeatured')->name('updateFeatured');

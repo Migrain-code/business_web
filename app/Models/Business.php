@@ -257,7 +257,10 @@ class Business extends Model
     {
         return $this->hasMany(BusinessOfficial::class, 'company_id', 'company_id');
     }
-
+    public function customerGallery()
+    {
+        return $this->hasMany(CustomerGallery::class, 'business_id', 'id');
+    }
     public function official()
     {
         return $this->hasOne(BusinessOfficial::class, 'business_id', 'id');

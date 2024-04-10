@@ -78,7 +78,7 @@
                             <label class="required fs-6 fw-semibold mb-2">Ad Soyad</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="text" class="form-control form-control-solid" placeholder="" name="name" value="Sean Bean" />
+                            <input type="text" class="form-control form-control-solid" placeholder="" name="name" value="" />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->

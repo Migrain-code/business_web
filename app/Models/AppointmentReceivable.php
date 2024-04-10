@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $appointment_id
@@ -37,7 +37,7 @@ use Illuminate\Database\Eloquent\Model;
 class AppointmentReceivable extends Model
 {
     use HasFactory;
-    protected $dates = ['payment_date'];
+    protected $casts = ['payment_date' => 'date'];
 
     public function customer()
     {
