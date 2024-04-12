@@ -237,29 +237,26 @@ class AdissionPaymentController extends Controller
         $promossion = $this->business->promossions;
 
         $discountRate = 0;
-        if (in_array($request->paymentType,[0,1,2])){
-            switch ($request->paymentType){
-                case 0:
-                    $discountRate = $promossion->cash;
-                    break;
-                case 1:
-                    $discountRate = $promossion->credit_cart;
-                    break;
-                case 2:
-                    $discountRate = $promossion->eft;
-                    break;
-                default:
-                    $discountRate = 0;
-            }
-            //dd($discountRate);
-            $discountTotal= ($request->price * $discountRate) / 100;
 
-            $adission->earned_point += $discountTotal;
-            $adission->save();
-
-            return true;
+        switch ($request->paymentType){
+            case 0:
+                $discountRate = $promossion->cash;
+                break;
+            case 1:
+                $discountRate = $promossion->credit_cart;
+                break;
+            case 2:
+                $discountRate = $promossion->eft;
+                break;
+            default:
+                $discountRate = 0;
         }
-        return false;
+        //dd($discountRate);
+        $discountTotal= ($request->price * $discountRate) / 100;
+        $adission->earned_point += $discountTotal;
+        $adission->save();
+        return true;
+
     }
     public function calculateAppointmentEarnedPoint($request, $adission)
     {
