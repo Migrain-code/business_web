@@ -69,17 +69,17 @@ class AdissionPaymentController extends Controller
      */
     public function store(PaymentAddRequest $request, Appointment $adission)
     {
-        if ($this->remainingTotal($adission) == 0){
+        if ($adission->remainingTotal() == 0){
             return response()->json([
                 'status' => "error",
                 'message' => "Bu Adisyonda tüm ücretler tahsil edildi. Başka Tahsilat Ekleyemezsiniz."
             ]);
         }
-        if($request->price > $this->remainingTotal($adission)){
+        if($request->price > $adission->remainingTotal()){
             return response()->json([
                'status' => "error",
-               'message' => "Adisyonda tahsil edilecek tutar ". $this->remainingTotal($adission). " TL'dir. Bu ücretten daha yüksek bir ücret giremezsiniz",
-               'price' => $this->remainingTotal($adission)
+               'message' => "Adisyonda tahsil edilecek tutar ". $adission->remainingTotal(). " TL'dir. Bu ücretten daha yüksek bir ücret giremezsiniz",
+               'price' => $adission->remainingTotal()
             ]);
         }
 
@@ -116,19 +116,19 @@ class AdissionPaymentController extends Controller
             }
             $adission->status = 5;
             $adission->save();
-            //if ($request->isPoint){ //parapuan yükleme aktif ise
-            if ($adission->addCashPoint()){
-                return response()->json([
-                    'status' => "success",
-                    'message' => "Adisyon Başarılı Bir Şekilde Kayıt Edildi"
-                ]);
-            } else{
-                return response()->json([
-                    'status' => "error",
-                    'message' => "Bu Adisyonda Parapuan Tanımlaması Yaptınız Başka Parapuan Ekleyemezsiniz"
-                ], 422);
+            if ($request->isPoint){ //parapuan yükleme aktif ise
+                if ($adission->addCashPoint()){
+                    return response()->json([
+                        'status' => "success",
+                        'message' => "Adisyon Başarılı Bir Şekilde Kayıt Edildi"
+                    ]);
+                } else{
+                    return response()->json([
+                        'status' => "error",
+                        'message' => "Bu Adisyonda Parapuan Tanımlaması Yaptınız Başka Parapuan Ekleyemezsiniz"
+                    ], 422);
+                }
             }
-
 
             return response()->json([
                 'status' => "success",
@@ -187,17 +187,6 @@ class AdissionPaymentController extends Controller
                 'message' => "Tahsilat Başarılı Bir Şekilde Silindi"
             ]);
         }
-    }
-
-    /**
-     * Adisyon Tahsilat Düzenle
-     *
-     * @param AppointmentCollectionEntry $payment
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function edit(Appointment $adission, AppointmentCollectionEntry $payment)
-    {
-        return response()->json(AdissionPaymentListResoruce::make($payment));
     }
 
     /**
@@ -295,18 +284,5 @@ class AdissionPaymentController extends Controller
         return $discountTotal;
 
     }
-    public function calculateCampaignDiscount($adission){ //indirim tl dönüşümü
-        $total = number_format(($adission->total * $adission->discount) / 100, 2);
-        return $total;
-    }
-    public function calculateCollectedTotal($adission) //tahsil edilecek tutar
-    {
-        $total = ceil($adission->total - ((($adission->total * $adission->discount) / 100) + $adission->point));
-        return $total;
-    }
 
-    public function remainingTotal($adission) //kalan  tutar
-    {
-        return ($this->calculateCollectedTotal($adission) - $adission->payments->sum("price")) - $adission->receivables()->whereStatus(1)->sum('price');
-    }
 }
