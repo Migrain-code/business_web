@@ -31,7 +31,7 @@
                         <!--begin::Body-->
                         <div id="kt_accordion_service_woman_item_{{$loop->index}}" class="fs-6 collapse @if($loop->index == 0) show @endif ps-10" data-bs-parent="#kt_accordion_service_woman_{{$service["id"]}}">
                             @foreach($service["services"] as $subService)
-                                <div class="d-flex border-0 border-bottom-1 border-dashed border-secondary p-2 mb-2" style="font-size: 16px">
+                                <div class="d-flex border-0 border-bottom-1 border-dashed border-secondary p-2 mb-2" style="font-size: 14px">
                                     <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                         <input class="form-check-input serviceChecks w-25px h-25px" name="services[]" type="checkbox" value="{{$subService["id"]}}">
                                     </div>
@@ -66,7 +66,7 @@
                         <!--begin::Body-->
                         <div id="kt_accordion_service_man_item_{{$loop->index}}" class="fs-6 collapse @if($loop->index == 0) show @endif ps-10" data-bs-parent="#kt_accordion_service_man_{{$service["id"]}}">
                             @foreach($service["services"] as $subService)
-                                <div class="d-flex border-0 border-bottom-1 border-dashed border-secondary p-2 mb-2" style="font-size: 16px">
+                                <div class="d-flex border-0 border-bottom-1 border-dashed border-secondary p-2 mb-2" style="font-size: 14px">
                                     <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                         <input class="form-check-input serviceChecks w-25px h-25px" name="services[]" type="checkbox" value="{{$subService["id"]}}">
                                     </div>
@@ -99,7 +99,7 @@
                         <!--begin::Body-->
                         <div id="kt_accordion_service_man_item_{{$loop->index}}" class="fs-6 collapse @if($loop->index == 0) show @endif ps-10" data-bs-parent="#kt_accordion_service_man_{{$service["id"]}}">
                             @foreach($service["services"] as $subService)
-                                <div class="d-flex border-0 border-bottom-1 border-dashed border-secondary p-2 mb-2" style="font-size: 16px">
+                                <div class="d-flex border-0 border-bottom-1 border-dashed border-secondary p-2 mb-2" style="font-size: 14px">
                                     <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                         <input class="form-check-input serviceChecks w-25px h-25px" name="services[]" type="checkbox" value="{{$subService["id"]}}">
                                     </div>
