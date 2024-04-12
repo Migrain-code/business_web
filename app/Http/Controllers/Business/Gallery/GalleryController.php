@@ -49,10 +49,10 @@ class GalleryController extends Controller
         if ($percentageUsed != 100){
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
-                //$response = UploadFile::uploadFile($request->file('image'), 'business_galleries');
+                $response = UploadFile::uploadFile($request->file('image'), 'business_galleries');
                 $businessGallery = new BusinessGallery();
                 $businessGallery->business_id = $this->business->id;
-                $businessGallery->way = "asdsad"; //$response["image"]["way"];
+                $businessGallery->way = $response["image"]["way"];
                 $businessGallery->byte = $file->getSize();
                 $businessGallery->name = $this->business->name . "_" . $this->business->gallery->count();
                 $businessGallery->save();
