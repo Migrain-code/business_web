@@ -184,8 +184,17 @@ class CustomerInfoController extends Controller
         $customerGallery = new CustomerGallery();
         $customerGallery->customer_id = $customer->id;
         $customerGallery->business_id = $this->business->id;
-        $response = UploadFile::uploadFile($request->file('profilePhoto'));
-        $customerGallery->image = $response["image"]["way"];
+        if ($request->hasFile('image')){
+            $response = UploadFile::uploadFile($request->file('image'));
+            $customerGallery->image = $response["image"]["way"];
+        }
+        else{
+            return response()->json([
+                'status' => 'error',
+                'message' => "Fotoğraf Seçmeniz Sorunludur"
+            ]);
+        }
+
 
         if ($customerGallery->save()){
             return response()->json([
