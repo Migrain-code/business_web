@@ -8,7 +8,7 @@
             <div class="d-flex flex-center flex-column mb-5">
                 <!--begin::Avatar-->
                 <div class="symbol symbol-150px symbol-circle mb-7">
-                    <img src="/business/assets/media/avatars/300-3.jpg{{--image($customer->image)--}}" alt="image" />
+                    <img src="{{image($customer->image)}}" alt="image" />
                 </div>
                 <!--end::Avatar-->
                 <!--begin::Name-->
