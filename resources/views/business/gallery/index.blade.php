@@ -48,10 +48,10 @@
                 <div class="row">
                     @forelse($galleries as $gallery)
                         <!--begin::item-->
-                        <a class="d-block overlay col-3 mb-5" data-fslightbox="lightbox-basic" href="/business/assets/media/stock/900x600/13.jpg">
+                        <a class="d-block overlay col-3 mb-5" data-fslightbox="lightbox-basic" href="{{image($gallery->way)}}">
                             <!--begin::Image-->
                             <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded h-300px object-fit-cover"
-                                 style="background-image:url('/business/assets/media/stock/900x600/13.jpg')">
+                                 style="background-image:url('{{image($gallery->way)}}')">
                             </div>
                             <!--end::Image-->
 
