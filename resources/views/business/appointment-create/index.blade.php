@@ -327,47 +327,51 @@
 
                         var services = "";
                         $.each(res, function(index, item) {
-                            console.log(item);
                             // Her bir öğeyi konsola yazdır
                             var loop = 0;
                             services +=
                                 ` <!--begin::Item-->
-            <div class="mb-5">
-                <!--begin::Header-->
-                <div class="accordion-header py-3 d-flex" data-app-type="service" data-bs-toggle="collapse" data-bs-target="#kt_accordion_3_item_${item.id}">
-                <span class="accordion-icon">
-                    <i class="ki-duotone ki-plus-square fs-1 accordion-icon-off">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                        <span class="path3"></span>
-                    </i>
-                    <i class="ki-duotone ki-minus-square fs-1 accordion-icon-on">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                    </i>
-                </span>
-                    <h3 class="fs-2 fw-semibold mb-0 ms-4">${item.title}</h3>
-                </div>
-                <!--end::Header-->
+                                    <div class="mb-5">
+                                        <!--begin::Header-->
+                                        <div class="accordion-header py-3 d-flex" data-app-type="service" data-bs-toggle="collapse" data-bs-target="#kt_accordion_3_item_${item.id}">
+                                        <span class="accordion-icon">
+                                            <i class="ki-duotone ki-plus-square fs-1 accordion-icon-off">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                            </i>
+                                            <i class="ki-duotone ki-minus-square fs-1 accordion-icon-on">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                        </span>
+                                            <h3 class="fs-2 fw-semibold mb-0 ms-4">${item.title}</h3>
+                                        </div>
+                                        <!--end::Header-->
 
-                <!--begin::Body-->
-                <div id="kt_accordion_3_item_${item.id}" class="fs-6 collapse show ps-10" data-bs-parent="#kt_accordion_personel_select">
+                                        <!--begin::Body-->
+                                        <div id="kt_accordion_3_item_${item.id}" class="fs-6 collapse show ps-10" data-bs-parent="#kt_accordion_personel_select">
 
-                    <!-- Personelsi için eklenen kısım -->
-                    ${item.personels.map(personel => `
-                        <div class="d-flex border-0 border-bottom-1 border-dashed border-secondary p-2 mb-2" style="font-size: 15px">
-                            <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                <input class="form-check-input serviceChecks w-25px h-25px" name="personel[${item.id}]" type="radio" value="${personel.id}">
-                            </div>
-                            <span>${personel.name}</span>
-                        </div>
-                    `).join('')}
-                    <!-- Personelsi için eklenen kısım sonu -->
-                </div>
-                <!--end::Body-->
-            </div>
-            <!--end::Item-->
-        `;
+                                            <!-- Personelsi için eklenen kısım -->
+                                            ${item.personels.length > 0 ? item.personels.map(personel => `
+                                                <div class="d-flex border-0 border-bottom-1 border-dashed border-secondary p-2 mb-2" style="font-size: 15px">
+                                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                                        <input class="form-check-input serviceChecks w-25px h-25px" name="personel[${item.id}]" type="radio" value="${personel.id}">
+                                                    </div>
+                                                    <span>${personel.name}</span>
+                                                </div>
+                                            `).join('') : `
+                                                <div class="d-flex border-0 border-bottom-1 border-dashed border-secondary p-2 mb-2" style="font-size: 15px">
+
+                                                    <span>Bu hizmet için personel bulunamadı</span>
+                                                </div>
+                                            `}
+                                            <!-- Personelsi için eklenen kısım sonu -->
+                                        </div>
+                                        <!--end::Body-->
+                                    </div>
+                                    <!--end::Item-->
+                                `;
                         });
                         document.getElementById('kt_accordion_personel_select').innerHTML= services;
                     },
