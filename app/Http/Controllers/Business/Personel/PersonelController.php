@@ -88,10 +88,10 @@ class PersonelController extends Controller
         $personel->rest_day = $request->restDay[0];
         $dayList = DayList::all();
 
-        /*if ($request->hasFile('avatar')) {
+        if ($request->hasFile('avatar')) {
             $response = UploadFile::uploadFile($request->file('avatar'), 'personel_images');
             $personel->image = $response["image"]["way"];
-        }*/
+        }
         if ($personel->save()) {
             foreach ($dayList as $day) {
                 $restDay = new PersonelRestDay();
