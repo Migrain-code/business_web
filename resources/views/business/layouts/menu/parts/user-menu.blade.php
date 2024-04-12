@@ -4,7 +4,7 @@
     <div class="cursor-pointer symbol symbol-35px symbol-md-40px"
          data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
          data-kt-menu-placement="bottom-end">
-        <img class="symbol symbol-35px symbol-md-40px" src="/business/assets/media/avatars/300-3.jpg" alt="user">
+        <img class="symbol symbol-35px symbol-md-40px" src="{{image(authUser()->image)}}" alt="user">
     </div>
 
     <!--begin::User account menu-->
@@ -16,7 +16,7 @@
             <div class="menu-content d-flex align-items-center px-3">
                 <!--begin::Avatar-->
                 <div class="symbol symbol-50px me-5">
-                    <img alt="Logo" src="/business/assets/media/avatars/300-3.jpg">
+                    <img alt="Logo" src="{{image(authUser()->image)}}">
                 </div>
                 <!--end::Avatar-->
 
