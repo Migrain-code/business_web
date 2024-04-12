@@ -236,8 +236,6 @@ class AdissionPaymentController extends Controller
     {
         $promossion = $this->business->promossions;
 
-        $discountRate = 0;
-
         switch ($request->paymentType){
             case 0:
                 $discountRate = $promossion->cash;
