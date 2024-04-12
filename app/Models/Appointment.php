@@ -172,13 +172,21 @@ class Appointment extends Model
         $discountRate = $promossion->cash;
 
         //dd($discountRate);
-        $discountTotal= ($this->totalServiceAndProduct() * $discountRate) / 100;
+        $discountTotal= ($this->calculateTotal() * $discountRate) / 100;
         return $discountTotal;
 
     }
+    public function calculateTotal()
+    {
+        $total=0;
+        foreach ($this->services as $service){
+            $total+=$service->service->price;
+        }
+        return $total;
+    }
 
     function totalServiceAndProduct(){ // toplam ürün ve hizmet satışı
-        return calculateTotal($this->services) + $this->sales->sum('total');
+        return $this->calculateTotal() + $this->sales->sum('total');
     }
     public function calculateCampaignDiscount(){ //kampanya indirimi
         $total = (($this->totalServiceAndProduct() * $this->discount) / 100);
@@ -194,5 +202,4 @@ class Appointment extends Model
     {
         return ($this->calculateCollectedTotal() - $this->payments->sum("price")) - $this->receivables()->whereStatus(1)->sum('price');
     }
-
 }
