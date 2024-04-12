@@ -14,7 +14,7 @@
     <meta property="og:url" content="">
     <meta property="og:site_name" content="">
     <link rel="canonical" href="">
-    <link rel="shortcut icon" href="">
+    <link rel="shortcut icon" href="{{image(setting('speed_favicon'))}}">
 
     @include('business.layouts.components.styles')
 </head>
