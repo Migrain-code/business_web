@@ -45,7 +45,7 @@ function fetchGallery(){
                 <div class="col-md-4" style="position: relative">
                     <!--begin::Img-->
                     <a href="${item.image}" target="_blank">
-                        <img src="/business/assets/media/stock/600x600/img-33.jpg" class="rounded w-100" alt="">
+                        <img src="${item.image}" class="rounded w-100" alt="">
                     </a>
                     <a class="btn btn-danger btn-sm me-1 position-absolute delete-btn-gallery" style="
                         right: 20px;
