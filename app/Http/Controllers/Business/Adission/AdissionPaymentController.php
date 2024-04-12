@@ -116,19 +116,19 @@ class AdissionPaymentController extends Controller
             }
             $adission->status = 5;
             $adission->save();
-            if ($request->isPoint){ //parapuan yükleme aktif ise
-                if ($adission->addCashPoint()){
-                    return response()->json([
-                        'status' => "success",
-                        'message' => "Adisyon Başarılı Bir Şekilde Kayıt Edildi"
-                    ]);
-                } else{
-                    return response()->json([
-                        'status' => "error",
-                        'message' => "Bu Adisyonda Parapuan Tanımlaması Yaptınız Başka Parapuan Ekleyemezsiniz"
-                    ], 422);
-                }
+            //if ($request->isPoint){ //parapuan yükleme aktif ise
+            if ($adission->addCashPoint()){
+                return response()->json([
+                    'status' => "success",
+                    'message' => "Adisyon Başarılı Bir Şekilde Kayıt Edildi"
+                ]);
+            } else{
+                return response()->json([
+                    'status' => "error",
+                    'message' => "Bu Adisyonda Parapuan Tanımlaması Yaptınız Başka Parapuan Ekleyemezsiniz"
+                ], 422);
             }
+
 
             return response()->json([
                 'status' => "success",
