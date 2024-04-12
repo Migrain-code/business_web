@@ -43,14 +43,14 @@
                         <!--begin::Header-->
                         <div class="card-header border-0 pt-5">
                             <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fw-bold text-dark">Kapanış Bakiyesi</span>
+                                <span class="card-label fw-bold text-dark">Toplam Gelir</span>
 
-                                <span class="text-muted mt-1 fw-semibold fs-7">Seçtiğiniz Aralıkta Ne kadar kazanç sağlanmış</span>
+                                <span class="text-muted mt-1 fw-semibold fs-7">Seçtiğiniz Aralıkta Ne kadar gelir sağlanmış</span>
                             </h3>
 
                             <!--begin::Toolbar-->
                             <div class="card-toolbar">
-                               <span class="fw-bold" style="font-size: 1.275rem">{{formatPrice($closingBalance["closedTotal"])}}</span>
+                               <span class="fw-bold" style="font-size: 1.275rem">{{formatPrice($closingBalance["total"])}}</span>
                             </div>
                             <!--end::Toolbar-->
                         </div>
@@ -58,42 +58,6 @@
 
                         <!--begin::Body-->
                         <div class="card-body pt-5">
-                            <!--begin::Item-->
-                            <div class="d-flex flex-stack">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-40px me-5">
-                                    <i class="ki-duotone ki-wallet fs-3x text-primary mb-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                    </i>
-                                </div>
-                                <!--end::Symbol-->
-
-                                <!--begin::Section-->
-                                <div class="d-flex align-items-center flex-row-fluid flex-wrap">
-                                    <!--begin:Author-->
-                                    <div class="flex-grow-1 me-2">
-                                        <a href="javascript:void(0)"
-                                           class="text-gray-800 text-hover-primary fs-6 fw-bold">
-                                            Toplam Gelir
-                                        </a>
-
-                                        <span class="text-muted fw-semibold d-block fs-7">Seçtiğiniz aralıktaki toplam gelir</span>
-                                    </div>
-                                    <!--end:Author-->
-
-                                    <!--begin:Action-->
-                                    <span class="fs-4 fw-bold">{{formatPrice($closingBalance["total"])}}</span>
-                                    <!--end:Action-->
-                                </div>
-                                <!--end::Section-->
-                            </div>
-                            <!--end::Item-->
-
-                            <!--begin::Separator-->
-                            <div class="separator separator-dashed my-4"></div>
-                            <!--end::Separator-->
 
                             <!--begin::Item-->
                             <div class="d-flex flex-stack">
@@ -418,6 +382,25 @@
                         <!--end::Body-->
                     </div>
                     <!--end::Social widget 1-->
+                </div>
+                <div class="col-12">
+                    <div class="card mb-5 mb-xl-8">
+                        <!--begin::Header-->
+                        <div class="card-header border-0 pt-5">
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="card-label fw-bold text-dark">Kapanış Bakiyesi</span>
+
+                                <span class="text-muted mt-1 fw-semibold fs-7">Seçtiğiniz Aralıkta kasada kalan tutar</span>
+                            </h3>
+
+                            <!--begin::Toolbar-->
+                            <div class="card-toolbar">
+                                <span class="fw-bold" style="font-size: 1.275rem">{{formatPrice($closingBalance["closedTotal"])}}</span>
+                            </div>
+                            <!--end::Toolbar-->
+                        </div>
+                        <!--end::Header-->
+                    </div>
                 </div>
             </div>
         </div>
