@@ -179,8 +179,8 @@ class PersonelController extends Controller
         $personel->rest_day = $request->restDay[0];
 
         if ($request->hasFile('avatar')) {
-            /*$response = UploadFile::uploadFile($request->file('avatar'), 'personel_images');
-            $personel->image = $response["image"]["way"];*/
+            $response = UploadFile::uploadFile($request->file('avatar'), 'personel_images');
+            $personel->image = $response["image"]["way"];
         }
         if ($personel->save()) {
             $this->saveRestDay($personel, $request->restDay);
