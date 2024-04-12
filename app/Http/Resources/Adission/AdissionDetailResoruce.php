@@ -25,13 +25,16 @@ class AdissionDetailResoruce extends JsonResource
             'isPermission' => $this->earned_point > 0, //parapuan görünürlük durumu
         ];
     }
+    function totalServiceAndProduct(){
+        return calculateTotal($this->services) + $this->sales->sum('total');
+    }
     public function calculateCampaignDiscount(){ //indirim tl dönüşümü
-        $total = number_format(($this->total * $this->discount) / 100, 2);
+        $total = number_format(($this->totalServiceAndProduct * $this->discount) / 100, 2);
         return $total;
     }
     public function calculateCollectedTotal() //tahsil edilecek tutar
     {
-        $total = ceil($this->total - ((($this->total * $this->discount) / 100) + $this->point));
+        $total = $this->totalServiceAndProduct - ((($this->total * $this->discount) / 100) + $this->point);
         return $total;
     }
 
