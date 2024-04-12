@@ -542,4 +542,38 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/tr.js"></script>
     <script src="/business/assets/js/project/adission/edit/receivable/add-receivable.js"></script>
     <script src="/business/assets/js/project/adission/edit/receivable/fetchReceivableList.js"></script>
+
+    <script>
+        $('.addCashPoint').on('click', function () {
+            Swal.fire({
+                title: 'Parapuanı eklemek istediğine eminmisin',
+                text: 'Evete tıkladığında parapuan müşteriye yüklenecek ve bu işlem geri alınamayacaktır.',
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Evet, Yükle!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/isletme/adission/'+adissionId+'/payment/save',
+                        type: "POST",
+                        data: {
+                            "_token": csrf_token,
+                            'isPoint': 1,
+                        },
+                        dataType: "JSON",
+                        success: function (res) {
+                            Swal.fire({
+                                title: res.message,
+                                icon: res.status,
+                            })
+                        }
+                    });
+                }
+            });
+
+        })
+
+    </script>
 @endsection

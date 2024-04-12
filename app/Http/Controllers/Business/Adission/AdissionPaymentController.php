@@ -110,36 +110,27 @@ class AdissionPaymentController extends Controller
      */
     public function paymentSave(AdissionSaveRequest $request, Appointment $adission)
     {
-        if ($this->remainingTotal($adission) == 0){
-            if ($request->filled('note')){
-                $adission->note = $request->note;
-            }
-            $adission->status = 5;
-            $adission->save();
+        if ($adission->remainingTotal() == 0){
             if ($request->isPoint){ //parapuan yükleme aktif ise
                 if ($adission->addCashPoint()){
                     return response()->json([
                         'status' => "success",
-                        'message' => "Adisyon Başarılı Bir Şekilde Kayıt Edildi"
+                        'message' => "Parapuan başarılı bir şekilde yüklendi"
                     ]);
                 } else{
                     return response()->json([
                         'status' => "error",
                         'message' => "Bu Adisyonda Parapuan Tanımlaması Yaptınız Başka Parapuan Ekleyemezsiniz"
-                    ], 422);
+                    ]);
                 }
             }
 
-            return response()->json([
-                'status' => "success",
-                'message' => "Adisyon Başarılı Bir Şekilde Kayıt Edildi"
-            ]);
         }
 
         return response()->json([
             'status' => "error",
-            'message' => "Bu Adisyonda Tahsil Edilmemiş ".$this->remainingTotal($adission)." TL Ödeme Bulunmaktadır. Adisyonu hala kapatmak istiyorsanız tahsilatsız kapat seçeneğini kullanabilirsiniz."
-        ], 422);
+            'message' => "Bu Adisyonda Tahsil Edilmemiş ".$adission->remainingTotal()." TL Ödeme Bulunmaktadır. Ödemenin tamamını aldıktan sonra parapuan yüklemesi yapabilirsiniz."
+        ]);
 
     }
     /**
