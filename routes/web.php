@@ -139,7 +139,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
             Route::delete('/{adission}/payment/{payment}', [AdissionPaymentController::class, 'destroy']);//tahsilat sil
 
             Route::post('/{adission}/payment/save', [AdissionPaymentController::class, 'paymentSave']);
-            Route::get('/{adission}/payment/close', [AdissionPaymentController::class, 'closePayment']);
+            Route::get('/{adission}/payment/close', [AdissionPaymentController::class, 'closePayment'])->name('paymentClose');
 
             //Parapuan Kullan
             Route::get('/{adission}/cash-point', [AdissionAddCashPointController::class, 'index']);

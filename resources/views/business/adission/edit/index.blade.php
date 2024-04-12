@@ -187,6 +187,16 @@
                                         </a>
                                     </div>
                                     <!--end::Menu item-->
+                                <!--begin::Menu item-->
+                                <div class="menu-item px-3">
+
+                                    <a href="{{route('business.adission.paymentClose', $appointment->id)}}"
+                                       class="menu-link flex-stack px-3">Tahsilatsız Kapat
+                                        <i class="fas fa-money-bill-1 ms-2 fs-7">
+                                        </i>
+                                    </a>
+                                </div>
+                                <!--end::Menu item-->
 
                             </div>
                         </div>

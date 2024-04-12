@@ -141,25 +141,25 @@ class AdissionPaymentController extends Controller
      */
     public function closePayment(Appointment $adission)
     {
-        if ($this->remainingTotal($adission) > 0){
+        if ($adission->remainingTotal() > 0){
             $adission->status = 6;
             $adission->save();
 
             $remainingPayment = new RemainingPayment();
             $remainingPayment->business_id = $adission->business_id;
             $remainingPayment->appointment_id = $adission->id;
-            $remainingPayment->price = $this->remainingTotal($adission);
+            $remainingPayment->price = $adission->remainingTotal();
             if ($remainingPayment->save()){
-                return response()->json([
+                return back()->with('response',[
                     'status' => "success",
                     'message' => "Adisyon Başarılı Bir Şekilde Tahsilatsız Olarak Kapatıldı."
                 ]);
             }
         }
-        return response()->json([
+        return back()->with('response',[
             'status' => "error",
             'message' => "Adisyon ücretinin tamamı ödendi. Tahsilatsız Olarak Kapatamazsınız"
-        ], 422);
+        ]);
 
     }
     /**
