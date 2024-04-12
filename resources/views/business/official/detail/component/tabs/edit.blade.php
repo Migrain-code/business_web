@@ -19,7 +19,7 @@
                     <!--begin::Image input-->
                     <div class="image-input image-input-empty" data-kt-image-input="true">
                         <!--begin::Image preview wrapper-->
-                        <div class="image-input-wrapper w-125px h-125px"></div>
+                        <div class="image-input-wrapper w-125px h-125px" style="background-image: url('{{image($official->image)}}')"></div>
                         <!--end::Image preview wrapper-->
 
                         <!--begin::Edit button-->
