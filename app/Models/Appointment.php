@@ -61,7 +61,7 @@ use Illuminate\Database\Eloquent\Model;
 class Appointment extends Model
 {
     use HasFactory;
-    protected $dates=['start_time', 'end_time'];
+    protected $casts=['start_time' => "datetime", 'end_time' => "datetime"];
 
     const STATUS_LIST=[
         0 => [
