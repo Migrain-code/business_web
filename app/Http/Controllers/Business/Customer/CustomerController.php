@@ -47,7 +47,7 @@ class CustomerController extends Controller
         $customer->gender = $request->input('gender');
         $customer->status = 0;
         if ($request->hasFile('image')) {
-            $response = UploadFile::uploadFile($request->file('profilePhoto'));
+            $response = UploadFile::uploadFile($request->file('image'));
             $customer->image = $response["image"]["way"];
         }
         if ($customer->save()) {
