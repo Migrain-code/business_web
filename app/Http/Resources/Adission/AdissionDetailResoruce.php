@@ -29,7 +29,7 @@ class AdissionDetailResoruce extends JsonResource
         return calculateTotal($this->services) + $this->sales->sum('total');
     }
     public function calculateCampaignDiscount(){ //indirim tl dönüşümü
-        $total = number_format(($this->totalServiceAndProduct() * $this->discount) / 100, 2);
+        $total = $this->totalServiceAndProduct() - (($this->totalServiceAndProduct() * $this->discount) / 100);
         return $total;
     }
     public function calculateCollectedTotal() //tahsil edilecek tutar
