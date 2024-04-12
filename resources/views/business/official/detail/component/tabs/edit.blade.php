@@ -15,6 +15,49 @@
         <div class="card-body pt-0 pb-5">
             <!--begin::Form-->
             <form class="form" action="#" id="kt_ecommerce_customer_profile">
+                <div class="fw-row mb-7 mt-3 text-center">
+                    <!--begin::Image input-->
+                    <div class="image-input image-input-empty" data-kt-image-input="true">
+                        <!--begin::Image preview wrapper-->
+                        <div class="image-input-wrapper w-125px h-125px"></div>
+                        <!--end::Image preview wrapper-->
+
+                        <!--begin::Edit button-->
+                        <label class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
+                               data-kt-image-input-action="change"
+                               data-bs-dismiss="click"
+                        >
+                            <i class="fa fa-edit fs-6"><span class="path1"></span><span class="path2"></span></i>
+
+                            <!--begin::Inputs-->
+                            <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                            <input type="hidden" name="avatar_remove" />
+                            <!--end::Inputs-->
+                        </label>
+                        <!--end::Edit button-->
+
+                        <!--begin::Cancel button-->
+                        <span class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
+                              data-kt-image-input-action="cancel"
+                              data-bs-toggle="tooltip"
+                              data-bs-dismiss="click"
+                              title="Fotoğrafı Kaldır">
+                                    <i class="fa fa-xmark fs-3"></i>
+                                </span>
+                        <!--end::Cancel button-->
+
+                        <!--begin::Remove button-->
+                        <span class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
+                              data-kt-image-input-action="remove"
+                              data-bs-toggle="tooltip"
+                              data-bs-dismiss="click"
+                              title="Fotoğrafı Kaldır">
+                                    <i class="fa fa-xmark fs-3"></i>
+                                </span>
+                        <!--end::Remove button-->
+                    </div>
+                    <!--end::Image input-->
+                </div>
                 <!--begin::Input group-->
                 <div class="fv-row mb-7">
                     <!--begin::Label-->

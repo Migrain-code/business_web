@@ -8,6 +8,7 @@ use App\Http\Requests\BusinessOfficial\BusinessOfficialPasswordUpdateRequest;
 use App\Http\Requests\BusinessOfficial\BusinessOfficialUpdateRequest;
 use App\Models\Business;
 use App\Models\BusinessOfficial;
+use App\Services\UploadFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\DataTables;
@@ -119,7 +120,10 @@ class BusinessOfficialController extends Controller
         $official->name = $request->input('name');
         $official->phone = clearPhone($request->input('phone'));
         $official->email = $request->input('email');
-
+        if ($request->hasFile('image')) {
+            $response = UploadFile::uploadFile($request->file('image'));
+            $official->image = $response["image"]["way"];
+        }
         if ($request->filled('password')){
             $official->password = Hash::make($request->input('password'));
         }

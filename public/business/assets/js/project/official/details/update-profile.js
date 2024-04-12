@@ -86,7 +86,7 @@ var KTEcommerceUpdateProfile = function () {
                             formData.append("email", $('[name="email"]').val());
                             formData.append("password", $('[name="password"]').val());
                             formData.append("branch_id", $('[name="branch_id"]').val());
-                            // formData.append("image", $('[name="avatar"]')[0].files[0]);
+                            formData.append("image", $('[name="avatar"]')[0].files[0]);
                             $.ajax({
                                 url: updateUrl,
                                 type: "POST",
