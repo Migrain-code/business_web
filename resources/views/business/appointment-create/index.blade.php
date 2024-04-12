@@ -2,7 +2,8 @@
 @section('title', 'Randevu Oluştur')
 @section('styles')
     <style>
-        #tabMenus .nav-line-tabs .nav-item .nav-link {
+        /*
+            #tabMenus .nav-line-tabs .nav-item .nav-link {
             margin-left: 0;
             font-size: 20px;
             font-weight: 700;
@@ -21,6 +22,8 @@
             color: white;
             padding: 15px;
         }
+
+        */
         input[type="radio"]:disabled + label {
             border-color: red !important; /* Kırmızı bir çizgi için */
             background-color: rgba(255, 0, 0, 0.1) !important; /* Kırmızı arka plan için */
