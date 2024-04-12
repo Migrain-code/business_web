@@ -42,7 +42,7 @@
                         </a>
                         <!--end::item-->
                     @empty
-
+                        @include('business.layouts.components.alerts.empty-alert')
                     @endforelse
                 </div>
             </div>
