@@ -191,7 +191,7 @@ class BusinessOfficialController extends Controller
 
     public function datatable()
     {
-        $officials = $this->business->officials;
+        $officials = $this->business->officials()->whereNot('id', $this->user->id)->get();
         return DataTables::of($officials)
             ->editColumn('id', function ($q) {
                 return createCheckbox($q->id, 'BusinessOfficial', 'Seçtiğiniz yetlili ile ilgili tüm kayıtlar silinecektir. Bu işlem geri alınamayacaktır. Yetkilileri');
