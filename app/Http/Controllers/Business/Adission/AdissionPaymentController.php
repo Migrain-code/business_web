@@ -82,7 +82,7 @@ class AdissionPaymentController extends Controller
                'price' => $adission->remainingTotal()
             ]);
         }
-        $request->dd();
+        //$request->dd();
 
         $adissionEarnedPoint = $this->saveAppointmentEarnedPoint($request, $adission);
         if ($adissionEarnedPoint){
