@@ -140,11 +140,11 @@ class Customer extends Authenticatable
 
     public function city()
     {
-        return $this->hasOne(City::class, 'city_id', 'id');
+        return $this->hasOne(City::class, 'id', 'city_id');
     }
 
     public function district()
     {
-        return $this->hasOne(District::class, 'district_id', 'id');
+        return $this->hasOne(District::class, 'id', 'district_id');
     }
 }
