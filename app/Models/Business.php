@@ -265,4 +265,9 @@ class Business extends Model
     {
         return $this->hasOne(BusinessOfficial::class, 'business_id', 'id');
     }
+
+    public function branches()
+    {
+        return $this->hasMany(Business::class, 'company_id', 'company_id')->where('id','<>', $this->id);
+    }
 }

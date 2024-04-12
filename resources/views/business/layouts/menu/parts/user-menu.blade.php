@@ -45,17 +45,17 @@
 
         <!--begin::Menu item-->
         <div class="menu-item px-5">
-            <a href="account/overview.html" class="menu-link px-5">
+            <a href="{{route('business.business-official.edit', authUser()->id)}}" class="menu-link px-5">
                 Profilim
             </a>
         </div>
         <!--end::Menu item-->
         @if(authUser()->is_admin == 1)
             <div class="menu-item px-5">
-                <a href="apps/projects/list.html" class="menu-link px-5">
+                <a href="{{route('business.branche.index')}}" class="menu-link px-5">
                     <span class="menu-text">Şubeler</span>
                     <span class="menu-badge">
-                                        <span class="badge badge-light-danger badge-circle fw-bold fs-7">3</span>
+                                        <span class="badge badge-light-info badge-circle fw-bold fs-7">{{authUser()->business->branches->count()}}</span>
                                     </span>
                 </a>
             </div>
