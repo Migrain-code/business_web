@@ -97,7 +97,7 @@ var KTModalCustomersAdd = function () {
                                 contentType: false,
                                 dataType: "JSON",
                                 success: function (res) {
-                                    console.log('res', res);
+                                    submitButton.disabled = false;
                                     Swal.fire({
                                         text: "Müşteri Başarılı Bir Şekilde Kayıt Edildi!",
                                         icon: "success",
@@ -109,7 +109,7 @@ var KTModalCustomersAdd = function () {
                                     }).then(function (result) {
                                         form.reset(); // Reset form
                                         modal.hide(); // Hide modal
-                                        submitButton.disabled = false;
+
                                         if ($.fn.DataTable.isDataTable('#datatable')) {
                                             $('#datatable').DataTable().ajax.reload();
                                         }
@@ -124,6 +124,7 @@ var KTModalCustomersAdd = function () {
 
                                 },
                                 error: function (xhr) {
+                                    submitButton.disabled = false;
                                     var errorMessage = "<ul>";
                                     xhr.responseJSON.errors.forEach(function (error) {
                                         errorMessage += "<li>" + error + "</li>";
