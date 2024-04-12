@@ -20,7 +20,7 @@
 
         <!--begin::Add customer-->
         <a href="{{route('business.appointmentCreate.index')}}" class="btn btn-primary me-1">
-            Randevu Oluştur
+            Adisyon Oluştur
         </a>
 
         <!--begin::Export-->
