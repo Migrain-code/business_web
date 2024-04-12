@@ -48,7 +48,7 @@
                 <div class="row">
                     @forelse($galleries as $gallery)
                         <!--begin::item-->
-                        <a class="d-block overlay col-3 mb-5" data-fslightbox="lightbox-basic" href="{{image($gallery->way)}}">
+                        <a class="d-block overlay col-3 mb-5" href="{{image($gallery->way)}}">
                             <!--begin::Image-->
                             <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded h-300px object-fit-cover"
                                  style="background-image:url('{{image($gallery->way)}}')">
@@ -65,7 +65,7 @@
                         </a>
                         <!--end::item-->
                     @empty
-
+                        @include('business.layouts.components.alerts.empty-alert')
                     @endforelse
                 </div>
             </div>
@@ -77,7 +77,6 @@
 @endsection
 @section('scripts')
 
-        <script src="/business/assets/js/project/fslightbox/fslightbox.bundle.js"></script>
         <script>
             var myDropzone = new Dropzone("#drop_zone_area", {
                 url: '/isletme/gallery', // Set the url for your upload script location
