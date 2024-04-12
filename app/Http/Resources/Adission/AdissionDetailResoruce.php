@@ -16,7 +16,7 @@ class AdissionDetailResoruce extends JsonResource
     {
         return [
             'isCampaign' => isset($this->campaign_id),
-            'total' => formatPrice($this->total),
+            'total' => formatPrice($this->totalServiceAndProduct()),
             'campaignDiscount' => formatPrice($this->calculateCampaignDiscount()),//kampanya indirimi
             'cashPoint' =>  formatPrice($this->point),//kullanılan cash point
             'collectedTotal' => formatPrice($this->calculateCollectedTotal()),//tahsil edilecek tutar
@@ -29,12 +29,12 @@ class AdissionDetailResoruce extends JsonResource
         return calculateTotal($this->services) + $this->sales->sum('total');
     }
     public function calculateCampaignDiscount(){ //indirim tl dönüşümü
-        $total = number_format(($this->totalServiceAndProduct * $this->discount) / 100, 2);
+        $total = number_format(($this->totalServiceAndProduct() * $this->discount) / 100, 2);
         return $total;
     }
     public function calculateCollectedTotal() //tahsil edilecek tutar
     {
-        $total = $this->totalServiceAndProduct - ((($this->total * $this->discount) / 100) + $this->point);
+        $total = $this->totalServiceAndProduct() - ((($this->total * $this->discount) / 100) + $this->point);
         return $total;
     }
 
