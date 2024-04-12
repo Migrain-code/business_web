@@ -8,8 +8,9 @@ $('.cashPoint').on('click', function () {
         success: function (response) {
             let container = document.getElementById('cashPointContainer');
             var items = "";
-            $.each(response, function (index, item) {
-                var item = `
+            if (response.length > 0){
+                $.each(response, function (index, item) {
+                    var item = `
                 <!--begin::Item-->
                 <div class="d-flex flex-stack">
                     <!--begin::Section-->
@@ -46,8 +47,25 @@ $('.cashPoint').on('click', function () {
                 <!--end::Separator-->
 
                `;
-                items += item;
-            });
+                    items += item;
+                });
+            }
+            else{
+                items = `<div class="alert alert-warning d-flex align-items-center p-5 justify-content-center text-center">
+                    <!--begin::Icon-->
+                    <i class="ki-duotone ki-shield-tick fs-2hx text-warning me-4"><span class="path1"></span><span class="path2"></span></i>
+                    <!--end::Icon-->
+
+                    <!--begin::Wrapper-->
+                    <div class="d-flex flex-column">
+                        <!--begin::Content-->
+                        <span>Kayıt Bulunamadı.</span>
+                        <!--end::Content-->
+                    </div>
+                    <!--end::Wrapper-->
+                </div>
+                `
+            }
             container.innerHTML = items;
         },
         error: function (xhr) {
