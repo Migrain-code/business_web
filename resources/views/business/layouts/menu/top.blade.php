@@ -2206,7 +2206,7 @@
                         <div class="row g-0">
                             <!--begin:Item-->
                             <div class="col-6">
-                                <a href="apps/projects/budget.html"
+                                <a href="{{route('business.case')}}"
                                    class="d-flex flex-column flex-center h-100 p-6 bg-hover-light border-end border-bottom">
                                     <i class="ki-duotone ki-wallet fs-3x text-primary mb-2"><span
                                             class="path1"></span><span class="path2"></span><span class="path3"></span></i>
@@ -2218,7 +2218,7 @@
 
                             <!--begin:Item-->
                             <div class="col-6">
-                                <a href="apps/projects/settings.html"
+                                <a href="{{route('business.support-center.index')}}"
                                    class="d-flex flex-column flex-center h-100 p-6 bg-hover-light border-bottom">
                                     <i class="ki-duotone ki-question fs-3x text-primary mb-2"><span
                                             class="path1"></span><span class="path2"></span></i> <span
@@ -2230,7 +2230,7 @@
 
                             <!--begin:Item-->
                             <div class="col-6">
-                                <a href="apps/projects/list.html"
+                                <a href="{{route('business.appointmentCreate.index')}}"
                                    class="d-flex flex-column flex-center h-100 p-6 bg-hover-light border-end">
                                     <i class="ki-duotone ki-abstract-41 fs-3x text-primary mb-2"><span
                                             class="path1"></span><span class="path2"></span></i> <span
@@ -2242,7 +2242,7 @@
 
                             <!--begin:Item-->
                             <div class="col-6">
-                                <a href="apps/projects/users.html"
+                                <a href="{{route('business.customer.index')}}"
                                    class="d-flex flex-column flex-center h-100 p-6 bg-hover-light">
                                     <i class="ki-duotone ki-user fs-3x text-primary mb-2"><span
                                             class="path1"></span><span class="path2"></span></i> <span
@@ -2253,27 +2253,27 @@
                             <!--end:Item-->
                             <!--begin:Item-->
                             <div class="col-6">
-                                <a href="{{route('business.adission.index')}}"
+                                <a href="{{route('business.sale.create')}}"
                                    class="d-flex flex-column flex-center h-100 p-6 bg-hover-light">
                                     <i class="ki-duotone ki-file-sheet fs-3x text-primary mb-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
-                                    <span class="fs-5 fw-semibold text-gray-800 mb-0">Yeni Adisyon</span>
-                                    <span class="fs-7 text-gray-400">Adisyonlar</span>
+                                    <span class="fs-5 fw-semibold text-gray-800 mb-0">Yeni Ürün Satışı</span>
+                                    <span class="fs-7 text-gray-400">Ürün Satışları</span>
                                 </a>
                             </div>
                             <!--end:Item-->
                             <!--begin:Item-->
                             <div class="col-6">
-                                <a href="{{route('business.service.index')}}"
+                                <a href="{{route('business.cost.index')}}"
                                    class="d-flex flex-column flex-center h-100 p-6 bg-hover-light">
                                     <i class="ki-duotone ki-abstract fs-3x text-primary mb-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
-                                    <span class="fs-5 fw-semibold text-gray-800 mb-0">Yeni Hizmet</span>
-                                    <span class="fs-7 text-gray-400">Hizmetler</span>
+                                    <span class="fs-5 fw-semibold text-gray-800 mb-0">Yeni Masraf</span>
+                                    <span class="fs-7 text-gray-400">Masraflar</span>
                                 </a>
                             </div>
                             <!--end:Item-->
