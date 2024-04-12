@@ -24,7 +24,7 @@
                                 <i class="ki-duotone ki-plus-square fs-1 accordion-icon-off"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                                 <i class="ki-duotone ki-minus-square fs-1 accordion-icon-on"><span class="path1"></span><span class="path2"></span></i>
                             </span>
-                            <h3 class="fs-2 fw-semibold mb-0 ms-4">{{$service["name"]}}</h3>
+                            <h3 class="fw-semibold mb-0 ms-4">{{$service["name"]}}</h3>
                         </div>
                         <!--end::Header-->
 
@@ -59,7 +59,7 @@
                                 <i class="ki-duotone ki-plus-square fs-1 accordion-icon-off"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                                 <i class="ki-duotone ki-minus-square fs-1 accordion-icon-on"><span class="path1"></span><span class="path2"></span></i>
                             </span>
-                            <h3 class="fs-2 fw-semibold mb-0 ms-4">{{$service["name"]}}</h3>
+                            <h3 class="fw-semibold mb-0 ms-4">{{$service["name"]}}</h3>
                         </div>
                         <!--end::Header-->
 
@@ -92,7 +92,7 @@
                                 <i class="ki-duotone ki-plus-square fs-1 accordion-icon-off"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                                 <i class="ki-duotone ki-minus-square fs-1 accordion-icon-on"><span class="path1"></span><span class="path2"></span></i>
                             </span>
-                            <h3 class="fs-2 fw-semibold mb-0 ms-4">{{$service["name"]}}</h3>
+                            <h3 class="fw-semibold mb-0 ms-4">{{$service["name"]}}</h3>
                         </div>
                         <!--end::Header-->
 
