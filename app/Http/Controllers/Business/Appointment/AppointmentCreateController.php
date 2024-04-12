@@ -36,11 +36,11 @@ class AppointmentCreateController extends Controller
     public function index()
     {
         $business = $this->business;
-
+        //kadın türündeki hizmetleri
         $womanServicesArray = $business->services()->where('type', 1)->with('categorys')->get();
         $womanServiceCategories = $womanServicesArray->groupBy('categorys.name');
         $womanServices = $this->transformServices($womanServiceCategories);
-        dd($womanServices);
+
         $manServicesArray = $business->services()->where('type', 2)->with('categorys')->get();
         $manServiceCategories = $manServicesArray->groupBy('categorys.name');
         $manServices = $this->transformServices($manServiceCategories);
@@ -447,13 +447,13 @@ class AppointmentCreateController extends Controller
 
             $transformedServices = [];
             foreach ($services as $service) {
-                if ($service->personels->count() > 0) {
+                //if ($service->personels->count() > 0) { //hizmeti veren personel sayısı birden fazla ise listede göster
                     $transformedServices[] = [
                         'id' => $service->id,
                         'name' => $service->subCategory->getName(),
                         'price' => $service->price,
                     ];
-                }
+
             }
             $transformedDataWoman[] = [
                 'id' => $services->first()->category,
