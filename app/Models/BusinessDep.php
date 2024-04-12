@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $business_id
@@ -34,7 +34,7 @@ class BusinessDep extends Model
 {
     use HasFactory;
 
-    protected $dates = ["payment_date"];
+    protected $casts = ["payment_date" => "date"];
 
     public function customer()
     {

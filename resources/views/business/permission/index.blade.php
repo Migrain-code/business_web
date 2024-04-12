@@ -1,5 +1,5 @@
 @extends('business.layouts.master')
-@section('title', 'Alacaklar')
+@section('title', 'İzinler')
 @section('styles')
 
 @endsection
@@ -14,7 +14,7 @@
     <!--end::Item-->
     <!--begin::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-        <a href="{{route('business.cost.index')}}"> Alacaklar </a>
+        <a href="{{route('business.dep.index')}}"> İzinler </a>
     </li>
     <!--end::Item-->
 @endsection
@@ -33,13 +33,13 @@
                                 class="path1"></span><span class="path2"></span></i> <input
                             type="text" data-kt-customer-table-filter="search"
                             class="form-control form-control-solid w-250px ps-13"
-                            placeholder="Alacaklarda Ara">
+                            placeholder="İzinlerde Ara">
                     </div>
                     <!--end::Search-->
                 </div>
                 <!--begin::Card title-->
 
-                @include('business.receivable.parts.toolbar')
+                @include('business.permission.parts.toolbar')
             </div>
             <!--end::Card header-->
 
@@ -53,10 +53,10 @@
                         <th class="w-10px pe-2">
                             #
                         </th>
-                        <th class="min-w-125px">Müşteri Adı</th>
-                        <th class="min-w-125px">Ödeme Tarihi</th>
-                        <th class="min-w-125px">Fiyat</th>
-                        <th class="min-w-125px">Ödemeye Kalan</th>
+                        <th class="min-w-125px">Personel Adı</th>
+                        <th class="min-w-125px">Başlangıç Tarihi</th>
+                        <th class="min-w-125px">Bitiş Tarihi</th>
+                        <th class="min-w-125px">İzin Bitişine Kalan Gün Sayısı</th>
                         <th class="min-w-125px">İşlem Tarihi</th>
                         <th class="min-w-70px">İşlemler</th>
                     </tr>
@@ -73,23 +73,23 @@
 
         <!--begin::Modals-->
         <!--begin::Modal - Customers - Add-->
-        @include('business.receivable.parts.add-customer')
+        @include('business.permission.parts.add-customer')
 
     </div>
 
 @endsection
 @section('scripts')
     <!-- DataTables Buttons JS -->
-    <script src="/business/assets/js/project/receivable/listing/listing.js"></script>
-    <script src="/business/assets/js/project/receivable/listing/add.js"></script>
+    <script src="/business/assets/js/project/personel-stay-off-day/listing/listing.js"></script>
+    <script src="/business/assets/js/project/personel-stay-off-day/listing/add.js"></script>
 
     <script>
-        let DATA_URL = "{{route('business.receivable.datatable')}}";
+        let DATA_URL = "{{route('business.personel-stay-off-day.datatable')}}";
         let DATA_COLUMNS = [
             {data: 'id'},
-            {data: 'customer_id'},
-            {data: 'payment_date'},
-            {data: 'price'},
+            {data: 'personel_id'},
+            {data: 'start_time'},
+            {data: 'end_time'},
             {data: 'remainingDate'},
             {data: 'created_at'},
             {data: 'action'}
@@ -99,7 +99,7 @@
 
     <script>
         $(document).ready(function(){
-            $("#kt_ecommerce_edit_order_date").flatpickr({
+            $(".datePickerInput").flatpickr({
                 altInput: true,
                 altFormat: "d F, Y H:i", // Saat bilgisini de içer
                 dateFormat: "Y-m-d H:i", // Tarih ve saat formatını belirle
@@ -107,6 +107,13 @@
                 time_24hr: true, // 24 saat formatını kullan
                 locale: 'tr',
             });
+            $("#listType").flatpickr({
+                altInput: true,
+                altFormat: "d F, Y", // Saat bilgisini de içer
+                dateFormat: "Y-m-d", // Tarih ve saat formatını belirle
+                locale: 'tr',
+            });
+
         });
     </script>
 @endsection

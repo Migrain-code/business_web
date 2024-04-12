@@ -32,6 +32,8 @@ use App\Http\Controllers\Business\Gallery\GalleryController;
 use \App\Http\Controllers\Business\Gallery\CustomerGalleryController;
 use App\Http\Controllers\Business\Cost\BusinessCostController;
 use App\Http\Controllers\Business\Receivable\AppointmentReceivableController;
+use App\Http\Controllers\Business\Deps\BusinessDepController;
+use \App\Http\Controllers\Business\Personel\PersonelStayOffDayController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -191,6 +193,10 @@ Route::prefix('isletme')->as('business.')->group(function (){
         /* -------------------- Alacaklar --------------------------*/
         Route::resource('receivable', AppointmentReceivableController::class);
 
+        /* -------------------- Borçlar --------------------------*/
+        Route::resource('dep', BusinessDepController::class);
+
+        Route::resource('personel-stay-off-day', PersonelStayOffDayController::class);
         /* -------------------- Global Ajax İstekleri --------------------------*/
         Route::post('password-update', [BusinessOfficialController::class, 'passwordUpdate'])->name('passwordUpdate');
 

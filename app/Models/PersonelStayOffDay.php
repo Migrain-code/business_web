@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $business_id
@@ -32,7 +32,7 @@ class PersonelStayOffDay extends Model
 {
     use HasFactory;
 
-    protected $dates = ["start_time", 'end_time'];
+    protected $casts = ["start_time" => "datetime", 'end_time' => "datetime"];
 
     public function personel()
     {

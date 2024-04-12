@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Personel;
+namespace App\Http\Requests\BusinessDep;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
-class PersonelStayOffDayAddRequest extends FormRequest
+class DepListAddRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,18 +27,20 @@ class PersonelStayOffDayAddRequest extends FormRequest
     public function rules()
     {
         return [
-            'personels' => 'required',
-            'start_time' => 'required',
-            'end_time' => 'required',
+            'customerId' => "required",
+            'paymentDate' => 'required|date',
+            'price' => 'required',
+            'note' => 'nullable',
         ];
     }
 
     public function attributes()
     {
         return [
-            'personels' => 'Personel/Personeller',
-            'start_time' => 'İzin Başlangıç Tarihi',
-            'end_time' => 'İzin Bitiş Tarihi',
+            'customerId' => "Müşteri Seçimi",
+            'paymentDate' => 'Ödenecek Tarih',
+            'price' => 'Tutar',
+            'note' => 'Not',
         ];
     }
 
@@ -45,7 +48,7 @@ class PersonelStayOffDayAddRequest extends FormRequest
     {
         throw new HttpResponseException(response()->json([
             'status' => 'error',
-            'message' => 'Eksik Alanlar Var',
+            'message' =>  $validator->errors()->first(),
             'errors' => $validator->errors()->all(),
         ], 422));
     }

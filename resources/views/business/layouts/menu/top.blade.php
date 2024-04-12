@@ -531,7 +531,7 @@
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="pages/contact.html" class="menu-link ">
+                                                                <a href="{{route('business.receivable.index')}}" class="menu-link ">
                                                                     <span class="menu-title">Alacaklar</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -540,7 +540,7 @@
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="pages/contact.html" class="menu-link ">
+                                                                <a href="{{route('business.dep.index')}}" class="menu-link ">
                                                                     <span class="menu-title">Borçlar</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -601,6 +601,15 @@
                                                                 <!--begin:Menu link-->
                                                                 <a href="{{route('business.branche.index')}}" class="menu-link ">
                                                                     <span class="menu-title">Şubeler</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.personel-stay-off-day.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">İzinler</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
                                                             </div>
