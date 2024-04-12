@@ -211,7 +211,7 @@ class AdissionPaymentController extends Controller
             ], 422);
         }
 
-
+        $request->dd();
         $adissionEarnedPoint = $this->saveAppointmentEarnedPoint($request, $adission);
         if ($adissionEarnedPoint){
             $adission->earned_point -= $this->calculateAppointmentEarnedPoint($payment, $adission); //tahsilatta kazanılan puanı adisyondan düşür
