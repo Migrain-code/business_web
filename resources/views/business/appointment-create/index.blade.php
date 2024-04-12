@@ -363,7 +363,7 @@
                                             `).join('') : `
                                                 <div class="d-flex border-0 border-bottom-1 border-dashed border-secondary p-2 mb-2" style="font-size: 15px">
 
-                                                    <span class="alert alert-danger border-dashed p-3 m-3"> Bu hizmet için personel bulunamadı</span>
+                                                    <span class="alert alert-danger border-dashed p-3 m-3 w-100 text-center"> Bu hizmet için personel bulunamadı</span>
                                                 </div>
                                             `}
                                             <!-- Personelsi için eklenen kısım sonu -->
