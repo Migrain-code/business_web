@@ -170,11 +170,16 @@ class BusinessBrancheController extends Controller
             ->editColumn('id', function ($q) {
                 return createCheckbox($q->id, 'Business', 'Seçtiğiniz şube ile ilgili tüm kayıtlar silinecektir. Bu işlem geri alınamayacaktır. Şubeleri');
             })
+            ->editColumn('branch_name', function ($q){
+                return $q->branch_name ?? $q->name;
+            })
             ->editColumn('official', function ($q) {
                 if (isset($q->official)){
                     return createName('', $q->official->name);
                 }
-                return "Yetkili Bulunamadı";
+                else{
+                    return "Yönetici Yetkilisi";
+                }
             })
             ->editColumn('status', function ($q) {
                 return create_switch($q->id, $q->status == 1 ? true : false, 'Business', 'status');
