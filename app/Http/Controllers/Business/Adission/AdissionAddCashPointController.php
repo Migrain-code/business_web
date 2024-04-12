@@ -36,30 +36,31 @@ class AdissionAddCashPointController extends Controller
     public function store(Appointment $adission, CashPointUseRequest $request)
     {
         $cashPoint = CustomerCashPoint::find($request->cashpoint_id);
-        if ($this->remainingTotal($adission) == 0) {
+        if ($adission->remainingTotal() == 0) {
             return back()->with('response',[
                 'status' => "error",
                 'message' => "Bu Adisyonda tüm ücretler tahsil edildi. Parapuan Kullanımı Yapılamaz."
             ]);
         }
 
-        if ($cashPoint->price > $this->remainingTotal($adission)) {
-            $collectionTotal = $cashPoint->price - $this->remainingTotal($adission);
-            $adission->point = $this->remainingTotal($adission);
+        if ($cashPoint->price > $adission->remainingTotal()) { // parapuan tutarı kalan tutardan fazlaysa
+            $collectionTotal = $cashPoint->price - $adission->remainingTotal(); // "parapuandan kalan" price = 25  - kalan ödeme = 15 parapuandan kalan = 10
+            $adission->point = $adission->remainingTotal();
             $adission->save();
 
-            $cashPoint->price = $collectionTotal;
+            $cashPoint->price = $collectionTotal; // kalan tutarı parapuana yazdır
             $cashPoint->save();
             return back()->with('response',[
-                'status' => "error",
+                'status' => "warning",
                 'message' => "Parapuan Ödemeye Uygulandı. Parapuan tutarı ödeme tutarından fazla oluduğu için parapuandan " . $adission->point . " TL tahsil edildi."
             ]);
+        } else{
+            $adission->point = $cashPoint->price;
+            $adission->save();
+            $cashPoint->price = 0;
+            $cashPoint->save();
         }
-        $adission->point = $cashPoint->price;
-        $adission->save();
 
-        $cashPoint->price = 0;
-        $cashPoint->save();
 
         return back()->with('response',[
             'status' => "success",
@@ -84,16 +85,16 @@ class AdissionAddCashPointController extends Controller
      */
     public function receivableAdd(Request $request,Appointment $adission)
     {
-        if ($this->remainingTotal($adission) == 0){
+        if ($adission->remainingTotal() == 0){
             return response()->json([
                 'status' => "error",
                 'message' => "Bu adisyonun tüm ücreti tahsil edildi.Yeni Alacak ekleyemezsiniz."
             ]);
         }
         $totalReceivable = $adission->receivables()->whereStatus(0)->sum('price');
-        if ($request->price > $this->remainingTotal($adission) - $totalReceivable){
+        if ($request->price > $adission->remainingTotal() - $totalReceivable){
 
-            $sum = $this->remainingTotal($adission) - $totalReceivable;
+            $sum = $adission->remainingTotal() - $totalReceivable;
 
             if ($sum == 0){
                 return response()->json([
@@ -107,10 +108,10 @@ class AdissionAddCashPointController extends Controller
                 'message' => "Adisyona Eklediğiniz Alacakların Toplamı ve Gönderdiğini Tutar Adisyonun Kalan Ücretini Geçemez. ". $sum . " TL'den fazla fiyat giremezsiniz."
             ]);
         }
-        if ($request->price  > $this->remainingTotal($adission)){
+        if ($request->price  > $adission->remainingTotal()){
             return response()->json([
                 'status' => "error",
-                'message' => "Gönderdiğiniz Tutar. Adisyonun Kalan Ücretini Geçemez. ". $this->remainingTotal($adission). " TL'den fazla fiyat giremezsiniz."
+                'message' => "Gönderdiğiniz Tutar. Adisyonun Kalan Ücretini Geçemez. ". $adission->remainingTotal(). " TL'den fazla fiyat giremezsiniz."
             ]);
         }
         $receivable = new AppointmentReceivable();
@@ -170,14 +171,5 @@ class AdissionAddCashPointController extends Controller
             ]);
         }
     }
-    public function calculateCollectedTotal($adission) //tahsil edilecek tutar
-    {
-        $total = ceil($adission->total - ((($adission->total * $adission->discount) / 100) + $adission->point));
-        return $total;
-    }
 
-    public function remainingTotal($adission) //kalan  tutar
-    {
-        return ($this->calculateCollectedTotal($adission) - $adission->payments->sum("price")) - $adission->receivables()->whereStatus(1)->sum('price');
-    }
 }
