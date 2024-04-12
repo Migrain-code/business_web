@@ -196,7 +196,7 @@
 
         <!--begin::Menu item-->
         <div class="menu-item px-5 my-1">
-            <a href="account/settings.html" class="menu-link px-5">
+            <a href="{{route('business.business-official.edit', authUser()->id)}}" class="menu-link px-5">
                 Hesap Ayarlarım
             </a>
         </div>
