@@ -137,4 +137,14 @@ class Customer extends Authenticatable
     {
         return $this->hasMany(BusinessComment::class, 'customer_id', 'id');
     }
+
+    public function city()
+    {
+        return $this->hasOne(City::class, 'city_id', 'id');
+    }
+
+    public function district()
+    {
+        return $this->hasOne(District::class, 'district_id', 'id');
+    }
 }
