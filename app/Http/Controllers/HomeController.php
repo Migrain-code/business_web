@@ -3,6 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Home\InformationAddRequest;
+use App\Models\BussinessPackage;
+use App\Models\Comment;
+use App\Models\ContactInfo;
+use App\Models\MaingPage;
+use App\Models\Propartie;
+use App\Models\Sponsor;
 
 class HomeController extends Controller
 {
@@ -11,7 +18,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('main-page.index');
+        $brands = Sponsor::whereStatus(1)->get();
+        $mainPagePartitions = MaingPage::whereType(1)->whereStatus(1)->get();
+        $comments = Comment::whereStatus(1)->take(5)->get();
+        $proparties = Propartie::orderBy('order_number')->whereStatus(1)->where('is_featured', 1)->get();
+        return view('main-page.index', compact('proparties', 'comments', 'brands', 'mainPagePartitions'));
     }
 
     /**
@@ -20,9 +31,16 @@ class HomeController extends Controller
      */
     public function proparties()
     {
-        return view('proparties.index');
+        $proparties = Propartie::orderBy('order_number')->whereStatus(1)->get();
+        return view('proparties.index', compact('proparties'));
     }
 
+    public function propartieDetail($slug)
+    {
+        $propartie = Propartie::where('slug', $slug)->first();
+
+        return view('proparties.detail.index', compact('propartie'));
+    }
     /**
      * Fiyatlandırma
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
@@ -30,7 +48,10 @@ class HomeController extends Controller
      */
     public function prices()
     {
-        return view('prices.index');
+        $monthlyPackages = BussinessPackage::where('type', 0)->get();
+        $yearlyPackages = BussinessPackage::where('type', 1)->get();
+
+        return view('prices.index', compact('monthlyPackages', 'yearlyPackages'));
     }
 
     /**
@@ -39,7 +60,9 @@ class HomeController extends Controller
      */
     public function references()
     {
-        return view('references.index');
+        $brands = Sponsor::whereStatus(1)->get();
+
+        return view('references.index', compact('brands'));
     }
 
     /**
@@ -76,5 +99,27 @@ class HomeController extends Controller
     public function loginTypes()
     {
         return view('login-type.index');
+    }
+
+    public function informationRequest(InformationAddRequest $request)
+    {
+        $findContact = ContactInfo::where('ip_address', $request->ip())->whereStatus(0)->first();
+        if ($findContact){
+            return back()->with('response', [
+                'status' => "error",
+                'message' => "Ön Bilgilendirme Talebini Daha Önce Gönderdiniz"
+            ]);
+        }
+        $contactInfo = new ContactInfo();
+        $contactInfo->name = $request->input('name');
+        $contactInfo->salon_name = $request->input('salon_name');
+        $contactInfo->phone = $request->input('phone');
+        $contactInfo->ip_address = $request->ip();
+        if ($contactInfo->save()){
+            return back()->with('response', [
+                'status' => "success",
+                'message' => "Ön Bilgilendirme Talebiniz Gönderildi"
+            ]);
+        }
     }
 }

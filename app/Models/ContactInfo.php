@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BussinessPackagePropartieList extends Model
+class ContactInfo extends Model
 {
     use HasFactory;
 }

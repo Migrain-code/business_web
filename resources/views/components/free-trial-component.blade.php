@@ -8,8 +8,8 @@
                         Hemen 14 Gün Ücretsiz Deneyin
                     </h2>
                     <div class="buttons">
-                        <a href="#"> 14 Gün Ücretsiz Dene </a>
-                        <a href="#">Ücretsiz Deneme</a>
+                        <a href="{{route('business.home')}}"> 14 Gün Ücretsiz Dene </a>
+                        <a href="{{route('business.home')}}">Ücretsiz Deneme</a>
                     </div>
                 </div>
                 <div class="man-image">

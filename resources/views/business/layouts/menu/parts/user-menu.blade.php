@@ -90,7 +90,7 @@
 
                 <!--begin::Menu item-->
                 <div class="menu-item px-3">
-                    <a href="account/statements.html" class="menu-link px-5">
+                    <a href="{{route('business.subscription.index')}}" class="menu-link px-5">
                         Abonelik
                     </a>
                 </div>

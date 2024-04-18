@@ -36,17 +36,18 @@
                             aşağıdaki formu doldurun sizi arayalım.
                         </p>
                     </div>
-                    <form action="">
+                    <form action="{{route('send.informationRequest')}}" method="post">
+                        @csrf
                         <div class="field">
-                            <input type="text" placeholder="İşletme Sahibi"/>
+                            <input type="text" name="name" placeholder="İşletme Sahibi"/>
                         </div>
 
                         <div class="field">
-                            <input type="text" placeholder="İşletme Adı"/>
+                            <input type="text" name="salon_name" placeholder="İşletme Adı"/>
                         </div>
 
                         <div class="field">
-                            <input type="phone" placeholder="Telefon Numaranız"/>
+                            <input type="text" name="phone" placeholder="Telefon Numaranız"/>
                         </div>
 
                         <div class="field">

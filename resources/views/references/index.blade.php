@@ -26,7 +26,9 @@
 
                 <div class="row">
                     <div class="references-items">
-                        @include('references.parts.item')
+                        @foreach($brands as $brand)
+                            @include('references.parts.item')
+                        @endforeach
                     </div>
                 </div>
             </div>

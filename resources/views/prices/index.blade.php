@@ -55,21 +55,46 @@
                 <!-- Yıllık Paketler -->
                 <section class="home-properties packages" id="tab2">
                     <div class="row packages-list">
+                        @foreach($yearlyPackages as $package)
+                            <div class="col-lg-3 col-md-6" >
+                                <div class="package-item">
+                                    <div class="icon">
+                                        <img src="/front/assets/images/business/free-package.svg" alt="" />
+                                    </div>
+                                    <div class="package-info">
+                                        <h4>{{$package->name}}</h4>
+                                        <span>{{$package->price ==  0 ? "Ücretsiz" : formatPrice($package->price)}}</span>
+                                    </div>
+
+                                    <ul>
+                                        @foreach($package->proparties as $propartie)
+                                            <li>{{$propartie->list->name}}</li>
+                                        @endforeach
+                                    </ul>
+
+                                    <a href="{{route('business.home')}}">{{$package->price ==  0 ? "Ücretsiz" : formatPrice($package->price)}}</a>
+                                </div>
+                            </div>
+                        @endforeach
+
 
                     </div>
                 </section>
-                @include('main-page.parts.stats')
+
             </div>
         </section>
 
         @include('main-page.parts.stats')
-        @include('main-page.parts.service')
+
     </article>
 
 @endsection
 
 @section('scripts')
     <script>
+        $(document).ready(function (){
+            document.getElementById('tab2').style.display = "none";
+        });
         var counter = 0;
         $('.switchClick').on('click', function (){
             document.getElementById('tab2').style.display = "none";

@@ -1,23 +1,22 @@
-<div class="col-lg-3 col-md-6" data-aos="zoom-in">
-    <div class="package-item">
-        <div class="icon">
-            <img src="/front/assets/images/business/free-package.svg" alt="" />
-        </div>
-        <div class="package-info">
-            <h4>Ücretsiz Paket</h4>
-            <span>Ücretsiz</span>
-        </div>
+@foreach($monthlyPackages as $package)
+    <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+        <div class="package-item">
+            <div class="icon">
+                <img src="/front/assets/images/business/free-package.svg" alt="" />
+            </div>
+            <div class="package-info">
+                <h4>{{$package->name}}</h4>
+                <span>{{$package->price ==  0 ? "Ücretsiz" : formatPrice($package->price)}}</span>
+            </div>
 
-        <ul>
-            <li>Özel müşteri temsilcisi</li>
-            <li>Sınırsız randevu girişi</li>
-            <li>Aylık 100 Randevu Sınırı</li>
-            <li>Online randevu sistemi</li>
-            <li>Müşteri takibi</li>
-            <li>Randevu yönetimi</li>
-            <li>Randevu Alma</li>
-        </ul>
+            <ul>
+                @foreach($package->proparties as $propartie)
+                    <li>{{$propartie->list->name}}</li>
+                @endforeach
+            </ul>
 
-        <a href="#">Ücretsiz</a>
+            <a href="{{route('business.home')}}">{{$package->price ==  0 ? "Ücretsiz" : formatPrice($package->price)}}</a>
+        </div>
     </div>
-</div>
+@endforeach
+

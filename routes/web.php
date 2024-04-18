@@ -34,6 +34,7 @@ use App\Http\Controllers\Business\Cost\BusinessCostController;
 use App\Http\Controllers\Business\Receivable\AppointmentReceivableController;
 use App\Http\Controllers\Business\Deps\BusinessDepController;
 use \App\Http\Controllers\Business\Personel\PersonelStayOffDayController;
+use \App\Http\Controllers\Business\Subscription\SubscribtionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,12 +48,14 @@ use \App\Http\Controllers\Business\Personel\PersonelStayOffDayController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/ozellikler', [HomeController::class, 'proparties'])->name('proparties');
+Route::get('/ozellik/{slug}/detay', [HomeController::class, 'propartieDetail'])->name('propartie.detail');
 Route::get('/fiyatlandirma', [HomeController::class, 'prices'])->name('prices');
 Route::get('/referanslar', [HomeController::class, 'references'])->name('references');
 Route::get('/bloglar', [HomeController::class, 'blogs'])->name('blogs');
 Route::get('/blog/{slug}', [HomeController::class, 'blogDetail'])->name('blogs.detail');
 Route::get('/sss', [HomeController::class, 'faq'])->name('faq');
 
+Route::post('information-request', [HomeController::class, 'informationRequest'])->name('send.informationRequest');
 Route::get('login', [HomeController::class, 'loginTypes'])->name('loginTypes');
 
 Route::prefix('isletme')->as('business.')->group(function (){
@@ -196,7 +199,12 @@ Route::prefix('isletme')->as('business.')->group(function (){
         /* -------------------- Borçlar --------------------------*/
         Route::resource('dep', BusinessDepController::class);
 
+        /* -------------------- Personel İzin Günleri --------------------------*/
         Route::resource('personel-stay-off-day', PersonelStayOffDayController::class);
+
+        /* -------------------- Abonelik Özeti --------------------------*/
+        Route::get('abonelik', [SubscribtionController::class, 'index'])->name('subscription.index');
+
         /* -------------------- Global Ajax İstekleri --------------------------*/
         Route::post('password-update', [BusinessOfficialController::class, 'passwordUpdate'])->name('passwordUpdate');
 
