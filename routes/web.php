@@ -35,6 +35,9 @@ use App\Http\Controllers\Business\Receivable\AppointmentReceivableController;
 use App\Http\Controllers\Business\Deps\BusinessDepController;
 use \App\Http\Controllers\Business\Personel\PersonelStayOffDayController;
 use \App\Http\Controllers\Business\Subscription\SubscribtionController;
+use \App\Http\Controllers\Business\Auth\RegisterController;
+use \App\Http\Controllers\Business\Auth\VerificationController;
+use \App\Http\Controllers\Business\Auth\ForgotPasswordController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,13 +48,17 @@ use \App\Http\Controllers\Business\Subscription\SubscribtionController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', [HomeController::class, 'index']);
+include "guards/personel.php";
+Route::get('/', [HomeController::class, 'index'])->name('welcome');
 Route::get('/ozellikler', [HomeController::class, 'proparties'])->name('proparties');
+Route::get('/biz-kimiz', [HomeController::class, 'about'])->name('about');
+Route::get('/iletisim', [HomeController::class, 'contact'])->name('contact');
+Route::post('/iletisim/yeni-talep', [HomeController::class, 'contactRequest'])->name('contact.request');
 Route::get('/ozellik/{slug}/detay', [HomeController::class, 'propartieDetail'])->name('propartie.detail');
 Route::get('/fiyatlandirma', [HomeController::class, 'prices'])->name('prices');
 Route::get('/referanslar', [HomeController::class, 'references'])->name('references');
 Route::get('/bloglar', [HomeController::class, 'blogs'])->name('blogs');
+Route::get('/blog/category/{category}', [HomeController::class, 'category'])->name('blogs.category');
 Route::get('/blog/{slug}', [HomeController::class, 'blogDetail'])->name('blogs.detail');
 Route::get('/sss', [HomeController::class, 'faq'])->name('faq');
 
@@ -61,6 +68,19 @@ Route::get('login', [HomeController::class, 'loginTypes'])->name('loginTypes');
 Route::prefix('isletme')->as('business.')->group(function (){
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [LoginController::class, 'login']);
+
+    Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::post('register/request', [RegisterController::class, 'register'])->name('register.request');
+
+    Route::get('verify', [VerificationController::class, 'show'])->name('showVerify');
+    Route::post('verify/request', [VerificationController::class, 'verify'])->name('verify');
+
+    Route::get('/sifremi-unuttum', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('showForgotForm');
+    Route::post('/sifremi-unuttum-send-code', [ForgotPasswordController::class, 'sendResetVerifyCode'])->name('sendResetVerifyCode');
+
+    Route::get('/telefon-numarasi-dogrulama', [ForgotPasswordController::class, 'showResetPassword'])->name('verify.showResetPassword');
+    Route::post('/sifremi-unuttum-dogrulama', [ForgotPasswordController::class, 'verifyResetPassword'])->name('verify.resetPassword');
+
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::middleware('auth:official')->group(function () {
@@ -218,4 +238,5 @@ Route::prefix('isletme')->as('business.')->group(function (){
 
 
 });
+
 

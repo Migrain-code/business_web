@@ -81,7 +81,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <a href="javascript:;" class="btn-pink w-100 p-4 text-center">
+                    <a href="{{route('personel.login')}}" class="btn-pink w-100 p-4 text-center">
                         Personel Girişi
                     </a>
                 </div>

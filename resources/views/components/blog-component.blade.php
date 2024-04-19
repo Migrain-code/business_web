@@ -1,14 +1,14 @@
 <div>
     <div class="blogListItem">
         <div class="blogLıstItemPhoto">
-            <a href="javascript:;">
+            <a href="{{$link}}">
                 <img src="{{$image}}" alt="" />
             </a>
             <a href="{{$link}}" class="tag">{{$categoryName}}</a>
         </div>
         <div class="blogLıstItemText">
             <i>{{$date}}</i>
-            <a href="javascript:;">
+            <a href="{{$link}}">
                 {{$title}}
             </a>
             <span>

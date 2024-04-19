@@ -173,24 +173,24 @@
                             <div class="sss-categories">
                                 <div class="categories-hero">S.S.S Kategorileri</div>
                                 <ul class="tabs">
-                                    <li class="tab active" data-tab="tab1">
-                                        <span>Kategori 1</span>
+                                    @foreach($categories as $category)
+                                    <li class="tab @if($loop->index == 0) active @endif" data-tab="tab{{$category->id}}">
+                                        <span>{{$category->getName()}}</span>
                                     </li>
-                                    <li class="tab" data-tab="tab2">
-                                        <span>Kategori 2</span>
-                                    </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
                         <div class="col-lg-9">
-                            <div class="tab-content active" id="tab1">
+                            @foreach($categories as $category)
+                                <div class="tab-content @if($loop->index == 0) active @endif" id="tab{{$category->id}}">
                                 <div class="sss-tab1">
                                     <div class="sss-content">
                                         <div class="faq-items">
-
-                                            <div class="faq-item">
+                                            @foreach($category->faqs as $faq)
+                                                <div class="faq-item">
                                                     <div class="faq-head">
-                                                        One Question
+                                                        {{$faq->getQuestion()}}
                                                         <svg
                                                             width="18"
                                                             height="10"
@@ -211,109 +211,17 @@
                                                     </div>
                                                     <div class="faq-content">
                                                         <p>
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad, assumenda autem blanditiis distinctio ex libero maxime modi nemo non officiis praesentium, quaerat quos sunt tempora temporibus, ut. Praesentium, quae?
+                                                            {{$faq->getAnswer()}}
                                                         </p>
                                                     </div>
                                                 </div>
-
-                                            <div class="faq-item">
-                                                <div class="faq-head">
-                                                    Two Question
-                                                    <svg
-                                                        width="18"
-                                                        height="10"
-                                                        viewBox="0 0 18 10"
-                                                        fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <path
-                                                            opacity="0.6"
-                                                            d="M1 0.856445L6.5 6.1265L9.41413 8.85645L17 0.856445"
-                                                            stroke="#43506E"
-                                                            stroke-width="1.5"
-                                                            stroke-miterlimit="10"
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                        />
-                                                    </svg>
-                                                </div>
-                                                <div class="faq-content">
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad, assumenda autem blanditiis distinctio ex libero maxime modi nemo non officiis praesentium, quaerat quos sunt tempora temporibus, ut. Praesentium, quae?
-                                                    </p>
-                                                </div>
-                                            </div>
-
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            @endforeach
 
-                            <div class="tab-content" id="tab2">
-                                <div class="sss-tab1">
-                                    <div class="sss-content">
-                                        <div class="faq-items">
-
-                                            <div class="faq-item">
-                                                <div class="faq-head">
-                                                    Three Question
-                                                    <svg
-                                                        width="18"
-                                                        height="10"
-                                                        viewBox="0 0 18 10"
-                                                        fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <path
-                                                            opacity="0.6"
-                                                            d="M1 0.856445L6.5 6.1265L9.41413 8.85645L17 0.856445"
-                                                            stroke="#43506E"
-                                                            stroke-width="1.5"
-                                                            stroke-miterlimit="10"
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                        />
-                                                    </svg>
-                                                </div>
-                                                <div class="faq-content">
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad, assumenda autem blanditiis distinctio ex libero maxime modi nemo non officiis praesentium, quaerat quos sunt tempora temporibus, ut. Praesentium, quae?
-                                                    </p>
-                                                </div>
-                                            </div>
-
-                                            <div class="faq-item">
-                                                <div class="faq-head">
-                                                    Four Question
-                                                    <svg
-                                                        width="18"
-                                                        height="10"
-                                                        viewBox="0 0 18 10"
-                                                        fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <path
-                                                            opacity="0.6"
-                                                            d="M1 0.856445L6.5 6.1265L9.41413 8.85645L17 0.856445"
-                                                            stroke="#43506E"
-                                                            stroke-width="1.5"
-                                                            stroke-miterlimit="10"
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                        />
-                                                    </svg>
-                                                </div>
-                                                <div class="faq-content">
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad, assumenda autem blanditiis distinctio ex libero maxime modi nemo non officiis praesentium, quaerat quos sunt tempora temporibus, ut. Praesentium, quae?
-                                                    </p>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

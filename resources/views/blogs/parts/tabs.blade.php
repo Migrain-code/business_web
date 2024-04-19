@@ -1,35 +1,33 @@
 <div class="tab-content" id="pills-tabContent">
-    <div
-        class="tab-pane fade show active"
-        id="pills-1"
-        role="tabpanel"
-        aria-labelledby="pills-home-tab"
-        tabindex="0"
-    >
-        <div class="blogList">
-            <div class="row">
-                <div class="col-lg-3">
-                    <x-blog-component
-                        image="{{asset('front/assets/images/blogitem.png')}}"
-                        link="asdasd"
-                        categoryName="Saç Kesimi"
-                        date="18.01.01"
-                        title="Fusce diam ultricies magna senectus."
-                        shortDescription="Fusce diam ultricies magna senectus.">
-                    </x-blog-component>
-                </div>
+    @foreach($blogCategories as $blogCategorie)
+        <div
+            class="tab-pane fade @if($loop->index == 0) show active @endif"
+            id="pills-{{$blogCategorie->id}}"
+            role="tabpanel"
+            aria-labelledby="pills-home-tab"
+            tabindex="0"
+        >
+            <div class="blogList">
+                <div class="row">
+                    @foreach($blogCategorie->blogs as $blog)
 
+                    <div class="col-lg-3">
+
+                        <x-blog-component
+                            image="{{image($blog->image)}}"
+                            link="{{route('blogs.detail', $blog->getSlug())}}"
+                            categoryName="{{$blogCategorie->getName()}}"
+                            date="{{$blog->created_at->format('d.m.Y')}}"
+                            title="{{$blog->getTitle()}}"
+                            shortDescription="{{\Illuminate\Support\Str::limit(strip_tags($blog->getDescription()), 100)}}">
+                        </x-blog-component>
+                    </div>
+                    @endforeach
+                </div>
             </div>
         </div>
-    </div>
-    <div
-        class="tab-pane fade"
-        id="pills-2"
-        role="tabpanel"
-        aria-labelledby="pills-profile-tab"
-        tabindex="0"
-    >
-        ...
-    </div>
+    @endforeach
+
+
 
 </div>

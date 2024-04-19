@@ -52,8 +52,9 @@ footer .footerTop::before {
 }
 
 .formBox {
-  padding: 0;
-  background: url(../images/business/user-bg.png), white 50% / cover no-repeat;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background: url('/front/assets/images/business/user-bg.png'), white 50% / cover no-repeat;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -1432,7 +1433,7 @@ footer .footerBottom .center .footerItem .collapse-icon {
   align-items: center;
   justify-content: center;
   border-radius: 68.996px;
-  background: url("../images/business/year-bg-new.svg"),
+  background: url("/front/assets/images/business/year-bg-new.svg"),
     rgb(255, 255, 255) -49.282px -94.372px / 298.11% 431.611% no-repeat;
   background-repeat: no-repeat;
   background-size: 100%;

@@ -88,34 +88,42 @@ class Personel extends Authenticatable
     {
         return $this->hasOne(Business::class, 'id', 'business_id');
     }
+
     public function type()
     {
         return $this->hasOne(BusinnessType::class, 'id', 'gender');
     }
+
     public function appointmentRange()
     {
         return $this->hasOne(AppointmentRange::class, 'id', 'range');
     }
+
     public function services()
     {
         return $this->hasMany(PersonelService::class, 'personel_id', 'id');
     }
+
     public function costs()
     {
         return $this->hasMany(BusinessCost::class, 'personel_id', 'id');
     }
+
     public function notifications()
     {
         return $this->hasMany(PersonelNotification::class, 'personel_id', 'id')->orderBy('created_at')->take(5);
     }
+
     public function restDays()
     {
         return $this->hasMany(PersonelRestDay::class, 'personel_id', 'id')->where('status', 1);
     }
+
     public function restDayAll()
     {
         return $this->hasMany(PersonelRestDay::class, 'personel_id', 'id');
     }
+
     public function appointments()
     {
         return $this->hasMany(AppointmentServices::class, 'personel_id', 'id');
@@ -134,31 +142,34 @@ class Personel extends Authenticatable
     public function getMonthlyPackageSales()
     {
         $sales = [];
-        for ($i = 1; $i <= 12; $i++){
-            $sales[]= $this->packages()->whereMonth('seller_date', $i)->count();
+        for ($i = 1; $i <= 12; $i++) {
+            $sales[] = $this->packages()->whereMonth('seller_date', $i)->count();
         }
         return $sales;
     }
+
     public function getMonthlyProductSales()
     {
         $sales = [];
-        for ($i = 1; $i <= 12; $i++){
-            $sales[]= $this->sales()->whereMonth('created_at', $i)->sum('piece');
+        for ($i = 1; $i <= 12; $i++) {
+            $sales[] = $this->sales()->whereMonth('created_at', $i)->sum('piece');
         }
         return $sales;
     }
+
     public function stayOffDays()
     {
         return $this->hasMany(PersonelStayOffDay::class, 'personel_id', 'id');
     }
+
     public function checkDateIsOff($getDate)
     {
         // stayOffDays ilişkisini kullanarak izin tarihlerini alıyoruz.
         $getDate = Carbon::parse($getDate);
         $offDays = $this->stayOffDays;
 
-        if ($offDays->count() > 0){
-            foreach ($offDays as $day){
+        if ($offDays->count() > 0) {
+            foreach ($offDays as $day) {
                 $startTime = Carbon::parse($day->start_time);
                 $endTime = Carbon::parse($day->end_time);
                 if ($getDate >= $startTime && $getDate <= $endTime) {
@@ -169,6 +180,44 @@ class Personel extends Authenticatable
         // Eğer tarih izin tarihleri arasında değilse,false döndürüyoruz.
         return false;
     }
+
+    public function totalBalance()
+    {
+
+        $productPrice = $this->sales->sum('total');
+        $packagePrice = $this->packages->sum('total');
+        $servicePrice = 0;
+        foreach ($this->appointments as $appointment) {
+            $servicePrice += $appointment->service->price;
+        }
+
+        $hizmetHakedis = ($servicePrice * $this->rate) / 100;
+        $urunHakedis = (($productPrice + $packagePrice) * $this->product_rate) / 100;
+
+        return $hizmetHakedis + $urunHakedis;
+    }
+
+    public function calculatePayedBalance()
+    {
+        $costs = $this->costs()->where('cost_category_id', 1)->get();
+        return $costs;
+    }
+
+    public function insideBalance()
+    {
+        return number_format($this->totalBalance() - $this->calculatePayedBalance()->sum('price'), 2);
+    }
+
+    public function getCustomer()
+    {
+        $customer_ids = [];
+        foreach ($this->appointments as $appointment) {
+            $customer_ids[] = $appointment->appointment->customer_id;
+        }
+        $customerCount = count(array_unique($customer_ids));
+        return $customerCount;
+    }
+
     protected static function booted()
     {
         static::deleted(function ($personel) {

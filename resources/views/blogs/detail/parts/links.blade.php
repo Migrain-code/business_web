@@ -1,36 +1,17 @@
-<div class="moreContent">
-    <a href="javascript:;" class="moreContentLink"
-    >İçerikleri Göster</a
-    >
-    <div class="moreContentList">
-        <div class="row">
-            <div class="col-lg-4">
-                <a href="javascript:;">Sed morbi auctor</a>
-            </div>
-            <div class="col-lg-4">
-                <a href="javascript:;">Sed morbi auctor</a>
-            </div>
-            <div class="col-lg-4">
-                <a href="javascript:;">Sed morbi auctor</a>
-            </div>
-            <div class="col-lg-4">
-                <a href="javascript:;">Sed morbi auctor</a>
-            </div>
-            <div class="col-lg-4">
-                <a href="javascript:;">Sed morbi auctor</a>
-            </div>
-            <div class="col-lg-4">
-                <a href="javascript:;">Sed morbi auctor</a>
-            </div>
-            <div class="col-lg-4">
-                <a href="javascript:;">Sed morbi auctor</a>
-            </div>
-            <div class="col-lg-4">
-                <a href="javascript:;">Sed morbi auctor</a>
-            </div>
-            <div class="col-lg-4">
-                <a href="javascript:;">Sed morbi auctor</a>
+@if(count($heads) > 0)
+    <div class="moreContent">
+        <a href="javascript:;" class="moreContentLink">İçerikleri Göster</a>
+        <div class="moreContentList">
+            <div class="row">
+                @forelse($heads as $head)
+                    <div class="col-lg-4">
+                        <a href="#head-{{$loop->index}}">{{$head}} </a>
+                    </div>
+                @empty
+                @endforelse
+
+
             </div>
         </div>
     </div>
-</div>
+@endif

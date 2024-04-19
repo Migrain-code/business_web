@@ -3,14 +3,14 @@
         <div class="row">
             <div class="col-4 col-xl-2 d-flex align-items-center">
                 <div class="logo">
-                    <a href="javascript:;">
+                    <a href="/">
                         <img
-                            src="/front/assets/images/header-logo.svg"
+                            src="{{image(setting('business_logo_white'))}}"
                             class="logo-white"
                             alt="logo"
                         />
                         <img
-                            src="/front/assets/images/logo-dark.svg"
+                            src="{{image(setting('business_logo_dark'))}}"
                             class="logo-dark"
                             alt="logo"
                         />
@@ -20,7 +20,7 @@
             <div class="col-lg-7 d-none d-xl-block">
                 <div class="topMenu">
                     <ul>
-                        <li class="active">
+                        <li @if(request()->routeIs('welcome')) class="active" @endif >
                             <a href="/">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +44,7 @@
                                 Ana Sayfa
                             </a>
                         </li>
-                        <li>
+                        <li @if(request()->routeIs('proparties')) class="active" @endif >
                             <a href="{{route('proparties')}}">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@
                                 Özellikler
                             </a>
                         </li>
-                        <li class="megaMenu">
+                        <li @if(request()->routeIs('prices')) class="active" @endif >
                             <a href="{{route('prices')}}">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,7 @@
                                 Fiyatlandırma
                             </a>
                         </li>
-                        <li>
+                        <li @if(request()->routeIs('references')) class="active" @endif >
                             <a href="{{route('references')}}">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -119,7 +119,7 @@
                                 Referanslar
                             </a>
                         </li>
-                        <li>
+                        <li @if(request()->routeIs('blogs')) class="active" @endif >
                             <a href="{{route('blogs')}}">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +144,7 @@
                                 Blog
                             </a>
                         </li>
-                        <li>
+                        <li @if(request()->routeIs('faq')) class="active" @endif >
                             <a href="{{route('faq')}}">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -169,8 +169,8 @@
                                 S.S.S.
                             </a>
                         </li>
-                        <li class="d-sm-none">
-                            <a href="javascript:;">
+                        <li @if(request()->routeIs('welcome')) class="d-sm-none active" @else class="d-sm-none"  @endif>
+                            <a href="{{route('contact')}}">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-building"
@@ -195,22 +195,20 @@
                                         d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16"
                                     ></path>
                                 </svg>
-                                İşletmeler</a
-                            >
+                                İletişim</a>
                         </li>
                         <li class="mobile-menu-logo">
-                            <img src="./assets/images/header-logo.svg" alt="" />
+                            <img src="{{image(setting('business_logo_white'))}}" alt="" />
                         </li>
                         <div class="contact-navbar">
                             <li class="contact-info">
                     <span>
-                      <img src="./assets/images/icons/ico-phone.svg" alt="" />
-                      <a href="tel:905537021355">05537021355</a>
+                      <img src="/front/assets/images/icons/ico-phone.svg" alt="" />
+                      <a href="tel:{{setting('business_phone')}}">{{setting('business_phone')}}</a>
                     </span>
                                 <span>
-                      <img src="assets/images/icons/ico-mail.svg" alt="" />
-                      <a href="mailto:mmskre@gmail.com">mmskre@gmail.com</a>
-                    </span>
+                                    <a href="mailto:{{setting('business_email')}}" style="overflow-wrap: anywhere;"><img src="/front/assets/images/icons/ico-mail.svg" alt="" /> {{setting('business_email')}}</a>
+                                </span>
                             </li>
                         </div>
                     </ul>
@@ -221,9 +219,7 @@
             >
                 <div class="headerRight">
                     <a href="{{route('loginTypes')}}" class="btn-outline-white"> Giriş Yap </a>
-                    <a href="javascript:;" class="btn-white d-none d-sm-block"
-                    >Ücretsiz Dene</a
-                    >
+                    <a href="{{route('business.register')}}" class="btn-white d-none d-sm-block">Ücretsiz Dene</a>
                     <a href="javascript:;" class="toggle"><span></span></a>
                 </div>
             </div>

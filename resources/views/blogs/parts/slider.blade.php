@@ -4,13 +4,16 @@
             <div class="col-12">
                 <div class="bigSliderContent">
                     <div class="owl-carousel owl-theme">
-                        <!--Slider ıtem start-->
-                        <div class="item">
-                            <a href="javascript:;">
-                                <img src="/front/assets/images/bigSlider.png" alt="" />
-                            </a>
-                        </div>
-                        <!--Slider ıtem end-->
+                        @foreach($ads as $adBanner)
+                            <!--Slider ıtem start-->
+                            <div class="item">
+                                <a href="{{$adBanner->link}}">
+                                    <img src="{{image($adBanner->image)}}" alt="" />
+                                </a>
+                            </div>
+                            <!--Slider ıtem end-->
+                        @endforeach
+
                     </div>
                     <div class="sliderArrow">
                         <a href="javascript:;" class="sliderPrev">

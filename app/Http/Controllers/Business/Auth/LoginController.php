@@ -59,7 +59,9 @@ class LoginController extends Controller
                 'message' => "Telefon Numaranız Veya Şifreniz Hatalı",
             ]);
         }
-        Auth::loginUsingId($user->id);
+        $remember = $request->has('remember');
+
+        Auth::guard('official')->loginUsingId($user->id, $remember);
         return to_route('business.home')->with('response', [
             'status' => "success",
             'message' => $user->name. " Tekrar Hoşgeldiniz",

@@ -17,16 +17,18 @@ function setting($key)
 {
     return config('settings.' . $key);
 }
-
+function maskPhone($phone){
+    $maskedPhone = substr_replace(clearPhone($phone), str_repeat('*', strlen($phone) - 2), 0, -2);
+    return $maskedPhone;
+}
 function authUser()
 {
     if (auth('official')->check()) {
         return auth('official')->user();
     }
-    /*else{
-
-        return auth('admin')->user(); personel olacak
-    }*/
+    else{
+        return auth('personel')->user();
+    }
 }
 
 function calculateTotal($services)

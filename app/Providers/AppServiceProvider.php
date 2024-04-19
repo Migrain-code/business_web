@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Core\CustomResourceRegistrar;
 use App\Models\City;
+use App\Models\RecommendedLink;
 use App\Models\Setting;
 use App\Models\Stat;
 use Illuminate\Support\Facades\View;
@@ -39,6 +40,8 @@ class AppServiceProvider extends ServiceProvider
         $stats = Stat::where('status', 1)->select('title', 'percentage', 'icon')->get();
         View::share('stats', $stats);
 
+        $recommendedLinks = RecommendedLink::whereStatus(1)->take(4)->get();
+        View::share('recommendedLinks', $recommendedLinks);
         $cities = City::all();
         View::share('cities', $cities);
     }

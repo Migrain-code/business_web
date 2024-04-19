@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'official',
         ],
+        'personel' => [
+            'driver' => 'session',
+            'provider' => 'personel',
+        ],
     ],
 
     /*
@@ -64,11 +68,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\BusinessOfficial::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'personel' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Personel::class,
+        ],
     ],
 
     /*
@@ -93,6 +96,12 @@ return [
     'passwords' => [
         'officials' => [
             'provider' => 'official',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'personel' => [
+            'provider' => 'personel',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

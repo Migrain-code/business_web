@@ -17,17 +17,10 @@
                                     @include('blogs.detail.parts.links')
 
                                     <h2 class="pageTitle mb-5">
-                                        Nulla leo vivamus gravida pellentesque posuere consequat
-                                        quis. Enim dolor tellus.
+                                       {{$blog->getTitle()}}
                                     </h2>
                                     <div class="pageText">
-                                        Massa amet eget aliquam aliquam. Etiam auctor cras quam
-                                        tempus. Sagittis et at eget purus id. Turpis amet quis
-                                        urna sem vitae sed sit ut. Cursus risus vulputate euismod
-                                        sit sit tristique. Bibendum sit posuere semper eget enim
-                                        at. Sit dui nulla bibendum quis in. Amet elit mattis nunc
-                                        lectus nunc congue pharetra. Purus est amet nibh sed quam
-                                        elit. Adipiscing condimentum vestibulum dignissim in.
+                                        {!! $blog->getDescription() !!}
                                     </div>
                                     @include('blogs.detail.parts.social')
                                 </div>
@@ -46,16 +39,21 @@
                     </div>
                     <div class="blogListSlider">
                         <div class="owl-carousel owl-theme">
-                            <div class="item">
-                                <x-blog-component
-                                    image="{{asset('front/assets/images/blogitem.png')}}"
-                                    link="asdasd"
-                                    categoryName="Saç Kesimi"
-                                    date="18.01.01"
-                                    title="Fusce diam ultricies magna senectus."
-                                    shortDescription="Fusce diam ultricies magna senectus.">
-                                </x-blog-component>
-                            </div>
+                            @forelse($blog->category->blogs()->take(5)->get() as $blogRow)
+                                <div class="item">
+                                    <x-blog-component
+                                        image="{{image($blogRow->image)}}"
+                                        link="{{route('blogs.detail', $blogRow->getSlug())}}"
+                                        categoryName="{{$blog->category->getName()}}"
+                                        date="{{$blogRow->created_at->format('d.m.Y')}}"
+                                        title="{{$blogRow->getTitle()}}"
+                                        shortDescription="{{\Illuminate\Support\Str::limit(strip_tags($blogRow->getDescription()), 100)}}">
+                                    </x-blog-component>
+                                </div>
+
+                            @empty
+                            @endforelse
+
                         </div>
                     </div>
                 </div>
@@ -65,5 +63,13 @@
 @endsection
 
 @section('scripts')
+    <script>
+        $(document).ready(function() {
+            const hElements = document.querySelectorAll('h1, h2, h3, h4, h5');
 
+            for (let i = 0; i < hElements.length; i++) {
+                hElements[i].setAttribute('id', `head-${i}`);
+            }
+        });
+    </script>
 @endsection

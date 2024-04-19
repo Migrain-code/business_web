@@ -1,6 +1,6 @@
 <div class="pageBanner mb-5">
     <img
-        src="/front/assets/images/pageBanner.png"
+        src="{{image($blog->image)}}"
         class="w-100"
         alt=""
     />

@@ -39,7 +39,7 @@
                             <div class="mb-3">
                                 <div class="customCheck">
                                     <div class="customCheckInput">
-                                        <input type="checkbox" />
+                                        <input type="checkbox" name="remember"/>
                                         <span></span>
                                     </div>
                                     <span> Beni Hatırla </span>
@@ -48,7 +48,7 @@
                         </div>
                         <div class="col-lg-6 d-flex align-items-center justify-content-end">
                             <div class="mb-3">
-                                <a href="javascript:;" class="forgotPass">Şifremi Unuttum</a>
+                                <a href="{{route('business.showForgotForm')}}" class="forgotPass">Şifremi Unuttum</a>
                             </div>
                         </div>
                     </div>
@@ -60,37 +60,14 @@
                 </form>
                 <div class="mb-0">
                     <label class="registerLabel">Üyeliğiniz Yok Mu?</label>
-                    <a href="javascript:;" class="btn-gray w-100 p-4 text-center"
-                    >Ücretsiz Kayıt Ol</a
-                    >
+                    <a href="{{route('business.register')}}" class="btn-gray w-100 p-4 text-center">Ücretsiz Kayıt Ol</a>
                 </div>
             </div>
         </div>
     </div>
 @endsection
 @section('scripts')
-    <script>
-        // Select the input element
-        /*let validateInput = document.getElementById('validatorPhone');
-        // Define the regex pattern for numbers only
-        let regexPattern =  /^\s*0?\d+\s*$/;
 
-        // Function to validate the input
-        function validatePhoneNumber() {
-            let inputValue = validateInput.value;
-            let btn = document.getElementById('senderButton');
-            if (!regexPattern.test(inputValue)) {
-                btn.setAttribute('type', 'button');
-                document.getElementById('errorMessage').textContent = 'Telefon Numarası 5000000000 şeklinde olmalıdır.';
-            } else {
-                document.getElementById('errorMessage').textContent = '';
-                btn.setAttribute('type', 'submit');
-
-            }
-        }
-        validateInput.addEventListener('input', validatePhoneNumber);*/
-
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.60/inputmask/jquery.inputmask.js"></script>
 
     <script>
