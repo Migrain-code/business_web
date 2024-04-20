@@ -36,6 +36,8 @@
     <script src="/front/assets/js/hc-offcanvas-nav.js"></script>
     <script src="/front/assets/js/tom-select.complete.min.js"></script>
     <script src="/front/assets/js/app.js"></script>
+
+    <link rel="shortcut icon" href="{{image(setting('speed_favicon'))}}">
     <title>{{config('app.name', 'Laravel')}} | @yield('title', '')</title>
     @yield('style')
 </head>
