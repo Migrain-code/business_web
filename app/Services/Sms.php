@@ -6,12 +6,10 @@ use App\Models\SendedSms;
 
 class Sms
 {
-    private static string $apiUrl = "https://api.netgsm.com.tr/sms/send/get";
+    private static string $apiUrl = "https://api.netgsm.com.tr/bulkhttppost.asp";
     const username = '4646060976';
-    const password = '2%1F813';
+    const password = '6454A5';
     const title = 'N.YILDIZ';
-
-    private static string $number, $message;
 
     public static function send($number, $message)
     {
@@ -36,7 +34,9 @@ class Sms
                 'msgheader' => self::title,
                 'filter' => '0',
                 'startdate' => '',
-                'stopdate' => ''),
+                'stopdate' => '',
+                'appkey'=>'xxx',
+                ),
         ));
 
         $response = curl_exec($curl);
