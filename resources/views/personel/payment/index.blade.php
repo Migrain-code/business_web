@@ -1,47 +1,31 @@
-@extends('business.layouts.master')
-@section('title', 'Personel Kasası')
+@extends('personel.layouts.master')
+@section('title', 'Personel Ödemeleri')
 @section('styles')
 
 @endsection
 @section('breadcrumbs')
     <!--begin::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-        <a href="{{route('business.home')}}"> Dashboard </a>
+        <a href="{{route('personel.home')}}"> Dashboard </a>
     </li>
     <!--end::Item-->
     <li class="breadcrumb-item">
         <i class="ki-duotone ki-right fs-3 text-gray-500 mx-n1"></i></li>
     <!--end::Item-->
-    <!--begin::Item-->
-    <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-        <a href="{{route('business.personel.index')}}"> Personeller </a>
-    </li>
-    <!--end::Item-->
-    <!--end::Item-->
-    <li class="breadcrumb-item">
-        <i class="ki-duotone ki-right fs-3 text-gray-500 mx-n1"></i></li>
     <!--end::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-        <a href="{{route('business.personel.index', $personel->id)}}"> Personel Detayı </a>
-    </li>
-
-    <li class="breadcrumb-item">
-        <i class="ki-duotone ki-right fs-3 text-gray-500 mx-n1"></i></li>
-    <!--end::Item-->
-    <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-        Personel Ödemeleri
+        Ödemeleri
     </li>
 @endsection
 @section('content')
     <div id="kt_app_content" class="app-content ">
-        @include('business.personel.edit.nav')
         <!--begin::Row-->
         <div class="card pt-4 mb-6 mb-xl-9 border-0">
             <!--begin::Card header-->
             <div class="card-header border-0">
                 <!--begin::Card title-->
                 <div class="" style="display: block;">
-                    <h2 style="margin-bottom: 10px;margin-top: 5px;">Personel Ödemeleri</h2>
+                    <h2 style="margin-bottom: 10px;margin-top: 5px;">Ödeme Listesi</h2>
                 </div>
                 <div class="d-flex align-items-center">
                     <!--begin::Filter-->
@@ -62,11 +46,6 @@
                     <div id="kt_ecommerce_report_customer_payment_export">
 
                     </div>
-                    <button type="button" data-bs-toggle="modal"
-                            data-bs-target="#kt_modal_add_payment" style="padding: 10px 20px !important;" class="btn btn-primary me-2">
-                        <i class="ki-duotone ki-exit-up fs-2"><span class="path1"></span><span class="path2"></span></i>
-                        Ödeme Ekle
-                    </button>
                     <!--begin::Export dropdown-->
                     <button type="button" style="padding: 10px 20px !important;" class="btn btn-light-primary"
                             data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
@@ -134,7 +113,6 @@
                             <td class="min-w-125px">Ödenen Tutar</td>
                             <td class="min-w-125px">Ödeme Kategori</td>
                             <td class="min-w-125px">Ödeme Tipi</td>
-                            <td class="min-w-125px"> İşlemler </td>
                         </tr>
                         </thead>
                         <!--begin::Table body-->
@@ -143,34 +121,9 @@
                             <tr>
                                 <td class="min-w-125px">{{$payed->created_at->format('d.m.Y H:i:s')}}</td>
                                 <td class="min-w-125px">{{$payed->price}}₺</td>
-                                <td class="min-w-125px">Maaş</td>
+                                <td class="min-w-125px">{{$payed->category->name}}</td>
                                 <td class="min-w-125px">{{$payed->type("name")}}</td>
-                                <td>
-                                    <a href="" class="btn btn-clean btn-sm btn-icon btn-icon-primary btn-active-light-primary ms-auto">
-                                        <i class="ki-duotone ki-eye fs-1">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                            <span class="path3"></span>
-                                            <span class="path4"></span>
-                                            <span class="path5"></span>
-                                        </i>
-                                    </a>
-                                    <a class="btn btn-clean btn-sm btn-icon btn-icon-danger btn-active-light-danger ms-auto" href="#" data-toggle="popover"
-                                       data-object-id="{{$payed->id}}" data-route="/isletme/ajax/delete/object"
-                                       data-model="App\Models\BusinessCost"
-                                       data-delete-type="1"
-                                       data-reload="true"
-                                       data-content="Personel Ödeme Kaydını Silmek İstediğinize Eminmisiniz?"
-                                       data-title="Personel Ödemesi">
-                                        <i class="ki-duotone ki-trash fs-1">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                            <span class="path3"></span>
-                                            <span class="path4"></span>
-                                            <span class="path5"></span>
-                                        </i>
-                                    </a>
-                                </td>
+
                             </tr>
                         @endforeach
 
@@ -185,7 +138,7 @@
         </div>
         <!--end::Row-->
     </div>
-    @include('business.personel.edit.payment.add-modal')
+
 @endsection
 @section('scripts')
     <script>
@@ -202,6 +155,5 @@
         });
     </script>
 
-    <script src="/business/assets/js/project/personels/edit/payments/add-payment.js"></script>
     <script src="/business/assets/js/project/personels/edit/payments/fetchPaymentList.js"></script>
 @endsection

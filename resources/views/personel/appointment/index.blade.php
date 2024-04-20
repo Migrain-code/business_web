@@ -27,13 +27,13 @@
     <!--end::Item-->
 @endsection
 @section('content')
-
-    <div class="card pt-4 mb-6 mb-xl-9 ">
+    <div id="kt_app_content" class="app-content ">
+        <div class="card pt-4 mb-6 mb-xl-9 ">
         <!--begin::Card header-->
         <div class="card-header border-0">
             <!--begin::Card title-->
             <div class="card-title" style="display: block;">
-                <h2 style="margin-bottom: 10px;margin-top: 5px;">Randevuları</h2>
+                <h2 style="margin-bottom: 10px;margin-top: 5px;">Tüm Randevularınız Listesi</h2>
             </div>
             <div class="d-flex align-items-center">
                 <!--begin::Filter-->
@@ -54,8 +54,15 @@
                 <div id="kt_ecommerce_report_customer_receivable_export">
 
                 </div>
+                <a href="{{route('personel.appointmentCreate.index')}}" style="padding: 10px 20px !important;" class="btn btn-light-primary">
+                    <i class="ki-duotone ki-plus-circle fs-2">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </i>
+                    Randevu Oluştur
+                </a>
                 <!--begin::Export dropdown-->
-                <button type="button" style="padding: 10px 20px !important;" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                <button type="button" style="padding: 10px 20px !important;" class="btn btn-light-warning" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                     <i class="ki-duotone ki-exit-up fs-2"><span class="path1"></span><span class="path2"></span></i>
                     Rapor
                 </button>
@@ -130,12 +137,12 @@
                             <!--end::Date=-->
                             <!--begin::order=-->
                             <td>
-                                <a href="../sales/details.html" class="text-gray-600 text-hover-primary mb-1">#{{$appointment->appointment_id}}</a>
+                                <a href="{{route('personel.appointment.detail', $appointment->appointment->id)}}" class="text-gray-600 text-hover-primary mb-1">#{{$appointment->appointment_id}}</a>
                             </td>
                             <!--end::order=-->
                             <!--begin::Business=-->
                             <td>
-                                <a href="../sales/details.html" class="text-gray-600 text-hover-primary mb-1">#{{$appointment->appointment->business->name}}</a>
+                                <a href="javascript:void(0)" class="text-gray-600 text-hover-primary mb-1">#{{$appointment->appointment->business->name}}</a>
                             </td>
                             <!--end::Business=-->
                             <!--begin::Status=-->
@@ -147,7 +154,7 @@
                             <td>₺{{number_format(calculateTotal($appointment->appointment->services()->where('personel_id', $personel->id)->get()), 2)}}</td>
                             <!--end::Amount=-->
                             <td>
-                                <a class="btn btn-primary" href="#" data-bs-toggle="tooltip" title="Randevu Detayı">
+                                <a class="btn btn-primary" href="{{route('personel.appointment.detail', $appointment->appointment_id)}}" data-bs-toggle="tooltip" title="Randevu Detayı">
                                     <i class="fa fa-eye"></i>
                                 </a>
                             </td>
@@ -172,10 +179,11 @@
         </div>
         <!--end::Card body-->
     </div>
+    </div>
 @endsection
 @section('scripts')
     <script>
         var personelName = '{{$personel->name}}'
     </script>
-    <script src="/business/assets/js/project/personels/edit/appointment/listing.js" ></script>
+    <script src="/business/assets/js/project/personel-account/appointment/listing.js" ></script>
 @endsection

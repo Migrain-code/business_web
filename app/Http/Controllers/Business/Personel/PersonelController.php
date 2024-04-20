@@ -195,6 +195,7 @@ class PersonelController extends Controller
 
     public function saveRestDay($personel, $restDayId):void
     {
+        $this->checkDayControl($personel);
         foreach ($restDayId as $day_id){
             $restDay = $personel->restDayAll()->where('day_id', $day_id)->first();
             if ($restDay){
@@ -202,6 +203,20 @@ class PersonelController extends Controller
                 $restDay->save();
             }
         }
+    }
+    public function checkDayControl($personel):void
+    {
+        if ($personel->restDayAll->count() == 0){
+            $dayList = DayList::all();
+            foreach ($dayList as $day){
+                $newRestDay = new PersonelRestDay();
+                $newRestDay->personel_id = $personel->id;
+                $newRestDay->day_id = $day->id;
+                $newRestDay->status = 0;
+                $newRestDay->save();
+            }
+        }
+
     }
     public function saveService($personel, $services):void
     {

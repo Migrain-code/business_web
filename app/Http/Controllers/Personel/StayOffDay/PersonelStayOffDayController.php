@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Business\Personel;
+namespace App\Http\Controllers\Personel\StayOffDay;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Personel\PersonelStayOffDayAddRequest;
@@ -17,12 +17,14 @@ use Yajra\DataTables\DataTables;
  */
 class PersonelStayOffDayController extends Controller
 {
+    private $personel;
     private $business;
 
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            $this->business = auth()->user()->business;
+            $this->personel = auth()->user();
+            $this->business = $this->personel->business;
             return $next($request);
         });
     }
@@ -35,7 +37,8 @@ class PersonelStayOffDayController extends Controller
     public function index(Request $request)
     {
         $personels = $this->business->personels;
-        return view('business.permission.index', compact('personels'));
+
+        return view('personel.permission.index', compact('personels'));
     }
 
 
@@ -76,6 +79,15 @@ class PersonelStayOffDayController extends Controller
         ]);
     }
 
+    public function destroy(PersonelStayOffDay $personelStayOffDay)
+    {
+        if ($personelStayOffDay->delete()){
+            return response()->json([
+                'status' => "success",
+                'message' => "İzin Silindi",
+            ]);
+        }
+    }
     public function checkDayControl($personel_id, $secilen_tarih_baslangic, $secilen_tarih_bitis)
     {
         return PersonelStayOffDay::where('personel_id', $personel_id)
@@ -87,7 +99,7 @@ class PersonelStayOffDayController extends Controller
     }
     public function datatable(Request $request)
     {
-        $officials = $this->business->personelStayOffDays()->when($request->filled('listType'), function ($q) use ($request) {
+        $officials = $this->personel->stayOffDays()->when($request->filled('listType'), function ($q) use ($request) {
                 $q->whereDate('start_time', '<=', $request->input('listType'))
                 ->whereDate('end_time', '>=', $request->input('listType'));
         });
@@ -117,7 +129,7 @@ class PersonelStayOffDayController extends Controller
             })
             ->addColumn('action', function ($q) {
                 $html = "";
-                $html .= create_delete_button('PersonelStayOffDay', $q->id, 'İzin', 'İzin Kaydını Silmek İstediğinize Eminmisiniz? Kayıt Sadece İşletmenizden Silinecektir', 'false');
+                $html .= create_delete_button('PersonelStayOffDay', $q->id, 'İzin', 'İzin Kaydını Silmek İstediğinize Eminmisiniz? İzin Sadece Sizden Silinecektir', 'false', '/personel/personel-stay-off-day/'.$q->id);
 
                 return $html;
             })

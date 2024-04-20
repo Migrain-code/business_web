@@ -3,12 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
-use Laravel\Passport\HasApiTokens;
 
 /**
  *
@@ -108,10 +105,17 @@ class Personel extends Authenticatable
     {
         return $this->hasMany(BusinessCost::class, 'personel_id', 'id');
     }
-
+    public function permission()
+    {
+        return $this->hasOne(PersonelNotificationPermission::class, 'personel_id', 'id');
+    }
     public function notifications()
     {
         return $this->hasMany(PersonelNotification::class, 'personel_id', 'id')->orderBy('created_at')->take(5);
+    }
+    public function notificationMenu()
+    {
+        return $this->hasMany(PersonelNotification::class, 'personel_id', 'id')->latest()->take(5);
     }
 
     public function restDays()
@@ -181,20 +185,145 @@ class Personel extends Authenticatable
         return false;
     }
 
-    public function totalBalance()
+    public function totalCiro($request = null)
     {
-
-        $productPrice = $this->sales->sum('total');
-        $packagePrice = $this->packages->sum('total');
+        $productPrice = $this->sales()->when(filled($request), function ($q) use ($request) {
+            if ($request->listType == "thisWeek") {
+                $startOfWeek = now()->startOfWeek();
+                $endOfWeek = now()->endOfWeek();
+                $q->whereBetween('created_at', [$startOfWeek, $endOfWeek]);
+            } elseif ($request->listType == "thisMonth") {
+                $startOfMonth = now()->startOfMonth();
+                $endOfMonth = now()->endOfMonth();
+                $q->whereBetween('created_at', [$startOfMonth, $endOfMonth]);
+            } elseif ($request->listType == "thisYear") {
+                $startOfYear = now()->startOfYear();
+                $endOfYear = now()->endOfYear();
+                $q->whereBetween('created_at', [$startOfYear, $endOfYear]);
+            } elseif ($request->listType == "thisDay") {
+                $q->whereDate('created_at', now()->toDateString());
+            } else {
+                $q->whereDate('created_at', now()->subDays(1)->toDateString());
+            }
+        })->sum('total');
+        $packagePrice = $this->packages()->when(filled($request), function ($q) use ($request) {
+            if ($request->listType == "thisWeek") {
+                $startOfWeek = now()->startOfWeek();
+                $endOfWeek = now()->endOfWeek();
+                $q->whereBetween('seller_date', [$startOfWeek, $endOfWeek]);
+            } elseif ($request->listType == "thisMonth") {
+                $startOfMonth = now()->startOfMonth();
+                $endOfMonth = now()->endOfMonth();
+                $q->whereBetween('seller_date', [$startOfMonth, $endOfMonth]);
+            } elseif ($request->listType == "thisYear") {
+                $startOfYear = now()->startOfYear();
+                $endOfYear = now()->endOfYear();
+                $q->whereBetween('seller_date', [$startOfYear, $endOfYear]);
+            } elseif ($request->listType == "thisDay") {
+                $q->whereDate('created_at', now()->toDateString());
+            }
+            else {
+                $q->whereDate('seller_date', now()->subDays(1)->toDateString());
+            }
+        })->sum('total');
+        $appointments = $this->appointments()->when(filled($request), function ($q) use ($request) {
+            if ($request->listType == "thisWeek") {
+                $startOfWeek = now()->startOfWeek();
+                $endOfWeek = now()->endOfWeek();
+                $q->whereBetween('start_time', [$startOfWeek, $endOfWeek]);
+            } elseif ($request->listType == "thisMonth") {
+                $startOfMonth = now()->startOfMonth();
+                $endOfMonth = now()->endOfMonth();
+                $q->whereBetween('start_time', [$startOfMonth, $endOfMonth]);
+            } elseif ($request->listType == "thisYear") {
+                $startOfYear = now()->startOfYear();
+                $endOfYear = now()->endOfYear();
+                $q->whereBetween('start_time', [$startOfYear, $endOfYear]);
+            } elseif ($request->listType == "thisDay") {
+                $q->whereDate('created_at', now()->toDateString());
+            }
+            else {
+                $q->whereDate('start_time', now()->subDays(1)->toDateString());
+            }
+        })->get();
         $servicePrice = 0;
-        foreach ($this->appointments as $appointment) {
+        foreach ($appointments as $appointment) {
+            $servicePrice += $appointment->service->price;
+        }
+
+        return $productPrice + $servicePrice + $packagePrice;
+
+    }
+    public function totalBalance($request = null)//toplam cirosu yani satışları
+    {
+        $productPrice = $this->sales()->when(filled($request), function ($q) use ($request) {
+            if ($request->listType == "thisWeek") {
+                $startOfWeek = now()->startOfWeek();
+                $endOfWeek = now()->endOfWeek();
+                $q->whereBetween('created_at', [$startOfWeek, $endOfWeek]);
+            } elseif ($request->listType == "thisMonth") {
+                $startOfMonth = now()->startOfMonth();
+                $endOfMonth = now()->endOfMonth();
+                $q->whereBetween('created_at', [$startOfMonth, $endOfMonth]);
+            } elseif ($request->listType == "thisYear") {
+                $startOfYear = now()->startOfYear();
+                $endOfYear = now()->endOfYear();
+                $q->whereBetween('created_at', [$startOfYear, $endOfYear]);
+            } elseif ($request->listType == "thisDay") {
+                $q->whereDate('created_at', now()->toDateString());
+            } else {
+                $q->whereDate('created_at', now()->subDays(1)->toDateString());
+            }
+        })->sum('total');
+        $packagePrice = $this->packages()->when(filled($request), function ($q) use ($request) {
+            if ($request->listType == "thisWeek") {
+                $startOfWeek = now()->startOfWeek();
+                $endOfWeek = now()->endOfWeek();
+                $q->whereBetween('seller_date', [$startOfWeek, $endOfWeek]);
+            } elseif ($request->listType == "thisMonth") {
+                $startOfMonth = now()->startOfMonth();
+                $endOfMonth = now()->endOfMonth();
+                $q->whereBetween('seller_date', [$startOfMonth, $endOfMonth]);
+            } elseif ($request->listType == "thisYear") {
+                $startOfYear = now()->startOfYear();
+                $endOfYear = now()->endOfYear();
+                $q->whereBetween('seller_date', [$startOfYear, $endOfYear]);
+            } elseif ($request->listType == "thisDay") {
+                $q->whereDate('created_at', now()->toDateString());
+            }
+            else {
+                $q->whereDate('seller_date', now()->subDays(1)->toDateString());
+            }
+        })->sum('total');
+        $appointments = $this->appointments()->when(filled($request), function ($q) use ($request) {
+            if ($request->listType == "thisWeek") {
+                $startOfWeek = now()->startOfWeek();
+                $endOfWeek = now()->endOfWeek();
+                $q->whereBetween('start_time', [$startOfWeek, $endOfWeek]);
+            } elseif ($request->listType == "thisMonth") {
+                $startOfMonth = now()->startOfMonth();
+                $endOfMonth = now()->endOfMonth();
+                $q->whereBetween('start_time', [$startOfMonth, $endOfMonth]);
+            } elseif ($request->listType == "thisYear") {
+                $startOfYear = now()->startOfYear();
+                $endOfYear = now()->endOfYear();
+                $q->whereBetween('start_time', [$startOfYear, $endOfYear]);
+            } elseif ($request->listType == "thisDay") {
+                $q->whereDate('created_at', now()->toDateString());
+            }
+            else {
+                $q->whereDate('start_time', now()->subDays(1)->toDateString());
+            }
+        })->get();
+        $servicePrice = 0;
+        foreach ($appointments as $appointment) {
             $servicePrice += $appointment->service->price;
         }
 
         $hizmetHakedis = ($servicePrice * $this->rate) / 100;
-        $urunHakedis = (($productPrice + $packagePrice) * $this->product_rate) / 100;
+        $satisHakedis = (($productPrice + $packagePrice) * $this->product_rate) / 100;
 
-        return $hizmetHakedis + $urunHakedis;
+        return $hizmetHakedis + $satisHakedis;
     }
 
     public function calculatePayedBalance()

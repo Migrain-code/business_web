@@ -8,6 +8,31 @@ Route::prefix('personel')->as('personel.')->group(function (){
     Route::middleware('auth:personel')->group(function () {
         Route::get('/home', [\App\Http\Controllers\Personel\HomeController::class, 'index'])->name('home');
         Route::get('/appointment', [\App\Http\Controllers\Personel\HomeController::class, 'appointment'])->name('appointments');
+        Route::get('/case', [\App\Http\Controllers\Personel\HomeController::class, 'case'])->name('case.index');
+        Route::get('/appointment/{appointment}/detay', [\App\Http\Controllers\Personel\HomeController::class, 'appointmentDetail'])->name('appointment.detail');
+        Route::post('appointment/{appointment}/service', [\App\Http\Controllers\Personel\Appointment\AppointmentServicesController::class,'store'])->name('appointment.service.add');
+        Route::delete('appointmentServices/{appointmentServices}', [\App\Http\Controllers\Personel\Appointment\AppointmentServicesController::class,'destroy'])->name('appointment.service.destroy');
+        Route::prefix('appointment-create')->as('appointmentCreate.')->controller(\App\Http\Controllers\Personel\Appointment\AppointmentCreateController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('get/services', 'getService');
+            Route::get('get/customers', 'getCustomer');
+            Route::post('get/personel', 'getPersonel');
+            Route::get('get/date', 'getDate');
+            Route::post('get/clock', 'getClock');
+            Route::post('/store', 'appointmentCreate')->name('store');
+            Route::post('/summary', 'summary');
+        });
+        /* -------------------- Personel İzin Günleri --------------------------*/
+        Route::resource('personel-stay-off-day', \App\Http\Controllers\Personel\StayOffDay\PersonelStayOffDayController::class);
+        Route::resource('payment', \App\Http\Controllers\Personel\PersonelCostController::class);
+
+        Route::get('notification', [\App\Http\Controllers\Personel\PersonelSettingController::class, 'notifications'])->name('notifications');
+
+        Route::get('settings', [\App\Http\Controllers\Personel\PersonelSettingController::class, 'settings'])->name('settings');
+        Route::post('settings', [\App\Http\Controllers\Personel\PersonelSettingController::class, 'update'])->name('setting.update');
+
+        Route::get('notification-permission', [\App\Http\Controllers\Personel\PersonelSettingController::class, 'notificationPermission'])->name('notificationPermission');
+        Route::post('notification-permission', [\App\Http\Controllers\Personel\PersonelSettingController::class, 'notificationPermissionUpdate']);
 
     });
 });
