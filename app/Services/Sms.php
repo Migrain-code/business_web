@@ -8,7 +8,7 @@ class Sms
 {
     private static string $apiUrl = "https://api.netgsm.com.tr/bulkhttppost.asp";
     const username = '4646060976';
-    const password = '6454A5';
+    const password = 'V3.7CHR5';
     const title = 'N.YILDIZ';
 
     public static function send($number, $message)
