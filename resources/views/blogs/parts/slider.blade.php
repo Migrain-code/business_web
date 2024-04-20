@@ -6,17 +6,17 @@
                     <div class="owl-carousel owl-theme">
                         <div class="item">
                             <a href="javascript:;">
-                                <img src="assets/images/bigSlider.png" alt="" />
+                                <img src="/front/assets/images/bigSlider.png" alt="" />
                             </a>
                         </div>
                         <div class="item">
                             <a href="javascript:;">
-                                <img src="assets/images/bigSlider.png" alt="" />
+                                <img src="/front/assets/images/bigSlider.png" alt="" />
                             </a>
                         </div>
                         <div class="item">
                             <a href="javascript:;">
-                                <img src="assets/images/bigSlider.png" alt="" />
+                                <img src="/front/assets/images/bigSlider.png" alt="" />
                             </a>
                         </div>
                     </div>
