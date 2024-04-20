@@ -4,28 +4,22 @@
             <div class="col-12">
                 <div class="bigSliderContent">
                     <div class="owl-carousel owl-theme">
-                        <div class="item">
-                            <a href="javascript:;">
-                                <img src="/front/assets/images/bigSlider.png" alt="" />
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="javascript:;">
-                                <img src="/front/assets/images/bigSlider.png" alt="" />
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="javascript:;">
-                                <img src="/front/assets/images/bigSlider.png" alt="" />
-                            </a>
-                        </div>
+                        @foreach($blogAdvrt as $row)
+                            <!--Slider ıtem start-->
+                            <div class="item">
+                                <a href="{{$row->link}}">
+                                    <img src="{{image($row->image)}}" alt="" />
+                                </a>
+                            </div>
+                            <!--Slider ıtem end-->
+                        @endforeach
                     </div>
                     <div class="sliderArrow">
                         <a href="javascript:;" class="sliderPrev">
-                            <img src="assets/images/icons/ico-slider-left.svg" />
+                            <img src="/front/assets/images/icons/ico-slider-left.svg" />
                         </a>
                         <a href="javascript:;" class="sliderNext">
-                            <img src="assets/images/icons/ico-slider-right.svg" />
+                            <img src="/front/assets/images/icons/ico-slider-right.svg" />
                         </a>
                     </div>
                 </div>
