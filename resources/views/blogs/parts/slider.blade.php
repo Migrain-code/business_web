@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="bigSliderContent">
                     <div class="owl-carousel owl-theme">
-                        @foreach($ads as $adBanner)
+                        @foreach($blogAdvrt as $adBanner)
                             <!--Slider ıtem start-->
                             <div class="item">
                                 <a href="{{$adBanner->link}}">

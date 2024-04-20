@@ -81,9 +81,9 @@ class HomeController extends Controller
     public function blogs()
     {
         $blogCategories = Category::all();
-        $ads = Ads::where('type', 4)->where('status', 1)->get();
+        $blogAdvrt = Ads::where('type', 4)->where('status', 1)->get();
 
-        return view('blogs.index', compact('blogCategories', 'ads'));
+        return view('blogs.index', compact('blogCategories', 'blogAdvrt'));
     }
 
     public function blogDetail($slug)
