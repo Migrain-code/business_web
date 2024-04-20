@@ -35,7 +35,6 @@ class Sms
                 'filter' => '0',
                 'startdate' => '',
                 'stopdate' => '',
-                'appkey'=>'xxx',
                 ),
         ));
 
