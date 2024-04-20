@@ -82,7 +82,7 @@ class HomeController extends Controller
     {
         $blogCategories = Category::all();
         $ads = Ads::where('type', 4)->where('status', 1)->get();
-        dd($ads);
+
         return view('blogs.index', compact('blogCategories', 'ads'));
     }
 
