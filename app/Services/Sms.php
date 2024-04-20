@@ -7,7 +7,7 @@ use App\Models\SendedSms;
 class Sms
 {
     private static string $apiUrl = "https://api.netgsm.com.tr/sms/send/get";
-    const username = '5422735353';
+    const username = '4646060976';
     const password = '2%1F813';
     const title = 'N.YILDIZ';
 
