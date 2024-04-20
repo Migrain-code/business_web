@@ -3,13 +3,13 @@
         <div class="row">
             <div class="col-12">
                 <div class="bigSliderContent">
-                    @dd($blogAdvrt)
+
                     <div class="owl-carousel owl-theme">
-                        @foreach($blogAdvrt as $adBanner)
+                        @foreach($blogAdvrt as $advert)
                             <!--Slider ıtem start-->
                             <div class="item">
-                                <a href="{{$adBanner->link}}">
-                                    <img src="{{image($adBanner->image)}}" alt="" />
+                                <a href="{{$advert->link}}">
+                                    <img src="{{image($advert->image)}}" alt="" />
                                 </a>
                             </div>
                             <!--Slider ıtem end-->
