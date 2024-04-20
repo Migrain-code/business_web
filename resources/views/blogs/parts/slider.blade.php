@@ -3,6 +3,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="bigSliderContent">
+                    @dd($blogAdvrt)
                     <div class="owl-carousel owl-theme">
                         @foreach($blogAdvrt as $adBanner)
                             <!--Slider ıtem start-->
