@@ -70,7 +70,7 @@
                         </span><!--end:Menu link--><!--begin:Menu sub-->
 
                     </a>
-                    <a class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2" href="{{route('business.adission.index')}}">
+                    <a class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2" href="{{route('personel.case.index')}}">
                         <span class="menu-link">
                             <span class="menu-title">Kasa</span>
                             <span class="menu-arrow d-lg-none"></span>
