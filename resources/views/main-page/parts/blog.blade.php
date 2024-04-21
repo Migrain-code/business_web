@@ -24,7 +24,7 @@
                         <div class="owl-carousel owl-theme">
                             @foreach($comments as $comment)
                                 <div class="item">
-                                    <div class="testimonial-item">
+                                    <div class="testimonial-item" style="height: 315px;">
                                         <div class="client-info">
                                             <div class="image">
                                                 <img
