@@ -13,6 +13,7 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\ContactInfo;
 use App\Models\MaingPage;
+use App\Models\Page;
 use App\Models\Propartie;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
@@ -32,7 +33,14 @@ class HomeController extends Controller
         $proparties = Propartie::orderBy('order_number')->whereStatus(1)->where('is_featured', 1)->get();
         return view('main-page.index', compact('proparties', 'comments', 'brands', 'mainPagePartitions'));
     }
-
+    /**
+     * Dinamik Sayfalar
+     */
+    public function page($slug)
+    {
+        $page = Page::whereSlug($slug)->first();
+        return view('about.index', compact('page'));
+    }
     /**
      * Özellikler
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
@@ -173,7 +181,8 @@ class HomeController extends Controller
 
     public function about()
     {
-        return view('about.index');
+        $page = Page::find(4);
+        return view('about.index', compact('page'));
     }
 
     public function contact()

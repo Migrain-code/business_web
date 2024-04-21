@@ -603,7 +603,7 @@ $(document).ready(function () {
     clickedFooterList.toggle();
   });
 
-  $(".footerList").hidde();
+  $(".footerList").hidden;
 });
 
 $(document).ready(function () {

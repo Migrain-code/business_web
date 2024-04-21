@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Core\CustomResourceRegistrar;
 use App\Models\City;
+use App\Models\Page;
 use App\Models\RecommendedLink;
 use App\Models\Setting;
 use App\Models\Stat;
@@ -44,5 +45,8 @@ class AppServiceProvider extends ServiceProvider
         View::share('recommendedLinks', $recommendedLinks);
         $cities = City::all();
         View::share('cities', $cities);
+
+        $pages = Page::whereIn('id', [1, 2,3])->get();
+        View::share('pages', $pages);
     }
 }

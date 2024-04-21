@@ -248,8 +248,10 @@
                                 <div
                                     class="bottomLinks d-flex align-items-center justify-content-center justify-content-lg-start"
                                 >
-                                    <a href="javascript:;">Gizlilik Koşulları</a>
-                                    <a href="javascript:;">Şartlar ve Koşullar</a>
+                                    @foreach($pages as $page)
+                                        <a href="{{route('page.detail', $page->slug)}}">{{$page->title}}</a>
+                                    @endforeach
+
                                 </div>
                             </div>
                             <div class="col-lg-4">
