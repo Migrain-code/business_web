@@ -37,7 +37,7 @@ use Spatie\Translatable\HasTranslations;
 class Ads extends Model
 {
     use HasFactory, HasTranslations;
-
+    protected $translatable = ['title', 'description'];
     public function getTitle()
     {
         return $this->translate('title');
