@@ -1,5 +1,5 @@
 @extends('layouts.master')
-
+@section('title', 'Personel Şifremi Unuttum')
 @section('content')
     <div class="formBox">
         <div class="formBoxContent d-flex align-items-center w-auto forgotPass">

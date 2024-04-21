@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', 'Sıfırlaman Önce Telefon Numaranı Doğrula')
 
 @section('content')
     <div class="formBox">

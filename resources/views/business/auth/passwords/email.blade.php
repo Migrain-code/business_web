@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', 'İşletme Hesabı Şifremi Unuttum')
 
 @section('content')
     <div class="formBox">

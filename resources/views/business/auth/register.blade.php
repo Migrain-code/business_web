@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', 'İşletme Hesabı Oluştur')
 
 @section('content')
     <div class="formBox">
