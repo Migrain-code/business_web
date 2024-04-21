@@ -12,24 +12,6 @@
             </div>
         @endforeach
 
-        <div class="item">
-            <div class="formBoxSliderPhoto">
-                <img src="/front/assets/images/business/login-slider.jpeg" alt="" />
-            </div>
-            <div class="formBoxSliderText">
-                <strong>Hizmet ve Randevu Arama Sitesi. Hızlı Randevu</strong>
-                <span>Etiam nullam donec quis velit sit at tellus. Nunc.</span>
-            </div>
-        </div>
-        <div class="item">
-            <div class="formBoxSliderPhoto">
-                <img src="/front/assets/images/business/login-slider.jpeg" alt="" />
-            </div>
-            <div class="formBoxSliderText">
-                <strong>Hizmet ve Randevu Arama Sitesi. Hızlı Randevu</strong>
-                <span>Etiam nullam donec quis velit sit at tellus. Nunc.</span>
-            </div>
-        </div>
     </div>
     <a href="javascript:;" class="sliderPrev">
         <svg
