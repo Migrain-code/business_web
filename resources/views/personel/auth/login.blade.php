@@ -48,7 +48,7 @@
                         </div>
                         <div class="col-lg-6 d-flex align-items-center justify-content-end">
                             <div class="mb-3">
-                                <a href="{{--route('personel.showForgotForm')--}}" class="forgotPass">Şifremi Unuttum</a>
+                                <a href="{{route('personel.showForgotForm')}}" class="forgotPass">Şifremi Unuttum</a>
                             </div>
                         </div>
                     </div>

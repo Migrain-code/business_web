@@ -55,7 +55,7 @@ class LoginController extends Controller
         $user = Personel::where('phone', $phone)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return to_route('business.login')->with('response', [
+            return to_route('personel.login')->with('response', [
                 'status' => "error",
                 'message' => "Telefon Numaranız Veya Şifreniz Hatalı",
             ]);

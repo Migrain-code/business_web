@@ -34,7 +34,7 @@
                         <span>{{maskPhone(session('phone'))}}</span>
                     </div>
 
-                    <form method="post" action="{{route('business.verify.resetPassword')}}" class="aut-verification">
+                    <form method="post" action="{{route('personel.verify.resetPassword')}}" class="aut-verification">
                         @csrf
                         <div class="aut-info">
                             <p>6 haneli güvenlik kodunuzu yazınız.</p>

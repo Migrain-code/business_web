@@ -5,6 +5,14 @@
 <link href="/business/assets/css/style.bundle.css" rel="stylesheet" type="text/css">
 <link href="/business/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css">
 <style>
+    @media (max-width: 600px)
+    {
+        #personelProfileImage{
+            display: none !important;
+        }
+    }
+</style>
+<style>
     ::-webkit-scrollbar{
         width: 5px;
     }

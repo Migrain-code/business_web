@@ -3,12 +3,21 @@ Route::prefix('personel')->as('personel.')->group(function (){
     Route::get('login', [\App\Http\Controllers\Personel\Auth\LoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [\App\Http\Controllers\Personel\Auth\LoginController::class, 'login']);
 
+    Route::get('/sifremi-unuttum', [\App\Http\Controllers\Personel\Auth\ForgotPasswordController::class, 'showLinkRequestForm'])->name('showForgotForm');
+    Route::post('/sifremi-unuttum-send-code', [\App\Http\Controllers\Personel\Auth\ForgotPasswordController::class, 'sendResetVerifyCode'])->name('sendResetVerifyCode');
+
+    Route::get('/telefon-numarasi-dogrulama', [\App\Http\Controllers\Personel\Auth\ForgotPasswordController::class, 'showResetPassword'])->name('verify.showResetPassword');
+    Route::post('/sifremi-unuttum-dogrulama', [\App\Http\Controllers\Personel\Auth\ForgotPasswordController::class, 'verifyResetPassword'])->name('verify.resetPassword');
+
     Route::post('logout', [\App\Http\Controllers\Personel\Auth\LoginController::class, 'logout'])->name('logout');
 
     Route::middleware('auth:personel')->group(function () {
         Route::get('/home', [\App\Http\Controllers\Personel\HomeController::class, 'index'])->name('home');
+        Route::get('/appointment/calendar', [\App\Http\Controllers\Personel\HomeController::class, 'calendar'])->name('appointment.calendar');
+        Route::post('/appointment/update', [\App\Http\Controllers\Personel\HomeController::class, 'updateAppointment']);
         Route::get('/appointment', [\App\Http\Controllers\Personel\HomeController::class, 'appointment'])->name('appointments');
         Route::get('/case', [\App\Http\Controllers\Personel\HomeController::class, 'case'])->name('case.index');
+        Route::get('/today/appointment', [\App\Http\Controllers\Personel\HomeController::class, 'getClock']);
         Route::get('/appointment/{appointment}/detay', [\App\Http\Controllers\Personel\HomeController::class, 'appointmentDetail'])->name('appointment.detail');
         Route::post('appointment/{appointment}/service', [\App\Http\Controllers\Personel\Appointment\AppointmentServicesController::class,'store'])->name('appointment.service.add');
         Route::delete('appointmentServices/{appointmentServices}', [\App\Http\Controllers\Personel\Appointment\AppointmentServicesController::class,'destroy'])->name('appointment.service.destroy');

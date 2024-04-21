@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Personel\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\BusinessOfficial;
+use App\Models\Personel;
 use App\Models\SmsConfirmation;
 use App\Services\Sms;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
@@ -28,21 +29,21 @@ class ForgotPasswordController extends Controller
 
     public function showLinkRequestForm()
     {
-        return view('business.auth.passwords.email');
+        return view('personel.auth.passwords.email');
     }
 
     public function showResetPassword()
     {
-        return view('business.auth.passwords.confirm');
+        return view('personel.auth.passwords.confirm');
     }
     public function sendResetVerifyCode(Request $request)
     {
         $phone = clearPhone($request->phone);
-        $existOfficial = BusinessOfficial::wherePhone($phone)->first();
+        $existOfficial = Personel::wherePhone($phone)->first();
         if ($existOfficial){
             Session::put('phone', $existOfficial->phone);
             $this->createVerifyCode($phone);
-            return to_route('business.verify.showResetPassword')->with('response', [
+            return to_route('personel.verify.showResetPassword')->with('response', [
                 'status' => "success",
                 'message' => "Telefon numaranıza gönderdiğimiz 6 Haneli doğrulama kodunu giriniz"
             ]);
@@ -63,7 +64,7 @@ class ForgotPasswordController extends Controller
         $generateCode = rand(100000, 999999);
         $smsConfirmation = new SmsConfirmation();
         $smsConfirmation->phone = $phone;
-        $smsConfirmation->action = "OFFICIAL-PASSWORD-RESET";
+        $smsConfirmation->action = "PERSONEL-PASSWORD-RESET";
         $smsConfirmation->code = $generateCode;
         $smsConfirmation->expire_at = now()->addMinute(3);
         $smsConfirmation->save();
@@ -88,7 +89,7 @@ class ForgotPasswordController extends Controller
         ]);
         $mergedCode = implode($request->digit_code);
 
-        $code = SmsConfirmation::where("code", $mergedCode)->where('action', 'OFFICIAL-PASSWORD-RESET')->first();
+        $code = SmsConfirmation::where("code", $mergedCode)->where('action', 'PERSONEL-PASSWORD-RESET')->first();
         if ($code) {
             if ($code->expire_at < now()) {
 
@@ -101,13 +102,13 @@ class ForgotPasswordController extends Controller
 
             } else {
                 $generatePassword = rand(100000, 999999);
-                $official = BusinessOfficial::where('phone', $code->phone)->first();
+                $official = Personel::where('phone', $code->phone)->first();
                 $official->password = Hash::make($generatePassword);
                 if ($official->save()) {
 
                     Sms::send($code->phone, setting('business_site_title') . " Sistemine giriş için yeni şifreniz " . $generatePassword);
                     $code->delete();
-                    return to_route('business.login')->with('response',[
+                    return to_route('personel.login')->with('response',[
                         'status' => "success",
                         'message' => "Telefon Numaranız doğrulandı. Sisteme giriş için yeni şifreniz telefonunuza sms olarak gönderildi."
                     ]);

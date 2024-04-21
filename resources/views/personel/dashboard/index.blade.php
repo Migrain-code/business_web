@@ -14,6 +14,7 @@
     <div id="kt_app_content" class="app-content ">
         @include('personel.layouts.menu.nav')
         <!--begin::Row-->
+        @include('personel.dashboard.parts.calendar')
         <div class="row gx-6 gx-xl-9">
             <!--begin::Col-->
             <div class="col-lg-6 mt-9">
@@ -427,5 +428,191 @@
                 btn.text("Tümünü Seç");
             }s
         });
+    </script>
+    <script>
+        $('.clickedDate').on('click', function () {
+            var date = $(this).data('date');
+            fetchAppointment(date);
+        });
+        $(document).ready(function (){
+            var targetNavItem = document.querySelector('.clickedDate.active');
+
+            var targetNavItemLeft = targetNavItem.offsetLeft;
+
+            document.querySelector('.scrollable-container').scrollLeft = targetNavItemLeft;
+           fetchAppointment('{{now()->format('Y-m-d')}}')
+        });
+        function fetchAppointment(date){
+            $.ajax({
+                url: '/personel/today/appointment',
+                type: "GET",
+                data: {
+                    'appointment_date': date,
+                },
+                dataType: "JSON",
+                success: function (response) {
+                    let container = document.getElementById('clockContainer');
+                    container.innerHTML="<div></div>";
+                    var items = "";
+                    if(response.length > 0){
+                        $.each(response, function (index, item) {
+
+                            if(item.status === false){
+                                var item = `
+                            <!--begin::Day-->
+                            <div id="kt_schedule_day" class="tab-pane fade show active">
+                                <!--begin::Time-->
+                                <div class="d-flex flex-stack position-relative mt-6 alert alert-success">
+
+                                    <!--begin::Info-->
+                                    <div class="fw-semibold ms-5">
+                                        <!--begin::Time-->
+                                        <div class="fs-7 mb-1">
+                                            ${item.clock}
+
+                                        </div>
+                                        <!--end::Time-->
+
+                                        <!--begin::Title-->
+                                        <a href="#" class="fs-5 fw-bold text-dark text-hover-primary mb-2">
+                                            Boş
+                                        </a>
+                                        <!--end::Title-->
+
+
+                                    </div>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::Time-->
+
+                            </div>
+                            <!--end::Day-->
+                            `;
+                            } else{
+                                var item = `
+                            <!--begin::Day-->
+                            <div id="kt_schedule_day" class="tab-pane fade show active">
+                                <!--begin::Time-->
+                                <div class="d-flex flex-stack position-relative mt-6 alert alert-${item.color_code} align-items-center">
+                                    <div class="d-flex">
+                                        <img src="${item.customer.image}" class="mt-2 rounded" style="width: 50px; height: 50px; object-fit: cover">
+                                         <!--begin::Info-->
+                                    <div class="fw-semibold ms-5">
+
+                                        <!--begin::Time-->
+                                        <div class="fs-7 mb-1">
+                                            ${item.clock}
+
+                                        </div>
+                                        <!--end::Time-->
+
+                                        <!--begin::Title-->
+                                        <a href="#" class="fs-5 fw-bold text-dark text-hover-primary mb-2">
+                                            ${item.title}
+                                        </a>
+                                        <!--end::Title-->
+
+                                        <!--begin::User-->
+                                        <div class="fs-7 text-muted">
+                                            Müşteri <a href="#">${item.customer.name}</a>
+                                        </div>
+                                        <!--end::User-->
+                                    </div>
+                                    <!--end::Info-->
+                                    </div>
+
+
+                                    <!--begin::Action-->
+                                    <a href="${item.route}" class="btn btn-light bnt-active-light-primary btn-sm">Detay</a>
+                                    <!--end::Action-->
+                                </div>
+                                <!--end::Time-->
+
+                            </div>
+                            <!--end::Day-->
+                        `;
+                            }
+
+                            items += item;
+                        });
+                    } else{
+                        var item = `
+                            <!--begin::Day-->
+                            <div id="kt_schedule_day" class="tab-pane fade show active">
+                                <!--begin::Time-->
+                                <div class="d-flex flex-stack position-relative mt-6 alert alert-success">
+
+                                    <!--begin::Info-->
+                                    <div class="fw-semibold ms-5">
+                                        <!--begin::Title-->
+                                        <a href="#" class="fs-5 fw-bold text-dark text-hover-primary mb-2">
+                                            Veri Bulunamadı
+                                        </a>
+                                        <!--end::Title-->
+
+
+                                    </div>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::Time-->
+
+                            </div>
+                            <!--end::Day-->
+                            `;
+
+                        items+= item;
+                    }
+
+                    container.innerHTML = items;
+
+                },
+                error: function (xhr) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata!',
+                        html: 'Sistemsel Bir Hata Sebebiyle Randevu Listesi Alınamadı',
+                        buttonsStyling: false,
+                        confirmButtonText: "Tamam",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+    <script src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
+    <script>
+        // Cast API'yi yüklemek için bekleyelim
+        window.addEventListener('load', function() {
+           // cast.framework.CastReceiverContext.getInstance().start();
+        });
+
+        function initializeCastApi() {
+            // Butona tıklandığında medya yayınlama işlemini gerçekleştirme
+            document.getElementById('castButton').addEventListener('click', function() {
+                castMedia();
+            });
+        }
+
+        function castMedia() {
+            // Yayınlanacak medya içeriğinin URL'si
+            var mediaUrl = 'http://127.0.0.1:8000/personel/home';
+
+            // Medya öğesi oluşturma
+            var mediaInfo = new chrome.cast.media.MediaInfo(mediaUrl);
+            var request = new chrome.cast.media.LoadRequest(mediaInfo);
+
+            // Medya yayınlama
+            cast.framework.CastReceiverContext.getInstance().sendLoadRequest(request)
+                .then(
+                    function() {
+                        console.log('Media loaded successfully');
+                    },
+                    function(errorCode) {
+                        console.error('Error loading media: ' + errorCode);
+                    }
+                );
+        }
     </script>
 @endsection

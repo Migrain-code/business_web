@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $appointment_id
@@ -43,26 +43,32 @@ class AppointmentServices extends Model
         0 => [
             'html' => '<span class="badge light badge-warning fw-bolder px-2 py-2">Onay Bekliyor</span>',
             'text' => 'Onay Bekliyor',
+            'color_code' => "warning"
         ],
         1 => [
             'html' => '<span class="badge light badge-success fw-bolder px-2 py-2">Onaylandı</span>',
-            'text' => 'Onaylandı'
+            'text' => 'Onaylandı',
+            'color_code' => "primary"
         ],
         2 => [
             'html' => '<span class="badge light badge-info fw-bolder px-2 py-2">Randevu Zamanı</span>',
-            'text' => 'Randevu Zamanı'
+            'text' => 'Randevu Zamanı',
+            'color_code' => "info"
         ],
         3 => [
             'html' => '<span class="badge badge-outline-success fw-bolder px-2 py-2">Tamamlandı</span>',
-            'text' => 'Tamamlandı'
+            'text' => 'Tamamlandı',
+            'color_code' => "success"
         ],
         4 => [
             'html' => '<span class="badge badge-outline-info fw-bolder px-2 py-2">Ödeme Alındı</span>',
-            'text' => 'Ödeme Alındı'
+            'text' => 'Ödeme Alındı',
+            'color_code' => "info"
         ],
         5 => [
             'html' => '<span class="badge light badge-danger fw-bolder px-2 py-2">İptal Edildi</span>',
-            'text' => 'İptal Edildi'
+            'text' => 'İptal Edildi',
+            'color_code' => "danger"
         ],
 
     ];

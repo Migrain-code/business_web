@@ -3,7 +3,7 @@
 @section('content')
     <div class="formBox">
         <div class="formBoxContent d-flex align-items-center w-auto forgotPass">
-            <form method="post" action="{{route('business.sendResetVerifyCode')}}" class="formBoxForm w-auto">
+            <form method="post" action="{{route('personel.sendResetVerifyCode')}}" class="formBoxForm w-auto">
                 @csrf
                 <div class="mb-5 text-center formLogo">
                     <img src="/front/assets/images/logo-pink.svg" alt="" />
@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="back-sign-page">
-                    <a href="{{route('business.login')}}">Giriş ekranına geri dön</a>
+                    <a href="{{route('personel.login')}}">Giriş ekranına geri dön</a>
                 </div>
 
                 <div class="mb-3">
