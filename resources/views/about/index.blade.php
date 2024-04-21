@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', $page->meta_title)
+@section('title', $page->meta_keys)
 @section('styles')
 
 @endsection
