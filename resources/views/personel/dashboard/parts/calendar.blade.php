@@ -8,12 +8,8 @@
 
                 <div class="fs-6 fw-semibold text-muted">Hangi gündeki randevularınızı görmek istiyorsanız o güne tıklayınız</div>
             </div>
+            <a class="btn btn-light-primary me-2" href="{{route('personel.appointment.calendar')}}">Takvim Görünümü</a>
             <!--end::Card title-->
-            <div class="d-flex">
-                <a class="btn btn-light-primary me-2" href="{{route('personel.appointment.calendar')}}">Takvim Görünümü</a>
-
-                <button class="btn btn-light-warning" id="castButton">Yansıt</button>
-            </div>
         </div>
         <!--end::Card header-->
 
@@ -38,8 +34,17 @@
             <!--end::Dates-->
 
             <!--begin::Tab Content-->
-            <div class="tab-content">
+            <div class="tab-content position-relative min-h-150px">
+                <div id="loader" style="display: none;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
                 <div class="scroll-y me-n7 pe-7" id="clockContainer" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="200px">
+
+                </div>
+                <div class="w-100 mt-5 d-flex align-items-center justify-content-center scrollBottomButton">
+                    <i class="fa fa-chevron-down fs-2"></i>
                 </div>
             </div>
             <!--end::Tab Content-->
