@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Yetkili Girişi')
+@section('title', 'Personel Girişi')
 @section('content')
     <div class="formBox">
         <div class="formBoxContent d-md-flex align-items-center">
