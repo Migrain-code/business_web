@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string|null $description
@@ -35,5 +36,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Ads extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
+
+    public function getTitle()
+    {
+        return $this->translate('title');
+    }
+
+    public function getDescription()
+    {
+        return $this->translate('description');
+    }
 }

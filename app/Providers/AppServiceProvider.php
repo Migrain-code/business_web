@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Core\CustomResourceRegistrar;
+use App\Models\Ads;
 use App\Models\City;
 use App\Models\Page;
 use App\Models\RecommendedLink;
@@ -48,5 +49,9 @@ class AppServiceProvider extends ServiceProvider
 
         $pages = Page::whereIn('id', [1, 2,3])->get();
         View::share('pages', $pages);
+
+        $loginImages = Ads::whereStatus(1)->where('type', 6)->get();
+        View::share('loginImages', $loginImages);
+
     }
 }

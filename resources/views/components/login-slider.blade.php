@@ -1,14 +1,17 @@
 <div class="formBoxSlider">
     <div class="owl-carousel owl-theme">
-        <div class="item">
-            <div class="formBoxSliderPhoto">
-                <img src="/front/assets/images/business/login-slider.jpeg" alt="" />
+        @foreach($loginImages as $loginImage)
+            <div class="item">
+                <div class="formBoxSliderPhoto">
+                    <img src="{{image($loginImage->image)}}" alt="" />
+                </div>
+                <div class="formBoxSliderText">
+                    <strong>{{$loginImage->getTitle()}}</strong>
+                    <span>{{$loginImage->getDescription()}}</span>
+                </div>
             </div>
-            <div class="formBoxSliderText">
-                <strong>Hizmet ve Randevu Arama Sitesi. Hızlı Randevu</strong>
-                <span>Etiam nullam donec quis velit sit at tellus. Nunc.</span>
-            </div>
-        </div>
+        @endforeach
+
         <div class="item">
             <div class="formBoxSliderPhoto">
                 <img src="/front/assets/images/business/login-slider.jpeg" alt="" />
