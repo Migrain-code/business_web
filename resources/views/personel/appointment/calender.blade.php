@@ -141,6 +141,22 @@
 @endsection
 @section('scripts')
     <script>
+        var eventCollection = [];
+        @foreach(authUser()->appointments as $appointment)
+        var newEvent = {
+            id: "{{$appointment->id}}",
+            title: "{{$appointment->service->subCategory->name}}",
+            start: "{{$appointment->start_time->format('Y-m-d H:i')}}",
+            end: "{{$appointment->end_time->format('Y-m-d H:i')}}",
+            description: "Toplam Tutar : "+ "{{formatPrice($appointment->appointment->calculateTotal())}}",
+            className: "fc-event-danger fc-event-solid-warning",
+            username: "{{$appointment->appointment->customer->name}}",
+            status: "{{$appointment->status("text")}}"
+        };
+        eventCollection.push(newEvent);
+
+        @endforeach
+
     </script>
     <script src="/business/assets/js/project/calendar/calendar.js"></script>
 

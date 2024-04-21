@@ -152,17 +152,7 @@ const KTAppCalendar = (() => {
         },
         editable: true,
         dayMaxEvents: true,
-        events: [{
-            id: 1,
-            title: "Saç Kesimi",
-            start: "2024-04-21 18:00",
-            end:"2024-04-21 19:00",
-            description: "",
-            className: "fc-event-danger fc-event-solid-warning",
-            username: "Muhammet",
-            status: "Onaylandı"
-        },
-        ],
+        events: eventCollection,
         datesSet: function () {},
         windowResize: function (view) {
             if (window.innerWidth < 768) {
