@@ -49,178 +49,697 @@
 
                     <!--begin:Menu item-->
 
-                    <a class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2" href="{{route('business.home')}}">
-                        <span class="menu-link">
-                            <span class="menu-title">Özet</span>
-                            <span class="menu-arrow d-lg-none"></span>
-                        </span><!--end:Menu link--><!--begin:Menu sub-->
-
-                    </a>
-                    <a class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2" href="{{route('business.appointment.index')}}">
-                        <span class="menu-link">
-                            <span class="menu-title">Randevu Takvimi</span>
-                            <span class="menu-arrow d-lg-none"></span>
-                        </span><!--end:Menu link--><!--begin:Menu sub-->
-
-                    </a>
-                    <a class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2" href="{{route('business.appointment.index')}}">
-                        <span class="menu-link">
-                            <span class="menu-title">Randevular</span>
-                            <span class="menu-arrow d-lg-none"></span>
-                        </span><!--end:Menu link--><!--begin:Menu sub-->
-
-                    </a>
-                    <a class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2" href="{{route('business.adission.index')}}">
-                        <span class="menu-link">
-                            <span class="menu-title">Adisyonlar</span>
-                            <span class="menu-arrow d-lg-none"></span>
-                        </span><!--end:Menu link--><!--begin:Menu sub-->
-
-                    </a>
-                    <a class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2" href="{{route('business.customer.index')}}">
-                        <span class="menu-link">
-                            <span class="menu-title">Müşteriler</span>
-                            <span class="menu-arrow d-lg-none"></span>
-                        </span><!--end:Menu link--><!--begin:Menu sub-->
-
-                    </a>
-                    <a class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2" href="{{route('business.sale.index')}}">
-                        <span class="menu-link">
-                            <span class="menu-title">Ürün Satışları</span>
-                            <span class="menu-arrow d-lg-none"></span>
-                        </span><!--end:Menu link--><!--begin:Menu sub-->
-
-                    </a>
-                    <a class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2" href="{{route('business.package-sale.index')}}">
-                        <span class="menu-link">
-                            <span class="menu-title">Paket Satışları</span>
-                            <span class="menu-arrow d-lg-none"></span>
-                        </span><!--end:Menu link--><!--begin:Menu sub-->
-
-                    </a>
-
-                    <!--begin:Menu item-->
                     <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"
-                         class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                        <!--begin:Menu link--><span class="menu-link"><span class="menu-title">Raporlar</span><span
+                         class="menu-item here menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
+                        <!--begin:Menu link--><span class="menu-link"><span class="menu-title">Hızlı İşlemler</span><span
                                 class="menu-arrow d-lg-none"></span></span><!--end:Menu link--><!--begin:Menu sub-->
-                        <div
-                            class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown px-lg-2 py-lg-4 w-lg-200px">
-                            <!--begin:Menu item-->
-                            <div class="menu-item"><!--begin:Menu link-->
-                                <a class="menu-link"
-                                   href="{{route('business.case')}}"
-                                   target="_blank"><span
-                                        class="menu-icon">
-                                        <i class="ki-duotone ki-wallet fs-2"><span class="path1"></span>
-                                            <span class="path2"></span></i>
-                                    </span>
-                                    <span class="menu-title">Kasa Raporu</span>
-                                </a><!--end:Menu link-->
+                        <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-850px">
+                            <!--begin:Dashboards menu-->
+                            <div class="menu-state-bg menu-extended overflow-hidden overflow-lg-visible"
+                                 data-kt-menu-dismiss="true">
+                                <!--begin:Row-->
+                                <div class="row">
+                                    <!--begin:Col-->
+                                    <div class="col-lg-8 mb-3 mb-lg-0  py-3 px-3 py-lg-6 px-lg-6">
+                                        <!--begin:Row-->
+                                        <div class="row">
+                                            <!--begin:Col-->
+                                            <div class="col-lg-6 mb-3">
+                                                <!--begin:Menu item-->
+                                                <div class="menu-item p-0 m-0">
+                                                    <!--begin:Menu link-->
+                                                    <a href="{{route('business.appointment.index')}}" class="menu-link">
+                                                        <span
+                                                            class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+                                                            <i class="ki-duotone ki-element-11 text-primary fs-1"><span
+                                                                    class="path1"></span><span
+                                                                    class="path2"></span><span
+                                                                    class="path3"></span><span class="path4"></span></i>                                </span>
+
+                                                        <span class="d-flex flex-column">
+                                                            <span class="fs-6 fw-bold text-gray-800">Randevular</span>
+                                                            <span
+                                                                class="fs-7 fw-semibold text-muted">Liste & Takvim</span>
+                                                        </span>
+                                                    </a>
+                                                    <!--end:Menu link-->
+                                                </div>
+                                                <!--end:Menu item-->
+                                            </div>
+                                            <!--end:Col-->
+                                            <!--begin:Col-->
+                                            <div class="col-lg-6 mb-3">
+                                                <!--begin:Menu item-->
+                                                <div class="menu-item p-0 m-0">
+                                                    <!--begin:Menu link-->
+                                                    <a href="{{route('business.sale.index')}}" class="menu-link @if(request()->routeIs('business.sale.*')) active @endif">
+                                                        <span
+                                                            class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+                                                            <i class="ki-duotone ki-basket text-danger fs-1"><span
+                                                                    class="path1"></span><span
+                                                                    class="path2"></span><span
+                                                                    class="path3"></span><span class="path4"></span></i>                                </span>
+
+                                                        <span class="d-flex flex-column">
+                                                            <span
+                                                                class="fs-6 fw-bold text-gray-800">Ürün Satışları</span>
+                                                            <span
+                                                                class="fs-7 fw-semibold text-muted">Satış Raporları</span>
+                                                        </span>
+                                                    </a>
+                                                    <!--end:Menu link-->
+                                                </div>
+                                                <!--end:Menu item-->
+                                            </div>
+                                            <!--end:Col-->
+                                            <!--begin:Col-->
+                                            <div class="col-lg-6 mb-3">
+                                                <!--begin:Menu item-->
+                                                <div class="menu-item p-0 m-0">
+                                                    <!--begin:Menu link-->
+                                                    <a href="{{route('business.product.index')}}" class="menu-link @if(request()->routeIs('business.product.*')) active @endif">
+                                                        <span
+                                                            class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+                                                            <i class="ki-duotone ki-abstract-44 text-info fs-1"><span
+                                                                    class="path1"></span><span class="path2"></span></i>                                </span>
+
+                                                        <span class="d-flex flex-column">
+                                                            <span class="fs-6 fw-bold text-gray-800">Ürünler</span>
+                                                            <span
+                                                                class="fs-7 fw-semibold text-muted">Stok & Raporlama</span>
+                                                        </span>
+                                                    </a>
+                                                    <!--end:Menu link-->
+                                                </div>
+                                                <!--end:Menu item-->
+                                            </div>
+                                            <!--end:Col-->
+                                            <!--begin:Col-->
+                                            <div class="col-lg-6 mb-3">
+                                                <!--begin:Menu item-->
+                                                <div class="menu-item p-0 m-0">
+                                                    <!--begin:Menu link-->
+                                                    <a href="{{route('business.customer.index')}}" class="menu-link @if(request()->routeIs('business.customer.*')) active @endif">
+                                                        <span
+                                                            class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+                                                            <i class="ki-duotone ki-color-swatch text-success fs-1"><span
+                                                                    class="path1"></span><span
+                                                                    class="path2"></span><span
+                                                                    class="path3"></span><span
+                                                                    class="path4"></span><span
+                                                                    class="path5"></span><span
+                                                                    class="path6"></span><span
+                                                                    class="path7"></span><span
+                                                                    class="path8"></span><span
+                                                                    class="path9"></span><span
+                                                                    class="path10"></span><span
+                                                                    class="path11"></span><span
+                                                                    class="path12"></span><span
+                                                                    class="path13"></span><span
+                                                                    class="path14"></span><span
+                                                                    class="path15"></span><span
+                                                                    class="path16"></span><span
+                                                                    class="path17"></span><span
+                                                                    class="path18"></span><span
+                                                                    class="path19"></span><span
+                                                                    class="path20"></span><span
+                                                                    class="path21"></span></i>                                </span>
+
+                                                        <span class="d-flex flex-column">
+                                                            <span class="fs-6 fw-bold text-gray-800">Müşteriler</span>
+                                                            <span
+                                                                class="fs-7 fw-semibold text-muted">Tüm Müşteriler</span>
+                                                        </span>
+                                                    </a>
+                                                    <!--end:Menu link-->
+                                                </div>
+                                                <!--end:Menu item-->
+                                            </div>
+                                            <!--end:Col-->
+                                            <!--begin:Col-->
+                                            <div class="col-lg-6 mb-3">
+                                                <!--begin:Menu item-->
+                                                <div class="menu-item p-0 m-0">
+                                                    <!--begin:Menu link-->
+                                                    <a href="{{route('business.package-sale.index')}}" class="menu-link @if(request()->routeIs('business.package-sale.*')) active @endif">
+                                                        <span
+                                                            class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+                                                            <i class="ki-duotone ki-chart-simple text-dark fs-1"><span
+                                                                    class="path1"></span><span
+                                                                    class="path2"></span><span
+                                                                    class="path3"></span><span class="path4"></span></i>                                </span>
+
+                                                        <span class="d-flex flex-column">
+                                                            <span
+                                                                class="fs-6 fw-bold text-gray-800">Paket Satışları</span>
+                                                            <span class="fs-7 fw-semibold text-muted">Listeleme & Rapolama</span>
+                                                        </span>
+                                                    </a>
+                                                    <!--end:Menu link-->
+                                                </div>
+                                                <!--end:Menu item-->
+                                            </div>
+                                            <!--end:Col-->
+                                            <!--begin:Col-->
+                                            <div class="col-lg-6 mb-3">
+                                                <!--begin:Menu item-->
+                                                <div class="menu-item p-0 m-0">
+                                                    <!--begin:Menu link-->
+                                                    <a href="{{route('business.adission.index')}}" class="menu-link ">
+                                                        <span
+                                                            class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+                                                            <i class="ki-duotone ki-switch text-warning fs-1"><span
+                                                                    class="path1"></span><span class="path2"></span></i>                                </span>
+
+                                                        <span class="d-flex flex-column">
+                                                            <span class="fs-6 fw-bold text-gray-800">Adisyonlar</span>
+                                                            <span class="fs-7 fw-semibold text-muted">Listleme & Raporlama</span>
+                                                        </span>
+                                                    </a>
+                                                    <!--end:Menu link-->
+                                                </div>
+                                                <!--end:Menu item-->
+                                            </div>
+                                            <!--end:Col-->
+                                            <!--begin:Col-->
+                                            <div class="col-lg-6 mb-3">
+                                                <!--begin:Menu item-->
+                                                <div class="menu-item p-0 m-0">
+                                                    <!--begin:Menu link-->
+                                                    <a href="{{route('business.case')}}" class="menu-link ">
+                                                        <span
+                                                            class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+                                                            <i class="ki-duotone ki-abstract-42 text-danger fs-1"><span
+                                                                    class="path1"></span><span class="path2"></span></i>                                </span>
+
+                                                        <span class="d-flex flex-column">
+                                                            <span class="fs-6 fw-bold text-gray-800">Kasa</span>
+                                                            <span class="fs-7 fw-semibold text-muted">Raporlama</span>
+                                                        </span>
+                                                    </a>
+                                                    <!--end:Menu link-->
+                                                </div>
+                                                <!--end:Menu item-->
+                                            </div>
+                                            <!--end:Col-->
+                                            <!--begin:Col-->
+                                            <div class="col-lg-6 mb-3">
+                                                <!--begin:Menu item-->
+                                                <div class="menu-item p-0 m-0">
+                                                    <!--begin:Menu link-->
+                                                    <a href="{{route('business.support-center.index')}}" class="menu-link ">
+                                                        <span
+                                                            class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+                                                            <i class="ki-duotone ki-call text-primary fs-1"><span
+                                                                    class="path1"></span><span
+                                                                    class="path2"></span><span
+                                                                    class="path3"></span><span
+                                                                    class="path4"></span><span
+                                                                    class="path5"></span><span
+                                                                    class="path6"></span><span
+                                                                    class="path7"></span><span class="path8"></span></i>                                </span>
+
+                                                        <span class="d-flex flex-column">
+                                                            <span
+                                                                class="fs-6 fw-bold text-gray-800">Destek Merkezi</span>
+                                                            <span class="fs-7 fw-semibold text-muted">Talepler & Dökümantasyon</span>
+                                                        </span>
+                                                    </a>
+                                                    <!--end:Menu link-->
+                                                </div>
+                                                <!--end:Menu item-->
+                                            </div>
+                                            <!--end:Col-->
+                                        </div>
+                                        <!--end:Row-->
+
+                                        <div class="separator separator-dashed mx-5 my-5"></div>
+
+                                        <!--begin:Landing-->
+                                        <div class="d-flex flex-stack flex-wrap flex-lg-nowrap gap-2 mx-5">
+                                            <div class="d-flex flex-column me-5">
+                                                <div class="fs-6 fw-bold text-gray-800">
+                                                    Bir Sorunuz mu var?
+                                                </div>
+                                                <div class="fs-7 fw-semibold text-muted">
+                                                    Çağrı Merkezimizle iletişime geçin
+                                                </div>
+                                            </div>
+
+                                            <a href="landing.html" class="btn btn-sm btn-primary fw-bold">
+                                                <i class="fa fa-phone"></i> Ara
+                                            </a>
+                                        </div>
+                                        <!--end:Landing-->
+                                    </div>
+                                    <!--end:Col-->
+
+                                    <!--begin:Col-->
+                                    <div class="menu-more bg-light col-lg-4 py-3 px-3 py-lg-6 px-lg-6 rounded-end">
+                                        <!--begin:Heading-->
+                                        <h4 class="fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4">Menüler</h4>
+                                        <!--end:Heading-->
+
+
+                                        <!--begin:Menu item-->
+                                        <div class="menu-item p-0 m-0">
+                                            <!--begin:Menu link-->
+                                            <a href="{{route('business.service.index')}}" class="menu-link py-2 ">
+                                                <span class="menu-title">
+                                                    Hizmetler
+                                                </span>
+                                            </a>
+                                            <!--end:Menu link-->
+                                        </div>
+                                        <!--end:Menu item-->
+                                        <!--begin:Menu item-->
+                                        <div class="menu-item p-0 m-0">
+                                            <!--begin:Menu link-->
+                                            <a href="{{route('business.personel.index')}}" class="menu-link py-2 ">
+                                                <span class="menu-title">
+                                                    Personeller
+                                                </span>
+                                            </a>
+                                            <!--end:Menu link-->
+                                        </div>
+                                        <!--end:Menu item-->
+                                        <!--begin:Menu item-->
+                                        <div class="menu-item p-0 m-0">
+                                            <!--begin:Menu link-->
+                                            <a href="dashboards/logistics.html" class="menu-link py-2 ">
+                                                <span class="menu-title">
+                                                    İzinler
+                                                </span>
+                                            </a>
+                                            <!--end:Menu link-->
+                                        </div>
+                                        <!--end:Menu item-->
+                                        <!--begin:Menu item-->
+                                        <div class="menu-item p-0 m-0">
+                                            <!--begin:Menu link-->
+                                            <a href="{{route('business.branche.index')}}" class="menu-link py-2 ">
+                                                <span class="menu-title">
+                                                    Şubeler
+                                                </span>
+                                            </a>
+                                            <!--end:Menu link-->
+                                        </div>
+                                        <!--end:Menu item-->
+                                        <!--begin:Menu item-->
+                                        <div class="menu-item p-0 m-0">
+                                            <!--begin:Menu link-->
+                                            <a href="{{route('business.business-official.index')}}" class="menu-link py-2 ">
+                                                <span class="menu-title">
+                                                    Yetkililer
+                                                </span>
+                                            </a>
+                                            <!--end:Menu link-->
+                                        </div>
+                                        <!--end:Menu item-->
+                                        <!--begin:Menu item-->
+                                        <div class="menu-item p-0 m-0">
+                                            <!--begin:Menu link-->
+                                            <a href="{{route('business.customer.index')}}" class="menu-link py-2 ">
+                                                <span class="menu-title">
+                                                    Müşteriler
+                                                </span>
+                                            </a>
+                                            <!--end:Menu link-->
+                                        </div>
+                                        <!--end:Menu item-->
+                                        <!--begin:Menu item-->
+                                        <div class="menu-item p-0 m-0">
+                                            <!--begin:Menu link-->
+                                            <a href="{{route('business.product.index')}}" class="menu-link py-2 ">
+                                                <span class="menu-title">
+                                                    Ürünler
+                                                </span>
+                                            </a>
+                                            <!--end:Menu link-->
+                                        </div>
+                                        <!--end:Menu item-->
+                                        <!--begin:Menu item-->
+                                        <div class="menu-item p-0 m-0">
+                                            <!--begin:Menu link-->
+                                            <a href="dashboards/logistics.html" class="menu-link py-2 ">
+                                                <span class="menu-title">
+                                                    Notlar
+                                                </span>
+                                            </a>
+                                            <!--end:Menu link-->
+                                        </div>
+                                        <!--end:Menu item-->
+                                    </div>
+                                    <!--end:Col-->
+                                </div>
+                                <!--end:Row-->
                             </div>
-                            <!--end:Menu item--><!--begin:Menu item-->
-                            <div class="menu-item"><!--begin:Menu link-->
-                                <a class="menu-link"
-                                   href="{{route('business.prim')}}"
-                                   target="_blank"><span
-                                        class="menu-icon">
-                                        <i class="ki-duotone ki-wallet fs-2"><span class="path1"></span>
-                                            <span class="path2"></span></i>
-                                    </span>
-                                    <span class="menu-title">Personel Raporu</span>
-                                </a><!--end:Menu link-->
-                            </div>
-                            <div class="menu-item"><!--begin:Menu link-->
-                                <a class="menu-link"
-                                   href="{{route('business.sale.index')}}"
-                                   target="_blank"><span
-                                        class="menu-icon">
-                                        <i class="ki-duotone ki-wallet fs-2"><span class="path1"></span>
-                                            <span class="path2"></span></i>
-                                    </span>
-                                    <span class="menu-title">Ürün Satış Raporu</span>
-                                </a><!--end:Menu link-->
-                            </div>
-                            <div class="menu-item"><!--begin:Menu link-->
-                                <a class="menu-link"
-                                   href="{{route('business.package-sale.index')}}"
-                                   target="_blank"><span
-                                        class="menu-icon">
-                                        <i class="ki-duotone ki-wallet fs-2"><span class="path1"></span>
-                                            <span class="path2"></span></i>
-                                    </span>
-                                    <span class="menu-title">Paket Satış Raporu</span>
-                                </a><!--end:Menu link-->
-                            </div>
-                            <div class="menu-item"><!--begin:Menu link-->
-                                <a class="menu-link"
-                                   href="{{route('business.cost.index')}}"
-                                   target="_blank"><span
-                                        class="menu-icon">
-                                        <i class="ki-duotone ki-wallet fs-2"><span class="path1"></span>
-                                            <span class="path2"></span></i>
-                                    </span>
-                                    <span class="menu-title">Masraflar</span>
-                                </a><!--end:Menu link-->
-                            </div>
-                            <div class="menu-item"><!--begin:Menu link-->
-                                <a class="menu-link"
-                                   href="{{route('business.receivable.index')}}"
-                                   target="_blank"><span
-                                        class="menu-icon">
-                                        <i class="ki-duotone ki-wallet fs-2"><span class="path1"></span>
-                                            <span class="path2"></span></i>
-                                    </span>
-                                    <span class="menu-title">Alacaklar</span>
-                                </a><!--end:Menu link-->
-                            </div>
-                            <div class="menu-item"><!--begin:Menu link-->
-                                <a class="menu-link"
-                                   href="{{route('business.dep.index')}}"
-                                   target="_blank"><span
-                                        class="menu-icon">
-                                        <i class="ki-duotone ki-wallet fs-2"><span class="path1"></span>
-                                            <span class="path2"></span></i>
-                                    </span>
-                                    <span class="menu-title">Borçlar</span>
-                                </a><!--end:Menu link-->
-                            </div>
-                            <div class="menu-item"><!--begin:Menu link-->
-                                <a class="menu-link"
-                                   href="{{route('business.dep.index')}}"
-                                   target="_blank"><span
-                                        class="menu-icon">
-                                        <i class="ki-duotone ki-wallet fs-2"><span class="path1"></span>
-                                            <span class="path2"></span></i>
-                                    </span>
-                                    <span class="menu-title">Tahsilatlar</span>
-                                </a><!--end:Menu link-->
-                            </div>
-                            <div class="menu-item"><!--begin:Menu link-->
-                                <a class="menu-link"
-                                   href="{{route('business.dep.index')}}"
-                                   target="_blank"><span
-                                        class="menu-icon">
-                                        <i class="ki-duotone ki-wallet fs-2"><span class="path1"></span>
-                                            <span class="path2"></span></i>
-                                    </span>
-                                    <span class="menu-title">Yüklenen Parapuanlar</span>
-                                </a><!--end:Menu link-->
-                            </div>
-                            <div class="menu-item"><!--begin:Menu link-->
-                                <a class="menu-link"
-                                   href="{{route('business.dep.index')}}"
-                                   target="_blank"><span
-                                        class="menu-icon">
-                                        <i class="ki-duotone ki-wallet fs-2"><span class="path1"></span>
-                                            <span class="path2"></span></i>
-                                    </span>
-                                    <span class="menu-title">Kullanılan Parapuanlar</span>
-                                </a><!--end:Menu link-->
-                            </div>
+                            <!--end:Dashboards menu-->
                         </div><!--end:Menu sub-->
-                    </div>
-                    <!--end:Menu item-->
+                    </div><!--end:Menu item-->
+
+                    <!--begin:Raporlar Menüsü-->
+                    <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"
+                         class="menu-item menu-lg-down-accordion me-0 me-lg-2"><!--begin:Menu link--><span
+                            class="menu-link"><span class="menu-title">Menu</span><span
+                                class="menu-arrow d-lg-none"></span></span><!--end:Menu link--><!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0">
+                            <!--begin:Pages menu-->
+                            <div class="menu-active-bg px-4 px-lg-0">
+                                <!--begin:Tabs nav-->
+                                <div class="d-flex w-100 overflow-auto">
+                                    <ul class="nav nav-stretch nav-line-tabs fw-bold fs-6 p-0 p-lg-10 flex-nowrap flex-grow-1">
+                                        <!--begin:Nav item-->
+                                        <li class="nav-item mx-lg-1">
+                                            <a class="nav-link py-3 py-lg-6 active text-active-primary" href="#"
+                                               data-bs-toggle="tab" data-bs-target="#kt_app_header_menu_pages_pages">
+                                                Genel
+                                            </a>
+                                        </li>
+                                        <!--end:Nav item-->
+                                    </ul>
+                                </div>
+                                <!--end:Tabs nav-->
+
+                                <!--begin:Tab content-->
+                                <div class="tab-content py-4 py-lg-8 px-lg-7">
+                                    <!--begin:Tab pane-->
+                                    <div class="tab-pane active w-lg-1000px" id="kt_app_header_menu_pages_pages">
+                                        <!--begin:Row-->
+                                        <div class="row">
+                                            <!--begin:Col-->
+                                            <div class="col-lg-8">
+                                                <!--begin:Row-->
+                                                <div class="row">
+                                                    <!--begin:Col-->
+                                                    <div class="col-lg-3 mb-6 mb-lg-0">
+                                                        <!--begin:Menu heading-->
+                                                        <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Genel</h4>
+                                                        <!--end:Menu heading-->
+
+                                                        <!--begin:Menu item-->
+                                                        <div class="menu-item p-0 m-0">
+                                                            <!--begin:Menu link-->
+                                                            <a href="{{route('business.appointmentCreate.index')}}"
+                                                               class="menu-link ">
+                                                                <span class="menu-title">Online Randevu</span>
+                                                            </a>
+                                                            <!--end:Menu link-->
+                                                        </div>
+                                                        <!--end:Menu item-->
+                                                        <!--begin:Menu item-->
+                                                        <div class="menu-item p-0 m-0">
+                                                            <!--begin:Menu link-->
+                                                            <a href="pages/user-profile/campaigns.html"
+                                                               class="menu-link ">
+                                                                <span class="menu-title">Müşteri Geri Bildirimleri</span>
+                                                            </a>
+                                                            <!--end:Menu link-->
+                                                        </div>
+                                                        <!--begin:Menu item-->
+                                                        <div class="menu-item p-0 m-0">
+                                                            <!--begin:Menu link-->
+                                                            <a href="{{route('business.gallery.index')}}"
+                                                               class="menu-link ">
+                                                                <span class="menu-title">İşletme Galerisi</span>
+                                                            </a>
+                                                            <!--end:Menu link-->
+                                                        </div>
+                                                        <!--end:Menu item-->
+                                                        <!--end:Menu item-->
+                                                        <!--begin:Menu item-->
+                                                        <div class="menu-item p-0 m-0">
+                                                            <!--begin:Menu link-->
+                                                            <a href="{{route('business.customer-gallery.index')}}"
+                                                               class="menu-link ">
+                                                                <span class="menu-title">Müşteri Fotoğrafları</span>
+                                                            </a>
+                                                            <!--end:Menu link-->
+                                                        </div>
+                                                        <!--end:Menu item-->
+                                                        <!--begin:Menu item-->
+                                                        <div class="menu-item p-0 m-0">
+                                                            <!--begin:Menu link-->
+                                                            <a href="{{route('business.appointment.index')}}"
+                                                               class="menu-link ">
+                                                                <span class="menu-title">Müşteri Online Randevuları</span>
+                                                            </a>
+                                                            <!--end:Menu link-->
+                                                        </div>
+                                                        <!--end:Menu item-->
+                                                    </div>
+                                                    <!--end:Col-->
+
+                                                    <!--begin:Col-->
+                                                    <div class="col-lg-3 mb-6 mb-lg-0">
+                                                        <!--begin:Menu section-->
+                                                        <div class="mb-6">
+                                                            <!--begin:Menu heading-->
+                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Raporlar</h4>
+                                                            <!--end:Menu heading-->
+
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.cost.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Masraflar</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.product.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Ürünler</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.sale.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Ürün Satışları</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.package-sale.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Paket Satışları</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.receivable.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Alacaklar</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.dep.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Borçlar</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.case')}}" class="menu-link ">
+                                                                    <span class="menu-title">Kasa</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.prim')}}" class="menu-link ">
+                                                                    <span class="menu-title">Prim</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                        </div>
+                                                        <!--end:Menu section-->
+
+                                                    </div>
+                                                    <!--end:Col-->
+
+                                                    <!--begin:Col-->
+                                                    <div class="col-lg-3 mb-6 mb-lg-0">
+                                                        <!--begin:Menu section-->
+                                                        <div class="mb-6">
+                                                            <!--begin:Menu heading-->
+                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Kurumsal</h4>
+                                                            <!--end:Menu heading-->
+
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.customer.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Müşteriler</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.personel.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Personeller</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.business-official.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Yetkililer</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.branche.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Şubeler</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.personel-stay-off-day.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">İzinler</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                        </div>
+                                                        <!--end:Menu section-->
+
+                                                        <!--begin:Menu section-->
+                                                        <div class="mb-6">
+                                                            <!--begin:Menu heading-->
+                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">İletişim</h4>
+                                                            <!--end:Menu heading-->
+
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.notifications.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Bildirimler</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.notification-permission.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Bildirim İzinleri</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                        </div>
+                                                        <!--end:Menu section-->
+
+
+                                                    </div>
+                                                    <!--end:Col-->
+
+                                                    <!--begin:Col-->
+                                                    <div class="col-lg-3 mb-6 mb-lg-0">
+                                                        <!--begin:Menu section-->
+                                                        <div class="mb-0">
+                                                            <!--begin:Menu heading-->
+                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Promosyonlar</h4>
+                                                            <!--end:Menu heading-->
+
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.promossion.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Promosyon Ayarları</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                        </div>
+                                                        <!--end:Menu section-->
+                                                        <!--begin:Menu section-->
+                                                        <div class="mb-0">
+                                                            <!--begin:Menu heading-->
+                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Hesap</h4>
+                                                            <!--end:Menu heading-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="{{route('business.business-official.edit', authUser()->id)}}" class="menu-link ">
+                                                                    <span class="menu-title">Hesap Ayarları</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#kt_modal_password_update" class="menu-link ">
+                                                                    <span class="menu-title">Şifre Değiştir</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                            <!--begin:Menu item-->
+                                                            <div class="menu-item p-0 m-0">
+                                                                <!--begin:Menu link-->
+                                                                <a href="javascript:void(0)" onclick="$('#logoutForm').submit()" class="menu-link ">
+                                                                    <span class="menu-title">Çıkış Yap</span>
+                                                                </a>
+                                                                <!--end:Menu link-->
+                                                            </div>
+                                                            <!--end:Menu item-->
+                                                        </div>
+                                                        <!--end:Menu section-->
+                                                    </div>
+                                                    <!--end:Col-->
+                                                </div>
+                                                <!--end:Row-->
+                                            </div>
+                                            <!--end:Col-->
+
+                                            <!--begin:Col-->
+                                            <div class="col-lg-4">
+                                                <img src="/business/assets/media/stock/600x600/img-82.jpg" class="rounded mw-100"
+                                                     alt="">
+                                            </div>
+                                            <!--end:Col-->
+                                        </div>
+                                        <!--end:Row-->
+                                    </div>
+                                    <!--end:Tab pane-->
+                                </div>
+                                <!--end:Tab content-->
+                            </div>
+                            <!--end:Pages menu-->
+                        </div><!--end:Menu sub-->
+                    </div><!--end:Menu item-->
 
                 </div>
                 <!--end::Menu-->

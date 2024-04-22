@@ -17,6 +17,16 @@
     <link rel="shortcut icon" href="{{image(setting('speed_favicon'))}}">
 
     @include('business.layouts.components.styles')
+    @if(request()->routeIs('business.setup.*'))
+        <style>
+            @media (min-width: 992px){
+                [data-kt-app-sidebar-fixed=true] .app-wrapper {
+                    margin-left: 0px;
+                    margin-top: 0px;
+                }
+            }
+        </style>
+    @endif
 </head>
 <body id="kt_app_body" data-kt-app-header-fixed="true" data-kt-app-header-fixed-mobile="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default">
     @include('business.layouts.components.theme-mode')
@@ -25,11 +35,13 @@
     <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
         <!--begin::Page-->
         <div class="app-page  flex-column flex-column-fluid " id="kt_app_page">
-            @include('business.layouts.menu.top')
+            @if(!request()->routeIs('business.setup.*'))
+                @include('business.layouts.menu.top')
+            @endif
             <div class="app-wrapper  d-flex " id="kt_app_wrapper">
-
-                @include('business.dashboard.parts.side-personel')
-
+                @if(!request()->routeIs('business.setup.*'))
+                    @include('business.dashboard.parts.side-personel')
+                @endif
                 <!--begin::Wrapper container-->
                 <div class="app-container  container-fluid ">
 
