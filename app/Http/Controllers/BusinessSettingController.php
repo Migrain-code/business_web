@@ -48,7 +48,7 @@ class BusinessSettingController extends Controller
         $business->start_time = $request->input('start_time');
         $business->end_time = $request->input('end_time');
         $business->appoinment_range = $request->input('range');
-        if ($request->filled('avatar')){
+        if ($request->hasFile('avatar')){
             $response = UploadFile::uploadFile($request->file('avatar'), 'businessLogos');
             $business->logo = $response["image"]["way"];
         }
