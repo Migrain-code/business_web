@@ -15,9 +15,8 @@
         <!--begin::Logo-->
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-5 me-lg-0">
             <a href="{{route('business.home')}}">
-                <img alt="Logo" src="{{image(setting('business_logo_white'))}}"
-                     class="d-none d-sm-block">
-                <img alt="Logo" src="{{image(setting('business_logo_white'))}}" class="d-block d-sm-none">
+                <img alt="Logo" src="{{image(setting('business_logo_white'))}}" class="d-none d-sm-block" style="max-width: 186px;margin-bottom: 5px;">
+                <img alt="Logo" src="{{image(setting('business_logo_white'))}}" class="d-block d-sm-none" style="max-width: 186px;margin-bottom: 5px;">
             </a>
         </div>
         <!--end::Logo-->
