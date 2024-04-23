@@ -40,6 +40,7 @@ class BusinessPromossionController extends Controller
             $promossions->eft = 0;
             $promossions->use_limit = 10;
             $promossions->birthday_discount = 0;
+            $promossions->save();
         }
         return view('business.promossion.index', compact('promossions'));
     }
