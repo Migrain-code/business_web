@@ -521,6 +521,16 @@
                                                             <!--end:Menu link-->
                                                         </div>
                                                         <!--end:Menu item-->
+                                                        <!--begin:Menu item-->
+                                                        <div class="menu-item p-0 m-0">
+                                                            <!--begin:Menu link-->
+                                                            <a href="{{route('business.customer.absents')}}"
+                                                               class="menu-link ">
+                                                                <span class="menu-title">Gelmeyen Müşteriler</span>
+                                                            </a>
+                                                            <!--end:Menu link-->
+                                                        </div>
+                                                        <!--end:Menu item-->
                                                     </div>
                                                     <!--end:Col-->
 
