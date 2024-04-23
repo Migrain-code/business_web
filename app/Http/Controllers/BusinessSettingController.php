@@ -9,6 +9,7 @@ use App\Models\BusinnessType;
 use App\Models\DayList;
 use App\Services\UploadFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class BusinessSettingController extends Controller
 {
@@ -38,6 +39,7 @@ class BusinessSettingController extends Controller
         $business->personal_count = $request->input('team_size');
         $business->approve_type = $request->input('approve_type');
         $business->name = $request->input('name');
+        $business->slug = Str::slug($request->input('name'));
         $business->business_email = $request->input('email');
         $business->type_id = $request->input('type_id');
         $business->phone = $request->input('phone');
