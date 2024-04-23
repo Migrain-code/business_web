@@ -32,7 +32,15 @@ class BusinessPromossionController extends Controller
     public function index()
     {
         $promossions = $this->business->promossions;
-
+        if(!$promossions){
+            $promossions = new BusinessPromossion();
+            $promossions->business_id = $this->business->id;
+            $promossions->cash = 0;
+            $promossions->credit_cart = 0;
+            $promossions->eft = 0;
+            $promossions->use_limit = 10;
+            $promossions->birthday_discount = 0;
+        }
         return view('business.promossion.index', compact('promossions'));
     }
 
