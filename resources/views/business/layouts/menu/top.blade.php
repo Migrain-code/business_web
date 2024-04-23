@@ -298,7 +298,17 @@
                                         <!--begin:Heading-->
                                         <h4 class="fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4">Diğer</h4>
                                         <!--end:Heading-->
-
+                                        <!--begin:Menu item-->
+                                        <div class="menu-item p-0 m-0">
+                                            <!--begin:Menu link-->
+                                            <a href="{{route('business.settings')}}" class="menu-link py-2 ">
+                                                <span class="menu-title">
+                                                    İşletme Bilgileri
+                                                </span>
+                                            </a>
+                                            <!--end:Menu link-->
+                                        </div>
+                                        <!--end:Menu item-->
 
                                         <!--begin:Menu item-->
                                         <div class="menu-item p-0 m-0">
@@ -377,17 +387,7 @@
                                             <!--end:Menu link-->
                                         </div>
                                         <!--end:Menu item-->
-                                        <!--begin:Menu item-->
-                                        <div class="menu-item p-0 m-0">
-                                            <!--begin:Menu link-->
-                                            <a href="#" class="menu-link py-2 ">
-                                                <span class="menu-title">
-                                                    Notlar
-                                                </span>
-                                            </a>
-                                            <!--end:Menu link-->
-                                        </div>
-                                        <!--end:Menu item-->
+
                                     </div>
                                     <!--end:Col-->
                                 </div>
@@ -423,7 +423,16 @@
                             <span class="menu-arrow d-lg-none"></span>
                         </span>
                     </a>
+                    <!--begin:Personeller Menüsü-->
+                    <a href="{{route('business.settings')}}" class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2" data-bs-toggle="tooltip" data-bs-title="İşletme Ayarlarınız">
+                        <!--begin:Menu link-->
+                        <span class="menu-link">
+                            <span class="menu-title">Ayarlar</span>
+                            <span class="menu-arrow d-lg-none"></span>
+                        </span>
+                    </a>
                     <!--begin:Raporlar Menüsü-->
+
                     <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"
                          class="menu-item menu-lg-down-accordion me-0 me-lg-2"><!--begin:Menu link--><span
                             class="menu-link"><span class="menu-title">Raporlar</span><span
@@ -1629,7 +1638,7 @@
                              style="background-image:url('/business/assets/media/misc/menu-header-bg.jpg')">
                             <!--begin::Title-->
                             <h3 class="text-white fw-semibold px-9 mt-10 mb-6">
-                                Bildirimler <span class="fs-8 opacity-75 ps-3">{{authUser()->notifications->count()}}</span>
+                                Bildirimler <span class="fs-8 opacity-75 ps-3">{{authUser()->notifications->count()}} Bildiriminiz var</span>
                             </h3>
                             <!--end::Title-->
 

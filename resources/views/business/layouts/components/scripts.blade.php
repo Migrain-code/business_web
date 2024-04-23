@@ -1,5 +1,35 @@
 
 @include('business.layouts.components.modal.password-update-modal')
+<div class="modal fade" id="notification_detail_modal" tabindex="-1" role="dialog">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content">
+            <!--begin::Modal header-->
+            <div class="modal-header">
+                <!--begin::Modal title-->
+                <h2 id="notificationTitle">Bildirim İçeriği</h2>
+                <!--end::Modal title-->
+
+                <!--begin::Close-->
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>                </div>
+                <!--end::Close-->
+            </div>
+            <!--end::Modal header-->
+
+            <!--begin::Modal body-->
+            <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                <!--begin::Form-->
+                <p id="notificationMessage"></p>
+                <!--end::Form-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
 
 <script>
     var hostUrl = "{{asset('/')}}";
@@ -60,4 +90,13 @@
     }
 </style>
 <script src="/business/assets/js/custom.js"></script>
+<script>
+    $('.messageContentButton').on('click', function (){
+        let title = $(this).data('title');
+        let content = $(this).data('content');
+        $('#notificationTitle').text(title);
+        $('#notificationMessage').text(content);
+        $('#notification_detail_modal').modal('show');
+    });
+</script>
 @yield('scripts')

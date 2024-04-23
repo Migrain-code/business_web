@@ -50,6 +50,13 @@
             </a>
         </div>
         <!--end::Menu item-->
+        <!--begin::Menu item-->
+        <div class="menu-item px-5">
+            <a href="{{route('business.settings')}}" class="menu-link px-5">
+                İşletme Bilgileri
+            </a>
+        </div>
+        <!--end::Menu item-->
         @if(authUser()->is_admin == 1)
             <div class="menu-item px-5">
                 <a href="{{route('business.branche.index')}}" class="menu-link px-5">

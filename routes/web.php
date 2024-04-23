@@ -239,6 +239,9 @@ Route::prefix('isletme')->as('business.')->group(function (){
         /* -------------------- Global Ajax İstekleri --------------------------*/
         Route::post('password-update', [BusinessOfficialController::class, 'passwordUpdate'])->name('passwordUpdate');
 
+        Route::get('settings', [\App\Http\Controllers\BusinessSettingController::class, 'index'])->name('settings');
+        Route::post('settings', [\App\Http\Controllers\BusinessSettingController::class, 'updateInfo'])->name('settings.update');
+
         Route::controller(AjaxController::class)->as('ajax.')->prefix('ajax')->group(function () {
             Route::post('/update-featured', 'updateFeatured')->name('updateFeatured');
             Route::delete('/delete/object', 'deleteFeatured')->name('deleteFeatured');
