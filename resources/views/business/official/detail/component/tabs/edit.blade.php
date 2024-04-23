@@ -79,7 +79,7 @@
                     </label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <input type="text" id="phone" class="form-control form-control-solid" placeholder="" name="phone" value="{{formatPhone($official->phone)}}" />
+                    <input type="text" id="phone" class="form-control form-control-solid" placeholder="" name="phone" value="0{{formatPhone($official->phone)}}" />
                     <!--end::Input-->
                 </div>
 
