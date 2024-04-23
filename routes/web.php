@@ -85,6 +85,9 @@ Route::prefix('isletme')->as('business.')->group(function (){
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::middleware(['auth:official', 'setup'])->group(function () {
+        Route::get('/home', [\App\Http\Controllers\Business\HomeController::class, 'index'])->name('home');
+
+        /*-----------------------  Setup  ------------------------*/
         Route::prefix('setup')->as('setup.')->group(function (){
             Route::get('/step-1', [SetupController::class, 'step1'])->name('step1');
             Route::post('/step-1', [SetupController::class, 'step1Update']);
@@ -93,7 +96,6 @@ Route::prefix('isletme')->as('business.')->group(function (){
             Route::post('/step-4', [SetupController::class, 'step4Update']);
         });
 
-        Route::get('/home', [\App\Http\Controllers\Business\HomeController::class, 'index'])->name('home');
         /*-----------------------  Müşteri  ------------------------*/
         Route::resource('customer', CustomerController::class);
         Route::prefix('customer/{customer}')->group(function (){

@@ -1,202 +1,228 @@
-<div class="row g-5 g-xl-10">
-    <!--begin::Col-->
-    <div class="col-xxl-6 mb-md-5 mb-xl-10">
-        <!--begin::Row-->
-        <div class="row g-5 g-xl-10">
-            <!--begin::Col-->
-            <div class="col-md-6 col-xl-6 mb-xxl-10">
-                <!--begin::Card widget 8-->
-                <div class="card overflow-hidden h-md-50 mb-5 mb-xl-10">
-                    <!--begin::Card body-->
-                    <div class="card-body d-flex justify-content-between flex-column px-0 pb-0">
-                        <!--begin::Statistics-->
-                        <div class="mb-4 px-9">
-                            <!--begin::Info-->
-                            <div class="d-flex align-items-center mb-2">
-                                <!--begin::Currency-->
-                                <span class="fs-4 fw-semibold text-gray-400 align-self-start me-1>">$</span>
-                                <!--end::Currency-->
+<div class="col-xl-4">
 
-
-                                <!--begin::Value-->
-                                <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1">69,700</span>
-                                <!--end::Value-->
-
-                                <!--begin::Label-->
-                                <span class="badge badge-light-success fs-base">
-                                                                <i class="ki-duotone ki-arrow-up fs-5 text-success ms-n1"><span class="path1"></span><span class="path2"></span></i>
-                                                                2.2%                    </span>
-
-                                <!--end::Label-->
-                            </div>
-                            <!--end::Info-->
-
-                            <!--begin::Description-->
-                            <span class="fs-6 fw-semibold text-gray-400">Total Online Sales</span>
-                            <!--end::Description-->
-                        </div>
-                        <!--end::Statistics-->
-
-                        <!--begin::Chart-->
-                        <div id="kt_card_widget_8_chart" class="min-h-auto" style="height: 125px"></div>
-                        <!--end::Chart-->
-                    </div>
-                    <!--end::Card body-->
-                </div>
-                <!--end::Card widget 8-->
-
-                <!--begin::Card widget 5-->
-                <div class="card card-flush h-md-50 mb-xl-10">
-                    <!--begin::Header-->
-                    <div class="card-header pt-5">
-                        <!--begin::Title-->
-                        <div class="card-title d-flex flex-column">
-                            <!--begin::Info-->
-                            <div class="d-flex align-items-center">
-                                <!--begin::Amount-->
-                                <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">1,836</span>
-                                <!--end::Amount-->
-
-                                <!--begin::Badge-->
-                                <span class="badge badge-light-danger fs-base">
-                                                            <i class="ki-duotone ki-arrow-down fs-5 text-danger ms-n1"><span class="path1"></span><span class="path2"></span></i>
-                                                            2.2%
-                                                        </span>
-                                <!--end::Badge-->
-                            </div>
-                            <!--end::Info-->
-
-                            <!--begin::Subtitle-->
-                            <span class="text-gray-400 pt-1 fw-semibold fs-6">Total Sales</span>
-                            <!--end::Subtitle-->
-                        </div>
-                        <!--end::Title-->
-                    </div>
-                    <!--end::Header-->
-
-                    <!--begin::Card body-->
-                    <div class="card-body d-flex align-items-end pt-0">
-                        <!--begin::Progress-->
-                        <div class="d-flex align-items-center flex-column mt-3 w-100">
-                            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-                                <span class="fw-bolder fs-6 text-dark">1,048 to Goal</span>
-                                <span class="fw-bold fs-6 text-gray-400">62%</span>
-                            </div>
-
-                            <div class="h-8px mx-3 w-100 bg-light-success rounded">
-                                <div class="bg-success rounded h-8px" role="progressbar" style="width: 62%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <!--end::Progress-->
-                    </div>
-                    <!--end::Card body-->
-                </div>
-                <!--end::Card widget 5-->
+    <!--begin::Statistics Widget 5-->
+    <a href="#" class="card bg-danger hoverable card-xl-stretch mb-xl-8">
+        <!--begin::Body-->
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <i class="ki-duotone ki-basket text-white fs-2x ms-n1 me-2">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                    <span class="path3"></span>
+                    <span class="path4"></span>
+                </i>
+                <span class="fw-bold fs-1 text-white">{{formatPrice($saleTotal)}}</span>
             </div>
-            <!--end::Col-->
 
-            <!--begin::Col-->
-            <div class="col-md-6 col-xl-6 mb-xxl-10">
+            <div class="text-white fw-bold fs-2 mb-2 mt-5">
+                Toplam Satış
+            </div>
 
-                <!--begin::Card widget 9-->
-                <div class="card overflow-hidden h-md-50 mb-5 mb-xl-10">
-                    <!--begin::Card body-->
-                    <div class="card-body d-flex justify-content-between flex-column px-0 pb-0">
-                        <!--begin::Statistics-->
-                        <div class="mb-4 px-9">
-                            <!--begin::Statistics-->
-                            <div class="d-flex align-items-center mb-2">
-                                <!--begin::Value-->
-                                <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1">29,420</span>
-                                <!--end::Value-->
-
-                                <!--begin::Label-->
-                                <span class="badge badge-light-success fs-base">
-                                                                <i class="ki-duotone ki-arrow-up fs-5 text-success ms-n1"><span class="path1"></span><span class="path2"></span></i>
-                                                                2.6%                    </span>
-
-                                <!--end::Label-->
-                            </div>
-                            <!--end::Statistics-->
-
-                            <!--begin::Description-->
-                            <span class="fs-6 fw-semibold text-gray-400">Total Online Visitors</span>
-                            <!--end::Description-->
-                        </div>
-                        <!--end::Statistics-->
-
-                        <!--begin::Chart-->
-                        <div id="kt_card_widget_9_chart" class="min-h-auto" style="height: 125px"></div>
-                        <!--end::Chart-->
-                    </div>
-                    <!--end::Card body-->
-                </div>
-                <!--end::Card widget 9-->
-
-
-
-
-                <!--begin::Card widget 7-->
-                <div class="card card-flush h-md-50 mb-xl-10">
-                    <!--begin::Header-->
-                    <div class="card-header pt-5">
-                        <!--begin::Title-->
-                        <div class="card-title d-flex flex-column">
-                            <!--begin::Amount-->
-                            <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">6.3k</span>
-                            <!--end::Amount-->
-
-                            <!--begin::Subtitle-->
-                            <span class="text-gray-400 pt-1 fw-semibold fs-6">Total New Customers</span>
-                            <!--end::Subtitle-->
-                        </div>
-                        <!--end::Title-->
-                    </div>
-                    <!--end::Header-->
-
-                    <!--begin::Card body-->
-                    <div class="card-body d-flex flex-column justify-content-end pe-0">
-                        <!--begin::Title-->
-                        <span class="fs-6 fw-bolder text-gray-800 d-block mb-2">Today’s Heroes</span>
-                        <!--end::Title-->
-
-                        <!--begin::Users group-->
-                        <div class="symbol-group symbol-hover flex-nowrap">
-                            <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Alan Warden">
-                                <span class="symbol-label bg-warning text-inverse-warning fw-bold">A</span>
-                            </div>
-                            <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Michael Eberon">
-                                <img alt="Pic" src="/business/assets/media/avatars/300-11.jpg">
-                            </div>
-                            <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Susan Redwood">
-                                <span class="symbol-label bg-primary text-inverse-primary fw-bold">S</span>
-                            </div>
-                            <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Melody Macy">
-                                <img alt="Pic" src="/business/assets/media/avatars/300-2.jpg">
-                            </div>
-                            <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Perry Matthew">
-                                <span class="symbol-label bg-danger text-inverse-danger fw-bold">P</span>
-                            </div>
-                            <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Barry Walter">
-                                <img alt="Pic" src="/business/assets/media/avatars/300-12.jpg">
-                            </div>
-                            <a href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal" data-bs-target="#kt_modal_view_users">
-                                <span class="symbol-label bg-light text-gray-400 fs-8 fw-bold">+42</span>
-                            </a>
-                        </div>
-                        <!--end::Users group-->
-                    </div>
-                    <!--end::Card body-->
-                </div>
-                <!--end::Card widget 7-->            </div>
-            <!--end::Col-->
+            <div class="fw-semibold text-white">
+                İşletmenizde Yapılan Toplam Satış
+            </div>
         </div>
-        <!--end::Row-->
-    </div>
-    <!--end::Col-->
-
-    <!--begin::Appointment Calendar-->
-    @include('business.dashboard.parts.calendar')
-
-    <!--end::Col-->
+        <!--end::Body-->
+    </a>
+    <!--end::Statistics Widget 5-->
 </div>
+
+<div class="col-xl-4">
+
+    <!--begin::Statistics Widget 5-->
+    <a href="#" class="card bg-primary hoverable card-xl-stretch mb-xl-8">
+        <!--begin::Body-->
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <i class="ki-duotone ki-cheque text-white fs-2x ms-n1 me-2">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                    <span class="path3"></span>
+                    <span class="path4"></span>
+                    <span class="path5"></span>
+                    <span class="path6"></span>
+                    <span class="path7"></span>
+                </i>
+                <span class="fw-bold fs-1 text-white">{{formatPrice($serviceTotal)}}</span>
+
+            </div>
+
+
+            <div class="text-white fw-bold fs-2 mb-2 mt-5">
+                Hizmetler
+            </div>
+
+            <div class="fw-semibold text-white">
+                Hizmet Kazancı toplamı
+            </div>
+        </div>
+        <!--end::Body-->
+    </a>
+    <!--end::Statistics Widget 5-->
+</div>
+
+<div class="col-xl-4">
+
+    <!--begin::Statistics Widget 5-->
+    <a href="#" class="card bg-success hoverable card-xl-stretch mb-5 mb-xl-8">
+        <!--begin::Body-->
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <i class="ki-duotone ki-chart-simple-3 text-white fs-2x ms-n1 me-2">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                    <span class="path3"></span>
+                    <span class="path4"></span>
+                </i>
+                <span class="fw-bold fs-1 text-white">{{$customerTotal}}</span>
+
+            </div>
+
+
+            <div class="text-white fw-bold fs-2 mb-2 mt-5">
+                Toplam Müşteri Kaydı
+            </div>
+
+            <div class="fw-semibold text-white">
+                İşletmenize kayıt olmuş müşteri sayısı
+            </div>
+        </div>
+        <!--end::Body-->
+    </a>
+    <!--end::Statistics Widget 5-->    </div>
+<div class="card card-xl-stretch mb-xl-8">
+    <!--begin::Header-->
+    <div class="card-header border-0 pt-5">
+        <!--begin::Title-->
+        <h3 class="card-title align-items-start flex-column">
+            <span class="card-label fw-bold fs-3 mb-1">Satış Grafiği</span>
+
+            <span class="text-muted fw-semibold fs-7">Aylara Göre Satış Grafiğiniz</span>
+        </h3>
+        <!--end::Title-->
+
+        {{--
+            <!--begin::Toolbar-->
+        <div class="card-toolbar">
+            <!--begin::Menu-->
+            <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                <i class="ki-duotone ki-category fs-6"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>            </button>
+
+
+            <!--begin::Menu 1-->
+            <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_64f9fda5a9b63">
+                <!--begin::Header-->
+                <div class="px-7 py-5">
+                    <div class="fs-5 text-dark fw-bold">Filter Options</div>
+                </div>
+                <!--end::Header-->
+
+                <!--begin::Menu separator-->
+                <div class="separator border-gray-200"></div>
+                <!--end::Menu separator-->
+
+
+                <!--begin::Form-->
+                <div class="px-7 py-5">
+                    <!--begin::Input group-->
+                    <div class="mb-10">
+                        <!--begin::Label-->
+                        <label class="form-label fw-semibold">Status:</label>
+                        <!--end::Label-->
+
+                        <!--begin::Input-->
+                        <div>
+                            <select class="form-select form-select-solid" multiple="" data-kt-select2="true" data-close-on-select="false" data-placeholder="Select option" data-dropdown-parent="#kt_menu_64f9fda5a9b63" data-allow-clear="true">
+                                <option></option>
+                                <option value="1">Approved</option>
+                                <option value="2">Pending</option>
+                                <option value="2">In Process</option>
+                                <option value="2">Rejected</option>
+                            </select>
+                        </div>
+                        <!--end::Input-->
+                    </div>
+                    <!--end::Input group-->
+
+                    <!--begin::Input group-->
+                    <div class="mb-10">
+                        <!--begin::Label-->
+                        <label class="form-label fw-semibold">Member Type:</label>
+                        <!--end::Label-->
+
+                        <!--begin::Options-->
+                        <div class="d-flex">
+                            <!--begin::Options-->
+                            <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
+                                <input class="form-check-input" type="checkbox" value="1">
+                                <span class="form-check-label">
+                Author
+            </span>
+                            </label>
+                            <!--end::Options-->
+
+                            <!--begin::Options-->
+                            <label class="form-check form-check-sm form-check-custom form-check-solid">
+                                <input class="form-check-input" type="checkbox" value="2" checked="checked">
+                                <span class="form-check-label">
+                Customer
+            </span>
+                            </label>
+                            <!--end::Options-->
+                        </div>
+                        <!--end::Options-->
+                    </div>
+                    <!--end::Input group-->
+
+                    <!--begin::Input group-->
+                    <div class="mb-10">
+                        <!--begin::Label-->
+                        <label class="form-label fw-semibold">Notifications:</label>
+                        <!--end::Label-->
+
+                        <!--begin::Switch-->
+                        <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                            <input class="form-check-input" type="checkbox" value="" name="notifications" checked="">
+                            <label class="form-check-label">
+                                Enabled
+                            </label>
+                        </div>
+                        <!--end::Switch-->
+                    </div>
+                    <!--end::Input group-->
+
+                    <!--begin::Actions-->
+                    <div class="d-flex justify-content-end">
+                        <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Reset</button>
+
+                        <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">Apply</button>
+                    </div>
+                    <!--end::Actions-->
+                </div>
+                <!--end::Form-->
+            </div>
+            <!--end::Menu 1-->            <!--end::Menu-->
+        </div>
+        <!--end::Toolbar-->
+        --}}
+    </div>
+    <!--end::Header-->
+
+    <!--begin::Body-->
+    <div class="card-body">
+        <!--begin::Chart-->
+        <div id="kt_charts_widget_1_chart_new" style="height: 350px"></div>
+        <!--end::Chart-->
+    </div>
+    <!--end::Body-->
+</div>
+
+
+<!--end::Row-->
+<!--begin::Appointment Calendar-->
+{{--
+@include('business.dashboard.parts.calendar')
+
+--}}
+<!--end::Col-->
+
