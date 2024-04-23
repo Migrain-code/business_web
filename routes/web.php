@@ -242,6 +242,8 @@ Route::prefix('isletme')->as('business.')->group(function (){
         Route::get('settings', [\App\Http\Controllers\BusinessSettingController::class, 'index'])->name('settings');
         Route::post('settings', [\App\Http\Controllers\BusinessSettingController::class, 'updateInfo'])->name('settings.update');
 
+        /** -------------------------------- Gelmeyenler --------------------------------------- */
+        Route::get('customer-absent', [\App\Http\Controllers\Business\Absent\AbsentCustomerController::class, 'index'])->name('customer.absents');
         Route::controller(AjaxController::class)->as('ajax.')->prefix('ajax')->group(function () {
             Route::post('/update-featured', 'updateFeatured')->name('updateFeatured');
             Route::delete('/delete/object', 'deleteFeatured')->name('deleteFeatured');
