@@ -25,7 +25,7 @@
         <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1" id="kt_app_header_wrapper">
 
             <!--begin::Menu wrapper-->
-            <div class="app-header-menu app-header-mobile-drawer align-items-stretch" data-kt-drawer="true"
+            <div class="app-header-menu app-header-mobile-drawer align-items-stretch mx-auto" data-kt-drawer="true"
                  data-kt-drawer-name="app-header-menu" data-kt-drawer-activate="{default: true, lg: false}"
                  data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="start"
                  data-kt-drawer-toggle="#kt_app_header_menu_toggle" data-kt-swapper="true"
