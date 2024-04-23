@@ -15,9 +15,9 @@
         <!--begin::Logo-->
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-5 me-lg-0">
             <a href="{{route('business.home')}}">
-                <img alt="Logo" src="/business/assets/media/logos/demo46.svg"
+                <img alt="Logo" src="{{image(setting('business_logo_white'))}}"
                      class="d-none d-sm-block">
-                <img alt="Logo" src="/business/assets/media/logos/demo46.svg" class="d-block d-sm-none">
+                <img alt="Logo" src="{{image(setting('business_logo_white'))}}" class="d-block d-sm-none">
             </a>
         </div>
         <!--end::Logo-->
@@ -326,7 +326,7 @@
                                         <!--begin:Menu item-->
                                         <div class="menu-item p-0 m-0">
                                             <!--begin:Menu link-->
-                                            <a href="dashboards/logistics.html" class="menu-link py-2 ">
+                                            <a href="{{route('business.personel-stay-off-day.index')}}" class="menu-link py-2 ">
                                                 <span class="menu-title">
                                                     İzinler
                                                 </span>
@@ -381,7 +381,7 @@
                                         <!--begin:Menu item-->
                                         <div class="menu-item p-0 m-0">
                                             <!--begin:Menu link-->
-                                            <a href="dashboards/logistics.html" class="menu-link py-2 ">
+                                            <a href="#" class="menu-link py-2 ">
                                                 <span class="menu-title">
                                                     Notlar
                                                 </span>
@@ -398,6 +398,32 @@
                         </div><!--end:Menu sub-->
                     </div><!--end:Menu item-->
 
+                    <!--begin:Müşteriler Menüsü-->
+                    <a href="{{route('business.customer.index')}}" class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                        <!--begin:Menu link-->
+                        <span class="menu-link">
+                            <span class="menu-title">Müşteriler</span>
+                            <span class="menu-arrow d-lg-none"></span>
+                        </span>
+                    </a>
+                    <!--end:Menu item-->
+                    <!--begin:Hizmetler Menüsü-->
+                    <a href="{{route('business.service.index')}}" class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                        <!--begin:Menu link-->
+                        <span class="menu-link">
+                            <span class="menu-title">Hizmetler</span>
+                            <span class="menu-arrow d-lg-none"></span>
+                        </span>
+                    </a>
+
+                    <!--begin:Personeller Menüsü-->
+                    <a href="{{route('business.personel.index')}}" class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                        <!--begin:Menu link-->
+                        <span class="menu-link">
+                            <span class="menu-title">Personeller</span>
+                            <span class="menu-arrow d-lg-none"></span>
+                        </span>
+                    </a>
                     <!--begin:Raporlar Menüsü-->
                     <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"
                          class="menu-item menu-lg-down-accordion me-0 me-lg-2"><!--begin:Menu link--><span
@@ -741,7 +767,7 @@
                         </div><!--end:Menu sub-->
                     </div><!--end:Menu item-->
 
-                    <!--begin:Menu item-->
+                    <!--begin:Destek Menüsü-->
                     <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"
                          class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                         <!--begin:Menu link--><span class="menu-link"><span class="menu-title">Destek</span><span
@@ -751,7 +777,7 @@
                             <!--begin:Menu item-->
                             <div class="menu-item"><!--begin:Menu link-->
                                 <a class="menu-link"
-                                   href="https://preview.keenthemes.com/html/metronic/docs/base/utilities"
+                                   href="#"
                                    target="_blank"
                                    title="Acil Destek İçin Kullanmanız Gerektiğini Unutmayın"
                                    data-bs-toggle="tooltip"
@@ -776,7 +802,7 @@
                                                 class="path2"></span><span class="path3"></span><span
                                                 class="path4"></span></i></span><span class="menu-title">Destek Merkezi</span></a>
                                 <!--end:Menu link--></div><!--end:Menu item--></div><!--end:Menu sub--></div>
-                    <!--end:Menu item-->
+
                 </div>
                 <!--end::Menu-->
             </div>
