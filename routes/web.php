@@ -255,4 +255,4 @@ Route::prefix('isletme')->as('business.')->group(function (){
 
 });
 
-Route::get('/{slug}', [HomeController::class, 'page'])->name('page.detail');
+Route::get('/sayfa/{slug}', [HomeController::class, 'page'])->name('page.detail');
