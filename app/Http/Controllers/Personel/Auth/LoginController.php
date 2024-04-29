@@ -73,4 +73,10 @@ class LoginController extends Controller
     {
         return 'phone';
     }
+
+    public function logout()
+    {
+        \auth('personel')->logout();
+        return to_route('loginTypes');
+    }
 }

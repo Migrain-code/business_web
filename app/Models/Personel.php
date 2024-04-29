@@ -80,7 +80,6 @@ use Illuminate\Support\Carbon;
 class Personel extends Authenticatable
 {
     use HasFactory, Notifiable;
-
     public function business()
     {
         return $this->hasOne(Business::class, 'id', 'business_id');

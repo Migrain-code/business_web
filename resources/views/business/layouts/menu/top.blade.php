@@ -631,8 +631,8 @@
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="{{route('business.customer.index')}}" class="menu-link ">
-                                                                    <span class="menu-title">Müşteriler</span>
+                                                                <a href="{{route('business.appointmentCreate.index')}}" class="menu-link ">
+                                                                    <span class="menu-title">Yeni Randevu</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
                                                             </div>
@@ -1732,8 +1732,8 @@
                         class="btn btn-icon btn-custom btn-color-white btn-active-color-primary w-35px h-35px w-md-40px h-md-40px"
                         data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
                         data-kt-menu-placement="bottom" data-kt-menu-placement="bottom-end">
-                        <i class="ki-duotone ki-calendar fs-1"><span class="path1"></span><span
-                                class="path2"></span></i>
+                        <i class="ki-duotone ki-rocket fs-2"><span class="path1"></span><span class="path2"></span></i>
+
                     </div>
 
                     <!--begin::Menu-->

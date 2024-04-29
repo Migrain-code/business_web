@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Business\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Business\BusinessOfficialResource;
 use App\Models\BusinessOfficial;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -30,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/isletme/home';
 
     /**
      * Create a new controller instance.
