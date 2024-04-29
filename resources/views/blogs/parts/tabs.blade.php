@@ -9,7 +9,7 @@
         >
             <div class="blogList">
                 <div class="row">
-                    @foreach($blogCategorie->blogs as $blog)
+                    @foreach($blogCategorie->blogs()->where('status', 1)->get() as $blog)
 
                     <div class="col-lg-3">
 
