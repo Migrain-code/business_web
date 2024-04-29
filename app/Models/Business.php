@@ -263,7 +263,9 @@ class Business extends Model
     }
     public function official()
     {
-        return $this->hasOne(BusinessOfficial::class, 'business_id', 'id');
+        return $this->hasOne(BusinessOfficial::class, 'business_id', 'id')->withDefault([
+            'name' => "Yetkilisi Yok"
+        ]);
     }
 
     public function branches()
