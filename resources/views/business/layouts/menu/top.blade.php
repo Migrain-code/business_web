@@ -398,10 +398,10 @@
                     </div><!--end:Menu item-->
 
                     <!--begin:Müşteriler Menüsü-->
-                    <a href="{{route('business.customer.index')}}" class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                    <a href="{{route('business.appointmentCreate.index')}}" class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                         <!--begin:Menu link-->
                         <span class="menu-link">
-                            <span class="menu-title">Müşteriler</span>
+                            <span class="menu-title">Yeni Randevu</span>
                             <span class="menu-arrow d-lg-none"></span>
                         </span>
                     </a>
@@ -1781,12 +1781,12 @@
 
                             <!--begin:Item-->
                             <div class="col-6">
-                                <a href="{{route('business.appointmentCreate.index')}}"
+                                <a href="{{route('business.customer.index')}}"
                                    class="d-flex flex-column flex-center h-100 p-6 bg-hover-light border-end">
                                     <i class="ki-duotone ki-abstract-41 fs-3x text-primary mb-2"><span
                                             class="path1"></span><span class="path2"></span></i> <span
-                                        class="fs-5 fw-semibold text-gray-800 mb-0">Yeni Randevu</span>
-                                    <span class="fs-7 text-gray-400">Randevular</span>
+                                        class="fs-5 fw-semibold text-gray-800 mb-0">Müşteriler</span>
+                                    <span class="fs-7 text-gray-400">Müşteri Listesi</span>
                                 </a>
                             </div>
                             <!--end:Item-->
