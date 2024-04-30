@@ -74,7 +74,7 @@
                                     <div class="w-100 mb-10">
                                         @php
                                             $propartieArray = $package->proparties->pluck('propartie_id')->toArray();
-                                            $disabledProparies = $package->proparties->pluck('disabledProparties')->toArray();
+                                            $disabledProparies = $package->disabledProparties->pluck('propartie_id')->toArray();
                                         @endphp
                                         @foreach($proparties as $propartie)
                                             @if(!in_array($propartie->id, $disabledProparies))
