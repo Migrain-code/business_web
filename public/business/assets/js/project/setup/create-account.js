@@ -119,7 +119,7 @@ var KTCreateAccount = function() {
                 });
             },
             error: function (xhr) {
-                stepperInstance.getCurrentStepIndex() - 1;
+                stepperInstance.goPrevious();
                 var errorMessage = "<ul>";
                 xhr.responseJSON.errors.forEach(function (error) {
                     errorMessage += "<li>" + error + "</li>";
