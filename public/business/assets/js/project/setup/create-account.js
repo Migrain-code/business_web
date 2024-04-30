@@ -66,6 +66,7 @@ var KTCreateAccount = function() {
                 });
             },
             error: function (xhr) {
+                stepperInstance.goPrevious();
                 var errorMessage = "<ul>";
                 xhr.responseJSON.errors.forEach(function (error) {
                     errorMessage += "<li>" + error + "</li>";
@@ -164,6 +165,7 @@ var KTCreateAccount = function() {
                 });
             },
             error: function (xhr) {
+                stepperInstance.goPrevious();
                 var errorMessage = "<ul>";
                 xhr.responseJSON.errors.forEach(function (error) {
                     errorMessage += "<li>" + error + "</li>";
@@ -185,6 +187,7 @@ var KTCreateAccount = function() {
     }
 
     function updateStep4(){
+        stepperInstance.goPrevious();
         var formData = new FormData();
         formData.append("_token", csrf_token);
         formData.append("package_id", $('[name= "package_id"]').val());
@@ -237,30 +240,6 @@ var KTCreateAccount = function() {
         KTUtil.scrollTop();
     }
 
-    function initValidators() {
-        validators.push(FormValidation.formValidation(form, {
-            fields: {
-                account_type: {
-                    validators: {
-                        notEmpty: {
-                            message: "Account type is required"
-                        }
-                    }
-                }
-            },
-            plugins: {
-                trigger: new FormValidation.plugins.Trigger,
-                bootstrap: new FormValidation.plugins.Bootstrap5({
-                    rowSelector: ".fv-row",
-                    eleInvalidClass: "",
-                    eleValidClass: ""
-                })
-            }
-        }));
-
-        // Add other validators here...
-    }
-
     function init() {
         modal = document.querySelector("#kt_modal_create_account");
         if (modal) new bootstrap.Modal(modal);
@@ -271,7 +250,6 @@ var KTCreateAccount = function() {
         nextBtn = stepper.querySelector('[data-kt-stepper-action="next"]');
 
         initStepper();
-        initValidators();
     }
 
     return {
