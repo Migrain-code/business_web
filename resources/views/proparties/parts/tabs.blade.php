@@ -9,8 +9,8 @@
                         <div class="content" data-aos="zoom-in-right">
                             <h3>{{$propartie->name}}</h3>
                             <span>
-                                                            {{$propartie->description}}
-                                                        </span>
+                                {{$propartie->description}}
+                            </span>
                             <p>
                                 {!! $propartie->detail !!}
                             </p>
@@ -33,5 +33,7 @@
         </section>
     </section>
 @endforeach
+@include('main-page.parts.stats')
+
 
 
