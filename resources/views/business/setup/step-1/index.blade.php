@@ -51,7 +51,7 @@
                         <div>
                             <button type="button" class="btn btn-lg btn-primary me-3" data-kt-stepper-action="submit">
                         <span class="indicator-label">
-                            Kaydet
+                            Ödeme Yap
                             <i class="ki-duotone ki-arrow-right fs-3 ms-2 me-0"><span class="path1"></span><span class="path2"></span></i>                        </span>
                                 <span class="indicator-progress">
                             Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
