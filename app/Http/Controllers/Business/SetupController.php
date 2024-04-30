@@ -85,7 +85,7 @@ class SetupController extends Controller
         $package = BussinessPackage::find($request->package_id);
         if($package->price == 0){
             $business = $this->business;
-            $business->package_id = 0;
+            $business->package_id = 1;
             $business->packet_start_date = now();
             $business->packet_end_date = now()->addDays(30);
             $business->setup_status = 1;
