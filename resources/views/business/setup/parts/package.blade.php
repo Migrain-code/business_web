@@ -74,27 +74,30 @@
                                     <div class="w-100 mb-10">
                                         @php
                                             $propartieArray = $package->proparties->pluck('propartie_id')->toArray();
+                                            $disabledProparies = $package->proparties->pluck('disabledProparties')->toArray();
                                         @endphp
                                         @foreach($proparties as $propartie)
-                                            <!--begin::Item-->
-                                            <div class="d-flex align-items-center mb-5">
-                                  <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
-                                      {{$propartie->name}}
-                                  </span>
-                                                @if(in_array($propartie->id, $propartieArray))
-                                                    <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                    </i>
-                                                @else
-                                                    <i class="ki-duotone ki-cross-circle fs-1">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                    </i>
-                                                @endif
+                                            @if(!in_array($propartie->id, $disabledProparies))
+                                                <!--begin::Item-->
+                                                <div class="d-flex align-items-center mb-5">
+                                              <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
+                                                  {{$propartie->name}}
+                                              </span>
+                                                    @if(in_array($propartie->id, $propartieArray))
+                                                        <i class="ki-duotone ki-check-circle fs-1 text-success">
+                                                            <span class="path1"></span>
+                                                            <span class="path2"></span>
+                                                        </i>
+                                                    @else
+                                                        <i class="ki-duotone ki-cross-circle fs-1">
+                                                            <span class="path1"></span>
+                                                            <span class="path2"></span>
+                                                        </i>
+                                                    @endif
 
-                                            </div>
-                                            <!--end::Item-->
+                                                </div>
+                                                <!--end::Item-->
+                                            @endif
                                         @endforeach
 
 

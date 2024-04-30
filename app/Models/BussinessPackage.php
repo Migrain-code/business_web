@@ -13,4 +13,9 @@ class BussinessPackage extends Model
     {
         return $this->hasMany(BussinessPackagePropartie::class, 'package_id', 'id')->orderBy('order_number', 'asc');
     }
+
+    public function disabledProparties()
+    {
+        return $this->hasMany(BussinessPackagePropartieDisabledList::class, 'package_id', 'id');
+    }
 }
