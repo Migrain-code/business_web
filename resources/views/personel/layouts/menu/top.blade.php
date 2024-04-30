@@ -180,6 +180,8 @@
                                         </div>
                                         <!--end::Item-->
                                     @empty
+                                        <div class="alert alert-warning">Bildirim Bulunamadı</div>
+
                                     @endforelse
                                 </div>
                                 <!--end::Items-->
