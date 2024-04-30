@@ -63,17 +63,17 @@ class RegisterController extends Controller
 
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'max:255', 'unique:business_officials'],
+            //'email' => ['required', 'string', 'max:255', 'unique:business_officials'],
             'phone' => ['required', 'string', 'max:255', 'unique:business_officials'],
             'business_name' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:8'],
+            //'password' => ['required', 'string', 'min:8'],
             'terms' => ['accepted']
         ], [], [
             'name' => "Yetkili Adı",
-            'email' => "Mail Adresi",
+            //'email' => "Mail Adresi",
             'phone' => "Telefon Numarası",
             'business_name' => "İşletme adı",
-            'password' => "Şifre",
+            //'password' => "Şifre",
             'terms' => "Şartlar ve Koşullar",
         ]);
     }
@@ -83,12 +83,6 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        /*$this->createVerifyCode($request->phone);
-
-        return response()->json([
-            'status' => "success",
-            'message' => "Lütfen Telefon Numaranızı Doğrulayınız"
-        ]);*/
         if ($this->existPhone(clearPhone($request->phone))) {
             return response()->json([
                 'status' => "warning",
@@ -101,7 +95,7 @@ class RegisterController extends Controller
 
             return to_route('business.showVerify')->with('response',[
                 'status' => "success",
-                'message' => "Telefon numaranıza bir doğrulama kodu gönderdi. Lütfen açılan kutuya 6 haneli doğrulama kodunuz giriniz",
+                'message' => "Telefon numaranıza bir doğrulama kodu gönderdik. Lütfen açılan kutuya 6 haneli doğrulama kodunuz giriniz",
             ]);
         }
     }
@@ -147,7 +141,7 @@ class RegisterController extends Controller
         $smsConfirmation->expire_at = now()->addMinute(3);
         $smsConfirmation->save();
 
-        Sms::send(clearPhone($phone), setting('business_site_title') . "Sistemine kayıt için, telefon numarası doğrulama kodunuz " . $generateCode);
+        Sms::send(clearPhone($phone), setting('business_site_title') . " Sistemine kayıt için, telefon numarası doğrulama kodunuz " . $generateCode);
 
         return $generateCode;
     }

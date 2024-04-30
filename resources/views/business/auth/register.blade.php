@@ -39,33 +39,6 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-floating mb-3">
-                            <input
-                                type="email"
-                                class="form-control"
-                                name="email"
-                                id="floatingInput"
-                                placeholder="E-Mail"
-                            />
-                            <label for="floatingInput">E-Mail</label>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-floating mb-3">
-                            <input
-                                type="password"
-                                name="password"
-                                class="form-control"
-                                id="floatingInput"
-                                placeholder="Parola"
-                            />
-                            <label for="floatingInput">Parola</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
                     <div class="col-lg-12">
                         <div class="form-floating mb-3">
                             <input

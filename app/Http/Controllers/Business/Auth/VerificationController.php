@@ -85,12 +85,12 @@ class VerificationController extends Controller
                 if ($code->phone == clearPhone($cashedUser->get('phone'))) {
 
                     $business = $this->createBusiness($cashedUser->get('business_name'));
-
+                    $generatePassword = rand(100000, 999999);
                     $user = new BusinessOfficial();
                     $user->name = $cashedUser->get('name');
                     $user->phone = $code->phone;
                     $user->email = $cashedUser->get('email');
-                    $user->password = Hash::make($cashedUser->get('password'));
+                    $user->password = Hash::make($generatePassword);
                     $user->business_id = $business->id;
                     $user->is_admin = 1;
                     $user->save();
@@ -98,7 +98,7 @@ class VerificationController extends Controller
                     $this->setAdmin($business, $user);
                     $this->addPermission($business->id, $permission);
 
-                    Sms::send($code->phone, setting('business_site_title') . " Sistemine kayıt işleminiz tamamlandı. İşletmenizin kurulumunu yaparak sistemi kullanmaya başlayabilirsiniz");
+                    Sms::send($code->phone, setting('business_site_title') . " Sistemine kayıt işleminiz tamamlandı. Giriş yapmak için şifreniz ". $generatePassword . " olarak belirlendi");
                     $code->delete();
                     Auth::login($user);
                     return to_route('business.home')->with('response',[
@@ -135,7 +135,7 @@ class VerificationController extends Controller
         $smsConfirmation->expire_at = now()->addMinute(3);
         $smsConfirmation->save();
 
-        Sms::send(clearPhone($phone), setting('business_site_title') . "Sistemine kayıt için, telefon numarası doğrulama kodunuz " . $generateCode);
+        Sms::send(clearPhone($phone), setting('business_site_title') . " Sistemine kayıt için, telefon numarası doğrulama kodunuz " . $generateCode);
 
         return $generateCode;
     }
