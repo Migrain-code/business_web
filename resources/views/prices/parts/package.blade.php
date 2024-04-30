@@ -1,5 +1,5 @@
 @foreach($monthlyPackages as $package)
-    <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+    <div class="col-lg-4 col-md-6" data-aos="zoom-in">
         <div class="package-item">
             <div class="icon">
                 <img src="/front/assets/images/business/free-package.svg" alt="" />
