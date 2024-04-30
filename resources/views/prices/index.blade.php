@@ -39,7 +39,7 @@
                                 </label>
                                 <div class="package-promo">
                                     <span>Yıllık <br />
-                                      %35
+                                      %20
                                     </span>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                 <section class="home-properties packages" id="tab2">
                     <div class="row packages-list">
                         @foreach($yearlyPackages as $package)
-                            <div class="col-lg-3 col-md-6" >
+                            <div class="col-lg-4 col-md-6" >
                                 <div class="package-item">
                                     <div class="icon">
                                         <img src="/front/assets/images/business/free-package.svg" alt="" />

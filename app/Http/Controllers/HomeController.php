@@ -65,8 +65,8 @@ class HomeController extends Controller
      */
     public function prices()
     {
-        $monthlyPackages = BussinessPackage::where('type', 0)->get();
-        $yearlyPackages = BussinessPackage::where('type', 1)->get();
+        $monthlyPackages = BussinessPackage::where('type', 0)->orderBy('price', 'asc')->get();
+        $yearlyPackages = BussinessPackage::where('type', 1)->orderBy('price', 'asc')->get();
 
         return view('prices.index', compact('monthlyPackages', 'yearlyPackages'));
     }
