@@ -1,7 +1,7 @@
 "use strict";
 
 var KTCreateAccount = function() {
-    var modal, stepper, form, submitBtn, nextBtn, stepperInstance, validators = [];
+    var modal, stepper, form, submitBtn, nextBtn, stepperInstance;
 
     function initStepper() {
         stepperInstance = new KTStepper(stepper);
@@ -119,6 +119,7 @@ var KTCreateAccount = function() {
                 });
             },
             error: function (xhr) {
+                stepperInstance.getCurrentStepIndex() - 1;
                 var errorMessage = "<ul>";
                 xhr.responseJSON.errors.forEach(function (error) {
                     errorMessage += "<li>" + error + "</li>";
