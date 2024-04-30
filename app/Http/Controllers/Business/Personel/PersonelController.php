@@ -157,7 +157,6 @@ class PersonelController extends Controller
      */
     public function update(PersonalUpdateRequest $request, Personel $personel)
     {
-
         $personel->business_id = $this->business->id;
         $personel->name = $request->input('name');
         $personel->email = $request->email;

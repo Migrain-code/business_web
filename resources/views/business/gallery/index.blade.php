@@ -17,7 +17,7 @@
                 <!--begin::Card title-->
                 <div class="card-title">
                     <div class="d-flex align-items-center flex-column mt-3 w-300px">
-                        <div class="d-flex justify-content-between fw-bold fs-6 text-white opacity-50 w-100 mt-auto mb-2">
+                        <div class="d-flex justify-content-between fw-bold fs-6 opacity-75 w-100 mt-auto mb-2">
                             <span>{{$galleries->count()}} Görsel Yüklendi {{number_format($usedMegabytes, 2). " mb."}}</span>
                             <span>{{$percentageUsed}}%</span>
                         </div>
