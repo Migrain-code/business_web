@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Business;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Setup\Step1UpdateRequest;
+use App\Http\Requests\Setup\Step2UpdateRequest;
+use App\Http\Requests\Setup\Step3UpdateRequest;
+use App\Http\Requests\Setup\Step4UpdateRequest;
 use App\Models\BusinessCategory;
 use App\Models\BussinessPackage;
 use App\Models\BussinessPackagePropartieList;
@@ -32,7 +36,7 @@ class SetupController extends Controller
         return view('business.setup.step-1.index', compact('businessCategories', 'dayList', 'business', 'monthlyPackages', 'yearlyPackages', 'proparties'));
     }
 
-    public function step1Update(Request $request)
+    public function step1Update(Step1UpdateRequest $request)
     {
         $business = $this->business;
         $business->category_id = $request->input('category_id');
@@ -44,7 +48,7 @@ class SetupController extends Controller
         }
     }
 
-    public function step2Update(Request $request)
+    public function step2Update(Step2UpdateRequest $request)
     {
         $business = $this->business;
         $business->personal_count = $request->input('team_size');
@@ -65,7 +69,7 @@ class SetupController extends Controller
         }
     }
 
-    public function step3Update(Request $request)
+    public function step3Update(Step3UpdateRequest $request)
     {
         $business = $this->business;
         $business->lat = $request->input('latitude');
@@ -80,7 +84,7 @@ class SetupController extends Controller
         }
     }
 
-    public function step4Update(Request $request)
+    public function step4Update(Step4UpdateRequest $request)
     {
         $package = BussinessPackage::find($request->package_id);
         if($package->price == 0){
