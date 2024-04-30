@@ -272,7 +272,7 @@ section .hero p {
   border-radius: 15px;
   background: #fbfafd;
   padding: 45px 20px;
-  min-height: 478px;
+  min-height: 440px;
   margin-bottom: 16px;
   color: #43506e;
   transition: all 0.3s ease-in-out;
