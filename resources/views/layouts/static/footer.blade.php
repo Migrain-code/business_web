@@ -469,7 +469,14 @@
         </div>
     </div>
 </div>
-
+<script>
+    window.onload = function() {
+        if (!localStorage.getItem('firstVisit')) {
+            document.getElementById('notification-wrapper').style.display = 'block';
+            localStorage.setItem('firstVisit', 'true');
+        }
+    };
+</script>
 <script>
     var newTexts = ["Güzellik Merkezleri", "Kuaförler", "Berberler"];
     var currentIndex = 0;
