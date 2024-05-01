@@ -333,7 +333,7 @@
     </div>
 </footer>
 
-{{--
+
     <!-- Notification Box -->
 <div class="notification-wrapper">
     <div class="notification-inner">
@@ -397,7 +397,7 @@
         </svg>
     </div>
 </div>
---}}
+
 
 <!-- Go Up -->
 <div class="go-up-wrapper">
