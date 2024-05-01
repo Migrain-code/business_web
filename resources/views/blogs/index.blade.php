@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @if(request()->routeIs('blogs.category'))
     @section('title', $blogCategories->first()->getMetaTitle())
-    @section('description', $blogCategories->first()->getDescription())
+    @section('description', $blogCategories->first()->getMetaDescription())
 @else
     @section('title', 'Bloglar')
 @endif

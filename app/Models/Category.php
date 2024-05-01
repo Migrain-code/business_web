@@ -9,7 +9,7 @@ use Spatie\Translatable\HasTranslations;
 class Category extends Model
 {
     use HasFactory, HasTranslations;
-    protected $translatable = ['name', 'slug'];
+    protected $translatable = ['name', 'slug', 'meta_description', 'meta_title'];
     public function blogs()
     {
         return $this->hasMany(BusinessBlog::class, 'category_id', 'id');
