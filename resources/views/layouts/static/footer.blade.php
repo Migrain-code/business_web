@@ -470,12 +470,14 @@
     </div>
 </div>
 <script>
-    window.onload = function() {
+    $(document).ready(function (){
         if (!localStorage.getItem('firstVisit')) {
             document.getElementById('notificationWrapper').style.display = 'block';
             localStorage.setItem('firstVisit', 'true');
+        } else{
+            document.getElementById('notificationWrapper').style.display = 'none';
         }
-    };
+    })
 </script>
 <script>
     var newTexts = ["Güzellik Merkezleri", "Kuaförler", "Berberler"];
