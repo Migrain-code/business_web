@@ -6,7 +6,10 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            Blog Yazıları
+                            <a href="{{route('blogs')}}">Blog Yazıları</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            {{$blog->getTitle()}}
                         </li>
                     </ol>
                 </nav>

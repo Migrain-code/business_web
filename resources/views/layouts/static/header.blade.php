@@ -38,7 +38,7 @@
     <script src="/front/assets/js/app.js"></script>
 
     <link rel="shortcut icon" href="{{image(setting('speed_favicon'))}}">
-    <title>{{config('app.name', 'Laravel')}} | @yield('title', '')</title>
+    @include('layouts.static.meta')
     @yield('style')
 </head>
 <body>

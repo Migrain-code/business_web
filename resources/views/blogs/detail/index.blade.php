@@ -1,5 +1,6 @@
 @extends('layouts.master')
-@section('title', 'Blog Detayı')
+@section('title', $blog->getMetaTitle())
+@section('description', strip_tags($blog->getDescription()))
 @section('styles')
 
 @endsection
