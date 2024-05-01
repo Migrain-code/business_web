@@ -46,8 +46,8 @@
                     <!--end::Label-->
 
                     <!--begin::Input-->
-                    <input type="text" name="phone" class="form-control mb-2"
-                           placeholder="Telefon Numarası" value="{{old('phone')}}">
+                    <input type="text" name="phone" id="validatorPhone" class="form-control mb-2"
+                           placeholder="Telefon Numarası" value="{{old('phone') ?? 0}}">
                     <!--end::Input-->
 
                 </div>

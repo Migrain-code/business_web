@@ -35,6 +35,7 @@
                                 name="phone"
                                 id="validatorPhone"
                                 placeholder="Cep Telefonu"
+                                value="0"
                             />
                             <label for="validatorPhone">Telefon Numarası</label>
                         </div>
@@ -109,11 +110,5 @@
     </div>
 @endsection
 @section('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.60/inputmask/jquery.inputmask.js"></script>
 
-    <script>
-        $(document).ready(function(){
-            $("#validatorPhone").inputmask({"mask": "0999 999 9999"});
-        });
-    </script>
 @endsection

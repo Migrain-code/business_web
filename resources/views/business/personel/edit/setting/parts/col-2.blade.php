@@ -46,7 +46,7 @@
                     <!--end::Label-->
 
                     <!--begin::Input-->
-                    <input type="text" name="phone" class="form-control mb-2"
+                    <input type="text" name="phone" id="validatorPhone" class="form-control mb-2"
                            placeholder="Telefon Numarası" value="{{$personel->phone}}">
                     <!--end::Input-->
 

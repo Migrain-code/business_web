@@ -50,7 +50,7 @@
                             </label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="text" id="phone" class="form-control form-control-solid" placeholder="" name="phone" value="" />
+                            <input type="text" id="validatorPhone" class="form-control form-control-solid" placeholder="" name="phone" value="0" />
                             <!--end::Input-->
                         </div>
 

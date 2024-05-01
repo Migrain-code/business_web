@@ -37,6 +37,12 @@ class CustomerController extends Controller
      */
     public function store(CustomerAddRequest $request)
     {
+        if (strlen(clearPhone($request->input('phone'))) != 11){
+            return response()->json([
+                'status' => "error",
+                'message' => "Lütfen Telefon Numarasını 11 Haneli olarak giriş yapın"
+            ]);
+        }
         $customer = new Customer();
         $customer->name = $request->input('name');
         $customer->email = $request->input('email');
@@ -87,6 +93,12 @@ class CustomerController extends Controller
                 'message' => "Bu Müşteri Randevu Alarak Gelmiş olan bir müşteri olduğu için bilgilerini düzenleyemezsiniz"
             ]);
         }
+        if (strlen(clearPhone($request->input('app_phone'))) != 11){
+            return response()->json([
+                'status' => "error",
+                'message' => "Lütfen Telefon Numarasını 11 Haneli olarak giriş yapın"
+            ]);
+        }
         $customer->name = $request->input('name');
         $customer->email = $request->input('email');
         $customer->phone = clearPhone($request->input('app_phone'));
@@ -101,7 +113,7 @@ class CustomerController extends Controller
         if ($customer->save()) {
             return response()->json([
                 'status' => "success",
-                'message' => "Müşteri Başarılı Bir Şekilde Güncellendi"
+                'message' => "Müşteri Bilgileri Başarılı Bir Şekilde Güncellendi"
             ]);
         }
     }

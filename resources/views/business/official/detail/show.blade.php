@@ -72,12 +72,4 @@
     </script>
 
     <script src="/business/assets/js/project/official/details/update-profile.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.60/inputmask/jquery.inputmask.js"></script>
-
-    <script>
-        $(document).ready(function(){
-            $("#phone").inputmask({"mask": "0(999) 999-9999"});
-        });
-    </script>
-
 @endsection

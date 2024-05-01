@@ -28,6 +28,7 @@
                             id="floatingInput"
                             placeholder="Şifre"
                             name="password"
+                            value="0"
                         />
                         <label for="floatingInput">Şifre</label>
                         <a href="javascript:;"
@@ -65,11 +66,4 @@
 @endsection
 @section('scripts')
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.60/inputmask/jquery.inputmask.js"></script>
-
-    <script>
-        $(document).ready(function(){
-            $("#validatorPhone").inputmask({"mask": "0999 999 9999"});
-        });
-    </script>
 @endsection

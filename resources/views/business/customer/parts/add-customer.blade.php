@@ -104,7 +104,7 @@
                             </label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="text" class="form-control form-control-solid phone" data-inputmask="'mask': '0(999) 999-9999'" placeholder="" name="phone" value="" />
+                            <input type="text" class="form-control form-control-solid" id="validatorPhone" placeholder="" name="phone" value="0" />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->

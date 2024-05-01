@@ -99,26 +99,22 @@ var KTModalCustomersAdd = function () {
                                 success: function (res) {
                                     submitButton.disabled = false;
                                     Swal.fire({
-                                        text: "Müşteri Başarılı Bir Şekilde Kayıt Edildi!",
-                                        icon: "success",
+                                        text: res.message,
+                                        icon: res.status,
                                         buttonsStyling: false,
-                                        confirmButtonText: "Ok, got it!",
+                                        confirmButtonText: "Tamam",
                                         customClass: {
                                             confirmButton: "btn btn-primary"
                                         }
                                     }).then(function (result) {
-                                        form.reset(); // Reset form
-                                        modal.hide(); // Hide modal
+                                        submitButton.disabled = false;
+                                        if (res.status == "success"){
+                                            form.reset(); // Reset form
+                                            modal.hide(); // Hide modal
 
-                                        if ($.fn.DataTable.isDataTable('#datatable')) {
-                                            $('#datatable').DataTable().ajax.reload();
-                                        }
-                                        if (result.isConfirmed) {
-
-                                            // Enable submit button after loading
-
-                                            // Redirect to customers list page
-                                            //window.location = form.getAttribute("data-kt-redirect");
+                                            if ($.fn.DataTable.isDataTable('#datatable')) {
+                                                $('#datatable').DataTable().ajax.reload();
+                                            }
                                         }
                                     });
 

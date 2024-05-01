@@ -98,7 +98,7 @@
                             </label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="text" class="form-control form-control-solid" data-inputmask="'mask': '0(999) 999-9999'" placeholder="Telefon Numarası" name="app_phone" value="{{$customer->phone}}" />
+                            <input type="text" class="form-control form-control-solid" id="validatorPhone" placeholder="Telefon Numarası" name="app_phone" value="{{$customer->phone}}" />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->

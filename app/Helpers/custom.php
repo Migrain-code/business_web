@@ -51,7 +51,7 @@ function clearPhone($phoneNumber)
         if (substr($phoneNumber, 1) != 0){
             $phoneNumber = "0".$phoneNumber;
         }
-        $newPhoneNumber = str_replace([' ', '(', ')', '-'], '', $phoneNumber);
+        $newPhoneNumber = str_replace([' ', '(', ')', '-', '_'], '', $phoneNumber);
         $newPhoneNumber = substr($newPhoneNumber, 1);
         return $newPhoneNumber;
     }
