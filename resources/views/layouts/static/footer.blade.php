@@ -335,7 +335,7 @@
 
 
     <!-- Notification Box -->
-<div class="notification-wrapper">
+<div id="notificationWrapper" class="notification-wrapper">
     <div class="notification-inner">
         <div class="icon">
             <svg
@@ -472,7 +472,7 @@
 <script>
     window.onload = function() {
         if (!localStorage.getItem('firstVisit')) {
-            document.getElementById('notification-wrapper').style.display = 'block';
+            document.getElementById('notificationWrapper').style.display = 'block';
             localStorage.setItem('firstVisit', 'true');
         }
     };
