@@ -65,7 +65,7 @@
                         </div>
                         <span>
                             <b>
-                                <a href="{{route('page.detail', $pages->skip(1)->first()->slug)}}">Kullanım koşullarını</a>
+                                <a href="{{route('page.detail', $pages->skip(1)->first()->slug)}}" target="_blank">Kullanım koşullarını</a>
                             </b> okudum ve kabul ediyorum.
                         </span>
                     </div>
@@ -79,7 +79,7 @@
                         </div>
                         <span>
                             <b>
-                                <a href="{{route('page.detail', $pages->first()->slug)}}">Gizlilik ve kullanım şartlarını</a>
+                                <a href="{{route('page.detail', $pages->first()->slug)}}" target="_blank">Gizlilik ve kullanım şartlarını</a>
                             </b> okudum ve kabul ediyorum.
                         </span>
                     </div>
@@ -92,7 +92,7 @@
                         </div>
                         <span>
                             <b>
-                                <a href="{{route('page.detail', $pages->skip(2)->first()->slug)}}">Aydınlatma metnini</a>
+                                <a href="{{route('page.detail', $pages->skip(2)->first()->slug)}}" target="_blank">Aydınlatma metnini</a>
                             </b> okudum ve kabul ediyorum.
                         </span>
                     </div>
