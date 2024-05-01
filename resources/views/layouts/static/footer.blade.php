@@ -12,8 +12,9 @@
                 <div class="business-footer-content">
                     <h2>Mobil Uygulama</h2>
                     <p>
-                        Tüm işlemlerin telefonunda. İsterseniz mobil uygulamadan<br />
-                        isteseniz de web sitemizden işletmenizi yönetebilirsiniz
+                        Tüm işlemler, parmaklarınızın ucunda. İşletmenizi mobil<br />
+                        uygulama veya web sitemiz üzerinden kolayca yönetebilirsiniz.
+
                     </p>
                 </div>
                 <div class="business-footer-store d-flex">
@@ -470,7 +471,7 @@
 </div>
 
 <script>
-    var newTexts = ["Kuaför", "test2", "test3", "test4"];
+    var newTexts = ["Güzellik Merkezleri", "Kuaförler", "Berberler"];
     var currentIndex = 0;
 
     function updateHairdresser() {

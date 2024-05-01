@@ -16,10 +16,6 @@
                                   </span>
                                 Keşfedin
                             </h2>
-                            <p>
-                                Ipsum nascetur pharetra vivamus tristique <br />
-                                maecenas at euismod eu non. Gravida auctor.
-                            </p>
                         </div>
                     </div>
                 </div>

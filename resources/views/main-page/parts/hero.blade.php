@@ -4,24 +4,17 @@
             <div class="col-lg-6">
                 <div class="text-content" data-aos="zoom-in">
                     <h2>
-                  <span>İşletmeniz için
-                    <img
-                        class="shape-1"
-                        src="/front/assets/images/business/shape1.svg"
-                        alt=""
-                    />
-                  </span>
-                        <span id="hairdresserArea">En İyi
-                            <label id="hairdresserLabel">Kuaför
-                                <img
-                                  class="shape-2"
-                                  src="/front/assets/images/business/shape-2.svg"
-                                  alt=""/>
-                            </label>
-                        </span>
-                        <span><strong>Yönetim</strong> Yazılımı</span>
+
+                  <span id="hairdresserArea">
+                    <label id="hairdresserLabel">Kuaför
+                      <img
+                          class="shape-2"
+                          src="/front/assets/images/business/shape-2.svg"
+                          alt="" /></label></span>
+                        <span><strong>Salon</strong> Yönetim Programı</span>
+
                         <p>
-                            İşletmeniz için en uygun çalışma programını oluşturma <br/>
+                            Randevu alma sürecinden satışa geçmek, Hızlı Randevu ile işletmenizi kolayca yönetebilmeniz demektir. Zamanınızı verimli kullanarak işinizi büyütün.<br />
                             için basit bir çözüm.
                         </p>
                     </h2>
@@ -30,11 +23,11 @@
             <div class="col-lg-6">
                 <div class="hero-form" data-aos="zoom-in">
                     <div class="hero">
-                        <h3>Sizi arayalım</h3>
-                        <p>
-                            Sistem hakkında bilgi almak için <br/>
-                            aşağıdaki formu doldurun sizi arayalım.
-                        </p>
+                        <h1><b>Hızlı Randevu </b> <br>Takip Programı</h1>
+                            <p>
+                                <br/>Güzellik Merkezi, Kuaför, Berber İçin  Hızlı Randevu Yönetim Programı Cebinizde
+                            </p>
+
                     </div>
                     <form action="{{route('send.informationRequest')}}" method="post">
                         @csrf

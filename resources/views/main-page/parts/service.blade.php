@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="hero">
                     <h3>Özelliklerimizi Keşfedin</h3>
-                    <p>Şimdi hızlı randevunun özelliklerini keşfedin.</p>
+
                 </div>
             </div>
             <div class="row">

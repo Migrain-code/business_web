@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Business\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\Business;
 use App\Models\BusinessNotificationPermission;
 use App\Models\BusinessOfficial;
@@ -63,25 +64,25 @@ class RegisterController extends Controller
 
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            //'email' => ['required', 'string', 'max:255', 'unique:business_officials'],
             'phone' => ['required', 'string', 'max:255', 'unique:business_officials'],
             'business_name' => ['required', 'string', 'max:255'],
-            //'password' => ['required', 'string', 'min:8'],
-            'terms' => ['accepted']
+            'terms_and_contitions' => ['accepted'],
+            'privacy_terms' => ['accepted'],
+            'clarification' => ['accepted'],
         ], [], [
             'name' => "Yetkili Adı",
-            //'email' => "Mail Adresi",
             'phone' => "Telefon Numarası",
             'business_name' => "İşletme adı",
-            //'password' => "Şifre",
-            'terms' => "Şartlar ve Koşullar",
+            'terms_and_contitions' => "Şartlar ve Koşullar",
+            'privacy_terms' => "Gizlilik Koşulları",
+            'clarification' => "Aydınlatma Metni",
         ]);
     }
 
     /**
      * Bilgileri al ve kayıt için Doğrulamaya gönder
      */
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
         if ($this->existPhone(clearPhone($request->phone))) {
             return response()->json([

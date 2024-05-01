@@ -18,8 +18,11 @@ function setting($key)
     return config('settings.' . $key);
 }
 function maskPhone($phone){
-    $maskedPhone = substr_replace(clearPhone($phone), str_repeat('*', strlen($phone) - 2), 0, -2);
-    return $maskedPhone;
+    if (strlen($phone) > 10){
+        $maskedPhone = substr_replace(clearPhone($phone), str_repeat('*', strlen($phone) - 2), 0, -2);
+        return $maskedPhone;
+    }
+    return $phone;
 }
 function authUser()
 {
@@ -44,12 +47,16 @@ function calculateTotal($services)
 
 function clearPhone($phoneNumber)
 {
-    if (substr($phoneNumber, 1) != 0){
-        $phoneNumber = "0".$phoneNumber;
+    if (strlen($phoneNumber) > 10){
+        if (substr($phoneNumber, 1) != 0){
+            $phoneNumber = "0".$phoneNumber;
+        }
+        $newPhoneNumber = str_replace([' ', '(', ')', '-'], '', $phoneNumber);
+        $newPhoneNumber = substr($newPhoneNumber, 1);
+        return $newPhoneNumber;
     }
-    $newPhoneNumber = str_replace([' ', '(', ')', '-'], '', $phoneNumber);
-    $newPhoneNumber = substr($newPhoneNumber, 1);
-    return $newPhoneNumber;
+    return $phoneNumber;
+
 
 }
 

@@ -4,11 +4,11 @@
             <div class="col-lg-12">
                 <div class="content">
                     <h2>
-                        <strong> İşinizi zaman kazanarak büyütün </strong> <br />
-                        Hemen 14 Gün Ücretsiz Deneyin
+                        <strong> İşinizi büyüterek zaman kazanın! </strong> <br />
+                        Şimdi 30 gün boyunca ücretsiz deneyin."
                     </h2>
                     <div class="buttons">
-                        <a href="{{route('business.home')}}"> 14 Gün Ücretsiz Dene </a>
+                        <a href="{{route('business.home')}}"> 30 Gün Ücretsiz Dene </a>
                         <a href="{{route('business.home')}}">Ücretsiz Deneme</a>
                     </div>
                 </div>

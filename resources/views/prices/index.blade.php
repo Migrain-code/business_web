@@ -7,17 +7,26 @@
     <article>
         <section class="home-packages">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="hero">
-                            <h3>Paketler & Özellikleri</h3>
-                            <p>
-                                Detaylı İncelemek isterseniz özellikler <br />
-                                sekmesinden görebilirsiniz.
-                            </p>
+                <section class="home-references" style="padding: 0px !important;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="references-hero" style="padding: 0px !important;">
+                                    <h2>
+                                          <span>30 gün boyunca
+                                            <img src="/front/assets/images/business/title-line.svg" alt="" />
+                                          </span>
+                                        ÜCRETSİZ deneyin!
+                                    </h2>
+                                    <p>
+                                        Kredi kartı gerekmez ve devam etmek <br />
+                                        zorunda değilsiniz.
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </section>
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -43,6 +52,12 @@
                                     </span>
                                 </div>
                             </div>
+
+
+                        </div>
+                        <div class="d-flex justify-content-center mt-0 mb-3 py-2">
+                            Yıllık Ödemelerde <span style="font-weight: bold; margin-left: 5px;color: #f22969"> %20 Kazanın</span>
+
                         </div>
                     </div>
                 </div>

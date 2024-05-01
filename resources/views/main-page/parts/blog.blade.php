@@ -5,12 +5,11 @@
                 <div class="col-lg-3">
                     <div class="homeBlogLeft">
                         <div class="homeBlogTitle">
-                            <strong>Müşteri</strong>
-                            Yorumlarımız
+                            <strong>Müşterilerimizin</strong>
+                            düşünceleri neler?
                         </div>
                         <p>
-                            Hac mollis viverra ornare enim enim lectus. Velit justo quam
-                            iaculis risus facilisis auctor in.
+                            Kendimizden değil, sektörde tanınmış lider isimlerin yorumlarına kulak verin.
                         </p>
                         <div
                             id="customBlogSliderNav"

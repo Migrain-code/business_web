@@ -3,8 +3,8 @@
         <div class="container">
             <div class="row">
                 <div class="hero">
-                    <h3>Binlerce İşletme Bizimle Güvende!</h3>
-                    <p>5000+ İşletme Bizimle Yıllardır Çalışmaktadır.</p>
+                    <h3>Yüzlerce İşletme Güvencemiz Altında! !</h3>
+                    <p>800+ İşletme Bizimle Yıllardır Çalışmaktadır.</p>
                 </div>
             </div>
             <div class="row">
