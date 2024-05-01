@@ -17,6 +17,7 @@
                             id="validatorPhone"
                             placeholder="Cep Telefonu"
                             name="phone"
+                            value="0"
                         />
                         <label for="validatorPhone">Cep Telefonu</label>
                         <p id="errorMessage"></p>
@@ -72,16 +73,7 @@
 
     <script>
         $(document).ready(function(){
-            $("#validatorPhone").inputmask({
-                mask: "0999 999 9999",
-                onUn: function() {
-                    var input = this;
-                    var lastChar = input.val().slice(-1);
-                    if (lastChar === '0') {
-                        input.val(input.val() + '0');
-                    }
-                }
-            });
+            $("#validatorPhone").inputmask({"mask": "9999 999 9999"});
         });
     </script>
 @endsection
