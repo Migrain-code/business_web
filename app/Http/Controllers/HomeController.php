@@ -115,10 +115,10 @@ class HomeController extends Controller
     public function category($category)
     {
         $blogCategories = Category::whereJsonContains('slug->' . App::getLocale(), $category)->get();
-
         if ($blogCategories->count() > 0) {
-            $ads = Ads::where('type', 4)->where('status', 1)->get();
-            return view('blogs.index', compact('blogCategories', 'ads'));
+            $blogAdvrt = Ads::where('type', 4)->where('status', 1)->get();
+
+            return view('blogs.index', compact('blogCategories', 'blogAdvrt'));
         } else {
             return back()->with('response', [
                 'status' => "warning",

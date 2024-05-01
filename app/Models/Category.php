@@ -24,4 +24,13 @@ class Category extends Model
     {
         return $this->translate('slug');
     }
+    public function getMetaDescription()
+    {
+        return $this->translate('meta_description');
+    }
+
+    public function getMetaTitle()
+    {
+        return $this->translate('meta_title');
+    }
 }

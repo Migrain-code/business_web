@@ -1,9 +1,6 @@
 @extends('layouts.master')
 @section('title', $blog->getMetaTitle())
 @section('description', strip_tags($blog->getDescription()))
-@section('styles')
-
-@endsection
 @section('content')
     <article id="page">
         @include('blogs.detail.parts.breadcrumb')

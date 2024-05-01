@@ -8,6 +8,7 @@
                         <li class="breadcrumb-item active" aria-current="page">
                             <a href="{{route('blogs')}}">Blog Yazıları</a>
                         </li>
+
                         <li class="breadcrumb-item active" aria-current="page">
                             {{$blog->getTitle()}}
                         </li>

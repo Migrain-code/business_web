@@ -1,5 +1,11 @@
 @extends('layouts.master')
-@section('title', 'Bloglar')
+@if(request()->routeIs('blogs.category'))
+    @section('title', $blogCategories->first()->getMetaTitle())
+    @section('description', $blogCategories->first()->getDescription())
+@else
+    @section('title', 'Bloglar')
+@endif
+
 @section('styles')
 
 @endsection

@@ -8,6 +8,11 @@
                         <li class="breadcrumb-item active" aria-current="page">
                             Blog Yazıları
                         </li>
+                        @if(request()->routeIs('blogs.category'))
+                            <li class="breadcrumb-item active" aria-current="page">
+                              {{$blogCategories->first()->getName()}}
+                            </li>
+                        @endif
                     </ol>
                 </nav>
             </div>
