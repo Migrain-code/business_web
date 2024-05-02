@@ -23,11 +23,11 @@
             <div class="col-lg-6">
                 <div class="hero-form" data-aos="zoom-in">
                     <div class="hero">
-                        <h1><b>Hızlı Randevu </b> <br>Takip Programı</h1>
-                            <p>
-                                <br/>Güzellik Merkezi, Kuaför, Berber İçin  Hızlı Randevu Yönetim Programı Cebinizde
-                            </p>
-
+                        <h3>Sizi arayalım</h3>
+                        <p>
+                            Sistem hakkında bilgi almak için <br />
+                            aşağıdaki formu doldurun sizi arayalım.
+                        </p>
                     </div>
                     <form action="{{route('send.informationRequest')}}" method="post">
                         @csrf
