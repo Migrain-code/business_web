@@ -38,7 +38,9 @@
                             <select class="form-select mb-2" name="collectionPaymentType" data-control="select2" data-hide-search="true"
                                     data-placeholder="Ödeme Tipi Seçiniz" id="kt_ecommerce_payment_type_select">
                                 <option></option>
-
+                                @foreach($paymentTypes as $paymentType)
+                                    <option value="{{$paymentType["id"]}}">{{$paymentType["name"]}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="fv-row mb-7">
