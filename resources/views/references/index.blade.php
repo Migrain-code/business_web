@@ -1,7 +1,19 @@
 @extends('layouts.master')
 @section('title', 'Referanslar')
-@section('styles')
-
+@section('style')
+    <style>
+        .home-references .references-items .item::after {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            right: -37%;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 50px;
+            width: 1px;
+            background: rgba(67, 80, 110, 0.15);
+        }
+    </style>
 @endsection
 @section('content')
     <article>
