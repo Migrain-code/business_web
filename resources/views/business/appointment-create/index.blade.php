@@ -58,9 +58,7 @@
 
     <div id="kt_app_content" class="app-content ">
         <!--begin::Stepper-->
-        <div class="stepper stepper-pills w-100" id="kt_stepper_example_basic" style="background-color: #1e1e2d;
-    border-radius: 40px;
-    padding: 30px;">
+        <div class="card stepper stepper-pills w-100" id="kt_stepper_example_basic" style="border-radius: 40px;padding: 30px;">
             <!--begin::Nav-->
             <div class="stepper-nav flex-center flex-wrap mb-10 w-100">
                 <!--begin::Step 1-->
