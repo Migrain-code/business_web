@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="man-image">
-                    <img src="/front/assets/images/business/promo-man.png" alt="" />
+                    <img src="{{image(setting('business_free_trial_image'))}}" alt="" />
                 </div>
             </div>
         </div>
