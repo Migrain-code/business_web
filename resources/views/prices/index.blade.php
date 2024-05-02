@@ -105,6 +105,7 @@
         </section>
 
         @include('main-page.parts.stats')
+        @include('main-page.parts.blog')<!-- Yorumlar olarak değişti -->
 
 @endsection
 

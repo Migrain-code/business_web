@@ -69,8 +69,8 @@ class HomeController extends Controller
     {
         $monthlyPackages = BussinessPackage::where('type', 0)->orderBy('price', 'asc')->get();
         $yearlyPackages = BussinessPackage::where('type', 1)->orderBy('price', 'asc')->get();
-
-        return view('prices.index', compact('monthlyPackages', 'yearlyPackages'));
+        $comments = Comment::whereStatus(1)->take(5)->get();
+        return view('prices.index', compact('monthlyPackages', 'yearlyPackages', 'comments'));
     }
 
     /**
