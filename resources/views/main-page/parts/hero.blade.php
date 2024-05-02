@@ -44,7 +44,7 @@
                         </div>
 
                         <div class="field">
-                            <button type="submit">Gönder</button>
+                            <button type="submit">Bilgi Al</button>
                         </div>
                     </form>
                 </div>
