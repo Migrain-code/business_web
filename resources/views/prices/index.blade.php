@@ -1,7 +1,12 @@
 @extends('layouts.master')
 @section('title', 'Fiyatlandırma')
 @section('style')
-
+    <style>
+        .home-stats {
+            padding: 200px 100px;
+            background: #fff;
+        }
+    </style>
 @endsection
 @section('content')
     <article>
