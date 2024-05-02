@@ -152,7 +152,7 @@ class VerificationController extends Controller
         $smsConfirmation->expire_at = now()->addMinute(3);
         $smsConfirmation->save();
 
-        Sms::send($smsConfirmation->phone, setting('business_title') . "Şifre yenileme için, telefon numarası doğrulama kodunuz " . $generateCode);
+        Sms::send($smsConfirmation->phone, setting('business_title') . " Şifre yenileme için, telefon numarası doğrulama kodunuz " . $generateCode);
 
         return $generateCode;
     }
