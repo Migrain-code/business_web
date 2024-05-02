@@ -9,7 +9,6 @@
     </style>
 @endsection
 @section('content')
-
         <section class="home-packages">
             <div class="container" style="padding: 60px 40px !important;">
                 <section class="home-references" style="padding: 0px !important;">
@@ -103,10 +102,7 @@
 
             </div>
         </section>
-
-        @include('main-page.parts.stats')
         @include('main-page.parts.blog')<!-- Yorumlar olarak değişti -->
-
 @endsection
 
 @section('scripts')
