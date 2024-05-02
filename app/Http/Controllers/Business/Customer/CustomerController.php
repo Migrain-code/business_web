@@ -26,7 +26,6 @@ class CustomerController extends Controller
             $this->business = $this->user->business;
             return $next($request);
         });
-
     }
     /**
      * Display a listing of the resource.
