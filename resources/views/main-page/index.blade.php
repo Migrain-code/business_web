@@ -12,6 +12,11 @@
             height: auto;
             aspect-ratio: 1 / 1;
         }
+        .home-stats {
+            padding: 10px 100px;
+            padding-bottom: 80px;
+            background: #fff;
+        }
     </style>
 @endsection
 @section('content')
