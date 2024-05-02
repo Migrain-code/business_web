@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Business\BusinessInfoUpdateRequest;
 use App\Models\AppointmentRange;
+use App\Models\Business;
 use App\Models\BusinessCategory;
 use App\Models\BusinnessType;
 use App\Models\DayList;
@@ -39,6 +40,10 @@ class BusinessSettingController extends Controller
         $business->personal_count = $request->input('team_size');
         $business->approve_type = $request->input('approve_type');
         $business->name = $request->input('name');
+        if ($business->name != $request->input('name')){
+            $business->slug = $this->checkSlug($request->input('name'));
+        }
+        $business->name = $request->input('name');
         $business->slug = Str::slug($request->input('name'));
         $business->business_email = $request->input('email');
         $business->type_id = $request->input('type_id');
@@ -60,5 +65,16 @@ class BusinessSettingController extends Controller
                 'message' => "İşletme Bilgileriniz Kayıt Edildi"
             ]);
         }
+    }
+
+    public function checkSlug($business_name)
+    {
+        $slug = Str::slug($business_name);
+        $existBusinessSlug = Business::whereSlug($slug)->count();
+        if ($existBusinessSlug > 0){
+            $slug .= "-". $existBusinessSlug + 1;
+        }
+
+        return $slug;
     }
 }

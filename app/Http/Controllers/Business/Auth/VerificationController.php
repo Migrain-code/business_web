@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Business;
 use App\Models\BusinessNotificationPermission;
 use App\Models\BusinessOfficial;
+use App\Models\BusinessPromossion;
 use App\Models\SmsConfirmation;
 use App\Services\Sms;
 use Illuminate\Foundation\Auth\VerifiesEmails;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class VerificationController extends Controller
 {
@@ -97,7 +99,7 @@ class VerificationController extends Controller
 
                     $this->setAdmin($business, $user);
                     $this->addPermission($business->id, $permission);
-
+                    $this->addPromotion($business->id);
                     Sms::send($code->phone, setting('business_title') . " Sistemine kayıt işleminiz tamamlandı. Giriş yapmak için şifreniz ". $generatePassword . " olarak belirlendi");
                     $code->delete();
                     Auth::login($user);
@@ -163,6 +165,7 @@ class VerificationController extends Controller
     {
         $business = new Business();
         $business->name = $business_name;
+        $business->slug = $this->checkSlug($business_name);
         $business->company_id = rand(1000000, 9999999);
         $business->package_id = 1;
         $business->save();
@@ -194,5 +197,28 @@ class VerificationController extends Controller
         }
         $businessPermission->save();
         return true;
+    }
+
+    public function addPromotion($businessId) :void
+    {
+        $promossions = new BusinessPromossion();
+        $promossions->business_id = $businessId;
+        $promossions->cash = 0;
+        $promossions->credit_cart = 0;
+        $promossions->eft = 0;
+        $promossions->use_limit = 10;
+        $promossions->birthday_discount = 0;
+        $promossions->save();
+    }
+
+    public function checkSlug($business_name)
+    {
+        $slug = Str::slug($business_name);
+        $existBusinessSlug = Business::whereSlug($slug)->count();
+        if ($existBusinessSlug > 0){
+            $slug .= "-". $existBusinessSlug + 1;
+        }
+
+        return $slug;
     }
 }
