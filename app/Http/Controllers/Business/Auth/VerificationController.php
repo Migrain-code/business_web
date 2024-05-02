@@ -98,7 +98,7 @@ class VerificationController extends Controller
                     $this->setAdmin($business, $user);
                     $this->addPermission($business->id, $permission);
 
-                    Sms::send($code->phone, setting('business_site_title') . " Sistemine kayıt işleminiz tamamlandı. Giriş yapmak için şifreniz ". $generatePassword . " olarak belirlendi");
+                    Sms::send($code->phone, setting('business_title') . " Sistemine kayıt işleminiz tamamlandı. Giriş yapmak için şifreniz ". $generatePassword . " olarak belirlendi");
                     $code->delete();
                     Auth::login($user);
                     return to_route('business.home')->with('response',[
@@ -135,7 +135,7 @@ class VerificationController extends Controller
         $smsConfirmation->expire_at = now()->addMinute(3);
         $smsConfirmation->save();
 
-        Sms::send(clearPhone($phone), setting('business_site_title') . " Sistemine kayıt için, telefon numarası doğrulama kodunuz " . $generateCode);
+        Sms::send(clearPhone($phone), setting('business_title') . " Sistemine kayıt için, telefon numarası doğrulama kodunuz " . $generateCode);
 
         return $generateCode;
     }
@@ -152,7 +152,7 @@ class VerificationController extends Controller
         $smsConfirmation->expire_at = now()->addMinute(3);
         $smsConfirmation->save();
 
-        Sms::send($smsConfirmation->phone, setting('business_site_title') . "Şifre yenileme için, telefon numarası doğrulama kodunuz " . $generateCode);
+        Sms::send($smsConfirmation->phone, setting('business_title') . "Şifre yenileme için, telefon numarası doğrulama kodunuz " . $generateCode);
 
         return $generateCode;
     }

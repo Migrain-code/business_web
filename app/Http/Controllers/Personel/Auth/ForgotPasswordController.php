@@ -69,7 +69,7 @@ class ForgotPasswordController extends Controller
         $smsConfirmation->expire_at = now()->addMinute(3);
         $smsConfirmation->save();
 
-        Sms::send($smsConfirmation->phone, setting('business_site_title') . "Şifre yenileme için, telefon numarası doğrulama kodunuz " . $generateCode);
+        Sms::send($smsConfirmation->phone, setting('business_title') . "Şifre yenileme için, telefon numarası doğrulama kodunuz " . $generateCode);
 
         return $generateCode;
     }
@@ -106,7 +106,7 @@ class ForgotPasswordController extends Controller
                 $official->password = Hash::make($generatePassword);
                 if ($official->save()) {
 
-                    Sms::send($code->phone, setting('business_site_title') . " Sistemine giriş için yeni şifreniz " . $generatePassword);
+                    Sms::send($code->phone, setting('business_title') . " Sistemine giriş için yeni şifreniz " . $generatePassword);
                     $code->delete();
                     return to_route('personel.login')->with('response',[
                         'status' => "success",
