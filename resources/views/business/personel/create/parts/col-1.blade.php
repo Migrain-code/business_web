@@ -93,8 +93,8 @@
             <select class="form-select mb-2" name="is_case" data-control="select2" data-hide-search="true"
                     data-placeholder="Kasa Yetkisi" id="kt_ecommerce_add_product_status_select">
                 <option></option>
-                <option value="0" @selected(old('is_case') == 0)>Kasa yetkisi ver</option>
-                <option value="1" @selected(old('is_case') == 1)>Kasa Yetkisi verme</option>
+                <option value="1" @selected(old('is_case') == 1)>Kasa yetkisi ver</option>
+                <option value="0" @selected(old('is_case') == 0)>Kasa Yetkisi verme</option>
             </select>
             <!--end::Select2-->
 

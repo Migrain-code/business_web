@@ -1,4 +1,4 @@
-<div class="col-xl-4">
+<div class="col-xl-4 mb-2">
 
     <!--begin::Statistics Widget 5-->
     <a href="#" class="card bg-danger hoverable card-xl-stretch mb-xl-8">
@@ -27,7 +27,7 @@
     <!--end::Statistics Widget 5-->
 </div>
 
-<div class="col-xl-4">
+<div class="col-xl-4 mb-2">
 
     <!--begin::Statistics Widget 5-->
     <a href="#" class="card bg-primary hoverable card-xl-stretch mb-xl-8">
@@ -61,7 +61,7 @@
     <!--end::Statistics Widget 5-->
 </div>
 
-<div class="col-xl-4">
+<div class="col-xl-4 mb-2">
 
     <!--begin::Statistics Widget 5-->
     <a href="#" class="card bg-success hoverable card-xl-stretch mb-5 mb-xl-8">

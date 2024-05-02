@@ -961,7 +961,7 @@
                             <!--begin:Item-->
                             <div class="col-6">
                                 <a href="{{route('business.case')}}"
-                                   class="d-flex flex-column flex-center h-100 p-6 bg-hover-light border-end border-bottom">
+                                   class="d-flex flex-column flex-center h-100 p-6 bg-hover-light border-end border-bottom text-center">
                                     <i class="ki-duotone ki-wallet fs-3x text-primary mb-2"><span
                                             class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                                     <span class="fs-5 fw-semibold text-gray-800 mb-0">Kasa</span>
@@ -973,7 +973,7 @@
                             <!--begin:Item-->
                             <div class="col-6">
                                 <a href="{{route('business.support-center.index')}}"
-                                   class="d-flex flex-column flex-center h-100 p-6 bg-hover-light border-bottom">
+                                   class="d-flex flex-column flex-center h-100 p-6 bg-hover-light border-bottom text-center">
                                     <i class="ki-duotone ki-question fs-3x text-primary mb-2"><span
                                             class="path1"></span><span class="path2"></span></i> <span
                                         class="fs-5 fw-semibold text-gray-800 mb-0">Yeni Destek Talebi</span>
@@ -985,7 +985,7 @@
                             <!--begin:Item-->
                             <div class="col-6">
                                 <a href="{{route('business.customer.index')}}"
-                                   class="d-flex flex-column flex-center h-100 p-6 bg-hover-light border-end">
+                                   class="d-flex flex-column flex-center h-100 p-6 bg-hover-light border-end text-center">
                                     <i class="ki-duotone ki-abstract-41 fs-3x text-primary mb-2"><span
                                             class="path1"></span><span class="path2"></span></i> <span
                                         class="fs-5 fw-semibold text-gray-800 mb-0">Müşteriler</span>
@@ -997,7 +997,7 @@
                             <!--begin:Item-->
                             <div class="col-6">
                                 <a href="{{route('business.customer.index')}}"
-                                   class="d-flex flex-column flex-center h-100 p-6 bg-hover-light">
+                                   class="d-flex flex-column flex-center h-100 p-6 bg-hover-light text-center">
                                     <i class="ki-duotone ki-user fs-3x text-primary mb-2"><span
                                             class="path1"></span><span class="path2"></span></i> <span
                                         class="fs-5 fw-semibold text-gray-800 mb-0">Yeni Müşteri</span>
@@ -1008,7 +1008,7 @@
                             <!--begin:Item-->
                             <div class="col-6">
                                 <a href="{{route('business.sale.create')}}"
-                                   class="d-flex flex-column flex-center h-100 p-6 bg-hover-light">
+                                   class="d-flex flex-column flex-center h-100 p-6 bg-hover-light text-center">
                                     <i class="ki-duotone ki-file-sheet fs-3x text-primary mb-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -1021,7 +1021,7 @@
                             <!--begin:Item-->
                             <div class="col-6">
                                 <a href="{{route('business.cost.index')}}"
-                                   class="d-flex flex-column flex-center h-100 p-6 bg-hover-light">
+                                   class="d-flex flex-column flex-center h-100 p-6 bg-hover-light text-center">
                                     <i class="ki-duotone ki-abstract fs-3x text-primary mb-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
