@@ -50,6 +50,11 @@
         ::-webkit-scrollbar-track{
             background: #ffffff;
         }
+        @media (max-width: 500px) {
+            .home-stats {
+                padding: 20px 20px;
+            }
+        }
     </style>
     @yield('style')
 </head>
