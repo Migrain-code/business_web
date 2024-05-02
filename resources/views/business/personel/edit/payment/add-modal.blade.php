@@ -35,7 +35,7 @@
                                 <span class="required">Ödeme Tipi</span>
                                 <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Ödemeyi Hangi Ödeme Türünde Yaptınız"></i>
                             </label>
-                            <select class="form-select mb-2" name="collectionPaymentType" data-control="select2" data-hide-search="true"
+                            <select class="form-select mb-2" name="paymentTypeId" data-control="select2" data-hide-search="true"
                                     data-placeholder="Ödeme Tipi Seçiniz" id="kt_ecommerce_payment_type_select">
                                 <option></option>
                                 @foreach($paymentTypes as $paymentType)
@@ -51,7 +51,7 @@
                             </label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="number" class="form-control form-control-solid" placeholder="Örn. 15" name="collectionPrice" value="" />
+                            <input type="number" class="form-control form-control-solid" placeholder="Örn. 15" name="paymentPrice" value="" />
                             <!--end::Input-->
                         </div>
                         <div class="fv-row mb-7">

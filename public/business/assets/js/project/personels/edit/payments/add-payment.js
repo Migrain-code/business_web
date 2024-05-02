@@ -68,10 +68,9 @@ var KTModalCustomersAdd = function () {
                             submitButton.removeAttribute('data-kt-indicator');
                             var formData = new FormData();
                             formData.append("_token", csrf_token);
-                            formData.append("paymentType", $('[name="collectionPaymentType"]').val());
-                            formData.append("price", $('[name="collectionPrice"]').val());
+                            formData.append("paymentType", $('[name="paymentTypeId"]').val());
+                            formData.append("price", $('[name="paymentPrice"]').val());
                             formData.append("operationDate", $('[name="operationDate"]').val());
-
 
                             $.ajax({
                                 url: '/isletme/personel/'+ personelId +'/add-payment',
