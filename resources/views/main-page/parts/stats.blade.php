@@ -1,12 +1,13 @@
 <section class="home-stats">
     <div class="container">
+        @if(strpos(setting('business_main_page_video_link'), "https://") === 0)
         <div class="row">
             <div class="hero" style="margin-bottom: 0px !important;">
                 <h3>{{setting('business_main_page_video_title')}}</h3>
                 <p>{{setting('business_main_page_video_sub_title')}}</p>
             </div>
         </div>
-
+        @endif
         <div class="row">
             <div class="col-lg-12">
                 @if(strpos(setting('business_main_page_video_link'), "https://") === 0)

@@ -17,7 +17,7 @@
 @endsection
 @section('content')
     <article>
-        <section class="home-references">
+        <section class="home-references" style="padding: 60px 40px !important;">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">

@@ -6,7 +6,7 @@
 @section('content')
     <article>
         <section class="home-packages">
-            <div class="container">
+            <div class="container" style="padding: 60px 40px !important;">
                 <section class="home-references" style="padding: 0px !important;">
                     <div class="container">
                         <div class="row">
