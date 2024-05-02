@@ -16,10 +16,24 @@ var KTModalCustomersAdd = function () {
             form,
             {
                 fields: {
-                    'payment_price': {
+                    'collectionPaymentType': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Ödeme Tipi Alanı Gereklidir'
+                            }
+                        }
+                    },
+                    'collectionPrice': {
                         validators: {
                             notEmpty: {
                                 message: 'Fiyat Alanı Gereklidir'
+                            }
+                        }
+                    },
+                    'operationDate': {
+                        validators: {
+                            notEmpty: {
+                                message: 'İşlem Tarihi Alanı Gereklidir'
                             }
                         }
                     },
@@ -54,9 +68,10 @@ var KTModalCustomersAdd = function () {
                             submitButton.removeAttribute('data-kt-indicator');
                             var formData = new FormData();
                             formData.append("_token", csrf_token);
-                            formData.append("price", $('[name="payment_price"]').val());
-                            formData.append("paymentType", $('[name="paymentType"]').val());
+                            formData.append("paymentType", $('[name="collectionPaymentType"]').val());
+                            formData.append("price", $('[name="collectionPrice"]').val());
                             formData.append("operationDate", $('[name="operationDate"]').val());
+
 
                             $.ajax({
                                 url: '/isletme/personel/'+ personelId +'/add-payment',

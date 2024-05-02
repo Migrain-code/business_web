@@ -9,7 +9,7 @@
                 <!--begin::Modal header-->
                 <div class="modal-header" id="kt_modal_add_customer_header">
                     <!--begin::Modal title-->
-                    <h2 class="fw-bold">Tahsilat Ekle</h2>
+                    <h2 class="fw-bold">Ödeme Ekle</h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
                     <div id="kt_modal_add_customer_close" class="btn btn-icon btn-sm btn-active-icon-primary">
@@ -52,6 +52,17 @@
                             <!--end::Label-->
                             <!--begin::Input-->
                             <input type="number" class="form-control form-control-solid" placeholder="Örn. 15" name="collectionPrice" value="" />
+                            <!--end::Input-->
+                        </div>
+                        <div class="fv-row mb-7">
+                            <!--begin::Label-->
+                            <label class="fs-6 fw-semibold mb-2">
+                                <span class="required">Ödeme Yaptığınız Tarih</span>
+                                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Personele ödemeyi yaptığınız tarih ve saat"></i>
+                            </label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" class="form-control form-control-solid formatDateInput" placeholder="Örn. 28 Mayıs, 2024 12:00" name="operationDate" value="" />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->

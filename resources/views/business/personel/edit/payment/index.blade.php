@@ -1,5 +1,5 @@
 @extends('business.layouts.master')
-@section('title', 'Personel Kasası')
+@section('title', 'Personel Ödemeleri')
 @section('styles')
 
 @endsection
@@ -146,16 +146,7 @@
                                 <td class="min-w-125px">Maaş</td>
                                 <td class="min-w-125px">{{$payed->type("name")}}</td>
                                 <td>
-                                    <a href="" class="btn btn-clean btn-sm btn-icon btn-icon-primary btn-active-light-primary ms-auto">
-                                        <i class="ki-duotone ki-eye fs-1">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                            <span class="path3"></span>
-                                            <span class="path4"></span>
-                                            <span class="path5"></span>
-                                        </i>
-                                    </a>
-                                    <a class="btn btn-clean btn-sm btn-icon btn-icon-danger btn-active-light-danger ms-auto" href="#" data-toggle="popover"
+                                    <a class="btn btn-clean btn-sm btn-icon btn-icon-danger btn-active-light-danger ms-auto delete-btn" href="#" data-toggle="popover"
                                        data-object-id="{{$payed->id}}" data-route="/isletme/ajax/delete/object"
                                        data-model="App\Models\BusinessCost"
                                        data-delete-type="1"
