@@ -170,6 +170,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         \App\Providers\HelperServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+
     ])->toArray(),
 
     /*

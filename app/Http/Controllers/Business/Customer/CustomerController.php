@@ -11,18 +11,22 @@ use App\Models\NotificationIcon;
 use App\Services\UploadFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 
 class CustomerController extends Controller
 {
     private $business;
+    private $user;
 
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            $this->business = auth('official')->user()->business;
+            $this->user = auth('official')->user();
+            $this->business = $this->user->business;
             return $next($request);
         });
+
     }
     /**
      * Display a listing of the resource.

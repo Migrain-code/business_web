@@ -9,6 +9,7 @@ use App\Models\Page;
 use App\Models\RecommendedLink;
 use App\Models\Setting;
 use App\Models\Stat;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Schema::defaultStringLength(191);
         $registrar = new CustomResourceRegistrar($this->app['router']);
 
         $this->app->bind('Illuminate\Routing\ResourceRegistrar', function () use ($registrar) {
