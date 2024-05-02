@@ -7,6 +7,12 @@
                 <p>{{setting('business_main_page_video_sub_title')}}</p>
             </div>
         </div>
+        @else
+            <div class="row">
+                <div class="hero" style="margin-bottom: 0px !important;">
+                    <h3>Hızlı Randevu Zamanı Tasarlar !</h3>
+                </div>
+            </div>
         @endif
         <div class="row">
             <div class="col-lg-12">
