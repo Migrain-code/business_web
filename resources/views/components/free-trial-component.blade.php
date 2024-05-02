@@ -9,7 +9,7 @@
                     </h2>
                     <div class="buttons">
                         <a href="{{route('business.home')}}"> 30 Gün Ücretsiz Dene </a>
-                        <a href="{{route('business.contact')}}">Bize Ulaşın</a>
+                        <a href="{{route('contact')}}">Bize Ulaşın</a>
                     </div>
                 </div>
                 <div class="man-image">
