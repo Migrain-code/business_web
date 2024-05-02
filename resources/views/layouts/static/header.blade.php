@@ -39,6 +39,18 @@
 
     <link rel="shortcut icon" href="{{image(setting('speed_favicon'))}}">
     @include('layouts.static.meta')
+    <style>
+        ::-webkit-scrollbar{
+            width: 10px;
+        }
+        ::-webkit-scrollbar-thumb{
+            background: #f22969;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-track{
+            background: #ffffff;
+        }
+    </style>
     @yield('style')
 </head>
 <body>
