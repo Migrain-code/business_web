@@ -899,16 +899,15 @@ body.references {
 }
 
 .home-references .references-items .item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex: 0 0 19%;
   max-width: 19%;
   margin-bottom: 100px;
   position: relative;
   padding: 20px;
 }
-
+.home-references .references-items .item .logo{
+    min-width: 220px;
+}
 .home-references .references-items .item::after {
   content: "";
   display: inline-block;

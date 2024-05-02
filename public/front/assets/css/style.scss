@@ -747,6 +747,8 @@ header {
         .owl-carousel {
             .item {
                 a {
+                    min-width: 220px;
+                    max-width: 220px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
