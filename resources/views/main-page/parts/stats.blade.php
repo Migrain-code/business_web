@@ -15,7 +15,7 @@
             </div>
         @endif
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12" style="width: 98% !important;">
                 @if(strpos(setting('business_main_page_video_link'), "https://") === 0)
                 <div class="video-area" data-bs-toggle="modal" data-bs-target="#videoModal">
                     <img src="{{image(setting('business_main_page_video_image'))}}" alt=""/>
