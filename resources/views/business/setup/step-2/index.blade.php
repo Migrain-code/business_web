@@ -5,14 +5,24 @@
         #kt_forms_widget_1_editor {
             height: 200px; /* Yüksekliği 200 piksel olarak ayarla */
         }
-
+        @if(isset($business->logo))
          .image-input .image-input-wrapper {
-             background-image: url('/business/assets/media/svg/avatars/blank.svg');
-         }
+            background-image: url('{{image($business->logo)}}');
+        }
+
+        [data-bs-theme="dark"] .image-input .image-input-wrapper {
+            background-image: url('{{image($business->logo)}}');
+        }
+        @else
+         .image-input .image-input-wrapper {
+            background-image: url('/business/assets/media/svg/avatars/blank.svg');
+        }
 
         [data-bs-theme="dark"] .image-input .image-input-wrapper {
             background-image: url('/business/assets/media/svg/avatars/blank-dark.svg');
         }
+        @endif
+
 
     </style>
 @endsection

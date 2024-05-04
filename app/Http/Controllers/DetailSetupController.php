@@ -42,8 +42,8 @@ class DetailSetupController extends Controller
         $business->end_time = $request->input('end_time');
         $business->appoinment_range = $request->input('appoinment_range');
         if ($request->hasFile('image')) {
-           // $response = UploadFile::uploadFile($request->file('image'), 'business_logos');
-           // $business->logo = $response["image"]["way"];
+           $response = UploadFile::uploadFile($request->file('image'), 'business_logos');
+           $business->logo = $response["image"]["way"];
         }
         if ($business->save()){
             return response()->json([
