@@ -509,7 +509,7 @@ class PersonelController extends Controller
             ->addColumn('action', function ($q) {
                 $html = "";
                 $html .= create_edit_button(route('business.personel.edit', $q->id));
-                $html .= create_delete_button('Personel', $q->id, 'Personel', 'Personel Kaydını Silmek İstediğinize Eminmisiniz? Personelin sadece kişisel kayıtları silinecektir.', '/isletme/ajax/delete/object', false);
+                $html .= create_delete_button('Personel', $q->id, 'Personel', 'Personel Kaydını Silmek İstediğinize Eminmisiniz? Personelin sadece kişisel kayıtları silinecektir.', 'false','/isletme/ajax/delete/object', false);
 
                 return $html;
             })
