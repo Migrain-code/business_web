@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Business;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Setup\DetailSetupStep2UpdateRequest;
 use App\Http\Requests\Setup\Step1UpdateRequest;
 use App\Http\Requests\Setup\Step2UpdateRequest;
 use App\Http\Requests\Setup\Step3UpdateRequest;
@@ -11,6 +12,7 @@ use App\Models\BusinessCategory;
 use App\Models\BussinessPackage;
 use App\Models\BussinessPackagePropartieList;
 use App\Models\DayList;
+use App\Services\UploadFile;
 use Illuminate\Http\Request;
 
 class SetupController extends Controller
@@ -111,4 +113,5 @@ class SetupController extends Controller
         ]);
 
     }
+
 }

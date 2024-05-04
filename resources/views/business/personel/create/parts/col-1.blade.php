@@ -122,17 +122,19 @@
         <div class="card-body pt-0">
             <!--begin::Input group-->
             <!--begin::Label-->
-            <label class="form-label">İzin Günleri</label>
+            <div class="fw-row">
+                <label class="form-label">İzin Günleri</label>
 
-            <!--begin::Select2-->
-            <select class="form-select mb-2" name="restDay[]" data-control="select2" data-placeholder="İzin Günü Seçiniz"
-                    multiple="multiple">
-                <option></option>
-                @foreach($dayList as $day)
-                    <option value="{{$day->id}}" @selected(old('restDay') != null ? in_array($day->id, old('restDay')) : "")>{{$day->name}}</option>
-                @endforeach
-            </select>
-            <!--end::Select2-->
+                <!--begin::Select2-->
+                <select class="form-select mb-2" name="restDay[]" data-control="select2" data-placeholder="İzin Günü Seçiniz"
+                        multiple="multiple">
+                    <option></option>
+                    @foreach($dayList as $day)
+                        <option value="{{$day->id}}" @selected(old('restDay') != null ? in_array($day->id, old('restDay')) : "")>{{$day->name}}</option>
+                    @endforeach
+                </select>
+                <!--end::Select2-->
+            </div>
 
             <div class="col-12">
                 <!--begin::Label-->

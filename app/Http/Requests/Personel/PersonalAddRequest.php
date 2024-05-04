@@ -39,7 +39,7 @@ class PersonalAddRequest extends FormRequest
             'gender_type' => 'required',
             'rate' => 'required',
             'range' => 'required',
-            'description' => 'required',
+            'description' => 'nullable',
             'services' => 'required',
             'product_rate' => 'required',
             'is_case' => 'required',

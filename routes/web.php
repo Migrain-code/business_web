@@ -39,6 +39,7 @@ use \App\Http\Controllers\Business\Auth\RegisterController;
 use \App\Http\Controllers\Business\Auth\VerificationController;
 use \App\Http\Controllers\Business\Auth\ForgotPasswordController;
 use \App\Http\Controllers\Business\SetupController;
+use \App\Http\Controllers\DetailSetupController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -94,8 +95,12 @@ Route::prefix('isletme')->as('business.')->group(function (){
             Route::post('/step-2', [SetupController::class, 'step2Update']);
             Route::post('/step-3', [SetupController::class, 'step3Update']);
             Route::post('/step-4', [SetupController::class, 'step4Update']);
-        });
 
+        });
+        Route::prefix('detail-setup')->as('detailSetup.')->group(function (){
+            Route::get('/', [DetailSetupController::class, 'detailSetup'])->name('step2');
+            Route::post('/step-1', [DetailSetupController::class, 'detailSetupStep1']);
+        });
         /*-----------------------  Müşteri  ------------------------*/
         Route::resource('customer', CustomerController::class);
         Route::prefix('customer/{customer}')->group(function (){
@@ -249,6 +254,8 @@ Route::prefix('isletme')->as('business.')->group(function (){
             Route::delete('/delete/object', 'deleteFeatured')->name('deleteFeatured');
             Route::post('/delete/all/object', 'deleteAllFeatured')->name('deleteAllFeatured');
             Route::post('/get/district', 'getDistrict')->name('getDistrictUrl');
+            Route::post('/get/personel', 'getPersonel');
+            Route::post('/get/services', 'getServices');
         });
     });
 

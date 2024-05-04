@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Business;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Service\BusinessServiceResource;
+use App\Http\Resources\Personel\PersonelListResource;
 use App\Models\District;
 use Illuminate\Http\Request;
 
@@ -79,5 +81,21 @@ class AjaxController extends Controller
         $districts = District::where('city_id', $request->id)->get();
 
         return $districts;
+    }
+
+    public function getPersonel(Request $request)
+    {
+        $user = $request->user();
+        $business = $user->business;
+
+        return response()->json(PersonelListResource::collection($business->personels));
+    }
+
+    public function getServices(Request $request)
+    {
+        $user = $request->user();
+        $business = $user->business;
+
+        return response()->json(BusinessServiceResource::collection($business->services));
     }
 }

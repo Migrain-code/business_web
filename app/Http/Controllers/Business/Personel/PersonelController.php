@@ -107,6 +107,12 @@ class PersonelController extends Controller
                 $personelService->personel_id = $personel->id;
                 $personelService->save();
             }
+            if ($request->ajax()){
+                return response()->json([
+                    'status' => "success",
+                    'message' => "Personel Kayıt Edildi",
+                ]);
+            }
             return to_route('business.personel.index')->with('response', [
                 'status' => "success",
                 'message' => "Personel Kayıt Edildi",

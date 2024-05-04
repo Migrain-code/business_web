@@ -24,24 +24,31 @@ class SetupControlMiddleWare
                     // Kullanıcı setup sayfalarına veya ödeme sayfalarına erişmeye çalışıyorsa
                     return $next($request);
                 } else {
-                    // Kullanıcı setup yapmamışsa ve diğer sayfalara erişmeye çalışıyorsa
-                    /*if ($user->is_registired == 1){
-                        return redirect()->route('business.setup.step4');
-
-                    } else{
-                    }*/
                     return redirect()->route('business.setup.step1');
-
                 }
             } else {
-                // Kullanıcı setup yapmışsa
-                if ($request->routeIs('business.setup.*') || $request->routeIs('business.payment.*')) {
-                    // Kullanıcı setup sayfalarına veya ödeme sayfalarına erişmeye çalışıyorsa
-                    return redirect()->route('business.home');
-                } else {
-                    // Kullanıcı setup yapmışsa ve diğer sayfalara erişmeye çalışıyorsa
-                    return $next($request);
+
+                if ($user->personels->count() > 0 && $user->services->count() > 0){
+                    if ($request->routeIs('business.setup.*') || $request->routeIs('business.payment.*') || $request->routeIs('business.detailSetup.*')) {
+                        // Kullanıcı setup sayfalarına veya ödeme sayfalarına erişmeye çalışıyorsa
+                        return redirect()->route('business.home');
+                    } else {
+                        // Kullanıcı setup yapmışsa ve diğer sayfalara erişmeye çalışıyorsa
+                        return $next($request);
+                    }
                 }
+                else{
+                    if ($request->routeIs('business.detailSetup.*') || $request->routeIs('business.gallery.*') || $request->routeIs('business.service.*') || $request->routeIs('business.personel.*')|| $request->routeIs('business.ajax.*')) {
+                        // Kullanıcı setup sayfalarına veya ödeme sayfalarına erişmeye çalışıyorsa
+                        return $next($request);
+
+                    } else {
+                        // Kullanıcı setup yapmışsa ve diğer sayfalara erişmeye çalışıyorsa
+                        return redirect()->route('business.detailSetup.step2');
+                    }
+                }
+                // Kullanıcı setup yapmışsa
+
             }
         } else {
             // Kullanıcı giriş yapmamışsa

@@ -118,11 +118,11 @@
 
         function initAutocomplete() {
             // Harita başlatma kodu burada
-            var businessLat = '{{$business->lat ?? "49.610307094885016"}}';
-            var businessLong = '{{$business->longitude ?? "6.132590619068177"}}';
+            var businessLat = '{{$business->lat ?? "41.0250244963033"}}';
+            var businessLong = '{{$business->longitude ?? "40.51829611874486"}}';
             if (isNaN(businessLat) || isNaN(businessLong)) {
-                businessLat = 49.610307094885016; // Varsayılan enlem
-                businessLong = 6.132590619068177; // Varsayılan boylam
+                businessLat = 41.0250244963033; // Varsayılan enlem
+                businessLong = 40.51829611874486; // Varsayılan boylam
             }
             map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: parseFloat(businessLat), lng: parseFloat(businessLong) },
