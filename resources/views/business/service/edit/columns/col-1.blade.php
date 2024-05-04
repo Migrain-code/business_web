@@ -98,7 +98,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end align-items-center gap-3">
-                    <a href="{{route('business.service.index')}}" class="btn btn-danger">
+                    <a href="{{url()->previous()}}" class="btn btn-danger">
                         İptal Et
                     </a>
                     <!--begin::Button-->

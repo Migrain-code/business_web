@@ -1,98 +1,136 @@
 "use strict";
 
+// Class definition
 var KTAppEcommerceReportCustomerOrders = function () {
-    var table, dataTable;
+    // Shared variables
+    var table;
+    var datatable;
 
-    function initTable() {
-        table = document.querySelector("#kt_ecommerce_report_customer_orders_table");
-        if (table) {
-            table.querySelectorAll("tbody tr").forEach(row => {
-                const cells = row.querySelectorAll("td");
-                const date = moment(cells[3].innerHTML, "DD MMM YYYY, LT").format();
-                cells[3].setAttribute("data-order", date);
-            });
+    // Private functions
+    var initDatatable = function () {
+        // Set date data order
+        const tableRows = table.querySelectorAll('tbody tr');
 
-            dataTable = $(table).DataTable({
-                info: false,
-                order: [],
-                pageLength: 10
-            });
-        }
+        tableRows.forEach(row => {
+            const dateRow = row.querySelectorAll('td');
+            const realDate = moment(dateRow[3].innerHTML, "DD MMM YYYY, LT").format(); // select date from 4th column in table
+            dateRow[3].setAttribute('data-order', realDate);
+        });
+
+        // Init datatable --- more info on datatables: https://datatables.net/manual/
+        datatable = $(table).DataTable({
+            "info": false,
+            'order': [],
+            'pageLength': 10,
+        });
     }
 
-    function initDateRangePicker() {
-        const startDate = moment().subtract(29, "days");
-        const endDate = moment();
-        const dateRangePicker = $("#kt_ecommerce_report_customer_orders_daterangepicker");
+    // Init daterangepicker
+    var initDaterangepicker = () => {
+        var start = moment().subtract(29, "days");
+        var end = moment();
+        var input = $("#kt_ecommerce_report_customer_orders_daterangepicker");
 
-        function updateDateRangePicker(start, end) {
-            dateRangePicker.html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
+        function cb(start, end) {
+            input.html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
         }
 
-        dateRangePicker.daterangepicker({
-            startDate: startDate,
-            endDate: endDate,
+        input.daterangepicker({
+            startDate: start,
+            endDate: end,
             ranges: {
-                Today: [moment(), moment()],
-                Yesterday: [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                "Today": [moment(), moment()],
+                "Yesterday": [moment().subtract(1, "days"), moment().subtract(1, "days")],
                 "Last 7 Days": [moment().subtract(6, "days"), moment()],
                 "Last 30 Days": [moment().subtract(29, "days"), moment()],
                 "This Month": [moment().startOf("month"), moment().endOf("month")],
                 "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
             }
-        }, updateDateRangePicker);
+        }, cb);
 
-        updateDateRangePicker(startDate, endDate);
+        cb(start, end);
     }
 
-    function initExportButtons() {
-        const reportTitle = "Customer Orders Report";
-        new $.fn.dataTable.Buttons(table, {
-            buttons: [
-                {extend: "copyHtml5", title: reportTitle},
-                {extend: "excelHtml5", title: reportTitle},
-                {extend: "csvHtml5", title: reportTitle},
-                {extend: "pdfHtml5", title: reportTitle}
-            ]
-        }).container().appendTo($("#kt_ecommerce_report_customer_orders_export"));
+    // Handle status filter dropdown
+    var handleStatusFilter = () => {
+        const filterStatus = document.querySelector('[data-kt-ecommerce-order-filter="status"]');
+        $(filterStatus).on('change', e => {
+            let value = e.target.value;
+            if (value === 'all') {
+                value = '';
+            }
+            datatable.column(2).search(value).draw();
+        });
+    }
 
-        document.querySelectorAll("#kt_ecommerce_report_customer_orders_export_menu [data-kt-ecommerce-export]").forEach(button => {
-            button.addEventListener("click", event => {
-                event.preventDefault();
-                const exportType = event.target.getAttribute("data-kt-ecommerce-export");
-                document.querySelector(".dt-buttons .buttons-" + exportType).click();
+    // Hook export buttons
+    var exportButtons = () => {
+        const documentTitle = 'Customer Orders Report';
+        var buttons = new $.fn.dataTable.Buttons(table, {
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    title: documentTitle
+                },
+                {
+                    extend: 'excelHtml5',
+                    title: documentTitle
+                },
+                {
+                    extend: 'csvHtml5',
+                    title: documentTitle
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: documentTitle
+                }
+            ]
+        }).container().appendTo($('#kt_ecommerce_report_customer_orders_export'));
+
+        // Hook dropdown menu click event to datatable export buttons
+        const exportButtons = document.querySelectorAll('#kt_ecommerce_report_customer_orders_export_menu [data-kt-ecommerce-export]');
+        exportButtons.forEach(exportButton => {
+            exportButton.addEventListener('click', e => {
+                e.preventDefault();
+
+                // Get clicked export value
+                const exportValue = e.target.getAttribute('data-kt-ecommerce-export');
+                const target = document.querySelector('.dt-buttons .buttons-' + exportValue);
+
+                // Trigger click event on hidden datatable export buttons
+                target.click();
             });
         });
     }
 
-    function initSearchFilter() {
-        document.querySelector('[data-kt-ecommerce-order-filter="search"]').addEventListener("keyup", event => {
-            dataTable.search(event.target.value).draw();
+
+    // Search Datatable --- official docs reference: https://datatables.net/reference/api/search()
+    var handleSearchDatatable = () => {
+        const filterSearch = document.querySelector('[data-kt-ecommerce-order-filter="search"]');
+        filterSearch.addEventListener('keyup', function (e) {
+            datatable.search(e.target.value).draw();
         });
     }
 
-    function initStatusFilter() {
-        const statusFilter = document.querySelector('[data-kt-ecommerce-order-filter="status"]');
-        $(statusFilter).on("change", event => {
-            let filterValue = event.target.value;
-            if (filterValue === "all") {
-                filterValue = "";
-            }
-            dataTable.column(2).search(filterValue).draw();
-        });
-    }
-
+    // Public methods
     return {
         init: function () {
-            initTable();
-            initDateRangePicker();
-            initExportButtons();
-            initSearchFilter();
-            initStatusFilter();
+            table = document.querySelector('#kt_ecommerce_report_customer_orders_table');
+
+            if (!table) {
+                return;
+            }
+
+            initDatatable();
+            initDaterangepicker();
+            exportButtons();
+            handleSearchDatatable();
+            handleStatusFilter();
         }
     };
 }();
 
+// On document ready
 KTUtil.onDOMContentLoaded(function () {
     KTAppEcommerceReportCustomerOrders.init();
 });

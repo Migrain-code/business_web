@@ -257,8 +257,9 @@ class ServiceController extends Controller
             ->editColumn('price', function ($q) {
                 return formatPrice($q->price);
             })
-            ->addColumn('action', function ($q) {
+            ->addColumn('action', function ($q) use ($request){
                 $html = '';
+
                 $html .= create_edit_button(route('business.service.edit', $q->id), 'text-white');
                 $html .= create_delete_button('BusinessService', $q->id, 'Hizmeti', 'Hizmeti Silmek istediğinize eminmisiniz?', 'false', '/isletme/service/' . $q->id, 'false');
                 return $html;
@@ -266,4 +267,5 @@ class ServiceController extends Controller
             ->rawColumns(['id', 'action'])
             ->make(true);
     }
+
 }

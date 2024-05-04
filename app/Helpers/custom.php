@@ -128,6 +128,7 @@ function create_edit_button($route, $additional_class = null)
 {
     return html()->a($route, html()->i('')->class('fa fa-edit'))->class('btn btn-primary btn-sm me-1 ' . $additional_class);
 }
+
 function create_swap_button($route, $additional_class = null)
 {
     return html()->a($route, html()->i('')->class('fa fa-arrows-turn-to-dots'))

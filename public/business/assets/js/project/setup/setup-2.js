@@ -1,7 +1,7 @@
 "use strict";
 
 var KTCreateAccount = function() {
-    var modal, stepper, form, submitBtn, nextBtn, stepperInstance, modalPersonel, personelLength, serviceLength;
+    var modal, stepper, form, submitBtn, nextBtn, stepperInstance, modalPersonel,editServiceModal, personelLength, serviceLength;
 
     function initStepper() {
         stepperInstance = new KTStepper(stepper);
@@ -9,6 +9,7 @@ var KTCreateAccount = function() {
         stepperInstance.on("kt.stepper.next", handleNextStep);
         stepperInstance.on("kt.stepper.previous", handlePreviousStep);
         modalPersonel = new bootstrap.Modal(document.querySelector('#kt_modal_add_personel'));
+        editServiceModal = new bootstrap.Modal(document.querySelector('#kt_modal_edit_service'));
 
     }
 
@@ -130,6 +131,76 @@ var KTCreateAccount = function() {
         $('[name= "category_id"]').val(categoryId)
         modal = new bootstrap.Modal(document.querySelector('#kt_modal_add_service'));
         modal.show();
+    });
+    $('.edit-btn').on('click', function (){
+        $('[name= "price"]').val("");
+        $('[name= "time"]').val("");
+        $('[name= "gender"]').val("");
+        var editedPrice = $(this).data('price');
+        var editedTime = $(this).data('price');
+        var editedGender = $(this).data('price');
+        $('[name= "price"]').val(editedPrice);
+        $('[name= "time"]').val(editedTime);
+        $('[name= "gender"]').val(editedGender);
+        editServiceModal.show();
+    });
+    $('#kt_modal_edit_service_submit').on('click', function (){
+
+        var formData = new FormData();
+        formData.append("_token", csrf_token);
+        formData.append("price", $('[name= "price"]').val());
+        formData.append("time", $('[name= "time"]').val());
+        formData.append("typeId", $('[name= "gender"]').val());
+        $.ajax({
+            url: '/isletme/service',
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: "JSON",
+            success: function (res) {
+                Swal.fire({
+                    text: res.message,
+                    icon: res.status,
+                    buttonsStyling: false,
+                    confirmButtonText: "Tamam!",
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    }
+                });
+                if (res.status == "success"){
+                    if ($.fn.DataTable.isDataTable('#datatable')) {
+                        $('#datatable').DataTable().ajax.reload();
+                    }
+                    $('[name= "service_id"]').val("")
+                    $('[name= "category_id"]').val("")
+                    $('[name= "price"]').val("")
+                    $('[name= "time"]').val("")
+                    $('[name= "gender"]').val("")
+                    modal.hide();
+                    fetchServiceList();
+                }
+            },
+            error: function (xhr) {
+                stepperInstance.goPrevious();
+                var errorMessage = "<ul>";
+                xhr.responseJSON.errors.forEach(function (error) {
+                    errorMessage += "<li>" + error + "</li>";
+                });
+                errorMessage += "</ul>";
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Hata!',
+                    html: errorMessage,
+                    buttonsStyling: false,
+                    confirmButtonText: "Tamam",
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    }
+                });
+            }
+        });
     });
     $('#kt_modal_add_service_submit').on('click', function (){
         var formData = new FormData();
