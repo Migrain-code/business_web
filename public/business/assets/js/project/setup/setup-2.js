@@ -34,6 +34,7 @@ var KTCreateAccount = function() {
            updateStep1(); //1. adımı güncelle
             fetchServiceList();
         } else if (currentStep == 2){
+            fetchPersonelList();
             fetchServiceList();
 
             if (serviceLength == 0){
@@ -49,6 +50,7 @@ var KTCreateAccount = function() {
                 });
             }
         } else if (currentStep == 3){
+
             if (personelLength == 0){
                 stepperInstance.goPrevious();
                 Swal.fire({
@@ -154,13 +156,18 @@ var KTCreateAccount = function() {
                         confirmButton: "btn btn-primary"
                     }
                 });
-                $('[name= "service_id"]').val("")
-                $('[name= "category_id"]').val("")
-                $('[name= "price"]').val("")
-                $('[name= "time"]').val("")
-                $('[name= "gender"]').val("")
-                modal.hide();
-                fetchServiceList();
+                if (res.status == "success"){
+                    if ($.fn.DataTable.isDataTable('#datatable')) {
+                        $('#datatable').DataTable().ajax.reload();
+                    }
+                    $('[name= "service_id"]').val("")
+                    $('[name= "category_id"]').val("")
+                    $('[name= "price"]').val("")
+                    $('[name= "time"]').val("")
+                    $('[name= "gender"]').val("")
+                    modal.hide();
+                    fetchServiceList();
+                }
             },
             error: function (xhr) {
                 stepperInstance.goPrevious();

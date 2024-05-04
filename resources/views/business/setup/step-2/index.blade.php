@@ -72,14 +72,49 @@
             </div>
             <!--end::Content-->
         </div>
+        <div class="card mt-5">
+            <!--begin::Card body-->
+            <div class="card-body pt-0">
+
+                <!--begin::Table-->
+                <table class="table align-middle table-row-dashed fs-6 gy-5" id="datatable">
+                    <thead>
+                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                        <th class="min-w-125px">Eklenme Tarihi</th>
+                        <th class="min-w-125px">Kategori</th>
+                        <th class="min-w-125px">Hizmet Adı</th>
+                        <th class="min-w-125px">Hizmet Süresi</th>
+                        <th class="min-w-125px">Hizmet Fiyatı</th>
+                        <th class="min-w-125px">Tür</th>
+                        <th class="text-end min-w-70px">İşlemler</th>
+                    </tr>
+                    </thead>
+                    <tbody class="fw-semibold text-gray-600">
+                    </tbody>
+                    <!--end::Table body-->
+                </table>
+                <!--end::Table-->    </div>
+            <!--end::Card body-->
+        </div>
         @include('business.setup.step-2.modals.add-service')
         @include('business.setup.step-2.modals.add-personel')
     </div>
 @endsection
 @section('scripts')
-
+    <script src="/business/assets/js/project/service/listing/listing.js"></script>
     <script src="/business/assets/js/project/setup/setup-2.js"></script>
-
+    <script>
+        let DATA_URL = "{{route('business.service.datatable')}}";
+        let DATA_COLUMNS = [
+            {data: 'created_at'},
+            {data: 'category'},
+            {data: 'sub_category'},
+            {data: 'time'},
+            {data: 'price'},
+            {data: 'type'},
+            {data: 'action'}
+        ];
+    </script>
     <script>
         $(".timeSelector").flatpickr({
             enableTime: true,

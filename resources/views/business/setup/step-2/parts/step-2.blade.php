@@ -72,8 +72,8 @@
         @endforeach
 
 
-
     </div>
     <!--end::Wrapper-->
+
 </div>
 <!--end::Step 2-->
