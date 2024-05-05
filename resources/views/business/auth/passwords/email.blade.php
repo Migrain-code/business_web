@@ -6,10 +6,13 @@
         <div class="formBoxContent d-flex align-items-center w-auto forgotPass">
             <form method="post" action="{{route('business.sendResetVerifyCode')}}" class="formBoxForm w-auto">
                 @csrf
-                <div class="mb-5 text-center formLogo">
-                    <img src="/front/assets/images/logo-pink.svg" alt="" />
+                <div class="mb-0 mt-2">
+                    <label class="registerLabel">
+                        <h3>Şifremi Unuttum</h3>
+                    </label>
+                    <label class="registerLabel">Tek Tıkla Şifrenizi Geri Alın.</label>
                 </div>
-                <label class="registerLabel">Şifremi Unuttum</label>
+
                 <div class="form-floating mb-3">
                     <input
                         type="text"
