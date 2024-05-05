@@ -225,6 +225,7 @@ class PersonelController extends Controller
     public function saveRestDay($personel, $restDayId):void
     {
         $this->checkDayControl($personel);
+        $personel->restDayAll()->update(['status' => 0]);
         foreach ($restDayId as $day_id){
             $restDay = $personel->restDayAll()->where('day_id', $day_id)->first();
             if ($restDay){
