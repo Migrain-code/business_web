@@ -25,15 +25,14 @@
                     </label>
                     <label class="registerLabel">Zamanı Yönet, Randevularla Zirveye Ulaş!</label>
                 </div>
-
+                <div class="mb-3">
+                    <a href="{{route('business.login')}}" class="btn-gray blue w-100 p-4 text-center">
+                        Patron Girişi
+                    </a>
+                </div>
                 <div class="mb-3">
                     <a href="{{route('personel.login')}}" class="btn-pink w-100 p-4 text-center">
                         Personel Girişi
-                    </a>
-                </div>
-                <div class="mb-1">
-                    <a href="{{route('business.login')}}" class="btn-gray blue w-100 p-4 text-center">
-                        Patron Girişi
                     </a>
                 </div>
 
