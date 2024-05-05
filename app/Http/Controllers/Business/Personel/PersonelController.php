@@ -57,7 +57,16 @@ class PersonelController extends Controller
         $types = BusinnessType::all();
         return view('business.personel.create.index', compact('dayList', 'services', 'ranges', 'types'));
     }
-
+    public function existPhone($phone)
+    {
+        $existPhone = Personel::where('phone', $phone)->first();
+        if ($existPhone != null) {
+            $result = true;
+        } else {
+            $result = false;
+        }
+        return $result;
+    }
     /**
      * Personel Ekle
      *
@@ -66,13 +75,19 @@ class PersonelController extends Controller
      */
     public function store(PersonalAddRequest $request)
     {
+        if ($this->existPhone(clearPhone($request->phone))){
+            return response()->json([
+               'status' => "error",
+               'message' => "Bu telefon numarası ile kayıtlı personel bulunmakta"
+            ]);
+        }
         $personel = new Personel();
         $personel->business_id = $this->business->id;
         $personel->name = $request->input('name');
         $personel->image = "business/team.png";
         $personel->email = $request->email;
         $personel->password = Hash::make($request->password);
-        $personel->phone = $request->phone;
+        $personel->phone = clearPhone($request->phone);
         $personel->accepted_type = $request->approve_type;
         //$personel->accept = $request->accept;
         $personel->safe = boolval($request->is_case);
@@ -163,13 +178,22 @@ class PersonelController extends Controller
      */
     public function update(PersonalUpdateRequest $request, Personel $personel)
     {
+        if ($personel->phone != clearPhone($request->phone)){
+            if ($this->existPhone(clearPhone($request->phone))){
+                return response()->json([
+                    'status' => "error",
+                    'message' => "Bu telefon numarası ile kayıtlı personel bulunmakta"
+                ]);
+            }
+        }
+
         $personel->business_id = $this->business->id;
         $personel->name = $request->input('name');
         $personel->email = $request->email;
         if ($request->filled('password')){
             $personel->password = Hash::make($request->password);
         }
-        $personel->phone = $request->phone;
+        $personel->phone = clearPhone($request->phone);
         $personel->accepted_type = $request->approve_type;
         $personel->safe = boolval($request->is_case);
         $personel->start_time = $request->start_time;

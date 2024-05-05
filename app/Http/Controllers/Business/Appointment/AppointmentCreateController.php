@@ -36,6 +36,7 @@ class AppointmentCreateController extends Controller
     public function index()
     {
         $business = $this->business;
+        dd($this->getDate());
         //kadın türündeki hizmetleri
         $womanServicesArray = $business->services()->where('type', 1)->with('categorys')->get();
         $womanServiceCategories = $womanServicesArray->groupBy('categorys.name');
@@ -104,19 +105,14 @@ class AppointmentCreateController extends Controller
      * @param Request $request
      * @return void
      */
-    public function getDate(Request $request)
+    public function getDate()
     {
-
-        $remainingDays = Carbon::now()->subDays(1)->diffInDays(Carbon::now()->copy()->endOfMonth());
-
-        for ($i = 0; $i < $remainingDays; $i++) {
-            $days = Carbon::now()->addDays($i);
-
-            if ($days < Carbon::now()->endOfMonth()) {
-                $remainingDate[] = $days;
-            }
+        $i = Carbon::now();
+        while ($i < Carbon::now()->addDays(30)){
+            $remainingDate[] = $i;
+            $i->addDays(1);
         }
-
+        return $remainingDate;
         foreach ($remainingDate as $date) {
             $dateStartOfDay = clone $date;
             $dateStartOfDay->startOfDay();
