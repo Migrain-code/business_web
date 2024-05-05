@@ -89,7 +89,10 @@ class AppointmentController extends Controller
     {
         $appointment->status = 2;
         $appointment->save();
-
+        foreach ($appointment->services as $service){
+            $service->status = 2;
+            $service->save();
+        }
         return to_route('business.appointment.show', $appointment->id)->with('response', [
             'status' => "success",
             'message' => "Randevuya Durumu Başarılı Bir Şekilde Güncellendi"
@@ -109,7 +112,10 @@ class AppointmentController extends Controller
     {
         $appointment->status = 1;
         $appointment->save();
-
+        foreach ($appointment->services as $service){
+            $service->status = 1;
+            $service->save();
+        }
         return to_route('business.appointment.show', $appointment->id)->with('response', [
             'status' => "success",
             'message' => "Randevuya Durumu Başarılı Bir Şekilde Onaylandı"
@@ -126,7 +132,10 @@ class AppointmentController extends Controller
     {
         $appointment->status = 3;
         $appointment->save();
-
+        foreach ($appointment->services as $service){
+            $service->status = 3;
+            $service->save();
+        }
         return to_route('business.appointment.show', $appointment->id)->with('response', [
             'status' => "success",
             'message' => "Randevu İptal Edildi"
