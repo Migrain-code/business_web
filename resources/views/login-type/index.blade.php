@@ -30,6 +30,9 @@
                         Patron Girişi
                     </a>
                 </div>
+                <div class="mb-3 mb-3 d-flex justify-content-center" >
+                    <img src="/front/assets/images/login/arrows.png" style="width: 50px;transform: rotate(270deg);">
+                </div>
                 <div class="mb-3">
                     <a href="{{route('personel.login')}}" class="btn-pink w-100 p-4 text-center">
                         Personel Girişi
