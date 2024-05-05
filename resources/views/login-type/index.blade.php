@@ -20,7 +20,7 @@
                         Personel Girişi
                     </a>
                 </div>
-                <div class="mb-3">
+                <div class="mb-1">
                     <a href="{{route('business.login')}}" class="btn-gray blue w-100 p-4 text-center">
                         Patron Girişi
                     </a>
