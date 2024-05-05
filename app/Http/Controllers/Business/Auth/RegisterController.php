@@ -85,7 +85,7 @@ class RegisterController extends Controller
     public function register(RegisterRequest $request)
     {
         if ($this->existPhone(clearPhone($request->phone))) {
-            return response()->json([
+            return back()->with('response',[
                 'status' => "warning",
                 'message' => "Bu telefon numarası ile kayıtlı kullanıcı bulunmakta."
             ]);
