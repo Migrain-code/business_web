@@ -78,7 +78,7 @@
                             <div class="col-lg-4 col-md-6" >
                                 <div class="package-item">
                                     <div class="icon">
-                                        <img src="{{image($package->icon)}}" style="width: 50px;" alt="" />
+                                        <img src="{{image($package->icon)}}" style="width: 40px;" alt="" />
                                     </div>
                                     <div class="package-info">
                                         <h4>{{$package->name}}</h4>
