@@ -34,12 +34,6 @@ class BusinessNotificationPermissionController extends Controller
      */
     public function index()
     {
-        $off = Personel::all();
-        foreach ($off as $item){
-            $n = new PersonelNotificationPermission();
-            $n->personel_id = $item->id;
-            $n->save();
-        }
         $permissions = $this->user->permission;
         return view('business.notification-permission.index', compact('permissions'));
     }
