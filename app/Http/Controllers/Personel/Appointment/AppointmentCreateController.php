@@ -109,16 +109,13 @@ class AppointmentCreateController extends Controller
     public function getDate(Request $request)
     {
 
-        $remainingDays = Carbon::now()->subDays(1)->diffInDays(Carbon::now()->copy()->endOfMonth());
+        $i = 0;
+        $remainingDate = [];
 
-        for ($i = 0; $i < $remainingDays; $i++) {
-            $days = Carbon::now()->addDays($i);
-
-            if ($days < Carbon::now()->endOfMonth()) {
-                $remainingDate[] = $days;
-            }
+        while ($i <= 30) {
+            $remainingDate[] = Carbon::now()->addDays($i);
+            $i++;
         }
-
         foreach ($remainingDate as $date) {
             $dateStartOfDay = clone $date;
             $dateStartOfDay->startOfDay();
