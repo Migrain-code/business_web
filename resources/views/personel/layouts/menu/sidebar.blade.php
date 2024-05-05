@@ -43,7 +43,7 @@
                             </i>
 
                         </span>
-                        <span class="menu-title">Dashboard</span>
+                        <span class="menu-title">Gösterge Paneli</span>
                     </a>
                     <!--end:Menu link-->
                 </div>
