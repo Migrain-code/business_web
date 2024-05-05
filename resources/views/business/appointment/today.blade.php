@@ -84,10 +84,14 @@
                                             <!--begin::Randevu Item-->
                                             <div class="timeline-item">
                                                 <!--begin::Label-->
-                                                <div class="timeline-label fw-bold text-gray-800 fs-6">{{$appointment->start_time->format('H:i')}}</div>
+                                                <div class="timeline-label fw-bold text-gray-800 fs-6">
+                                                   <span class="cursor-pointer" data-bs-toggle="tooltip" title="Başlangıç Saati"> {{$appointment->start_time->format('H:i')}}</span>
+                                                   <span class="cursor-pointer text-gray-700" data-bs-toggle="tooltip" title="Bitiş Saati"> {{$appointment->end_time->format('H:i')}}</span>
+
+                                                </div>
                                                 <!--end::Label-->
                                                 <!--begin::Badge-->
-                                                <div class="timeline-badge" data-bs-toggle="tooltip" title="{{$appointment->status("text")}}">
+                                                <div class="timeline-badge cursor-pointer" data-bs-toggle="tooltip" title="{{$appointment->status("text")}}">
                                                     <i class="fa fa-genderless text-{{$appointment->status("color_code")}} fs-1"></i>
                                                 </div>
                                                 <!--end::Badge-->
