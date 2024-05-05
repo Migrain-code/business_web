@@ -1,4 +1,4 @@
-@extends('personel.layouts.master')
+@extends('business.layouts.master')
 @section('title', 'Personel Randevuları')
 @section('styles')
     <link href="/business/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
@@ -145,15 +145,15 @@
 
     <script>
         var eventCollection = [];
-        @foreach(authUser()->appointments as $appointment)
+        @foreach($appointments as $appointment)
         var newEvent = {
             id: "{{$appointment->id}}",
-            title: "{{$appointment->service->subCategory->name}}",
+            title: "{{$appointment->services->count() > 1 ? $appointment->services->first()->subCategory->name." +". $appointment->services->count(): $appointment->services->first()->subCategory->name}}",
             start: "{{$appointment->start_time->format('Y-m-d H:i')}}",
             end: "{{$appointment->end_time->format('Y-m-d H:i')}}",
-            description: "Toplam Tutar : "+ "{{formatPrice($appointment->appointment->calculateTotal())}}",
+            description: "Toplam Tutar : "+ "{{formatPrice($appointment->calculateTotal())}}",
             className: "fc-event-danger fc-event-solid-warning",
-            username: "{{$appointment->appointment->customer->name}}",
+            username: "{{$appointment->customer->name}}",
             status: "{{$appointment->status("text")}}"
         };
         eventCollection.push(newEvent);

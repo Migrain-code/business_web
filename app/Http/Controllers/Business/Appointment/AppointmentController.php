@@ -62,7 +62,11 @@ class AppointmentController extends Controller
         })->get();
         return view('business.appointment.index', compact('appoinments'));
     }
-
+    public function calendar()
+    {
+        $appointments = $this->business->appointments()->whereDate('start_time', now())->get();
+        return view('business.appointment.calender', compact('appointments'));
+    }
     /**
      * Randevu Detayı
      *
