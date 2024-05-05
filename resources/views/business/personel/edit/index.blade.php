@@ -64,7 +64,7 @@
         var productSales = @json($personel->getMonthlyProductSales());
     </script>
     <!-- DataTables Buttons JS -->
-    <script src="/business/assets/js/custom/apps/projects/project/project.js"></script>
+    <script src="/business/assets/js/project/personel-account/overview/project.js"></script>
 
     <script>
 
