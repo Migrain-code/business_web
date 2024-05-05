@@ -219,7 +219,7 @@
                             <div class="d-flex flex-stack flex-grow-1 justify-content-center">
                                 <!--begin::Content-->
                                 <div class=" fw-semibold">
-                                    <div class="fs-6 text-white fw-bold">
+                                    <div class="fs-6 fw-bold">
                                         Bugün için randevu kaydı bulunamadı
                                     </div>
                                 </div>
@@ -345,7 +345,7 @@
                         <div class="d-flex flex-stack flex-grow-1 justify-content-center">
                             <!--begin::Content-->
                             <div class=" fw-semibold">
-                                <div class="fs-6 text-white fw-bold">
+                                <div class="fs-6 fw-bold">
                                     Bugün için işlem kaydı bulunamadı
                                 </div>
                             </div>

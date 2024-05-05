@@ -1,4 +1,5 @@
-@include('business.layouts.components.modal.password-update-modal')
+
+@include('personel.layouts.components.modal.password-update-modal')
 <div class="modal fade" id="notification_detail_modal" tabindex="-1" role="dialog">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -29,21 +30,16 @@
     </div>
     <!--end::Modal dialog-->
 </div>
+<script>
+    var hostUrl = "{{asset('/')}}";
+</script>
 
 <script src="/business/assets/plugins/global/plugins.bundle.js"></script>
 <script src="/business/assets/js/scripts.bundle.js"></script>
-<!--end::Global Javascript Bundle-->
-<!--begin::Vendors Javascript(used for this page only)-->
 <script src="/business/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
-
 <script src="/business/assets/plugins/custom/datatables/datatables.bundle.js"></script>
-<!--end::Vendors Javascript-->
-<!--begin::Custom Javascript(used for this page only)-->
 <script src="/business/assets/js/widgets.bundle.js"></script>
 <script src="/business/assets/js/custom/widgets.js"></script>
-<script>
-    var csrf_token = "{{csrf_token()}}";
-</script>
 <script>
     const Toast = Swal.mixin({
         toast: true,
@@ -101,15 +97,5 @@
         $('#notification_detail_modal').modal('show');
     });
 </script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.60/inputmask/jquery.inputmask.js"></script>
-<script>
-    $(document).ready(function(){
-        $("#validatorPhone").inputmask({
-            mask: "9999 999 9999",
-        });
-    });
-</script>
 <script src="/business/assets/js/custom.js"></script>
-
 @yield('scripts')

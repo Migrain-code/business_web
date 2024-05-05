@@ -22,7 +22,6 @@
                         <div class="accordion-header py-3 d-flex @if($loop->index > 0) collapsed @endif" data-bs-toggle="collapse" data-bs-target="#kt_accordion_service_woman_item_{{$loop->index}}">
                             <span class="accordion-icon">
                                 <i class="ki-duotone ki-plus-square fs-1 accordion-icon-off"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                <i class="ki-duotone ki-minus-square fs-1 accordion-icon-on"><span class="path1"></span><span class="path2"></span></i>
                             </span>
                             <h3 class="fw-semibold mb-0 ms-4">{{$service["name"]}}</h3>
                         </div>
@@ -57,7 +56,6 @@
                         <div class="accordion-header py-3 d-flex @if($loop->index > 0) collapsed @endif" data-bs-toggle="collapse" data-bs-target="#kt_accordion_service_man_item_{{$loop->index}}">
                             <span class="accordion-icon">
                                 <i class="ki-duotone ki-plus-square fs-1 accordion-icon-off"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                <i class="ki-duotone ki-minus-square fs-1 accordion-icon-on"><span class="path1"></span><span class="path2"></span></i>
                             </span>
                             <h3 class="fw-semibold mb-0 ms-4">{{$service["name"]}}</h3>
                         </div>
@@ -90,7 +88,6 @@
                         <div class="accordion-header py-3 d-flex @if($loop->index > 0) collapsed @endif" data-bs-toggle="collapse" data-bs-target="#kt_accordion_service_man_item_{{$loop->index}}">
                             <span class="accordion-icon">
                                 <i class="ki-duotone ki-plus-square fs-1 accordion-icon-off"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                <i class="ki-duotone ki-minus-square fs-1 accordion-icon-on"><span class="path1"></span><span class="path2"></span></i>
                             </span>
                             <h3 class="fw-semibold mb-0 ms-4">{{$service["name"]}}</h3>
                         </div>

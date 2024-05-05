@@ -42,6 +42,7 @@ Route::prefix('personel')->as('personel.')->group(function (){
 
         Route::get('notification-permission', [\App\Http\Controllers\Personel\PersonelSettingController::class, 'notificationPermission'])->name('notificationPermission');
         Route::post('notification-permission', [\App\Http\Controllers\Personel\PersonelSettingController::class, 'notificationPermissionUpdate']);
+        Route::post('password-update', [\App\Http\Controllers\Personel\PersonelSettingController::class, 'passwordUpdate'])->name('passwordUpdate');
 
     });
 });

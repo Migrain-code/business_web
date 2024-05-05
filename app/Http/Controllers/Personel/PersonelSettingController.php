@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Personel;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BusinessOfficial\BusinessOfficialPasswordUpdateRequest;
 use App\Http\Requests\PersonelAccount\PersonalUpdateRequest;
 use App\Models\AppointmentRange;
 use App\Models\BusinnessType;
@@ -141,6 +142,19 @@ class PersonelSettingController extends Controller
             return response()->json([
                 'status' => "success",
                 'message' => "Bildirim Ayarlarınız Güncellendi",
+            ]);
+        }
+    }
+
+
+    public function passwordUpdate(BusinessOfficialPasswordUpdateRequest $request)
+    {
+        $user = authUser();
+        $user->password = Hash::make($request->input('password'));
+        if ($user->save()){
+            return back()->with('response',[
+                'status' => "success",
+                'message' => "Şifreniz Güncellendi"
             ]);
         }
     }

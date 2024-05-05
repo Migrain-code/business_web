@@ -12,7 +12,7 @@
             </div>
 
             <div class="modal-body">
-                <form action="{{route('personel.passwordUpdate')}}" id="passwordUpdateForm" method="post">
+                <form action="{{route('business.passwordUpdate')}}" id="passwordUpdateForm" method="post">
                     @csrf
                     <div class="fv-row mb-7">
                         <!--begin::Label-->

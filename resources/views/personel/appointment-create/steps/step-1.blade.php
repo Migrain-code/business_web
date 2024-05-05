@@ -20,10 +20,13 @@
                     <div class="mb-5">
                         <!--begin::Header-->
                         <div class="accordion-header py-3 d-flex @if($loop->index > 0) collapsed @endif" data-bs-toggle="collapse" data-bs-target="#kt_accordion_service_woman_item_{{$loop->index}}">
-                            <span class="accordion-icon">
-                                <i class="ki-duotone ki-plus-square fs-1 accordion-icon-off"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                <i class="ki-duotone ki-minus-square fs-1 accordion-icon-on"><span class="path1"></span><span class="path2"></span></i>
-                            </span>
+                            <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
+                                <i class="ki-duotone ki-plus-square toggle-off fs-1">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </i>
+                            </div>
                             <h3 class="fw-semibold mb-0 ms-4">{{$service["name"]}}</h3>
                         </div>
                         <!--end::Header-->
@@ -57,7 +60,6 @@
                         <div class="accordion-header py-3 d-flex @if($loop->index > 0) collapsed @endif" data-bs-toggle="collapse" data-bs-target="#kt_accordion_service_man_item_{{$loop->index}}">
                             <span class="accordion-icon">
                                 <i class="ki-duotone ki-plus-square fs-1 accordion-icon-off"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                <i class="ki-duotone ki-minus-square fs-1 accordion-icon-on"><span class="path1"></span><span class="path2"></span></i>
                             </span>
                             <h3 class="fw-semibold mb-0 ms-4">{{$service["name"]}}</h3>
                         </div>
@@ -90,7 +92,6 @@
                         <div class="accordion-header py-3 d-flex @if($loop->index > 0) collapsed @endif" data-bs-toggle="collapse" data-bs-target="#kt_accordion_service_man_item_{{$loop->index}}">
                             <span class="accordion-icon">
                                 <i class="ki-duotone ki-plus-square fs-1 accordion-icon-off"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                <i class="ki-duotone ki-minus-square fs-1 accordion-icon-on"><span class="path1"></span><span class="path2"></span></i>
                             </span>
                             <h3 class="fw-semibold mb-0 ms-4">{{$service["name"]}}</h3>
                         </div>
