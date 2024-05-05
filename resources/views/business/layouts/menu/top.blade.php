@@ -16,13 +16,15 @@
             </div>
         </div>
         <!--end::sidebar mobile toggle-->
-        <!--begin::Mobile logo-->
+        {{--
+            <!--begin::Mobile logo-->
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
             <a href="{{route('business.home')}}" class="d-lg-none">
                 <img alt="Logo" src="{{image(setting('business_logo_white'))}}" class="h-30px" />
             </a>
         </div>
         <!--end::Mobile logo-->
+        --}}
         <!--begin::Header wrapper-->
         <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1" id="kt_app_header_wrapper">
 
