@@ -230,7 +230,11 @@ class PersonelController extends Controller
             if ($restDay){
                 $restDay->status = 1;
                 $restDay->save();
+            } else{
+                $restDay->status = 0;
+                $restDay->save();
             }
+
         }
     }
     public function checkDayControl($personel):void
