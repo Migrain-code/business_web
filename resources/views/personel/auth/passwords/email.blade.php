@@ -11,7 +11,7 @@
                     </label>
                     <label class="registerLabel">Tek Tıkla Şifrenizi Geri Alın.</label>
                 </div>
-                <label class="registerLabel">Şifremi Unuttum</label>
+
                 <div class="form-floating mb-3">
                     <input
                         type="text"
