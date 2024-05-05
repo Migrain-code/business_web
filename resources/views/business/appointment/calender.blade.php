@@ -148,7 +148,7 @@
         @foreach($appointments as $appointment)
         var newEvent = {
             id: "{{$appointment->id}}",
-            title: "{{$appointment->services->count() > 1 ? $appointment->services->first()->subCategory->name." +". $appointment->services->count(): $appointment->services->first()->subCategory->name}}",
+            title: "{{$appointment->services->count() > 1 ? $appointment->services->first()->service->subCategory->name." +". $appointment->services->count(): $appointment->services->first()->service->subCategory->name}}",
             start: "{{$appointment->start_time->format('Y-m-d H:i')}}",
             end: "{{$appointment->end_time->format('Y-m-d H:i')}}",
             description: "Toplam Tutar : "+ "{{formatPrice($appointment->calculateTotal())}}",
