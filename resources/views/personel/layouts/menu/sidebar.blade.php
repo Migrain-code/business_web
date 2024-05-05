@@ -81,7 +81,7 @@
                 <!--begin:Menu item-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('business.appointment.index')}}">
+                    <a class="menu-link" href="{{route('personel.appointments')}}">
                         <span class="menu-icon">
 												<!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg-->
                             <span class="svg-icon svg-icon-2">
