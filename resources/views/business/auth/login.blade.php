@@ -5,8 +5,11 @@
         <div class="formBoxContent d-md-flex align-items-center">
             @include('components.login-slider')
             <div class="formBoxForm">
-                <div class="mb-5 text-center formLogo">
-                    <img src="/front/assets/images/logo-pink.svg" alt="" />
+                <div class="mb-0 mt-2">
+                    <label class="registerLabel">
+                        <h3>İşletme Girişi</h3>
+                    </label>
+                    <label class="registerLabel">30 gün ücretsiz deneme sürenizi başlatın</label>
                 </div>
                 <form id="loginForm" method="post" action="{{route('business.login')}}">
                     @csrf
@@ -68,5 +71,5 @@
     </div>
 @endsection
 @section('scripts')
-    
+
 @endsection

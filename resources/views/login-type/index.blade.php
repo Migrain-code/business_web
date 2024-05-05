@@ -8,12 +8,11 @@
         <div class="formBoxContent d-md-flex align-items-center">
             @include('components.login-slider')
             <div class="formBoxForm login-type">
-                <div class="mb-4 text-center formLogo">
-                    <img src="/front/assets/images/logo-pink.svg" alt="" />
-                </div>
-
-                <div class="my-5 text-center">
-                    <span class="welcome">Hızlı Randevu’ya hoş geldiniz! </span>
+                <div class="" style="margin-bottom: 87px !important;margin-top: 40px !important;">
+                    <label class="registerLabel">
+                        <h3>Oturum Açma Ekranı</h3>
+                    </label>
+                    <label class="registerLabel">Zamanı Yönet, Randevularla Zirveye Ulaş!</label>
                 </div>
 
                 <div class="mb-3">
@@ -21,14 +20,17 @@
                         Personel Girişi
                     </a>
                 </div>
-                <div class="mb-0">
+                <div class="mb-3">
                     <a href="{{route('business.login')}}" class="btn-gray blue w-100 p-4 text-center">
                         Patron Girişi
                     </a>
                 </div>
 
-                <div class="text-center">
-                    <span class="footer-text">Randevularınızı Hızlı ve Kolayca Yönetin!</span>
+                <div class="text-center pb-3">
+                     <div class="footer-text">
+                        <label class="registerLabel">Üyeliğiniz Yok Mu?</label>
+                        <a href="{{route('business.register')}}" class="btn-gray w-100 p-4 text-center">Ücretsiz Kayıt Ol</a>
+                     </div>
                 </div>
             </div>
         </div>
