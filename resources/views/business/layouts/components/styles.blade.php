@@ -13,7 +13,7 @@
 <link href="/business/assets/css/custom.css" rel="stylesheet" type="text/css" />
 <style>
     ::-webkit-scrollbar{
-        width: 10px;
+        width: 5px;
     }
     ::-webkit-scrollbar-thumb{
         background: #0095e8;
@@ -21,6 +21,13 @@
     }
     ::-webkit-scrollbar-track{
         background: #1e1e2d;
+    }
+    .scroll-x{
+        overflow-y: hidden;
+    }
+    .scroll-x::-webkit-scrollbar {
+        width: 5px; /* Scrollbar genişliği */
+        height: 5px;
     }
 </style>
 <!--end::Global Stylesheets Bundle-->

@@ -1,5 +1,5 @@
 @extends('business.layouts.master')
-@section('title', 'Personel Randevuları')
+@section('title', 'İşletme Randevuları')
 @section('styles')
     <link href="/business/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
     <style>
@@ -21,7 +21,7 @@
     <!--end::Item-->
     <!--begin::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-        <a href="{{route('personel.appointments')}}"> Randevular </a>
+        <a href="{{route('business.appointment.index')}}"> Randevular </a>
     </li>
     <!--end::Item-->
     <li class="breadcrumb-item">

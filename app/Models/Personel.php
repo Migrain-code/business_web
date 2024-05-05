@@ -132,6 +132,11 @@ class Personel extends Authenticatable
         return $this->hasMany(AppointmentServices::class, 'personel_id', 'id');
     }
 
+    public function todayAppointments()
+    {
+        return $this->appointments()->whereDate('start_time', now()->toDateString());
+    }
+
     public function sales()
     {
         return $this->hasMany(ProductSales::class, 'personel_id', 'id');

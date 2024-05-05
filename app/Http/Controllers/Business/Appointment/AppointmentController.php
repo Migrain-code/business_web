@@ -67,6 +67,12 @@ class AppointmentController extends Controller
         $appointments = $this->business->appointments()->whereDate('start_time', now())->get();
         return view('business.appointment.calender', compact('appointments'));
     }
+
+    public function todayAppointment()
+    {
+        $personels = $this->business->personels()->has('todayAppointments')->get()->sortBy('name');
+        return view('business.appointment.today', compact('personels'));
+    }
     /**
      * Randevu Detayı
      *

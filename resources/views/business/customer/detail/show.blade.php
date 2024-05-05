@@ -39,62 +39,64 @@
             <!--begin::Content-->
             <div class="flex-lg-row-fluid ms-lg-15">
                 <!--begin:::Tabs-->
-                <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
-                    <!--begin:::Tab item-->
-                    <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
-                           href="#kt_ecommerce_customer_overview">Randevular</a>
-                    </li>
-                    <!--end:::Tab item-->
-                    <!--begin:::Tab item-->
-                    <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
-                           href="#kt_ecommerce_customer_general">Bilgileri</a>
-                    </li>
-                    <!--end:::Tab item-->
-                    <!--begin:::Tab item-->
-                    <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4 cashPoint" data-customer="{{$customer->id}}" data-bs-toggle="tab"
-                           href="#kt_ecommerce_customer_cashpoint">Parapuanları</a>
-                    </li>
-                    <!--end:::Tab item-->
-                    <!--begin:::Tab item-->
-                    <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4 productSale" data-customer="{{$customer->id}}" data-bs-toggle="tab"
-                           href="#kt_ecommerce_customer_productSale">Ürün Satışları</a>
-                    </li>
-                    <!--end:::Tab item-->
-                    <!--begin:::Tab item-->
-                    <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4 packageSale" data-customer="{{$customer->id}}" data-bs-toggle="tab"
-                           href="#kt_ecommerce_customer_packageSale">Paket Satışları</a>
-                    </li>
-                    <!--end:::Tab item-->
-                    <!--begin:::Tab item-->
-                    <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4 receivable" data-customer="{{$customer->id}}" data-bs-toggle="tab"
-                           href="#kt_ecommerce_customer_recevivable">Salona Borçları</a>
-                    </li>
-                    <!--end:::Tab item-->
-                    <!--begin:::Tab item-->
-                    <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4 payments" data-customer="{{$customer->id}}" data-bs-toggle="tab"
-                           href="#kt_ecommerce_customer_payments">Ödemeleri</a>
-                    </li>
-                    <!--end:::Tab item-->
-                    <!--begin:::Tab item-->
-                    <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
-                           href="#kt_ecommerce_customer_comments">Geri Bildirimleri</a>
-                    </li>
-                    <!--end:::Tab item-->
-                    <!--begin:::Tab item-->
-                    <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4 gallery" id="gallleryTab" data-customer="{{$customer->id}}" data-bs-toggle="tab"
-                           href="#kt_ecommerce_customer_gallery">Galeri</a>
-                    </li>
-                    <!--end:::Tab item-->
-                </ul>
+                <div class="scroll-x h-50px overflow-y-hidden">
+                    <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8" style="width: 1200px">
+                        <!--begin:::Tab item-->
+                        <li class="nav-item">
+                            <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
+                               href="#kt_ecommerce_customer_overview">Randevular</a>
+                        </li>
+                        <!--end:::Tab item-->
+                        <!--begin:::Tab item-->
+                        <li class="nav-item">
+                            <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+                               href="#kt_ecommerce_customer_general">Bilgileri</a>
+                        </li>
+                        <!--end:::Tab item-->
+                        <!--begin:::Tab item-->
+                        <li class="nav-item">
+                            <a class="nav-link text-active-primary pb-4 cashPoint" data-customer="{{$customer->id}}" data-bs-toggle="tab"
+                               href="#kt_ecommerce_customer_cashpoint">Parapuanları</a>
+                        </li>
+                        <!--end:::Tab item-->
+                        <!--begin:::Tab item-->
+                        <li class="nav-item">
+                            <a class="nav-link text-active-primary pb-4 productSale" data-customer="{{$customer->id}}" data-bs-toggle="tab"
+                               href="#kt_ecommerce_customer_productSale">Ürün Satışları</a>
+                        </li>
+                        <!--end:::Tab item-->
+                        <!--begin:::Tab item-->
+                        <li class="nav-item">
+                            <a class="nav-link text-active-primary pb-4 packageSale" data-customer="{{$customer->id}}" data-bs-toggle="tab"
+                               href="#kt_ecommerce_customer_packageSale">Paket Satışları</a>
+                        </li>
+                        <!--end:::Tab item-->
+                        <!--begin:::Tab item-->
+                        <li class="nav-item">
+                            <a class="nav-link text-active-primary pb-4 receivable" data-customer="{{$customer->id}}" data-bs-toggle="tab"
+                               href="#kt_ecommerce_customer_recevivable">Salona Borçları</a>
+                        </li>
+                        <!--end:::Tab item-->
+                        <!--begin:::Tab item-->
+                        <li class="nav-item">
+                            <a class="nav-link text-active-primary pb-4 payments" data-customer="{{$customer->id}}" data-bs-toggle="tab"
+                               href="#kt_ecommerce_customer_payments">Ödemeleri</a>
+                        </li>
+                        <!--end:::Tab item-->
+                        <!--begin:::Tab item-->
+                        <li class="nav-item">
+                            <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+                               href="#kt_ecommerce_customer_comments">Geri Bildirimleri</a>
+                        </li>
+                        <!--end:::Tab item-->
+                        <!--begin:::Tab item-->
+                        <li class="nav-item">
+                            <a class="nav-link text-active-primary pb-4 gallery" id="gallleryTab" data-customer="{{$customer->id}}" data-bs-toggle="tab"
+                               href="#kt_ecommerce_customer_gallery">Galeri</a>
+                        </li>
+                        <!--end:::Tab item-->
+                    </ul>
+                </div>
                 <!--end:::Tabs-->
                 <!--begin:::Tab content-->
                 <div class="tab-content" id="myTabContent">
