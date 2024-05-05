@@ -15,7 +15,7 @@
                 @endforeach
             </ul>
 
-            <a href="{{route('business.home')}}">{{$package->price ==  0 ? "Ücretsiz" : formatPrice($package->price)}}</a>
+            <a href="{{route('business.home')}}">30 Gün Ücretsiz Deneyin</a>
         </div>
     </div>
 @endforeach

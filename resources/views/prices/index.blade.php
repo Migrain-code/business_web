@@ -6,6 +6,9 @@
             padding: 200px 100px;
             background: #fff;
         }
+        .packages-list .package-item ul li:not(:last-of-type) {
+            margin-bottom: 10px;
+        }
     </style>
 @endsection
 @section('content')
@@ -91,7 +94,7 @@
                                         @endforeach
                                     </ul>
 
-                                    <a href="{{route('business.home')}}">{{$package->price ==  0 ? "Ücretsiz" : formatPrice($package->price)}}</a>
+                                    <a href="{{route('business.home')}}">30 Gün Ücretsiz Deneyin</a>
                                 </div>
                             </div>
                         @endforeach
