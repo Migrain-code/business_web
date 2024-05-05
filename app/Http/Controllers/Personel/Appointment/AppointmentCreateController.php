@@ -355,7 +355,13 @@ class AppointmentCreateController extends Controller
                 $currentDateTime->addMinutes(intval($personel->appointmentRange->time));
             }
         }
-
+        $startTime = Carbon::parse($personel->start_time);
+        $endTime = Carbon::parse($personel->end_time);
+        for ($i=$startTime;  $i < $endTime; $i->addMinutes(intval($personel->appointmentRange->time))){
+            if ($i < now()->addMinutes(30)){
+                $disableds[] = $i->format('d.m.Y H:i');
+            }
+        }
         return $disableds;
     }
 

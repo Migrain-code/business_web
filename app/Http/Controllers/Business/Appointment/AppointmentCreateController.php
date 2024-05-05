@@ -184,39 +184,39 @@ class AppointmentCreateController extends Controller
                 $disabledDays[] = $this->findTimes($personel);
 
                 if (Carbon::parse($getDate->format('d.m.Y'))->dayOfWeek == $business->off_day) {
-                    $clocks[] = [
+                    /*$clocks[] = [
                         'id' => $getDate->format('d_m_Y_'),
                         'saat' => 'İşletme bu tarihte hizmet vermemektedir',
                         'date' => $getDate->format('d.m.Y'),
                         'value' => $getDate->format('d.m.Y '),
                         'durum' => false,
-                    ];
+                    ];*/
                     return response()->json([
                         "status" => "error",
                         "message" => "İşletme bu tarihte hizmet vermemektedir"
                     ], 200);
                 } else {
                     if (in_array(Carbon::parse($getDate->format('d.m.Y'))->dayOfWeek, $personel->restDays()->pluck('day_id')->toArray())) {
-                        $clocks[] = [
+                        /*$clocks[] = [
                             'id' => $getDate->format('d_m_Y_'),
                             'saat' => 'Personel bu tarihte hizmet vermemektedir',
                             'date' => $getDate->format('d.m.Y'),
                             'value' => $getDate->format('d.m.Y '),
                             'durum' => false,
-                        ];
+                        ];*/
                         return response()->json([
                             "status" => "error",
                             "message" => "Personel bu tarihte hizmet vermemektedir"
                         ], 200);
                     } else {
                         if ($personel->checkDateIsOff($getDate)) {
-                            $clocks[] = [
+                            /*$clocks[] = [
                                 'id' => $getDate->format('d_m_Y_'),
                                 'saat' => 'Personel ' . Carbon::parse($personel->stayOffDays->start_time)->format('d.m.Y H:i') . " tarihinden " . Carbon::parse($personel->stayOffDays->end_time)->format('d.m.Y H:i') . " Tarihine Kadar İzinlidir",
                                 'date' => $getDate->format('d.m.Y'),
                                 'value' => $getDate->format('d.m.Y '),
                                 'durum' => false,
-                            ];
+                            ];*/
                             return response()->json([
                                 "status" => "error",
                                 "message" => 'Personel ' . Carbon::parse($personel->stayOffDays->start_time)->format('d.m.Y H:i') . " tarihinden " . Carbon::parse($personel->stayOffDays->end_time)->format('d.m.Y H:i') . " Tarihine Kadar İzinlidir",
@@ -374,7 +374,13 @@ class AppointmentCreateController extends Controller
                 $currentDateTime->addMinutes(intval($personel->appointmentRange->time));
             }
         }
-
+        $startTime = Carbon::parse($personel->start_time);
+        $endTime = Carbon::parse($personel->end_time);
+        for ($i=$startTime;  $i < $endTime; $i->addMinutes(intval($personel->appointmentRange->time))){
+            if ($i < now()->addMinutes(30)){
+                $disableds[] = $i->format('d.m.Y H:i');
+            }
+        }
         return $disableds;
     }
 
