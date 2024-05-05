@@ -32,11 +32,7 @@
 
 <script src="/business/assets/plugins/global/plugins.bundle.js"></script>
 <script src="/business/assets/js/scripts.bundle.js"></script>
-<!--end::Global Javascript Bundle-->
-
 <script src="/business/assets/plugins/custom/datatables/datatables.bundle.js"></script>
-<!--end::Vendors Javascript-->
-<!--begin::Custom Javascript(used for this page only)-->
 <script src="/business/assets/js/widgets.bundle.js"></script>
 <script src="/business/assets/js/custom/widgets.js"></script>
 <script>
