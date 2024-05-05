@@ -17,6 +17,7 @@
                             id="validatorPhone"
                             placeholder="Cep Telefonu"
                             name="phone"
+                            value="0"
                         />
                         <label for="validatorPhone">Cep Telefonu</label>
                         <p id="errorMessage"></p>
@@ -28,7 +29,7 @@
                             id="floatingInput"
                             placeholder="Şifre"
                             name="password"
-                            value="0"
+
                         />
                         <label for="floatingInput">Şifre</label>
                         <a href="javascript:;"

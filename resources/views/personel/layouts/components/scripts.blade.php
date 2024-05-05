@@ -1,4 +1,4 @@
-@include('business.layouts.components.modal.password-update-modal')
+@include('personel.layouts.components.modal.password-update-modal')
 <div class="modal fade" id="notification_detail_modal" tabindex="-1" role="dialog">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
