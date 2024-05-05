@@ -373,12 +373,6 @@ class AppointmentCreateController extends Controller
         $appointment->customer_id = $request->customer_id;
         $appointment->business_id = $business->id;
 
-        if ($business->approve_type == 0) {
-            $appointment->status = 1; // Otomatik onay
-        } else {
-            $appointment->status = 0; // Onay bekliyor
-        }
-
         $appointment->save();
 
         $personelIds = [];
@@ -405,6 +399,15 @@ class AppointmentCreateController extends Controller
         $appointment->end_time = $appointment->services()->skip($appointment->services()->count() - 1)->first()->end_time;
         $calculateTotal = $appointment->calculateTotal();
         $appointment->total = $calculateTotal;
+        if ($business->approve_type == 0) {
+            $appointment->status = 1; // Otomatik onay
+            foreach ($appointment->services as $service){
+                $service->status = 1;
+                $service->save();
+            }
+        } else {
+            $appointment->status = 0; // Onay bekliyor
+        }
         if ($appointment->save()) {
             return to_route('personel.appointments')->with('response',[
                 'status' => "success",
