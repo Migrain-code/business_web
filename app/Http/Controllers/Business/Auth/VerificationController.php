@@ -98,7 +98,7 @@ class VerificationController extends Controller
                     $user->save();
 
                     $this->setAdmin($business, $user);
-                    $this->addPermission($business->id, $permission);
+                    $this->addPermission($user->id, $permission);
                     $this->addPromotion($business->id);
                     Sms::send($code->phone, setting('business_title') . " Sistemine kayıt işleminiz tamamlandı. Giriş yapmak için şifreniz ". $generatePassword . " olarak belirlendi");
                     $code->delete();
