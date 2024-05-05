@@ -147,6 +147,27 @@ class Personel extends Authenticatable
         return $this->hasMany(PackageSale::class, 'personel_id', 'id');
     }
 
+    public function totalServicePrice()
+    {
+        $servicePrice = 0;
+        foreach ($this->appointments as $appointment) {
+            $servicePrice += $appointment->service->price;
+        }
+        $totalServiceRate = (($servicePrice * $this->rate) / 100);
+        return $totalServiceRate;
+    }
+
+    public function totalSalePrice()
+    {
+        $productPrice = $this->sales->sum('total');
+        $totalSaleRate = (($productPrice * $this->product_rate) / 100);
+        return $totalSaleRate;
+    }
+
+    public function totalPrim()
+    {
+        return $this->totalServicePrice() + $this->totalSalePrice();
+    }
     public function getMonthlyPackageSales()
     {
         $sales = [];

@@ -149,7 +149,14 @@ class HomeController extends Controller
         $progressPayment = $personel->totalBalance($request);
         $balancePayed = $personel->calculatePayedBalance()->sum('price');
         $insideBalance = $personel->insideBalance();
+
         return view('personel.case.index', compact('personel', 'totalCiro', 'progressPayment', 'balancePayed', 'insideBalance'));
+
+    }
+    public function prim(Request $request)
+    {
+        $personel = $this->personel;
+        return view('personel.prim.index', compact('personel'));
 
     }
 }

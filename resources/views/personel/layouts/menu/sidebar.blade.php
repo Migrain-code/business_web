@@ -235,11 +235,30 @@
                 <!--begin:Menu item-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('personel.payment.index')}}">
+                    <a class="menu-link" href="{{route('personel.prim.index')}}">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-credit-cart fs-3">
                              <span class="path1"></span>
                              <span class="path2"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Prim Raporu</span>
+                    </a>
+                    <!--end:Menu link-->
+                </div>
+                <!--end:Menu item-->
+                <!--begin:Menu item-->
+                <div class="menu-item">
+                    <!--begin:Menu link-->
+                    <a class="menu-link" href="{{route('personel.payment.index')}}">
+                        <span class="menu-icon">
+                           <i class="ki-duotone ki-bill fs-3">
+                                 <span class="path1"></span>
+                                 <span class="path2"></span>
+                                 <span class="path3"></span>
+                                 <span class="path4"></span>
+                                 <span class="path5"></span>
+                                 <span class="path6"></span>
                             </i>
                         </span>
                         <span class="menu-title">Ödemeler</span>
