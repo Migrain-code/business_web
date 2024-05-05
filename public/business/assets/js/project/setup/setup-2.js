@@ -8,8 +8,7 @@ var KTCreateAccount = function() {
         stepperInstance.on("kt.stepper.changed", handleStepChange);
         stepperInstance.on("kt.stepper.next", handleNextStep);
         stepperInstance.on("kt.stepper.previous", handlePreviousStep);
-        modalPersonel = new bootstrap.Modal(document.querySelector('#kt_modal_add_personel'));
-        editServiceModal = new bootstrap.Modal(document.querySelector('#kt_modal_edit_service'));
+        modalPersonel = new bootstrap.Modal(document.querySelector('#kt_modal_add_customer'));
 
     }
 
@@ -285,7 +284,7 @@ var KTCreateAccount = function() {
 
         });
     }
-    $('#kt_modal_add_personel_submit').on('click', function (){
+    $('#kt_modal_add_customer_submit').on('click', function (){
         var formData = new FormData();
         formData.append("_token", csrf_token);
         formData.append("name", $('[name= "name"]').val());
@@ -316,7 +315,7 @@ var KTCreateAccount = function() {
             success: function (res) {
                 if (res.status == "success"){
                     modalPersonel.hide();
-                    document.getElementById('personelAddForm').reset();
+                    document.getElementById('kt_modal_add_customer_form').reset();
                     fetchPersonelList();
                 }
                 Swal.fire({

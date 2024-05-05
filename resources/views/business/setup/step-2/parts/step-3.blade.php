@@ -16,7 +16,7 @@
         </div>
         <!--end::Heading-->
         <div class="d-flex flex-end my-2">
-            <button type="button" class="btn btn-light-warning" id="add_personel_btn" data-bs-toggle="modal" data-bs-target="#kt_modal_add_personel">Personel Ekle <i class="fa fa-plus-circle"></i></button>
+            <button type="button" class="btn btn-light-warning" id="add_personel_btn" data-bs-toggle="modal" data-bs-target="#kt_modal_add_customer">Personel Ekle <i class="fa fa-plus-circle"></i></button>
         </div>
         <div id="personelList">
             @forelse($business->personels as $personel)
