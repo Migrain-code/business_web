@@ -2,7 +2,13 @@
 @section('title', 'Personel Randevuları')
 @section('styles')
     <link href="/business/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
-
+    <style>
+        .fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror, .fc-timegrid-more-link {
+            box-shadow: 0 0 0 1px #fff;
+            box-shadow: 0 0 0 1px var(--fc-page-bg-color, #fff);
+            min-height: 25px;
+        }
+    </style>
 @endsection
 @section('breadcrumbs')
     <!--begin::Item-->
