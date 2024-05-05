@@ -150,7 +150,7 @@ const KTAppCalendar = (() => {
                 viewEventModal.show();
 
         },
-        editable: true,
+        editable: false,
         dayMaxEvents: true,
         events: eventCollection,
         datesSet: function () {},
