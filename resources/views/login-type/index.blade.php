@@ -1,14 +1,25 @@
 @extends('layouts.master')
 @section('title', 'Giriş Yap')
 @section('style')
-
+    <style>
+        .formBox .formBoxContent .formBoxForm .registerLabel {
+            text-align: center;
+            display: block;
+            margin-bottom: 16px;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 0px;
+            color: #43506e;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="formBox">
         <div class="formBoxContent d-md-flex align-items-center">
             @include('components.login-slider')
             <div class="formBoxForm login-type">
-                <div class="" style="margin-bottom: 87px !important;margin-top: 40px !important;">
+                <div class="" style="margin-bottom: 87px !important;">
                     <label class="registerLabel">
                         <h3>Oturum Açma Ekranı</h3>
                     </label>
