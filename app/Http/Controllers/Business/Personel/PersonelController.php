@@ -14,6 +14,7 @@ use App\Models\BusinnessType;
 use App\Models\DayList;
 use App\Models\Personel;
 use App\Models\PersonelNotification;
+use App\Models\PersonelNotificationPermission;
 use App\Models\PersonelRestDay;
 use App\Models\PersonelService;
 use App\Models\PersonelStayOffDay;
@@ -108,6 +109,7 @@ class PersonelController extends Controller
             $personel->image = $response["image"]["way"];
         }
         if ($personel->save()) {
+            $this->savePermission($personel->id);
             foreach ($dayList as $day) {
                 $restDay = new PersonelRestDay();
                 $restDay->personel_id = $personel->id;
@@ -140,6 +142,12 @@ class PersonelController extends Controller
         ]);
     }
 
+    public function savePermission($personelId):void
+    {
+        $notificationPermission = new PersonelNotificationPermission();
+        $notificationPermission->personel_id = $personelId;
+        $notificationPermission->save();
+    }
     /**
      * Personel Detayı
      *
