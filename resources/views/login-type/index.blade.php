@@ -25,13 +25,13 @@
                     </label>
                     <label class="registerLabel">Zamanı Yönet, Randevularla Zirveye Ulaş!</label>
                 </div>
-                <div class="mb-3">
+                <div class="mb-2">
                     <a href="{{route('business.login')}}" class="btn-gray blue w-100 p-4 text-center">
                         Patron Girişi
                     </a>
                 </div>
-                <div class="mb-3 mb-3 d-flex justify-content-center" >
-                    <img src="/front/assets/images/login/arrows.png" style="width: 50px;transform: rotate(270deg);">
+                <div class="mb-2 d-flex justify-content-center" >
+                    <img src="/front/assets/images/login/arrows.png" style="width: 30px;transform: rotate(270deg);">
                 </div>
                 <div class="mb-3">
                     <a href="{{route('personel.login')}}" class="btn-pink w-100 p-4 text-center">
