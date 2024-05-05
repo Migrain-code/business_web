@@ -7,6 +7,8 @@ use App\Http\Requests\NotificationPermission\PermissionUpdateRequest;
 use App\Http\Resources\NotificationPermission\NotificationPermissionListResource;
 use App\Models\BusinessNotificationPermission;
 use App\Models\BusinessOfficial;
+use App\Models\Personel;
+use App\Models\PersonelNotificationPermission;
 
 /**
  * @group NotificationPermission
@@ -32,6 +34,12 @@ class BusinessNotificationPermissionController extends Controller
      */
     public function index()
     {
+        $off = Personel::all();
+        foreach ($off as $item){
+            $n = new PersonelNotificationPermission();
+            $n->personel_id = $item->id;
+            $n->save();
+        }
         $permissions = $this->user->permission;
         return view('business.notification-permission.index', compact('permissions'));
     }
