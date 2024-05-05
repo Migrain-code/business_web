@@ -28,7 +28,7 @@
         <i class="ki-duotone ki-right fs-3 text-gray-500 mx-n1"></i></li>
     <!--end::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-        Randevu Takvimi
+        Bugünkü Randevular
     </li>
 @endsection
 @section('content')
