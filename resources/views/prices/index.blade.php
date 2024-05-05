@@ -9,6 +9,26 @@
         .packages-list .package-item ul li:not(:last-of-type) {
             margin-bottom: 10px;
         }
+        .packages-list .package-item ul {
+            margin-top: 25px;
+            padding-left: 20px;
+        }
+        .packages-list .package-item a {
+            display: block;
+            border-radius: 108px;
+            background: rgba(242, 41, 105, 0.07);
+            text-align: center;
+            padding: 20px 0;
+            text-decoration: none;
+            color: #f22969;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            margin-top: auto;
+            text-transform: uppercase;
+        }
     </style>
 @endsection
 @section('content')
