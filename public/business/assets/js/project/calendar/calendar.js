@@ -67,7 +67,7 @@ const KTAppCalendar = (() => {
         initialDate: moment().format("YYYY-MM-DD"),
         navLinks: true,
         selectable: false,
-        selectMirror: true,
+        selectMirror: false,
         select: function (selectionInfo) {
         },
         eventDrop: function(info) {
@@ -83,7 +83,7 @@ const KTAppCalendar = (() => {
             formData.append("appointment_id", info.event.id);
             formData.append("start_time", clockFormatter(info.event.start));
             formData.append("end_time", clockFormatter(info.event.end));
-            $.ajax({
+            /*$.ajax({
                 url: '/personel/appointment/update',
                 type: "POST",
                 data: formData,
@@ -120,7 +120,7 @@ const KTAppCalendar = (() => {
                     });
                 }
             });
-
+*/
         },
         eventClick: function (e) {
                 var id = e.event.id;
