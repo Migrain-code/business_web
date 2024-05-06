@@ -212,6 +212,7 @@ class HomeController extends Controller
             'content' => "İçerik",
         ]);
         $contactSearch = BusinessContact::where('ip_address', $request->ip())->latest()->first();
+        $request->dd();
         if (isset($contactSearch) && $contactSearch->created_at < Carbon::now()->subMinutes(5)) {
             $contact = new BusinessContact();
             $contact->name = $request->input('name');
