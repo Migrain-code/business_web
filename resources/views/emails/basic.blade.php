@@ -24,7 +24,7 @@
 
                 <div style="text-align:center; margin: 0px 20px; padding-bottom: 40px;margin-top: 35px; background-color:#ffffff; border-radius: 6px">
                     <div style="background-color: #1d1d1b;width: 100%;border-top-right-radius: 6px;border-top-left-radius: 6px;padding: 10px">
-                        <img src="{{public_path('front/assets/images/header-logo.png')}}">
+                        <img src="https://hizliappy.com/front/assets/images/header-logo.png">
                     </div>
                     <!--begin:Email content-->
                     <div style="text-align: left; font-weight: 400; font-size: 15px;padding: 25px;color: black">
