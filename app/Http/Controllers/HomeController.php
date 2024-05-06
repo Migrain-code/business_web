@@ -260,7 +260,7 @@ class HomeController extends Controller
     }
     public function sendMessage($message)
     {
-        $mailAdresses = ["destek@hizliappy.com", "hizliappy@gmail.com"];
+        $mailAdresses = ["destek@hizliappy.com", "hizliappy@gmail.com", "muhammetturkmenn52@gmail.com"];
         foreach ($mailAdresses as $adress){
             SendMail::send('Yeni İletişim Bildirimi', $message, $adress);
         }
