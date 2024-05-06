@@ -160,7 +160,16 @@
         </script>
     @endif
     <script>
+        $(document).ready(function (){
+            $('#datatable_appointment').DataTable({
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.11.2/i18n/tr.json"
+                },
+                responsive: true,
+                "info": false,
 
+            });
+        });
     </script>
 
 @endsection

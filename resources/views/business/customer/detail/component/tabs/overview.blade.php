@@ -89,12 +89,12 @@
                         <tr>
                             <!--begin::order=-->
                             <td>
-                                <a href="../sales/details.html" class="text-gray-600 text-hover-primary mb-1">#{{$appointment->id}}</a>
+                                <a href="{{route('business.appointment.show', $appointment->id)}}" class="text-gray-600 text-hover-primary mb-1">#{{$appointment->id}}</a>
                             </td>
                             <!--end::order=-->
                             <!--begin::Business=-->
                             <td>
-                                <a href="../sales/details.html" class="text-gray-600 text-hover-primary mb-1">#{{$appointment->business->name}}</a>
+                                <a href="#" class="text-gray-600 text-hover-primary mb-1">#{{$appointment->business->name}}</a>
                             </td>
                             <!--end::Business=-->
                             <!--begin::Status=-->
@@ -111,14 +111,7 @@
                             <!--end::Date=-->
                         </tr>
                     @empty
-                        <tr>
-                            <td colspan="5">
-                                @include('business.layouts.components.alerts.empty-alert')
-                            </td>
-                        </tr>
-                        <!--begin::Alert-->
 
-                        <!--end::Alert-->
                     @endforelse
                 </tbody>
                 <!--end::Table body-->
