@@ -253,9 +253,9 @@ class HomeController extends Controller
         $message .= "<b> SOYAD: ".$contact->surname."</b> <br>";
         $message .= "<b> EMAİL: ".$contact->email."</b> <br>";
         $message .= "<b> TELEFON: ".$contact->phone."</b> <br>";
+        $message .= "<b> IP Adresi: ".$contact->ip_address."</b> <br>";
         $message .= "<b> KONU: ".$contact->subject."</b> <br>";
         $message .= "<b> MESAJ: ".$contact->content."</b> <br>";
-        $message .= "<b> IP Adresi: ".$contact->ip_address."</b> <br>";
         $this->sendMessage($message);
     }
     public function sendMessage($message)
