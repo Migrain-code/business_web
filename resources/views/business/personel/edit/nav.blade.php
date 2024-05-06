@@ -106,60 +106,62 @@
         <!--end::Details-->
 
         <div class="separator"></div>
+        <div class="scroll-x h-50px overflow-y-hidden">
+            <!--begin::Nav-->
+            <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold" style="width: 600px">
+                <!--begin::Nav item-->
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.edit')) active @endif" href="{{route('business.personel.edit', $personel->id)}}">
+                        Önizleme
+                    </a>
+                </li>
+                <!--end::Nav item-->
+                <!--begin::Nav item-->
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.show')) active @endif" href="{{route('business.personel.show', $personel->id)}}">
+                        Randevular
+                    </a>
+                </li>
+                <!--end::Nav item-->
+                <!--begin::Nav item-->
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.stayOffDays')) active @endif" href="{{route('business.personel.stayOffDays', $personel->id)}}">
+                        İzinler
+                    </a>
+                </li>
+                <!--end::Nav item-->
+                <!--begin::Nav item-->
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.case')) active @endif" href="{{route('business.personel.case', $personel->id)}}">
+                        Kasa
+                    </a>
+                </li>
+                <!--end::Nav item-->
+                <!--begin::Nav item-->
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.payments')) active @endif" href="{{route('business.personel.payments', $personel->id)}}">
+                        Ödemeler
+                    </a>
+                </li>
+                <!--end::Nav item-->
+                <!--begin::Nav item-->
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.notifications')) active @endif" href="{{route('business.personel.notifications', $personel->id)}}">
+                        Bildirimler
+                    </a>
+                </li>
+                <!--end::Nav item-->
+                <!--begin::Nav item-->
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.setting')) active @endif" href="{{route('business.personel.setting', $personel->id)}}">
+                        Ayarlar
+                    </a>
+                </li>
+                <!--end::Nav item-->
+            </ul>
+            <!--end::Nav-->
+        </div>
 
-        <!--begin::Nav-->
-        <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
-            <!--begin::Nav item-->
-            <li class="nav-item">
-                <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.edit')) active @endif" href="{{route('business.personel.edit', $personel->id)}}">
-                    Önizleme
-                </a>
-            </li>
-            <!--end::Nav item-->
-            <!--begin::Nav item-->
-            <li class="nav-item">
-                <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.show')) active @endif" href="{{route('business.personel.show', $personel->id)}}">
-                    Randevular
-                </a>
-            </li>
-            <!--end::Nav item-->
-            <!--begin::Nav item-->
-            <li class="nav-item">
-                <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.stayOffDays')) active @endif" href="{{route('business.personel.stayOffDays', $personel->id)}}">
-                    İzinler
-                </a>
-            </li>
-            <!--end::Nav item-->
-            <!--begin::Nav item-->
-            <li class="nav-item">
-                <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.case')) active @endif" href="{{route('business.personel.case', $personel->id)}}">
-                    Kasa
-                </a>
-            </li>
-            <!--end::Nav item-->
-            <!--begin::Nav item-->
-            <li class="nav-item">
-                <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.payments')) active @endif" href="{{route('business.personel.payments', $personel->id)}}">
-                    Ödemeler
-                </a>
-            </li>
-            <!--end::Nav item-->
-            <!--begin::Nav item-->
-            <li class="nav-item">
-                <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.notifications')) active @endif" href="{{route('business.personel.notifications', $personel->id)}}">
-                    Bildirimler
-                </a>
-            </li>
-            <!--end::Nav item-->
-            <!--begin::Nav item-->
-            <li class="nav-item">
-                <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.setting')) active @endif" href="{{route('business.personel.setting', $personel->id)}}">
-                    Ayarlar
-                </a>
-            </li>
-            <!--end::Nav item-->
-        </ul>
-        <!--end::Nav-->
     </div>
 </div>
 <!--end::Navbar-->
