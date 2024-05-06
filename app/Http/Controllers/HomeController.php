@@ -16,6 +16,7 @@ use App\Models\MaingPage;
 use App\Models\Page;
 use App\Models\Propartie;
 use App\Models\Sponsor;
+use App\Services\SendMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
@@ -222,6 +223,15 @@ class HomeController extends Controller
             $contact->ip_address = $request->ip();
             $contact->save();
 
+            $message = "";
+            $message .= "<b> AD: ".$contact->name."</b> <br>";
+            $message .= "<b> SOYAD: ".$contact->surname."</b> <br>";
+            $message .= "<b> EMAİL: ".$contact->email."</b> <br>";
+            $message .= "<b> TELEFON: ".$contact->phone."</b> <br>";
+            $message .= "<b> KONU: ".$contact->subject."</b> <br>";
+            $message .= "<b> MESAJ: ".$contact->content."</b> <br>";
+            $message .= "<b> IP Adresi: ".$contact->ip_address."</b> <br>";
+            $this->sendMessage($message);
             return to_route('contact')->with('response', [
                 'status' => "success",
                 'message' => "İletişim Mesajı Gönderildi"
@@ -231,6 +241,14 @@ class HomeController extends Controller
                 'status' => "warning",
                 'message' => "Yeni Bir İletişim Mesajı Göndermeden Önce 5 Dk beklemelisiniz"
             ]);
+        }
+    }
+
+    public function sendMessage($message)
+    {
+        $mailAdresses = ["destek@hizliappy.com", "hizliappy@gmail.com"];
+        foreach ($mailAdresses as $adress){
+            SendMail::send('Yeni İletişim Bildirimi', $message, $adress);
         }
     }
 }

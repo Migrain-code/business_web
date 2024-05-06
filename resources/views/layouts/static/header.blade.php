@@ -6,6 +6,8 @@
         name="viewport"
         content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+    @include('layouts.static.meta')
+
     <link rel="stylesheet" href="/front/assets/fonts/EuclidCircularA/stylesheet.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -51,7 +53,6 @@
         })();
     </script>
     <!--End of Tawk.to Script-->
-    @include('layouts.static.meta')
     <style>
         ::-webkit-scrollbar{
             width: 10px;
