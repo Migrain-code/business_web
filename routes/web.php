@@ -82,6 +82,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
 
     Route::get('/telefon-numarasi-dogrulama', [ForgotPasswordController::class, 'showResetPassword'])->name('verify.showResetPassword');
     Route::post('/sifremi-unuttum-dogrulama', [ForgotPasswordController::class, 'verifyResetPassword'])->name('verify.resetPassword');
+    Route::get('/sifremi-unuttum-dogrulama-tekrar-gönder', [ForgotPasswordController::class, 'verifyResetRepeatPassword'])->name('verify.repeatPassword');
 
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 

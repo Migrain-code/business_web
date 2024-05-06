@@ -8,6 +8,7 @@ Route::prefix('personel')->as('personel.')->group(function (){
 
     Route::get('/telefon-numarasi-dogrulama', [\App\Http\Controllers\Personel\Auth\ForgotPasswordController::class, 'showResetPassword'])->name('verify.showResetPassword');
     Route::post('/sifremi-unuttum-dogrulama', [\App\Http\Controllers\Personel\Auth\ForgotPasswordController::class, 'verifyResetPassword'])->name('verify.resetPassword');
+    Route::get('/sifremi-unuttum-dogrulama-tekrar-gönder', [\App\Http\Controllers\Personel\Auth\ForgotPasswordController::class, 'verifyResetRepeatPassword'])->name('verify.repeatPassword');
 
     Route::post('logout', [\App\Http\Controllers\Personel\Auth\LoginController::class, 'logout'])->name('logout');
 

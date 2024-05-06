@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Business\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\BusinessOfficial;
+use App\Models\SendedSms;
 use App\Models\SmsConfirmation;
 use App\Services\Sms;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
@@ -119,6 +120,31 @@ class ForgotPasswordController extends Controller
             'status' => "warning",
             'message' => "Doğrulama Kodunu Hatalı Veya Yanlış Tuşladınız"
         ]);
+
+    }
+
+    public function verifyResetRepeatPassword()
+    {
+        $phone = clearPhone(session('phone'));
+        $code = SmsConfirmation::where("phone", $phone)->where('action', 'OFFICIAL-PASSWORD-RESET')->first();
+        if ($code) {
+            $sendedSms = SendedSms::wherePhone($phone)->latest()->first();
+
+            if (isset($sendedSms) && now()->subMinutes(3) < $sendedSms->created_at){
+
+                return back()->with('response', [
+                    'status' => "warning",
+                    'message' => "Yeni Sms Gönderimi İçin 3 Dakika Beklemeniz Gerekmektedir"
+                ]);
+            } else{
+                $code->delete();
+                $this->createVerifyCode($phone);
+                return back()->with('response', [
+                    'status' => "success",
+                    'message' => "Doğrulama Kodu Tekrar Gönderildi"
+                ]);
+            }
+        }
 
     }
 }

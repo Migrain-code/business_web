@@ -55,7 +55,7 @@
                     </form>
 
                     <div class="aut-resend">
-                        <p>Kodu almadınız mı? <a href="#">Tekrar Gönder</a></p>
+                        <p>Kodu almadınız mı? <a href="{{route('business.verify.repeatPassword')}}">Tekrar Gönder</a></p>
                     </div>
                 </div>
             </div>
