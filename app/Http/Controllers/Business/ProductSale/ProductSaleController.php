@@ -112,42 +112,33 @@ class ProductSaleController extends Controller
      */
     public function update(ProductSaleUpdateRequest $request, ProductSales $sale)
     {
-        $productId = explode('_', $request->input('product_id'))[1];
-
         $this->updateLatestProductPrice($sale);
 
-        $productFind = Product::find($productId);
-        $newAmount = $sale->piece + ($productFind->piece - $request->input('amount'));
-
+        $productFind = Product::find($request->product_id);
+        $newAmount = $productFind->piece - $request->amount;
         if ($newAmount < 0) {
             return response()->json([
                 'status' => "error",
-                'message' => "Satışını Güncellemeye Çalıştığınız Ürünün Stoğu Yetersiz. Ürüne Stok Eklemesi Yaparak Satışı Gerçekleştirebilirsiniz"
+                'message' => "Satışını Yapmaya Çalıştığınız Bir Ürünün Stoğu Yetersiz. Ürüne Stok Eklemesi Yaparak Satışı Gerçekleştirebilirsiniz"
             ]);
         }
-        $discount = 0;
-        if ($request->filled('discount')) {
-            $discount = $request->discount;
-        }
-        $sale->business_id = $this->business->id;
+
         $sale->customer_id = $request->input('customer_id');
-        $sale->product_id = $productId;
+        $sale->product_id = $request->product_id;
         $sale->personel_id = $request->input('personel_id');
         $sale->payment_type = $request->input('payment_type');
-        $sale->piece = $request->input('amount');
-        $sale->total = ($productFind->price * $request->amount) - $discount;
+        $sale->piece = $request->amount;
+        $sale->total = $request->price;
         $sale->note = $request->input('note');
         $sale->created_at = Carbon::parse($request->input('seller_date'));
+        $sale->save();
 
-        if ($sale->save()) {
-            $productFind->piece = $productFind->piece - $sale->piece;
-            $productFind->save();
-
-            return response()->json([
-                'status' => "success",
-                'message' => "Ürün Satışı Güncellendi"
-            ]);
-        }
+        $productFind->piece = $productFind->piece - $sale->piece;
+        $productFind->save();
+        return response()->json([
+            'status' => "success",
+            'message' => "Ürünün Satışı Başarılı Bir Şekilde Güncellendi"
+        ]);
     }
 
     public function updateLatestProductPrice($sale)

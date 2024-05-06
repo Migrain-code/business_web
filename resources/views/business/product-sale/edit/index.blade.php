@@ -33,16 +33,16 @@
         <!--begin::Form-->
         <form id="kt_ecommerce_edit_order_form" class="form row" data-kt-redirect="{{route('business.sale.index')}}">
             @include('business.product-sale.edit.columns.col-1')
-            @include('business.product-sale.edit.columns.col-2')
+
         </form>
         <!--end::Form-->
     </div>
 
 @endsection
 @section('scripts')
-    <script src="/business/assets/js/project/product-sale/listing/formrepeater.bundle.js"></script>
-    <script src="/business/assets/js/project/product-sale/listing/edit.js"></script>
     <script>
-
+        var updateUrl = '{{route('business.sale.update', $sale->id)}}'
     </script>
+    <script src="/business/assets/js/project/product-sale/listing/edit.js"></script>
+
 @endsection
