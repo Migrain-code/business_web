@@ -5,7 +5,7 @@
 @section('breadcrumbs')
     <!--begin::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-        <a href="{{route('personel.home')}}"> Dashboard </a>
+        <a href="{{route('personel.home')}}"> Gösterge Paneli </a>
     </li>
     <!--end::Item-->
     <li class="breadcrumb-item">

@@ -53,6 +53,9 @@
             height: 1.70rem !important;
             width: 1.70rem !important;
         }
+        #goSalon{
+            display: none;
+        }
     }
 </style>
 <!--end::Global Stylesheets Bundle-->

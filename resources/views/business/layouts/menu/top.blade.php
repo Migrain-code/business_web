@@ -105,7 +105,7 @@
                             <div class="tab-pane fade show active" id="kt_topbar_notifications_1" role="tabpanel">
                                 <!--begin::Items-->
                                 <div class="scroll-y mh-325px my-5 px-8">
-                                    @forelse(authUser()->notifications as $notification)
+                                    @forelse(authUser()->menuNotifications as $notification)
                                         <!--begin::Item-->
                                         <div class="d-flex flex-stack py-4">
                                             <!--begin::Section-->

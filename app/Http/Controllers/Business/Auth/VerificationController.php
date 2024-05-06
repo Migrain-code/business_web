@@ -97,6 +97,7 @@ class VerificationController extends Controller
                     $user->is_admin = 1;
                     $user->save();
 
+                    $user->sendWelcomeMessage();
                     $this->setAdmin($business, $user);
                     $this->addPermission($user->id, $permission);
                     $this->addPromotion($business->id);

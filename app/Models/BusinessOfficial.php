@@ -75,9 +75,29 @@ class BusinessOfficial extends Authenticatable
     {
         return $this->hasMany(BusinessNotification::class, 'business_id', 'id');
     }
-
+    public function menuNotifications()
+    {
+        return $this->notifications()->where('status', 0)->latest()->take(10);
+    }
     public function supportRequests()
     {
         return $this->hasMany(SupportRequest::class, 'user_id', 'id');
+    }
+
+    public function sendWelcomeMessage()
+    {
+        $notification = new BusinessNotification();
+        $notification->business_id = $this->id;
+        $notification->type = 0;
+        $notification->title = "Merhaba ". $this->name;
+        $notification->message = "
+                Hızlı Randevu Rezervasyon Programımıza hoş geldiniz! Kaydınız başarıyla tamamlandı ve artık sistemimizi kullanmaya hazırsınız.
+                Programımızı kullanarak kolayca randevu oluşturabilir, mevcut randevularınızı görüntüleyebilir ve yönetebilirsiniz. Ayrıca, size uygun olan tarih ve saatlerde randevu hatırlatıcıları alabilirsiniz.
+                Programımız hakkında herhangi bir sorunuz veya geri bildiriminiz olursa, lütfen çekinmeden bizimle iletişime geçin. Size yardımcı olmaktan mutluluk duyarız.
+                Saygılarımızla,
+                Hızlı Randevu Ekibi 🙂
+                ";
+        $notification->link = uniqid();
+        $notification->save();
     }
 }

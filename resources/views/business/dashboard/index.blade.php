@@ -14,7 +14,7 @@
             <div class="col-xl-3 col-xxl-4 col-lg-4 col-sm-6 mb-2 align-items-center">
                 <a href="{{route('business.appointment.index')}}">
                     <div class="widget-stat card ">
-                        <div class="card-body rounded p-15" style="background-color: #6a23ff">
+                        <div class="card-body rounded p-15" style="background-color: #1e1e2d">
                             <h1 class="text-white"><i class="fa fa-calendar-check"
                                                       style="color:white;font-size: 30px"></i>
                                 Randevular</h1>
@@ -25,7 +25,7 @@
             <div class="col-xl-3 col-xxl-4 col-lg-4 col-sm-6 mb-2 align-items-center">
                 <a href="{{route('business.customer.index')}}">
                     <div class="widget-stat card">
-                        <div class="card-body rounded p-15" style="background-color: #9568ff">
+                        <div class="card-body rounded p-15" style="background-color: #f22969 ">
                             <h1 class="text-white"><i class="fa fa-user-circle"
                                                       style="color:white;font-size: 30px"></i>
                                 Müşteriler</h1>
@@ -36,7 +36,7 @@
             <div class="col-xl-3 col-xxl-4 col-lg-4 col-sm-6 mb-2 align-items-center">
                 <a href="{{route('business.personel.index')}}">
                     <div class="widget-stat card">
-                        <div class="card-body rounded bg-warning p-15">
+                        <div class="card-body rounded p-15" style="background-color: #1e1e2d ">
                             <h1 class="text-white"><i class="fa fa-person"
                                                       style="color:white;font-size: 30px"></i>
                                 Personeller</h1>
@@ -47,7 +47,7 @@
             <div class="col-xl-3 col-xxl-4 col-lg-4 col-sm-6 mb-2 align-items-center">
                 <a href="{{route('business.service.index')}}">
                     <div class="widget-stat card">
-                        <div class="card-body rounded bg-primary p-15">
+                        <div class="card-body rounded p-15" style="background-color: #f22969 ">
                             <h1 class="text-white"><i class="fa fa-gear"
                                                       style="color:white;font-size: 30px"></i> Hizmetler
                             </h1>
@@ -58,7 +58,7 @@
             <div class="col-xl-3 col-xxl-4 col-lg-4 col-sm-6 mb-2 align-items-center">
                 <a href="{{route('business.product.index')}}">
                     <div class="widget-stat card">
-                        <div class="card-body rounded bg-black p-15">
+                        <div class="card-body rounded p-15" style="background-color: #1e1e2d ">
                             <h1 class="text-white"><i class="fa fa-box-open"
                                                       style="color:white;font-size: 30px"></i> Ürünler
                             </h1>
@@ -69,7 +69,7 @@
             <div class="col-xl-3 col-xxl-4 col-lg-4 col-sm-6 mb-2 align-items-center">
                 <a href="{{route('business.gallery.index')}}">
                     <div class="widget-stat card">
-                        <div class="card-body rounded bg-info p-15">
+                        <div class="card-body rounded p-15" style="background-color: #f22969 ">
                             <h1 class="text-white"><i class="fa fa-image"
                                                       style="color:white;font-size: 30px"></i> Galeri
                             </h1>

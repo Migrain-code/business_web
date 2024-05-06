@@ -21,13 +21,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $saleTotal = $this->calculateSale()["saleTotal"];
+        //$saleTotal = $this->calculateSale()["saleTotal"];
         $monthlySaleTotal = $this->calculateSale()["monthlySaleTotal"];
         $monthlyPackageSaleTotal = $this->calculateSale()["monthlyPackageSales"];
         $serviceTotal = $this->calculateService();
         $customerTotal = $this->business->customers->count();
-
-        return view('business.dashboard.index', compact('saleTotal', 'monthlySaleTotal', 'serviceTotal', 'customerTotal', 'monthlyPackageSaleTotal'));
+        $todayCiro = $this->calculateToday();
+        $todayCosts = $this->business->costs()->whereDate('operation_date', now()->toDateString())->sum('price');
+        return view('business.dashboard.index', compact( 'monthlySaleTotal', 'serviceTotal', 'customerTotal', 'monthlyPackageSaleTotal', 'todayCiro', 'todayCosts'));
     }
 
     public function calculateSale()
@@ -39,8 +40,8 @@ class HomeController extends Controller
         $monthlySales = [];
         $monthlyPackageSales = [];
         for ($i = 0; $i < 12; $i++) {
-            $monthlySaleTotal = $business->sales()->whereMonth('created_at', $i+1)->sum('total');
-            $monthlyPackageSaleTotal = $business->packages()->whereMonth('seller_date', $i+1)->sum('total');
+            $monthlySaleTotal = $business->sales()->whereMonth('created_at', $i + 1)->sum('total');
+            $monthlyPackageSaleTotal = $business->packages()->whereMonth('seller_date', $i + 1)->sum('total');
             $monthlySales[] = $monthlySaleTotal;
             $monthlyPackageSales[] = $monthlyPackageSaleTotal;
         }
@@ -50,6 +51,22 @@ class HomeController extends Controller
             'monthlySaleTotal' => $monthlySales,
             'monthlyPackageSales' => $monthlyPackageSales,
         ];
+    }
+
+    public function calculateToday() // bugünkü toplam ürün + paket + adisyon tahsilatı
+    {
+        $business = $this->business;
+
+        $saleTotal = $business->sales()->whereDate('created_at', now()->toDateString())->sum('total'); //bugünkü ürün satış
+        // bugünkü paket satış ödemeleri
+        foreach ($business->packages as $package) {
+            $saleTotal += $package->payeds()->whereDate('created_at', now()->toDateString())->sum('price');
+        }
+        $appointments = $business->appointments()->whereDate('start_time', now()->toDateString())->get();
+        foreach ($appointments as $appointment) {
+            $saleTotal += $appointment->payments()->whereDate('created_at', now()->toDateString())->sum('price');
+        }
+        return $saleTotal;
     }
 
     public function calculateService()

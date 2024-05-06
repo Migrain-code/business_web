@@ -11,15 +11,15 @@
                     <span class="path3"></span>
                     <span class="path4"></span>
                 </i>
-                <span class="fw-bold fs-1 text-white">{{formatPrice($saleTotal)}}</span>
+                <span class="fw-bold fs-1 text-white">{{formatPrice($todayCiro)}}</span>
             </div>
 
             <div class="text-white fw-bold fs-2 mb-2 mt-5">
-                Toplam Satış
+                Günlük Ciro
             </div>
 
             <div class="fw-semibold text-white">
-                İşletmenizde Yapılan Toplam Satış
+                Bugün Yapmış Olduğunuz Ciro
             </div>
         </div>
         <!--end::Body-->
@@ -43,17 +43,17 @@
                     <span class="path6"></span>
                     <span class="path7"></span>
                 </i>
-                <span class="fw-bold fs-1 text-white">{{formatPrice($serviceTotal)}}</span>
+                <span class="fw-bold fs-1 text-white">{{formatPrice($todayCosts)}}</span>
 
             </div>
 
 
             <div class="text-white fw-bold fs-2 mb-2 mt-5">
-                Hizmetler
+                Giderler
             </div>
 
             <div class="fw-semibold text-white">
-                Hizmet Kazancı toplamı
+                Bugünkü Giderler
             </div>
         </div>
         <!--end::Body-->
@@ -64,7 +64,7 @@
 <div class="col-xl-4 mb-2">
 
     <!--begin::Statistics Widget 5-->
-    <a href="#" class="card bg-success hoverable card-xl-stretch mb-5 mb-xl-8">
+    <a href="#" class="card bg-danger hoverable card-xl-stretch mb-5 mb-xl-8">
         <!--begin::Body-->
         <div class="card-body">
             <div class="d-flex align-items-center">
@@ -74,22 +74,23 @@
                     <span class="path3"></span>
                     <span class="path4"></span>
                 </i>
-                <span class="fw-bold fs-1 text-white">{{$customerTotal}}</span>
+                <span class="fw-bold fs-1 text-white">{{formatPrice($todayCiro - $todayCosts)}}</span>
 
             </div>
 
 
             <div class="text-white fw-bold fs-2 mb-2 mt-5">
-                Toplam Müşteri Kaydı
+                Kasa
             </div>
 
             <div class="fw-semibold text-white">
-                İşletmenize kayıt olmuş müşteri sayısı
+                Bugünkü Kasa
             </div>
         </div>
         <!--end::Body-->
     </a>
-    <!--end::Statistics Widget 5-->    </div>
+    <!--end::Statistics Widget 5-->
+</div>
 <div class="card card-xl-stretch mb-xl-8">
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
