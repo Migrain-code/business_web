@@ -212,8 +212,15 @@ class HomeController extends Controller
             'content' => "İçerik",
         ]);
         $contactSearch = BusinessContact::where('ip_address', $request->ip())->latest()->first();
-        $request->ip();
-        if (isset($contactSearch) && $contactSearch->created_at < Carbon::now()->subMinutes(5)) {
+
+        if (isset($contactSearch)){
+            if ($contactSearch->created_at < Carbon::now()->subMinutes(5)){
+                return to_route('contact')->with('response', [
+                    'status' => "warning",
+                    'message' => "Yeni Bir İletişim Mesajı Göndermeden Önce 5 Dk beklemelisiniz"
+                ]);
+            }
+        } else {
             $contact = new BusinessContact();
             $contact->name = $request->input('name');
             $contact->surname = $request->input('surname');
@@ -236,11 +243,6 @@ class HomeController extends Controller
             return to_route('contact')->with('response', [
                 'status' => "success",
                 'message' => "İletişim Mesajı Gönderildi"
-            ]);
-        } else {
-            return to_route('contact')->with('response', [
-                'status' => "warning",
-                'message' => "Yeni Bir İletişim Mesajı Göndermeden Önce 5 Dk beklemelisiniz"
             ]);
         }
     }
