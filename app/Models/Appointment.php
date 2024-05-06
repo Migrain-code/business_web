@@ -61,9 +61,10 @@ use Illuminate\Database\Eloquent\Model;
 class Appointment extends Model
 {
     use HasFactory;
-    protected $casts=['start_time' => "datetime", 'end_time' => "datetime"];
 
-    const STATUS_LIST=[
+    protected $casts = ['start_time' => "datetime", 'end_time' => "datetime"];
+
+    const STATUS_LIST = [
         0 => [
             'html' => '<span class="badge badge-warning fw-bolder px-2 py-2" style="color:#fff04f">Onay Bekliyor</span>',
             'text' => 'Onay Bekliyor',
@@ -113,10 +114,17 @@ class Appointment extends Model
             'name' => "Silinmiş Müşteri"
         ]);
     }
+
     public function campaign()
     {
         return $this->hasOne(Campaign::class, 'id', 'campaign_id');
     }
+
+    public function room()
+    {
+        return $this->hasOne(BusinessRoom::class, 'id', 'room_id');
+    }
+
     public function services()
     {
         return $this->hasMany(AppointmentServices::class, 'appointment_id', 'id');
@@ -131,14 +139,17 @@ class Appointment extends Model
     {
         return $this->hasMany(AppointmentPhoto::class, 'appointment_id', 'id');
     }
+
     public function business()
     {
         return $this->hasOne(Business::class, 'id', 'business_id');
     }
+
     public function cashPoint()
     {
         return $this->hasOne(CustomerCashPoint::class, 'appointment_id', 'id');
     }
+
     public function sales()
     {
         return $this->hasMany(ProductSales::class, 'appointment_id', 'id');
@@ -148,9 +159,10 @@ class Appointment extends Model
     {
         return $this->hasMany(AppointmentReceivable::class, 'appointment_id', 'id');
     }
+
     public function addCashPoint()
     {
-        if(isset($this->cashPoint)){
+        if (isset($this->cashPoint)) {
             return false;
         }
 
@@ -160,11 +172,12 @@ class Appointment extends Model
         $customerCashPoint->business_id = $this->business_id;
         $customerCashPoint->price = $this->earned_point;
         $customerCashPoint->addition_date = now();
-        if ($customerCashPoint->save()){
+        if ($customerCashPoint->save()) {
             return true;
 
         }
     }
+
     public function calculateAppointmentEarnedPoint()
     {
         $promossion = $this->business->promossions;
@@ -172,26 +185,41 @@ class Appointment extends Model
         $discountRate = $promossion->cash;
 
         //dd($discountRate);
-        $discountTotal= ($this->calculateTotal() * $discountRate) / 100;
+        $discountTotal = ($this->calculateTotal() * $discountRate) / 100;
         return $discountTotal;
 
     }
-    public function calculateTotal()
+
+    public function calculateTotal() // toplam hizmet hiyatı
     {
-        $total=0;
-        foreach ($this->services as $service){
-            $total+=$service->service->price;
+        $total = 0;
+        foreach ($this->services as $service) {
+            if (isset($this->room_id)) {
+                $room = $this->room;
+                if ($room->increase_type == 0) { // tl fiyat arttırma
+                    $total += $service->service->price + $room->price;
+                } else { // yüzde fiyat arttırma
+                    $total += $service->service->price + (($service->service->price * $room->price) / 100);
+                }
+            } else {
+                $total += $service->service->price;
+            }
+
         }
         return $total;
     }
 
-    function totalServiceAndProduct(){ // toplam ürün ve hizmet satışı
+    function totalServiceAndProduct()
+    { // toplam ürün ve hizmet satışı
         return $this->calculateTotal() + $this->sales->sum('total');
     }
-    public function calculateCampaignDiscount(){ //kampanya indirimi
+
+    public function calculateCampaignDiscount()
+    { //kampanya indirimi
         $total = (($this->totalServiceAndProduct() * $this->discount) / 100);
         return $total;
     }
+
     public function calculateCollectedTotal() //tahsil edilecek tutar
     {
         $total = $this->totalServiceAndProduct() - $this->calculateCampaignDiscount() - $this->point;

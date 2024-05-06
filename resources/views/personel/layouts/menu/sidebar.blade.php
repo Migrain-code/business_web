@@ -30,7 +30,7 @@
                 <!--begin:Menu item-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('business.adission.index')}}">
+                    <a class="menu-link" href="{{route('personel.home')}}">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-home fs-3">
                                  <span class="path1"></span>

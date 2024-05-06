@@ -14,11 +14,10 @@ class AjaxController extends Controller
     {
         $query = $request->model::find($request->id);
         $query->{$request->column} = $request->value;
-        $message = $request->value == 0 ? "Engellendi" : "Aktif";
         if ($query->save()) {
             return [
                 'status' => 'success',
-                'message' => 'Durum '. $message .' olarak güncellendi',
+                'message' => 'Durum güncellendi',
             ];
         }
 

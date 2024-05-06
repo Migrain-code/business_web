@@ -58,7 +58,7 @@
                                     {{$service->service->time}} .DK
                                 </td>
                                 <td class="text-end">
-                                    {{formatPrice($service->service->price)}}
+                                    {{formatPrice($service->servicePrice())}}
                                 </td>
                                 <td class="text-end">
                                     {{create_delete_button('AppointmentServices', $service->id,

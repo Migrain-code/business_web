@@ -443,6 +443,8 @@
                     personelValues.push(input.value);
                 }
             });
+            var selectedRoomId  = $('input[name="room_id"]:checked').val();
+
                 var clocks = "";
                 $.ajax({
                     url: '/isletme/appointment-create/get/clock',
@@ -450,7 +452,8 @@
                     data: {
                         '_token' : csrf_token,
                         'personelIds' : personelValues,
-                        'date': clickedDate
+                        'date': clickedDate,
+                        'room_id': selectedRoomId,
                     },
                     dataType: "JSON",
                     success: function (res) {

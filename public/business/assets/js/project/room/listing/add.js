@@ -19,36 +19,29 @@ var KTModalCustomersAdd = function () {
                     'name': {
                         validators: {
                             notEmpty: {
-                                message: 'Ad Soyad Alanı Gereklidir'
+                                message: 'Oda Adı Alanı Gereklidir'
                             }
                         }
                     },
-                    'phone': {
+                    'color_code': {
                         validators: {
                             notEmpty: {
-                                message: 'Telefon Alanı Gereklidir'
+                                message: 'Renk Kodu Alanı Gereklidir'
                             }
                         }
                     },
-                    'email': {
+                    'increase_type': {
                         validators: {
                             notEmpty: {
-                                message: 'E-posta Alanı Gereklidir'
+                                message: 'Fiyat Türü Alanı Gereklidir'
                             }
                         }
                     },
-                    'password': {
+                    'price': {
                         validators: {
                             notEmpty: {
-                                message: 'Şifre Alanı Gereklidir'
+                                message: 'Fiyat Alanı Gereklidir'
                             },
-                        }
-                    },
-                    'branch_id': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Şube Seçimi Alanı Gereklidir'
-                            }
                         }
                     },
                 },
@@ -62,13 +55,6 @@ var KTModalCustomersAdd = function () {
                 }
             }
         );
-
-
-        // Revalidate country field. For more info, plase visit the official plugin site: https://select2.org/
-        $(form.querySelector('[name="city_id"]')).on('city_id', function() {
-            // Revalidate the field when an option is chosen
-            validator.revalidateField('city_id');
-        });
 
         // Action buttons
         submitButton.addEventListener('click', function (e) {
@@ -89,13 +75,12 @@ var KTModalCustomersAdd = function () {
                             var formData = new FormData();
                             formData.append("_token", csrf_token);
                             formData.append("name", $('[name="name"]').val());
-                            formData.append("phone", $('[name="phone"]').val());
-                            formData.append("email", $('[name="email"]').val());
-                            formData.append("password", $('[name="password"]').val());
-                            formData.append("branch_id", $('[name="branch_id"]').val());
-                           // formData.append("image", $('[name="avatar"]')[0].files[0]);
+                            formData.append("color_code", $('[name="color_code"]').val());
+                            formData.append("increase_type", $('[name="increase_type"]').val());
+                            formData.append("price", $('[name="price"]').val());
+
                             $.ajax({
-                                url: '/isletme/business-official',
+                                url: '/isletme/room',
                                 type: "POST",
                                 data: formData,
                                 processData: false,
@@ -165,7 +150,7 @@ var KTModalCustomersAdd = function () {
             e.preventDefault();
 
             Swal.fire({
-                text: "Yetkili Ekleme İşlemini İptal Etmek İstediğinize Eminmisiniz?",
+                text: "Oda Ekleme İşlemini İptal Etmek İstediğinize Eminmisiniz?",
                 icon: "warning",
                 showCancelButton: true,
                 buttonsStyling: false,
@@ -196,7 +181,7 @@ var KTModalCustomersAdd = function () {
         closeButton.addEventListener('click', function(e){
             e.preventDefault();
             Swal.fire({
-                text: "Yetkili Ekleme İşlemini İptal Etmek İstediğinize Eminmisiniz?",
+                text: "Oda Ekleme İşlemini İptal Etmek İstediğinize Eminmisiniz?",
                 icon: "warning",
                 showCancelButton: true,
                 buttonsStyling: false,

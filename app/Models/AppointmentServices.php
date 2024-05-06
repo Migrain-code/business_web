@@ -41,37 +41,43 @@ class AppointmentServices extends Model
 
     const STATUS_LIST=[
         0 => [
-            'html' => '<span class="badge light badge-warning fw-bolder px-2 py-2">Onay Bekliyor</span>',
+            'html' => '<span class="badge badge-warning fw-bolder px-2 py-2" style="color:#fff04f">Onay Bekliyor</span>',
             'text' => 'Onay Bekliyor',
             'color_code' => "warning"
         ],
         1 => [
-            'html' => '<span class="badge light badge-success fw-bolder px-2 py-2">Onaylandı</span>',
+            'html' => '<span class="badge badge-success fw-bolder px-2 py-2">Onaylandı</span>',
             'text' => 'Onaylandı',
             'color_code' => "primary"
         ],
         2 => [
-            'html' => '<span class="badge light badge-info fw-bolder px-2 py-2">Randevu Zamanı</span>',
-            'text' => 'Randevu Zamanı',
-            'color_code' => "info"
-        ],
-        3 => [
-            'html' => '<span class="badge badge-outline-success fw-bolder px-2 py-2">Tamamlandı</span>',
+            'html' => '<span class="badge badge-success fw-bolder px-2 py-2">Tamamlandı</span>',
             'text' => 'Tamamlandı',
             'color_code' => "success"
         ],
-        4 => [
-            'html' => '<span class="badge badge-outline-info fw-bolder px-2 py-2">Ödeme Alındı</span>',
-            'text' => 'Ödeme Alındı',
-            'color_code' => "info"
-        ],
-        5 => [
-            'html' => '<span class="badge light badge-danger fw-bolder px-2 py-2">İptal Edildi</span>',
+        3 => [
+            'html' => '<span class="badge badge-danger fw-bolder px-2 py-2">İptal Edildi</span>',
             'text' => 'İptal Edildi',
             'color_code' => "danger"
         ],
+        4 => [
+            'html' => '<span class="badge badge-info fw-bolder px-2 py-2">Gelmedi</span>',
+            'text' => 'Gelmedi',
+            'color_code' => "danger"
+        ],
+        5 => [
+            'html' => '<span class="badge badge-info fw-bolder px-2 py-2">Geldi</span>',
+            'text' => 'Geldi',
+            'color_code' => "success"
+        ],
+        6 => [
+            'html' => '<span class="badge badge-info fw-bolder px-2 py-2">Tahsilatsız Kapatıldı</span>',
+            'text' => 'Tahsilatsız Kapatıldı',
+            'color_code' => "warning"
+        ],
 
     ];
+
     public function status($type)
     {
         return self::STATUS_LIST[$this->status][$type] ?? null;
@@ -83,6 +89,22 @@ class AppointmentServices extends Model
     public function service()
     {
         return $this->hasOne(BusinessService::class, 'id', 'service_id');
+    }
+
+    public function servicePrice()
+    {
+        $service = $this->service;
+        if (isset($this->appointment->room_id)) {
+            $room = $this->appointment->room;
+            if ($room->increase_type == 0) { // tl fiyat arttırma
+                $servicePrice = $service->price + $room->price;
+            } else { // yüzde fiyat arttırma
+                $servicePrice = $service->price + (($service->price * $room->price) / 100);
+            }
+        } else {
+            $servicePrice = $service->price;
+        }
+        return $servicePrice;
     }
 
     public function personel()

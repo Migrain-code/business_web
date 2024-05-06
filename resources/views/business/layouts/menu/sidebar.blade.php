@@ -29,6 +29,27 @@
             <!--begin::Menu-->
             <div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
                 <!--begin:Menu item-->
+                <div class="menu-item">
+                    <!--begin:Menu link-->
+                    <a class="menu-link @if(request()->routeIs('business.home')) active @endif" href="{{route('business.home')}}">
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-home fs-3">
+                                 <span class="path1"></span>
+                                 <span class="path2"></span>
+                                 <span class="path3"></span>
+                                 <span class="path4"></span>
+                                 <span class="path5"></span>
+                                 <span class="path6"></span>
+                                 <span class="path7"></span>
+                            </i>
+
+                        </span>
+                        <span class="menu-title">Gösterge Paneli</span>
+                    </a>
+                    <!--end:Menu link-->
+                </div>
+                <!--end:Menu item-->
+                <!--begin:Menu item-->
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion">
                     <!--begin:Menu link-->
                     <span class="menu-link">
@@ -53,7 +74,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link active" href="{{route('business.appointmentCreate.index')}}">
+                            <a class="menu-link @if(request()->routeIs('business.appointmentCreate.index')) active @endif" href="{{route('business.appointmentCreate.index')}}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -549,7 +570,24 @@
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
-
+                <!--begin:Menu item-->
+                <div class="menu-item">
+                    <!--begin:Menu link-->
+                    <a class="menu-link" href="{{route('business.room.index')}}">
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-home-1 fs-3">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                            </i>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title">Salonlar</span>
+                    </a>
+                    <!--end:Menu link-->
+                </div>
+                <!--end:Menu item-->
                 <!--begin:Menu item-->
                 <div class="menu-item pt-5">
                     <!--begin:Menu content-->

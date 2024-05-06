@@ -1,15 +1,7 @@
 @extends('business.layouts.master')
-@section('title', 'Randevular')
+@section('title', 'Odalar')
 @section('styles')
-    <style>
-        .image-input .image-input-wrapper {
-            background-image: url('/business/assets/media/svg/avatars/blank.svg');
-        }
 
-        [data-bs-theme="dark"] .image-input .image-input-wrapper {
-            background-image: url('/business/assets/media/svg/avatars/blank-dark.svg');
-        }
-    </style>
 @endsection
 @section('breadcrumbs')
     <!--begin::Item-->
@@ -22,7 +14,7 @@
     <!--end::Item-->
     <!--begin::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-       Randevular
+        <a href="{{route('business.room.index')}}"> Odalar </a>
     </li>
     <!--end::Item-->
 @endsection
@@ -41,13 +33,13 @@
                                 class="path1"></span><span class="path2"></span></i> <input
                             type="text" data-kt-customer-table-filter="search"
                             class="form-control form-control-solid w-250px ps-13"
-                            placeholder="Randevularda Ara">
+                            placeholder="Odalarda Ara">
                     </div>
                     <!--end::Search-->
                 </div>
                 <!--begin::Card title-->
 
-               @include('business.appointment.parts.toolbar')
+                @include('business.room.parts.toolbar')
             </div>
             <!--end::Card header-->
 
@@ -58,44 +50,63 @@
                 <table class="table align-middle table-row-dashed fs-6 gy-5" id="datatable">
                     <thead>
                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                        <th class="min-w-125px">Müşteri</th>
-                        <th class="min-w-125px">Salon</th>
-                        <th class="min-w-125px">Hizmetler</th>
-                        <th class="min-w-125px">Tarih</th>
-                        <th class="min-w-125px">Saat</th>
+                        <th class="w-10px pe-2">
+                            #
+                        </th>
+                        <th class="min-w-125px">Oda Adı</th>
                         <th class="min-w-125px">Durum</th>
-                        <th class="min-w-125px">Toplam Hizmet Fiyatı</th>
-                        <th class="text-end min-w-70px">İşlemler</th>
+                        <th class="min-w-125px">Fiyat Tipi</th>
+                        <th class="min-w-125px">Kayıt Tarihi</th>
+                        <th class="min-w-70px">İşlemler</th>
                     </tr>
                     </thead>
                     <tbody class="fw-semibold text-gray-600">
                     </tbody>
                     <!--end::Table body-->
                 </table>
-                <!--end::Table-->    </div>
+                <!--end::Table-->
+            </div>
             <!--end::Card body-->
         </div>
         <!--end::Card-->
+
+        <!--begin::Modals-->
+        <!--begin::Modal - Customers - Add-->
+        @include('business.room.parts.add-customer')
 
     </div>
 
 @endsection
 @section('scripts')
     <!-- DataTables Buttons JS -->
-    <script src="/business/assets/js/project/appointment/listing.js"></script>
+    <script src="/business/assets/js/project/room/listing/listing.js"></script>
+    <script src="/business/assets/js/project/room/listing/add.js"></script>
 
     <script>
-        let DATA_URL = "{{route('business.appointment.datatable')}}";
+        let DATA_URL = "{{route('business.room.datatable')}}";
         let DATA_COLUMNS = [
-            {data: 'customerName'},
-            {data: 'room_id'},
-            {data: 'services'},
-            {data: 'start_time'},
-            {data: 'clock'},
+            {data: 'id'},
+            {data: 'name'},
             {data: 'status'},
-            {data: 'servicePrice'},
+            {data: 'increase_type'},
+            {data: 'created_at'},
             {data: 'action'}
         ];
     </script>
+    <script>
+        $('#increaseTypeSelect').on('change', function(){
+            var selectedId = $(this).val();
+            if(selectedId == 0){
+                $('#increaseTypeText').text("Fiyat Kaç TL Arttırılacak");
+                $('#increaseTypeNote').text("Hizmet Bedelinin üzerine eklenecek tutarı giriniz");
+                $('#increaseTypeInput').attr('placeholder', "Örn. 10 TL");
+            } else{
+                $('#increaseTypeText').text("Fiyat Yüzde Kaç Arttırılacak");
+                $('#increaseTypeNote').text("Hizmet Bedelinin üzerine eklenecek yüzdelik oranı giriniz");
 
+                $('#increaseTypeInput').attr('placeholder', "Örn. 10 %");
+
+            }
+        });
+    </script>
 @endsection

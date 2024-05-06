@@ -148,7 +148,6 @@ Route::prefix('isletme')->as('business.')->group(function (){
         Route::resource('service', ServiceController::class);
 
         /* -------------------- Randevular --------------------------*/
-
         Route::resource('appointment', AppointmentController::class);
         Route::get('/calendar', [AppointmentController::class, 'calendar'])->name('appointment.calendar');
         Route::get('/randevular', [AppointmentController::class, 'todayAppointment'])->name('appointment.today');
@@ -250,8 +249,12 @@ Route::prefix('isletme')->as('business.')->group(function (){
         Route::get('settings', [\App\Http\Controllers\BusinessSettingController::class, 'index'])->name('settings');
         Route::post('settings', [\App\Http\Controllers\BusinessSettingController::class, 'updateInfo'])->name('settings.update');
 
-        /** -------------------------------- Gelmeyenler --------------------------------------- */
+        /* -------------------------------- Gelmeyenler --------------------------------------- */
         Route::get('customer-absent', [\App\Http\Controllers\Business\Absent\AbsentCustomerController::class, 'index'])->name('customer.absents');
+
+        /* --------------------------------- Odalar ----------------------------------------------------*/
+        Route::resource('room', \App\Http\Controllers\BusinessRoomController::class);
+
         Route::controller(AjaxController::class)->as('ajax.')->prefix('ajax')->group(function () {
             Route::post('/update-featured', 'updateFeatured')->name('updateFeatured');
             Route::delete('/delete/object', 'deleteFeatured')->name('deleteFeatured');

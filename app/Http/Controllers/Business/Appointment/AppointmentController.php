@@ -161,8 +161,8 @@ class AppointmentController extends Controller
             ->addColumn('customerName', function ($q) use ($business) {
                 return createName(route('business.customer.edit', $q->customer->id), $q->customer->name);
             })
-            ->addColumn('customerPhone', function ($q) use ($business) {
-                return createPhone($q->customer->phone, formatPhone($q->customer->phone));
+            ->editColumn('room_id', function ($q) {
+                return '<span style="color:'. ($q->room->color ?? "#7E8299"). ';">'. ($q->room->name?? "Salon"). '</span>';
             })
             ->addColumn('services', function ($q) use ($business) {
                 if ($q->services->count() > 0){
@@ -179,7 +179,7 @@ class AppointmentController extends Controller
                 return Carbon::parse($q->start_time)->format('H:i');
             })
             ->addColumn('servicePrice', function ($q) use ($business) {
-                return $q->calculateTotal(). "₺";
+                return $q->calculateTotal();
             })
             ->editColumn('status', function ($q) {
                 return $q->status('html');
@@ -188,7 +188,7 @@ class AppointmentController extends Controller
             ->addColumn('action', function ($q) {
                 return create_show_button(route('business.appointment.show', $q->id), 'text-white');
             })
-            ->rawColumns(['id', 'action', 'customerName', 'customerPhone', 'status'])
+            ->rawColumns(['id', 'action', 'customerName', 'room_id', 'status'])
             ->make(true);
     }
 }

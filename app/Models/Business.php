@@ -175,7 +175,15 @@ class Business extends Model
     {
         return $this->hasMany(Personel::class, 'business_id', 'id')->whereIsDelete(0)->latest();
     }
+    public function rooms()
+    {
+        return $this->hasMany(BusinessRoom::class, 'business_id', 'id')->whereIsDelete(0);
+    }
 
+    public function activeRooms()
+    {
+        return $this->rooms()->whereStatus(1)->orderBy('is_main', 'desc');
+    }
     public function costs()
     {
         return $this->hasMany(BusinessCost::class, 'business_id', 'id');
