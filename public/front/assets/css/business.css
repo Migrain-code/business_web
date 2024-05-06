@@ -928,7 +928,7 @@ body.references {
 
 .go-up-wrapper .go-up button {
   position: fixed;
-  right: 40px;
+  left: 40px;
   bottom: 40px;
   background: #f22969;
   width: 60px;
