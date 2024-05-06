@@ -3,18 +3,18 @@
     <div class="row row-cols-1 row-cols-md-2 mb-6 mb-xl-9">
         <div class="col">
             <!--begin::Card-->
-            <div class="card pt-4 h-md-100 mb-6 mb-md-0">
+            <div class="card pt-4 h-md-100 mb-6 mb-md-0" style=" background-color: #132c3d;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg'); background-size: cover">
                 <!--begin::Card header-->
                 <div class="card-header border-0">
                     <!--begin::Card title-->
                     <div class="card-title">
-                        <h2 class="fw-bold">Para Puanları</h2>
+                        <h2 class="fw-bold text-white">Para Puanları</h2>
                     </div>
                     <!--end::Card title-->
                 </div>
                 <!--end::Card header-->
                 <!--begin::Card body-->
-                <div class="card-body pt-0">
+                <div class="card-body pt-0" >
                     <div class="fw-bold fs-2">
                         <div class="d-flex">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen030.svg-->
@@ -25,8 +25,8 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <div class="ms-2">{{formatPrice($customer->withBusinessCashpoints->sum('price'))}}
-                                <span class="text-muted fs-4 fw-semibold">Puan Kazandı</span></div>
+                            <div class="ms-2 text-white">{{formatPrice($customer->withBusinessCashpoints->sum('price'))}}
+                                <span class="text-white fs-4 fw-semibold">Puan Kazandı</span></div>
                         </div>
                         <div class="fs-7 fw-normal text-muted">Müşterinin işletmenizden kazandığı parapuan miktarı.</div>
                     </div>
@@ -37,7 +37,7 @@
         </div>
         <div class="col">
             <!--begin::Reward Tier-->
-            <a href="#" class="card bg-success hoverable h-md-100">
+            <a href="#" class="card hoverable h-md-100" style=" background-color: #484286;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg'); background-size: cover">
                 <!--begin::Body-->
                 <div class="card-body">
                     <!--begin::Svg Icon | path: icons/duotune/general/gen020.svg-->
