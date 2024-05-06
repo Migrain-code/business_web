@@ -29,6 +29,31 @@
         width: 5px; /* Scrollbar genişliği */
         height: 5px;
     }
+    .hover-scroll-x::-webkit-scrollbar {
+        width: 5px; /* Scrollbar genişliği */
+        height: 5px;
+    }
+    .scroll-y::-webkit-scrollbar {
+        width: 5px; /* Scrollbar genişliği */
+        height: 5px;
+    }
+    .scroll-y::-webkit-scrollbar-track {
+        background: #1e1e2d;
+    }
+    @media (max-width: 876px) {
+        .form-check-input.delete {
+            display: none;
+        }
+        table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control, table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control {
+            position: relative;
+            padding-left: 0px;
+            cursor: pointer;
+        }
+        table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before, table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before{
+            height: 1.70rem !important;
+            width: 1.70rem !important;
+        }
+    }
 </style>
 <!--end::Global Stylesheets Bundle-->
 @yield('styles')

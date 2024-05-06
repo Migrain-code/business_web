@@ -1,46 +1,24 @@
 <!--begin::Step 1-->
+
 <div class="flex-column current" data-kt-stepper-element="content" id="tabMenus">
     @if($rooms->count() > 0)
-        <div class="col-4 p-3">
-            <!--begin::Radio group-->
 
-            <div data-kt-buttons="true" class="d-flex gap-6">
-                <!--begin::Salon Default-->
-                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex flex-stack text-start p-6 mb-5" style="min-width: 200px">
-                    <!--end::Description-->
-                    <div class="d-flex align-items-center me-2">
-                        <!--begin::Radio-->
-                        <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
-                            <input class="form-check-input" type="radio" checked name="room_id" value=""/>
-                        </div>
-                        <!--end::Radio-->
-
-                        <!--begin::Info-->
-                        <div class="flex-grow-1">
-                            <h2 class="d-flex align-items-center fs-4 fw-bold flex-wrap">
-                                Salon
-                            </h2>
-                        </div>
-                        <!--end::Info-->
-                    </div>
-                    <!--end::Description-->
-                </label>
-                <!--end::Radio button-->
-                @foreach($rooms as $room)
-                    <!--begin::Radio button-->
+            <div data-kt-buttons="true" class="row">
+                <div class="col-lg-4 col-12">
+                    <!--begin::Salon Default-->
                     <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex flex-stack text-start p-6 mb-5" style="min-width: 200px">
                         <!--end::Description-->
                         <div class="d-flex align-items-center me-2">
                             <!--begin::Radio-->
                             <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
-                                <input class="form-check-input" type="radio" @checked($room->is_main == 1) name="room_id" value="{{$room->id}}"/>
+                                <input class="form-check-input" type="radio" checked name="room_id" value=""/>
                             </div>
                             <!--end::Radio-->
 
                             <!--begin::Info-->
                             <div class="flex-grow-1">
                                 <h2 class="d-flex align-items-center fs-4 fw-bold flex-wrap">
-                                    {{$room->name}}
+                                    Salon
                                 </h2>
                             </div>
                             <!--end::Info-->
@@ -48,27 +26,65 @@
                         <!--end::Description-->
                     </label>
                     <!--end::Radio button-->
+                </div>
+                @foreach($rooms as $room)
+                    <div class="col-lg-4 col-12">
+                        <!--begin::Radio button-->
+                        <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex flex-stack text-start p-6 mb-5" style="min-width: 200px">
+                            <!--end::Description-->
+                            <div class="d-flex align-items-center me-2">
+                                <!--begin::Radio-->
+                                <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
+                                    <input class="form-check-input" type="radio" @checked($room->is_main == 1) name="room_id" value="{{$room->id}}"/>
+                                </div>
+                                <!--end::Radio-->
+
+                                <!--begin::Info-->
+                                <div class="flex-grow-1">
+                                    <h2 class="d-flex align-items-center fs-4 fw-bold flex-wrap">
+                                        {{$room->name}}
+                                    </h2>
+                                </div>
+                                <!--end::Info-->
+                            </div>
+                            <!--end::Description-->
+                        </label>
+                        <!--end::Radio button-->
+                    </div>
                 @endforeach
             </div>
             <!--end::Radio group-->
-        </div>
     @else
         <input type="hidden" name="room_id" value="">
     @endif
     <div class="col-8">
         <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
-            <li class="nav-item">
-                <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_woman">Kadın</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_man">Erkek</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_unisex">Unisex</a>
-            </li>
+            @if($business->type_id == 1)
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_woman">Kadın</a>
+                </li>
+            @endif
+            @if($business->type_id == 2)
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_man">Erkek</a>
+                    </li>
+            @endif
+            @if($business->type_id == 3)
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_woman">Kadın</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_man">Erkek</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_unisex">Unisex</a>
+                    </li>
+            @endif
+
+
         </ul>
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="kt_tab_pane_woman" role="tabpanel">
+            <div class="tab-pane fade @if($business->type_id == 1 || $business->type_id == 3) show active @endif" id="kt_tab_pane_woman" role="tabpanel">
                 <!--begin::Accordion-->
                 @foreach($womanServices as $service)
                     <div class="accordion accordion-icon-collapse" id="kt_accordion_service_woman_{{$service["id"]}}">
@@ -103,7 +119,7 @@
 
                 <!--end::Accordion-->
             </div>
-            <div class="tab-pane fade" id="kt_tab_pane_man" role="tabpanel">
+            <div class="tab-pane fade @if($business->type_id == 2) show active @endif" id="kt_tab_pane_man" role="tabpanel">
                 @foreach($manServices as $service)
                     <div class="accordion accordion-icon-collapse" id="kt_accordion_service_man_{{$service["id"]}}">
                         <!--begin::Item-->

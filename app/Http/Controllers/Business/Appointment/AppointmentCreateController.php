@@ -50,7 +50,7 @@ class AppointmentCreateController extends Controller
         $unisexServices = $this->transformServices($unisexServiceCategories);
 
         $rooms = $business->activeRooms;
-        return view('business.appointment-create.index', compact('rooms','womanServices', 'manServices', 'unisexServices'));
+        return view('business.appointment-create.index', compact('rooms','womanServices', 'manServices', 'unisexServices', 'business'));
     }
 
     /**
