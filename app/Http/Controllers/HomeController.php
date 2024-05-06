@@ -214,32 +214,21 @@ class HomeController extends Controller
         $contactSearch = BusinessContact::where('ip_address', $request->ip())->latest()->first();
 
         if (isset($contactSearch)){
-            if ($contactSearch->created_at < Carbon::now()->subMinutes(5)){
+            if (Carbon::now()->subMinutes(5) < $contactSearch->created_at){
                 return to_route('contact')->with('response', [
                     'status' => "warning",
                     'message' => "Yeni Bir İletişim Mesajı Göndermeden Önce 5 Dk beklemelisiniz"
                 ]);
+            } else{
+                $this->createContact($request);
+                return to_route('contact')->with('response', [
+                    'status' => "success",
+                    'message' => "İletişim Mesajı Gönderildi"
+                ]);
             }
         } else {
-            $contact = new BusinessContact();
-            $contact->name = $request->input('name');
-            $contact->surname = $request->input('surname');
-            $contact->email = $request->input('email');
-            $contact->phone = $request->input('phone');
-            $contact->subject = $request->input('subject');
-            $contact->content = $request->input('content');
-            $contact->ip_address = $request->ip();
-            $contact->save();
+            $this->createContact($request);
 
-            $message = "";
-            $message .= "<b> AD: ".$contact->name."</b> <br>";
-            $message .= "<b> SOYAD: ".$contact->surname."</b> <br>";
-            $message .= "<b> EMAİL: ".$contact->email."</b> <br>";
-            $message .= "<b> TELEFON: ".$contact->phone."</b> <br>";
-            $message .= "<b> KONU: ".$contact->subject."</b> <br>";
-            $message .= "<b> MESAJ: ".$contact->content."</b> <br>";
-            $message .= "<b> IP Adresi: ".$contact->ip_address."</b> <br>";
-            $this->sendMessage($message);
             return to_route('contact')->with('response', [
                 'status' => "success",
                 'message' => "İletişim Mesajı Gönderildi"
@@ -247,6 +236,28 @@ class HomeController extends Controller
         }
     }
 
+    public function createContact($request)
+    {
+        $contact = new BusinessContact();
+        $contact->name = $request->input('name');
+        $contact->surname = $request->input('surname');
+        $contact->email = $request->input('email');
+        $contact->phone = $request->input('phone');
+        $contact->subject = $request->input('subject');
+        $contact->content = $request->input('content');
+        $contact->ip_address = $request->ip();
+        $contact->save();
+
+        $message = "";
+        $message .= "<b> AD: ".$contact->name."</b> <br>";
+        $message .= "<b> SOYAD: ".$contact->surname."</b> <br>";
+        $message .= "<b> EMAİL: ".$contact->email."</b> <br>";
+        $message .= "<b> TELEFON: ".$contact->phone."</b> <br>";
+        $message .= "<b> KONU: ".$contact->subject."</b> <br>";
+        $message .= "<b> MESAJ: ".$contact->content."</b> <br>";
+        $message .= "<b> IP Adresi: ".$contact->ip_address."</b> <br>";
+        $this->sendMessage($message);
+    }
     public function sendMessage($message)
     {
         $mailAdresses = ["destek@hizliappy.com", "hizliappy@gmail.com"];
