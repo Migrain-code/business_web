@@ -163,6 +163,36 @@ class BusinessBrancheController extends Controller
         return Business::where('slug', $businessName)->exists();
     }
 
+    public function copyBranche(Business $branche)
+    {
+        $newBusiness = $branche->replicate();
+        $newBusiness->name .= " Kopya";
+        $newBusiness->branch_name = $newBusiness->name;
+        $newBusiness->slug = Str::slug($newBusiness->name);
+        $newBusiness->is_main = 0;
+        $newBusiness->admin_id = null;
+        if ($newBusiness->save()){
+            foreach ($branche->services as $service) {
+                $newService = $service->replicate();
+                $newService->business_id = $newBusiness->id;
+                $newService->save();
+            }
+            foreach ($branche->products as $product) {
+                $newProduct = $product->replicate();
+                $newProduct->business_id = $newBusiness->id;
+                $newProduct->save();
+            }
+            if (isset($branche->promossions)){
+                $newPromossion = $branche->promossions->replicate();
+                $newPromossion->business_id = $newBusiness->id;
+                $newPromossion->save();
+            }
+            return response()->json([
+                'status' => "success",
+                'message' => "Şube Kopyalandı"
+            ]);
+        }
+    }
     public function datatable()
     {
         $branches = Business::where('id','<>', $this->business->id)->where("company_id", $this->business->company_id)->get();
@@ -192,6 +222,7 @@ class BusinessBrancheController extends Controller
             })
             ->addColumn('action', function ($q) {
                 $html = "";
+                $html .= create_copy_button($q->id);
                 $html .= create_swap_button(route('business.branche.edit', $q->id));
                 $html .= create_edit_button(route('business.branche.show', $q->id));
                 //$html .= create_delete_button('Business', $q->id, 'Şube', 'Şube Kaydını Silmek İstediğinize Eminmisiniz? Kayıt Sadece İşletmenizden Silinecektir');

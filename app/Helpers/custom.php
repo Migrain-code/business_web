@@ -136,6 +136,14 @@ function create_swap_button($route, $additional_class = null)
         ->data('bs-toggle', 'tooltip')
         ->attribute('title','İşletmenizin adı.');
 }
+function create_copy_button($id, $additional_class = null)
+{
+    return html()->a('javascript:void(0)', html()->i('')->class('fa fa-copy'))
+        ->class('btn btn-info btn-sm me-1 copyBranche' . $additional_class)
+        ->data('bs-toggle', 'tooltip')
+        ->attribute('title','Şube Kopyala')
+        ->data('object-id', $id);
+}
 function create_info_button($content = null, $additional_class = null)
 {
     return html()->a('#', html()->i('')->class('fa fa-question-circle'))->class('btn btn-warning btn-sm me-1 ' . $additional_class);

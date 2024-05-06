@@ -102,5 +102,60 @@
             {data: 'action'}
         ];
     </script>
+    <script>
+        $(document).on('click', '.copyBranche', function () {
+            let id = $(this).data('object-id')
 
+            Swal.fire({
+                title: 'Şubeyi Kopyalamak İstediğinize Eminmisiniz',
+                html: 'Şubeyi kopyaladığınızda. Şubenin: <ul style="margin-top: 10px;margin-bottom: 10px;">' +
+                    '<li>Genel Bilgileri</li>' +
+                    '<li>Ürünleri</li>' +
+                    '<li>Promosyon Bilgileri</li>' +
+                    '<li>Randevu Ayarları</li>' +
+                    '</ul> Yeni Şubeye Aktarılır.' ,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                cancelButtonText: "Hayır, İptal Et",
+                confirmButtonText: "Evet, Kopyala!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        url: '/isletme/branche/'+id+'/copy',
+                        type: "POST",
+                        data: {
+                            "_token": csrf_token,
+                        },
+                        dataType: "JSON",
+                        success: function (res) {
+                            if (res.status == "success"){
+                                Swal.fire({
+                                    title:  res.message,
+                                    icon: res.status,
+                                    confirmButtonText: 'Tamam'
+                                })
+                                if ($('#datatable').length > 0 && $.fn.DataTable.isDataTable('#datatable')) {
+                                    $('#datatable').DataTable().ajax.reload();
+                                }
+                            }
+                            else {
+                                Swal.fire({
+                                    title: "Uyarı",
+                                    icon: res.status,
+                                    text: res.message,
+                                    confirmButtonText: 'Tamam'
+                                })
+                            }
+
+                        }
+                    });
+                }
+            });
+
+        });
+
+    </script>
 @endsection

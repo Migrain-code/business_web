@@ -209,6 +209,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
 
         /* -------------------- Şubeler --------------------------*/
         Route::resource('branche', BusinessBrancheController::class);
+        Route::post('/branche/{branche}/copy', [BusinessBrancheController::class, 'copyBranche']);
 
         /* -------------------- Yetkililer --------------------------*/
         Route::resource('business-official', BusinessOfficialController::class);
