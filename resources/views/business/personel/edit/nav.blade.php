@@ -10,7 +10,7 @@
             <!--end::Image-->
 
             <!--begin::Wrapper-->
-            <div class="flex-grow-1">
+            <div class="flex-grow-1 mt-5">
                 <!--begin::Head-->
                 <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
                     <!--begin::Details-->

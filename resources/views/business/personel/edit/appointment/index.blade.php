@@ -144,12 +144,12 @@
                             <!--end::Date=-->
                             <!--begin::order=-->
                             <td>
-                                <a href="../sales/details.html" class="text-gray-600 text-hover-primary mb-1">#{{$appointment->appointment_id}}</a>
+                                <a href="{{route('business.appointment.show', $appointment->appointment->id)}}" class="text-gray-600 text-hover-primary mb-1">#{{$appointment->appointment_id}}</a>
                             </td>
                             <!--end::order=-->
                             <!--begin::Business=-->
                             <td>
-                                <a href="../sales/details.html" class="text-gray-600 text-hover-primary mb-1">#{{$appointment->appointment->business->name}}</a>
+                                <a href="{{route('business.appointment.show', $appointment->appointment->id)}}" class="text-gray-600 text-hover-primary mb-1">#{{$appointment->appointment->business->name}}</a>
                             </td>
                             <!--end::Business=-->
                             <!--begin::Status=-->
@@ -168,14 +168,7 @@
 
                         </tr>
                     @empty
-                        <tr>
-                            <td colspan="5">
-                                @include('business.layouts.components.alerts.empty-alert')
-                            </td>
-                        </tr>
-                        <!--begin::Alert-->
 
-                        <!--end::Alert-->
                     @endforelse
                     </tbody>
                     <!--end::Table body-->
