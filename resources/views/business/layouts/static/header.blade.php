@@ -57,7 +57,6 @@
                                      <!--end::Page title-->
                                      <!--begin::Actions-->
                                      <div class="d-flex align-items-center gap-2 gap-lg-3">
-
                                          <a href="#" class="btn fw-bold btn-primary d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" title="Salona Git">
                                              <span id="goSalon">Salona Git</span>
 
@@ -68,7 +67,7 @@
                                              <!--end::Svg Icon-->
                                          </a>
                                          <!--end::Primary button-->
-
+                                         @yield('toolbar')
                                      </div>
                                      <!--end::Actions-->
                                  </div>

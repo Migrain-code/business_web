@@ -1,5 +1,5 @@
 @extends('business.layouts.master')
-@section('title', 'Dashboard')
+@section('title', 'Gösterge Paneli')
 @section('content')
     <!--begin::Content-->
     <div id="kt_app_content" class="app-content ">
