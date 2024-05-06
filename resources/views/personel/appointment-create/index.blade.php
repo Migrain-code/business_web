@@ -2,16 +2,12 @@
 @section('title', 'Randevu Oluştur')
 @section('styles')
     <style>
-        /*
-            #tabMenus .nav-line-tabs .nav-item .nav-link {
+
+        #tabMenus .nav-line-tabs .nav-item .nav-link {
             margin-left: 0;
-            font-size: 20px;
+            font-size: 15px;
             font-weight: 700;
-            padding: 15px;
-            min-width: 150px;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.49);
-            background-color: rgba(80, 205, 137, 0.36);
+            padding: 5px;
         }
         #tabMenus .nav-line-tabs .nav-item .nav-link.active, .nav-line-tabs .nav-item .nav-link:hover:not(.disabled), .nav-line-tabs .nav-item.show .nav-link {
             background-color: transparent;
@@ -20,10 +16,9 @@
             transition: color .2s ease;
             background: var(--bs-primary);
             color: white;
-            padding: 15px;
+            padding: 5px;
         }
 
-        */
         input[type="radio"]:disabled + label {
             border-color: red !important; /* Kırmızı bir çizgi için */
             background-color: rgba(255, 0, 0, 0.1) !important; /* Kırmızı arka plan için */
@@ -41,7 +36,7 @@
 @section('breadcrumbs')
     <!--begin::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-        <a href="{{route('personel.home')}}"> Gösterge Paneli </a>
+        <a href="{{route('business.home')}}"> Gösterge Paneli </a>
     </li>
     <!--end::Item-->
     <li class="breadcrumb-item">
@@ -58,179 +53,59 @@
 
     <div id="kt_app_content" class="app-content ">
         <!--begin::Stepper-->
-        <div class="card stepper stepper-pills w-100" id="kt_stepper_example_basic"
-             style="border-radius: 40px;padding: 30px;">
-            <!--begin::Nav-->
-            <div class="stepper-nav flex-center flex-wrap mb-10 w-100">
-                <!--begin::Step 1-->
-                <div class="stepper-item mx-8 my-4 current" data-kt-stepper-element="nav">
-                    <!--begin::Wrapper-->
-                    <div class="stepper-wrapper d-flex align-items-center">
-                        <!--begin::Icon-->
-                        <div class="stepper-icon w-40px h-40px">
-                            <i class="stepper-check fas fa-check"></i>
-                            <span class="stepper-number">1</span>
+        <div class="card stepper stepper-pills w-100 ms-auto" id="kt_stepper_example_basic" style="border-radius: 40px;padding: 30px;">
+            <div class="row">
+                <div class="col-lg-3 col-12">
+                    <!--begin::Nav-->
+                    @include('business.appointment-create.steps.nav')
+                    <!--end::Nav-->
+                </div>
+                <div class="col-lg-8 col-12">
+                    <!--begin::Form-->
+                    <form class="form w-lg-650px mx-auto" method="post" action="{{route('personel.appointmentCreate.store')}}" novalidate="novalidate" id="kt_stepper_example_basic_form">
+                        <!--begin::Group-->
+                        @csrf
+                        <div class="mb-5">
+                            @include('business.appointment-create.steps.step-1')
+                            @include('business.appointment-create.steps.step-2')
+                            @include('business.appointment-create.steps.step-3')
+                            @include('business.appointment-create.steps.step-4')
                         </div>
-                        <!--end::Icon-->
+                        <!--end::Group-->
 
-                        <!--begin::Label-->
-                        <div class="stepper-label">
-                            <h3 class="stepper-title">
-                                1. Adım
-                            </h3>
-
-                            <div class="stepper-desc">
-                                Hizmet Seçimi
+                        <!--begin::Actions-->
+                        <div class="d-flex flex-stack">
+                            <!--begin::Wrapper-->
+                            <div class="me-2">
+                                <button type="button" class="btn btn-light btn-active-light-primary" data-kt-stepper-action="previous">
+                                    Önceki
+                                </button>
                             </div>
-                        </div>
-                        <!--end::Label-->
-                    </div>
-                    <!--end::Wrapper-->
+                            <!--end::Wrapper-->
 
-                    <!--begin::Line-->
-                    <div class="stepper-line h-40px"></div>
-                    <!--end::Line-->
-                </div>
-                <!--end::Step 1-->
-
-                <!--begin::Step 2-->
-                <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
-                    <!--begin::Wrapper-->
-                    <div class="stepper-wrapper d-flex align-items-center">
-                        <!--begin::Icon-->
-                        <div class="stepper-icon w-40px h-40px">
-                            <i class="stepper-check fas fa-check"></i>
-                            <span class="stepper-number">2</span>
-                        </div>
-                        <!--begin::Icon-->
-
-                        <!--begin::Label-->
-                        <div class="stepper-label">
-                            <h3 class="stepper-title">
-                                2. Adım
-                            </h3>
-
-                            <div class="stepper-desc">
-                                Personel Seçimi
-                            </div>
-                        </div>
-                        <!--end::Label-->
-                    </div>
-                    <!--end::Wrapper-->
-
-                    <!--begin::Line-->
-                    <div class="stepper-line h-40px"></div>
-                    <!--end::Line-->
-                </div>
-                <!--end::Step 2-->
-
-                <!--begin::Step 3-->
-                <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
-                    <!--begin::Wrapper-->
-                    <div class="stepper-wrapper d-flex align-items-center">
-                        <!--begin::Icon-->
-                        <div class="stepper-icon w-40px h-40px">
-                            <i class="stepper-check fas fa-check"></i>
-                            <span class="stepper-number">3</span>
-                        </div>
-                        <!--begin::Icon-->
-
-                        <!--begin::Label-->
-                        <div class="stepper-label">
-                            <h3 class="stepper-title">
-                                3.Adım
-                            </h3>
-
-                            <div class="stepper-desc">
-                                Saat Seçimi
-                            </div>
-                        </div>
-                        <!--end::Label-->
-                    </div>
-                    <!--end::Wrapper-->
-
-                    <!--begin::Line-->
-                    <div class="stepper-line h-40px"></div>
-                    <!--end::Line-->
-                </div>
-                <!--end::Step 3-->
-
-                <!--begin::Step 4-->
-                <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
-                    <!--begin::Wrapper-->
-                    <div class="stepper-wrapper d-flex align-items-center">
-                        <!--begin::Icon-->
-                        <div class="stepper-icon w-40px h-40px">
-                            <i class="stepper-check fas fa-check"></i>
-                            <span class="stepper-number">4</span>
-                        </div>
-                        <!--begin::Icon-->
-
-                        <!--begin::Label-->
-                        <div class="stepper-label">
-                            <h3 class="stepper-title">
-                                4.Adım
-                            </h3>
-
-                            <div class="stepper-desc">
-                                Müşteri Seçimi
-                            </div>
-                        </div>
-                        <!--end::Label-->
-                    </div>
-                    <!--end::Wrapper-->
-
-                    <!--begin::Line-->
-                    <div class="stepper-line h-40px"></div>
-                    <!--end::Line-->
-                </div>
-                <!--end::Step 4-->
-
-            </div>
-            <!--end::Nav-->
-
-            <!--begin::Form-->
-            <form class="form w-lg-650px mx-auto" method="post" action="{{route('personel.appointmentCreate.store')}}" novalidate="novalidate" id="kt_stepper_example_basic_form">
-                <!--begin::Group-->
-                @csrf
-                <div class="mb-5">
-                    @include('personel.appointment-create.steps.step-1')
-                    @include('personel.appointment-create.steps.step-2')
-                    @include('personel.appointment-create.steps.step-3')
-                    @include('personel.appointment-create.steps.step-4')
-                </div>
-                <!--end::Group-->
-
-                <!--begin::Actions-->
-                <div class="d-flex flex-stack">
-                    <!--begin::Wrapper-->
-                    <div class="me-2">
-                        <button type="button" class="btn btn-light btn-active-light-primary" data-kt-stepper-action="previous">
-                            Önceki
-                        </button>
-                    </div>
-                    <!--end::Wrapper-->
-
-                    <!--begin::Wrapper-->
-                    <div>
-                        <button type="button" class="btn btn-primary" data-kt-stepper-action="submit">
+                            <!--begin::Wrapper-->
+                            <div>
+                                <button type="button" class="btn btn-primary" data-kt-stepper-action="submit">
                             <span class="indicator-label">
                                 Oluştur
                             </span>
-                            <span class="indicator-progress">
+                                    <span class="indicator-progress">
                         Lütfen Bekleyin... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                     </span>
-                        </button>
+                                </button>
 
-                        <button type="button" class="btn btn-primary" data-kt-stepper-action="next">
-                            Sonraki
-                        </button>
-                    </div>
-                    <!--end::Wrapper-->
+                                <button type="button" class="btn btn-primary" data-kt-stepper-action="next">
+                                    Sonraki
+                                </button>
+                            </div>
+                            <!--end::Wrapper-->
+                        </div>
+                        <!--end::Actions-->
+                    </form>
+                    <!--end::Form-->
                 </div>
-                <!--end::Actions-->
-            </form>
-            <!--end::Form-->
+            </div>
+
         </div>
         <!--end::Stepper-->
 
@@ -339,10 +214,7 @@
                                                 <span class="path2"></span>
                                                 <span class="path3"></span>
                                             </i>
-                                            <i class="ki-duotone ki-minus-square fs-1 accordion-icon-on">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
+
                                         </span>
                                             <h3 class="fs-2 fw-semibold mb-0 ms-4">${item.title}</h3>
                                         </div>
@@ -444,6 +316,8 @@
                     personelValues.push(input.value);
                 }
             });
+            var selectedRoomId  = $('input[name="room_id"]:checked').val();
+
                 var clocks = "";
                 $.ajax({
                     url: '/personel/appointment-create/get/clock',
@@ -451,7 +325,8 @@
                     data: {
                         '_token' : csrf_token,
                         'personelIds' : personelValues,
-                        'date': clickedDate
+                        'date': clickedDate,
+                        'room_id': selectedRoomId,
                     },
                     dataType: "JSON",
                     success: function (res) {
@@ -474,7 +349,7 @@
                             var counter = 0;
                             $.each(res, function(index, item){
                                 clocks += `
-                            <div class="col-3">
+                            <div class="col-lg-3 col-4">
                                 <input type="radio" class="btn-check" name="clock" value="${item.value}"  id="kt_radio_buttons_2_option_${item.value}" ${item.durum === false ? 'disabled' : ""}/>
                                 <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-4 d-flex align-items-center mb-5" style="border-radius: 15px !important;" for="kt_radio_buttons_2_option_${item.value}">
                                 <span class="d-block fw-semibold text-start">

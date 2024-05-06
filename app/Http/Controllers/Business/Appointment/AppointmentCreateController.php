@@ -436,7 +436,7 @@ class AppointmentCreateController extends Controller
         if ($appointment->save()) {
             return to_route('business.appointment.index')->with('response',[
                 'status' => "success",
-                'message' => "Randevunuz başarılı bir şekilde oluşturuldu oluşturuldu",
+                'message' => "Randevunuz başarılı bir şekilde oluşturuldu",
             ]);
         }
 

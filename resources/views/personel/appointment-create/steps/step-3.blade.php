@@ -1,8 +1,8 @@
-<!--begin::Step 3-->
+
 <div class="flex-column" data-kt-stepper-element="content">
     <div class="card card-flush mb-6 mb-xl-9">
         <!--begin::Card header-->
-        <div class="card-header mt-6">
+        <div class="card-header">
             <!--begin::Card title-->
             <div class="card-title flex-column">
                 <h2 class="mb-1">Randevu Takvimi</h2>
@@ -17,7 +17,7 @@
         <!--begin::Card body-->
         <div class="card-body p-9 pt-4">
             <!--begin::Dates-->
-            <ul class="nav nav-pills d-flex flex-nowrap hover-scroll-x py-2" id="dateContainer">
+            <ul class="nav nav-pills d-flex flex-nowrap hover-scroll-x py-2 mb-2" id="dateContainer">
 
 
             </ul>
@@ -29,7 +29,7 @@
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
-                <div class="row" id="clockContainer">
+                <div class="row scroll-y h-300px" id="clockContainer">
 
                 </div>
             </div>

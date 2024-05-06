@@ -22,6 +22,7 @@ Route::prefix('personel')->as('personel.')->group(function (){
         Route::get('/appointment/{appointment}/detay', [\App\Http\Controllers\Personel\HomeController::class, 'appointmentDetail'])->name('appointment.detail');
         Route::post('appointment/{appointment}/service', [\App\Http\Controllers\Personel\Appointment\AppointmentServicesController::class,'store'])->name('appointment.service.add');
         Route::delete('appointmentServices/{appointmentServices}', [\App\Http\Controllers\Personel\Appointment\AppointmentServicesController::class,'destroy'])->name('appointment.service.destroy');
+
         Route::prefix('appointment-create')->as('appointmentCreate.')->controller(\App\Http\Controllers\Personel\Appointment\AppointmentCreateController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('get/services', 'getService');
@@ -32,6 +33,7 @@ Route::prefix('personel')->as('personel.')->group(function (){
             Route::post('/store', 'appointmentCreate')->name('store');
             Route::post('/summary', 'summary');
         });
+
         /* -------------------- Personel İzin Günleri --------------------------*/
         Route::resource('personel-stay-off-day', \App\Http\Controllers\Personel\StayOffDay\PersonelStayOffDayController::class);
         Route::resource('payment', \App\Http\Controllers\Personel\PersonelCostController::class);
