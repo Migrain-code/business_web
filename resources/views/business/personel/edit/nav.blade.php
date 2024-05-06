@@ -4,7 +4,7 @@
         <!--begin::Details-->
         <div class="d-flex flex-wrap flex-sm-nowrap mb-6 justify-content-center">
             <!--begin::Image-->
-            <div class="d-flex flex-center flex-shrink-0 bg-light rounded w-100px h-100px w-lg-150px h-lg-150px me-7 mb-4">
+            <div class="d-flex flex-center flex-shrink-0 rounded w-100px h-100px w-lg-150px h-lg-150px me-7 mb-4">
                 <img class="rounded-circle"  style="width: 150px;height: 150px;object-fit: contain;" src="{{image($personel->image)}}" alt="image">
             </div>
             <!--end::Image-->
