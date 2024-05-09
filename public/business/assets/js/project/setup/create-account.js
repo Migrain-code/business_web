@@ -146,6 +146,7 @@ var KTCreateAccount = function() {
         formData.append("latitude", $('[name= "latitude"]').val());
         formData.append("longitude", $('[name= "longitude"]').val());
         formData.append("address", $('[name= "address"]').val());
+        formData.append("embed", $('[name= "emebed"]').val());
         $.ajax({
             url: '/isletme/setup/step-3',
             type: "POST",

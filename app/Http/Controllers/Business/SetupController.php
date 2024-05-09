@@ -77,6 +77,7 @@ class SetupController extends Controller
         $business->lat = $request->input('latitude');
         $business->longitude = $request->input('longitude');
         $business->address = $request->input('address');
+        $business->embed = $request->input('embed');
 
         if ($business->save()){
             return response()->json([

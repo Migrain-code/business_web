@@ -52,7 +52,7 @@
             </label>
 
             <textarea class="form-control" name="address" id="address" rows="6">{{$business->address}}</textarea>
-
+            <input type="hidden" id="embed" name="embed" value="{{$business->embed}}">
         </div>
     </div>
 
