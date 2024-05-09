@@ -27,7 +27,7 @@ class DetailSetupStep2UpdateRequest extends FormRequest
     {
         return [
             'business_name' => 'required',
-            'business_phone' => 'required',
+            'business_phone' => 'nullable',
             'off_day_id' => 'required',
             'start_time' => 'required',
             'end_time' => 'required',
@@ -40,7 +40,7 @@ class DetailSetupStep2UpdateRequest extends FormRequest
     {
         return [
             'business_name' => 'İşletme Adı',
-            'business_phone' => 'İşletme Telefon Numarası',
+            'business_phone' => 'Instagram Kullanıcı Adı',
             'off_day_id' => 'Kapalı Olduğu Gün',
             'start_time' => 'Mesai Başlangıç Saati',
             'end_time' => 'Mesai Bitiş Saati',
