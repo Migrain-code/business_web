@@ -194,7 +194,17 @@ function create_switch($id, $checked, $model, $colum = 'is_active'): \Spatie\Htm
 
     return html()->div($input)->class('form-check form-switch');
 }
+function create_custom_route_switch($id, $checked, $model, $column, $route): \Spatie\Html\BaseElement|\Spatie\Html\Elements\Div
+{
+    $input = html()->input('checkbox', 'featured', $id)
+        ->checked($checked)
+        ->class('form-check-input custom-ajax-switch')
+        ->attribute('data-model', 'App\Models\\' . str_replace('App\Models\\', '', $model))
+        ->attribute('data-route', $route)
+        ->attribute('data-column', $column);
 
+    return html()->div($input)->class('form-check form-switch');
+}
 function formatPrice($price)
 {
     return number_format($price, 2) . ' ₺';

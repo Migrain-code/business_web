@@ -82,7 +82,7 @@
             <div class="col-6">
                 <div class="mb-10 fv-row">
                     <!--begin::Label-->
-                    <label class="form-label mb-3">Instagram Kullanıcı Adı
+                    <label class="form-label mb-3">Instagram Adı
                         <span class="ms-1" data-bs-toggle="tooltip" title="İşletmenizin Instagram Kullanıcı Adı">
                             <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
                                 <span class="path1"></span>

@@ -155,8 +155,7 @@
             <div class="container">
                 <div class="sss-page">
                     <div class="row">
-                        <div class="col-4 col-lg-3"></div>
-                        <div class="col-8 col-lg-9">
+                        <div class="col-12">
                             <div class="hero">
                                 <h2>
                                     <span>Sıkça Sorulan Sorular</span> <br />

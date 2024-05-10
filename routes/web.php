@@ -40,6 +40,7 @@ use \App\Http\Controllers\Business\Auth\VerificationController;
 use \App\Http\Controllers\Business\Auth\ForgotPasswordController;
 use \App\Http\Controllers\Business\SetupController;
 use \App\Http\Controllers\DetailSetupController;
+use \App\Http\Controllers\AppointmentRequestFormController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -89,6 +90,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
     Route::middleware(['auth:official', 'setup'])->group(function () {
 
         Route::get('/home', [\App\Http\Controllers\Business\HomeController::class, 'index'])->name('home');
+
         /*-----------------------  Setup  ------------------------*/
         Route::prefix('setup')->as('setup.')->group(function (){
             Route::get('/step-1', [SetupController::class, 'step1'])->name('step1');
@@ -241,6 +243,9 @@ Route::prefix('isletme')->as('business.')->group(function (){
 
         /* -------------------- Personel İzin Günleri --------------------------*/
         Route::resource('personel-stay-off-day', PersonelStayOffDayController::class);
+
+        /* -------------------- Fiyat Al Formu--------------------------*/
+        Route::resource('request-form', AppointmentRequestFormController::class);
 
         /* -------------------- Abonelik Özeti --------------------------*/
         Route::get('abonelik', [SubscribtionController::class, 'index'])->name('subscription.index');

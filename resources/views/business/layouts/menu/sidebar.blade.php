@@ -83,6 +83,7 @@
                             <!--end:Menu link-->
                         </div>
                         <!--end:Menu item-->
+
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
@@ -91,6 +92,18 @@
 														<span class="bullet bullet-dot"></span>
 													</span>
                                 <span class="menu-title">Personel Oluştur</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link @if(request()->routeIs('business.appointmentCreate.index')) active @endif" href="{{route('business.appointmentCreate.index')}}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Talep Formu Oluştur</span>
                             </a>
                             <!--end:Menu link-->
                         </div>

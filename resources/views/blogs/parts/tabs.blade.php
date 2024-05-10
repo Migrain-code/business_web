@@ -9,7 +9,7 @@
         >
             <div class="blogList">
                 <div class="row">
-                    @foreach($blogCategorie->blogs()->where('status', 1)->get() as $blog)
+                    @foreach($blogCategorie->blogs()->where('status', 1)->paginate(8) as $blog)
 
                     <div class="col-lg-3">
 
@@ -24,7 +24,11 @@
                     </div>
                     @endforeach
                 </div>
+                <div class="d-flex justify-content-center">
+                    {!! $blogCategorie->blogs()->where('status', 1)->paginate(8)->links() !!}
+                </div>
             </div>
+
         </div>
     @endforeach
 

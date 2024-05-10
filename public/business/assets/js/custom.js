@@ -177,3 +177,4 @@ $(document).on('change', '.ajax-switch', function () {
         }
     });
 })
+

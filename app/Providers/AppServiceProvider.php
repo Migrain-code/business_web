@@ -9,6 +9,7 @@ use App\Models\Page;
 use App\Models\RecommendedLink;
 use App\Models\Setting;
 use App\Models\Stat;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -54,6 +55,6 @@ class AppServiceProvider extends ServiceProvider
 
         $loginImages = Ads::whereStatus(1)->where('type', 6)->get();
         View::share('loginImages', $loginImages);
-
+        Paginator::useBootstrapFour();
     }
 }

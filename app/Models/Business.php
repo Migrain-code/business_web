@@ -188,6 +188,10 @@ class Business extends Model
     {
         return $this->hasMany(BusinessCost::class, 'business_id', 'id');
     }
+    public function forms()
+    {
+        return $this->hasMany(AppointmentRequestForm::class, 'business_id', 'id');
+    }
     public function service()
     {
         return $this->hasMany(BusinessService::class, 'business_id', 'id');
