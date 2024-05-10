@@ -556,7 +556,7 @@
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-                                <span class="menu-title">İzinler</span>
+                                <span class="menu-title">Yıllık İzinler</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
