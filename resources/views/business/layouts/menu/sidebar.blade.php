@@ -751,21 +751,26 @@
                 <!--begin:Menu item-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('business.gallery.index')}}">
+                    <a class="menu-link" href="{{route('business.appointment-request.index')}}">
                         <span class="menu-icon">
-                           <i class="ki-duotone ki-picture fs-3">
+                           <i class="ki-duotone ki-flash-circle fs-3">
                              <span class="path1"></span>
                              <span class="path2"></span>
                            </i>
+
                         </span>
-                        <span class="menu-title">Randevu Talepleri</span>
+                        <span class="menu-title">Randevu Talepleri
+                            <span class="badge badge-danger w-25px h-25px text-center ms-2 rounded-circle d-flex justify-content-center">
+                                {{authUser()->business->newRequests->count()}}
+                            </span>
+                        </span>
                     </a>
                     <!--end:Menu link-->
 
                     <!--begin:Menu link-->
                     <a class="menu-link" href="{{route('business.request-form.index')}}">
                         <span class="menu-icon">
-                            <i class="ki-duotone ki-faceid fs-3">
+                            <i class="ki-duotone ki-subtitle fs-3">
                                  <span class="path1"></span>
                                  <span class="path2"></span>
                                  <span class="path3"></span>

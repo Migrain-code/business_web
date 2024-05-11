@@ -196,7 +196,16 @@ class Business extends Model
     {
         return $this->hasMany(BusinessService::class, 'business_id', 'id');
     }
+    public function requests()
+    {
+        return $this->hasMany(BusinessAppointmentRequest::class, 'business_id', 'id')->latest();
+    }
 
+    public function newRequests()
+    {
+        //son 3 gün içindeki aranamamış talepleri alır
+        return $this->requests()->whereStatus(0)->whereBetween('created_at', [now()->subDays(3), now()]);
+    }
     public function gallery()
     {
         return $this->hasMany(BusinessGallery::class, 'business_id', 'id');

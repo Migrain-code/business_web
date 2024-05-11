@@ -41,6 +41,7 @@ use \App\Http\Controllers\Business\Auth\ForgotPasswordController;
 use \App\Http\Controllers\Business\SetupController;
 use \App\Http\Controllers\DetailSetupController;
 use \App\Http\Controllers\AppointmentRequestFormController;
+use App\Http\Controllers\Business\Form\BusinessAppointmentRequestController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -247,6 +248,9 @@ Route::prefix('isletme')->as('business.')->group(function (){
         /* -------------------- Fiyat Al Formu--------------------------*/
         Route::resource('request-form', AppointmentRequestFormController::class);
         Route::post('/request-form/question/{requestForm}/update', [AppointmentRequestFormController::class, 'updateQuestion'])->name('requestForm.updateQuestion');
+
+        /* -------------------- Fiyat Al Talepleri --------------------------*/
+        Route::resource('appointment-request', BusinessAppointmentRequestController::class);
 
         /* -------------------- Abonelik Özeti --------------------------*/
         Route::get('abonelik', [SubscribtionController::class, 'index'])->name('subscription.index');
