@@ -79,13 +79,14 @@
     <script src="/business/assets/js/project/request-form/details/update-profile.js"></script>
     <script>
         $('.addedServiceBtn').on('click', function(){
-            var activeBox = $(this).find('.activeBox');
+            var activeBox = $(this).closest('.inclusiveBox').find('.activeBox');
+            var checkbox = $(this);
 
-            if (activeBox.length > 0) {
-                // activeBox'un mevcut durumunu al
-                var currentDisplay = activeBox.css("display");
-                // activeBox'un durumunu toggle et (görünürse gizler, gizliyse görünür yapar)
-                activeBox.css("display", (currentDisplay === "block") ? "none" : "block");
+            if (checkbox.is(':checked')) {
+                activeBox.css("display", "block");
+            } else {
+                activeBox.css("display", "none");
+                activeBox.find('.subServiceSelect').val(null).trigger('change');
             }
         });
     </script>

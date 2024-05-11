@@ -738,6 +738,48 @@
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
+
+                <!--begin:Menu item-->
+                <div class="menu-item pt-5">
+                    <!--begin:Menu content-->
+                    <div class="menu-content">
+                        <span class="menu-heading fw-bold text-uppercase fs-7">Talepler</span>
+                    </div>
+                    <!--end:Menu content-->
+                </div>
+                <!--end:Menu item-->
+                <!--begin:Menu item-->
+                <div class="menu-item">
+                    <!--begin:Menu link-->
+                    <a class="menu-link" href="{{route('business.gallery.index')}}">
+                        <span class="menu-icon">
+                           <i class="ki-duotone ki-picture fs-3">
+                             <span class="path1"></span>
+                             <span class="path2"></span>
+                           </i>
+                        </span>
+                        <span class="menu-title">Randevu Talepleri</span>
+                    </a>
+                    <!--end:Menu link-->
+
+                    <!--begin:Menu link-->
+                    <a class="menu-link" href="{{route('business.request-form.index')}}">
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-faceid fs-3">
+                                 <span class="path1"></span>
+                                 <span class="path2"></span>
+                                 <span class="path3"></span>
+                                 <span class="path4"></span>
+                                 <span class="path5"></span>
+                                 <span class="path6"></span>
+                                </i>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title">Talep Formu</span>
+                    </a>
+                    <!--end:Menu link-->
+                </div>
+                <!--end:Menu item-->
                 <!--begin:Menu item-->
                 <div class="menu-item pt-5">
                     <!--begin:Menu content-->

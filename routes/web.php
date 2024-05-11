@@ -246,6 +246,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
 
         /* -------------------- Fiyat Al Formu--------------------------*/
         Route::resource('request-form', AppointmentRequestFormController::class);
+        Route::post('/request-form/question/{requestForm}/update', [AppointmentRequestFormController::class, 'updateQuestion'])->name('requestForm.updateQuestion');
 
         /* -------------------- Abonelik Özeti --------------------------*/
         Route::get('abonelik', [SubscribtionController::class, 'index'])->name('subscription.index');

@@ -1,5 +1,5 @@
 @extends('business.layouts.master')
-@section('title', 'Borçlar')
+@section('title', 'Talep Formlarınız')
 @section('styles')
 
 @endsection

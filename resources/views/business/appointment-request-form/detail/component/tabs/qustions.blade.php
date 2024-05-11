@@ -12,7 +12,8 @@
         <!--begin::Card body-->
         <div class="card-body pt-0 pb-5">
             <!--begin::Form-->
-            <form class="form" action="#" id="kt_ecommerce_customer_profile">
+            <form class="form" method="post" action="{{route('business.requestForm.updateQuestion', $requestForm->id)}}" id="kt_ecommerce_customer_profile">
+                @csrf
                 @foreach($selectedBusinessServices as $businessService)
                     <!--begin::question-->
                     <div class="m-0">
@@ -45,10 +46,10 @@
                         <div id="qustion_{{$businessService->id}}" class="collapse @if($loop->first) show @endif fs-6 ms-1">
                             @foreach($allQuestions as $question)
                                 <!--begin::Text-->
-                                <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10 @if($question->status == 0) addedServiceBtn @endif">
+                                <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10 inclusiveBox">
                                     <div class="d-flex border-0 border-bottom-1 border-dashed border-secondary p-2 mb-2" style="font-size: 15px">
                                         <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                            <input class="form-check-input serviceChecks" name="services[]" type="checkbox" value="1">
+                                            <input class="form-check-input serviceChecks @if($question->status == 0) addedServiceBtn @endif" @if($question->status != 0) name="question_id[]" @endif  type="checkbox" value="{{$businessService->id."_".$question->id}}">
                                         </div>
                                         <span>{{$question->title}}</span>
                                     </div>
@@ -63,10 +64,11 @@
                                                         <!--end::Label-->
 
                                                         <!--begin::Select2-->
-                                                        <select name="sub_service_id[]" id="city_select_{{$businessService->id}}" multiple aria-label="Hizmet Seçiniz" data-control="select2" data-placeholder="Hizmet Seçiniz..."  class="form-select form-select-solid fw-bold">
+                                                        <select name="question_id[]" id="city_select_{{$businessService->id}}" multiple aria-label="Hizmet Seçiniz" data-control="select2" data-placeholder="Hizmet Seçiniz..."
+                                                                class="form-select form-select-solid fw-bold subServiceSelect">
                                                             <option></option>
                                                             @foreach($businessService->service->categorys->subCategories as $subCategory)
-                                                                <option value="{{$subCategory->id}}" >{{$subCategory->getName()}}</option>
+                                                                <option value="{{$businessService->id."_".$question->id. "_".$subCategory->id}}" >{{$subCategory->getName()}}</option>
                                                             @endforeach
                                                         </select>
                                                         <!--end::Select2-->

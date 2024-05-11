@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AppointmentRequestForm;
 use App\Models\AppointmentRequestFormQuestion;
+use App\Models\AppointmentRequestFormQuestionService;
 use App\Models\AppointmentRequestFormService;
 use App\Models\BusinessService;
 use App\Models\RequestQuestion;
@@ -109,6 +110,50 @@ class AppointmentRequestFormController extends Controller
         }
     }
 
+    public function updateQuestion(Request $request, AppointmentRequestForm $requestForm)
+    {
+
+        // Formdan gelen verileri alalım
+        $questionIds = $request->input('question_id');
+
+        foreach ($questionIds as $questionId) {
+            // $questionId'yi parçalayarak hizmet, soru ve alt hizmet bilgilerini alalım
+            $parts = explode("_", $questionId);
+            $serviceId = $parts[0];
+            $questionId = $parts[1];
+            $subServiceId = isset($parts[2]) ? $parts[2] : null;
+
+            $findQuestion = AppointmentRequestFormQuestion::where('appointment_request_form_service_id', $serviceId)
+                ->where('question_id', $questionId)->first();
+            if (!isset($findQuestion)){
+                // appointment_request_form_questions tablosuna kayıt yapalım
+                $question = new AppointmentRequestFormQuestion();
+                $question->appointment_request_form_service_id = $serviceId;
+                $question->question_id = $questionId;
+                $question->save();
+
+                // Alt hizmet varsa appointment_request_form_question_services tablosuna kayıt yapalım
+                if ($subServiceId) {
+                    $questionService = new AppointmentRequestFormQuestionService();
+                    $questionService->appointment_request_form_question_id = $question->id; // Yeni oluşturulan question_id
+                    $questionService->sub_service_id = $subServiceId;
+                    $questionService->save();
+                }
+            } else{
+                if ($subServiceId) {
+                    $questionService = new AppointmentRequestFormQuestionService();
+                    $questionService->appointment_request_form_question_id = $findQuestion->id; // Yeni oluşturulan question_id
+                    $questionService->sub_service_id = $subServiceId;
+                    $questionService->save();
+                }
+            }
+        }
+
+        return to_route('business.request-form.index')->with('response', [
+           'status' => "success",
+           'message' => "Form Bilgileri Güncellendi. Formunuzu Aktif Etmeyi Unutmayınız"
+        ]);
+    }
     public function datatable(Request $request)
     {
         $officials = $this->business->forms;
