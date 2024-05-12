@@ -49,7 +49,7 @@ class BusinessAppointmentRequestController extends Controller
      */
     public function show(BusinessAppointmentRequest $appointmentRequest)
     {
-        return view('business.appointment-request.show.show', compact('appointmentRequest'));
+        //return view('business.appointment-request.show.show', compact('appointmentRequest'));
     }
 
     /**
