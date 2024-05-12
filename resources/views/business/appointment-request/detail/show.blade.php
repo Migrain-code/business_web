@@ -42,14 +42,21 @@
                     <!--begin:::Tab item-->
                     <li class="nav-item">
                         <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
-                           href="#kt_ecommerce_customer_general">Bilgileri</a>
+                           href="#kt_ecommerce_customer_general">Güncelle</a>
+                    </li>
+                    <!--end:::Tab item--><!--begin:::Tab item-->
+                    <li class="nav-item">
+                        <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+                           href="#appointment_request_form">Form Detayı</a>
                     </li>
                     <!--end:::Tab item-->
+
                 </ul>
                 <!--end:::Tabs-->
                 <!--begin:::Tab content-->
                 <div class="tab-content" id="myTabContent">
                     @include('business.appointment-request.detail.component.tabs.edit')
+                    @include('business.appointment-request.detail.component.tabs.qustions')
                     {{--
                         @include('business.branche.detail.component.tabs.overview')
                     --}}
@@ -65,9 +72,22 @@
 
 @section('scripts')
     <script>
-        let updateUrl = "{{route('business.request-form.update', $appointmentRequest->id)}}";
+        let updateUrl = "{{route('business.appointment-request.update', $appointmentRequest->id)}}";
     </script>
 
-    <script src="/business/assets/js/project/request-form/details/update-profile.js"></script>
+    <script src="/business/assets/js/project/appointment-request/details/update-profile.js"></script>
+    <script>
 
+        $('[name="status"]').on('change', function (){
+            let val = $(this).val();
+            var callDateInput = document.getElementById('callDateInput');
+            if (val === "3") {
+                callDateInput.classList.add('d-block');
+                callDateInput.classList.remove('d-none');
+            } else {
+                callDateInput.classList.remove('d-block');
+                callDateInput.classList.add('d-none');
+            }
+        })
+    </script>
 @endsection

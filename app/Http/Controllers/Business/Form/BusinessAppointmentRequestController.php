@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Business\Form;
 
 use App\Http\Controllers\Controller;
 use App\Models\BusinessAppointmentRequest;
+use App\Services\Sms;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -18,6 +19,7 @@ class BusinessAppointmentRequestController extends Controller
             return $next($request);
         });
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -45,9 +47,9 @@ class BusinessAppointmentRequestController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(BusinessAppointmentRequest $businessAppointmentRequest)
+    public function show(BusinessAppointmentRequest $appointmentRequest)
     {
-        //
+        return view('business.appointment-request.show.show', compact('appointmentRequest'));
     }
 
     /**
@@ -61,9 +63,34 @@ class BusinessAppointmentRequestController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, BusinessAppointmentRequest $businessAppointmentRequest)
+    public function update(Request $request, BusinessAppointmentRequest $appointmentRequest)
     {
-        //
+        $appointmentRequest->user_name = $request->input('name');
+        $appointmentRequest->call_date = $request->call_date;
+        $appointmentRequest->status = $request->input('status');
+
+        if ($appointmentRequest->save()) {
+            if ($appointmentRequest->contact_type == 2 && $appointmentRequest->status != 4) {
+                $message = $appointmentRequest->business->name . " İşletmesi Talebinizi Yanıtladı: " . $request->input('answer');
+                if (!isset($appointmentRequest->sms_content)){
+                    Sms::send(clearPhone($appointmentRequest->phone), $message);
+                    $appointmentRequest->status = 4; // sms ile cevaplandı
+                    $appointmentRequest->sms_content = $request->input('answer'); // cevap
+                }
+            } else {
+                if ($appointmentRequest->status == 4) {
+                    return response()->json([
+                        'status' => "warning",
+                        'message' => "Form Bilgileri Güncellendi, Fakat Cevabınızı daha önce ilettiğiniz için sms gönderilmedi"
+                    ]);
+                }
+                //$appointmentRequest->status = $request->input('status');
+            }
+            return response()->json([
+                'status' => "success",
+                'message' => "Talep Bilgileri Güncellendi"
+            ]);
+        }
     }
 
     /**
@@ -82,9 +109,22 @@ class BusinessAppointmentRequestController extends Controller
                 return createCheckbox($q->id, 'BusinessAppointmentRequest', 'Seçtiğiniz borç ile ilgili tüm kayıtlar silinecektir. Bu işlem geri alınamayacaktır. Yetkilileri');
             })
             ->editColumn('status', function ($q) {
-                return create_switch($q->id, $q->status == 1 ? true : false, 'BusinessAppointmentRequest', 'status');
+                return $q->status("html");
+                //return create_switch($q->id, $q->status == 1 ? true : false, 'BusinessAppointmentRequest', 'status');
+            })
+            ->editColumn('phone', function ($q) {
+                $phone = clearPhone($q->phone);
+                if ($q->contact_type == 2) {
+                    $phone = maskPhone($phone);
+                    return $phone;
+                } else {
+                    return createPhone($phone, $phone);
+                }
             })
             ->editColumn('created_at', function ($q) {
+                if (isset($q->call_date)) {
+                    return $q->call_date->format('d.m.Y H:i');
+                }
                 return $q->created_at->format('d.m.Y H:i');
             })
             ->addColumn('action', function ($q) {
@@ -94,7 +134,7 @@ class BusinessAppointmentRequestController extends Controller
 
                 return $html;
             })
-            ->rawColumns(['id', 'action', 'name'])
+            ->rawColumns(['id', 'action', 'status', 'name'])
             ->make(true);
     }
 

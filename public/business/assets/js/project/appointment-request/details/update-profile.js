@@ -16,14 +16,14 @@ var KTEcommerceUpdateProfile = function () {
                     'name': {
                         validators: {
                             notEmpty: {
-                                message: 'Form Adı Alanı Gereklidir'
+                                message: 'Adı Soyadı Alanı Gereklidir'
                             },
                         }
                     },
-                    'service_id[]': {
+                    'status': {
                         validators: {
                             notEmpty: {
-                                message: 'Hizmetler Alanı Gereklidir'
+                                message: 'Durum Alanı Gereklidir'
                             }
                         }
                     },
@@ -61,10 +61,10 @@ var KTEcommerceUpdateProfile = function () {
                             formData.append("_token", csrf_token);
                             formData.append("_method", "PUT");
                             formData.append("name", $('[name="name"]').val());
-                            var selectedOptions = document.getElementById('serviceIds').selectedOptions;
-                            for (var i = 0; i < selectedOptions.length; i++) {
-                                formData.append('service_id[]', selectedOptions[i].value);
-                            }
+                            formData.append("status", $('[name="status"]').val());
+                            formData.append("call_date", $('[name="call_date"]').val());
+                            formData.append("answer", $('[name="answer"]').val());
+
                             $.ajax({
                                 url: updateUrl,
                                 type: "POST",
@@ -86,7 +86,7 @@ var KTEcommerceUpdateProfile = function () {
                                         submitButton.disabled = false;
                                         if (result.isConfirmed) {
                                             if (res.status == "success"){
-                                                window.location.href = "/isletme/request-form";
+                                                window.location.href = "/isletme/appointment-request";
                                             }
                                         }
                                     });

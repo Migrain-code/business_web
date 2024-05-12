@@ -1,108 +1,152 @@
 <!--begin:::Tab pane-->
-<div class="tab-pane fade" id="appointment_request_form_question" role="tabpanel">
+<div class="tab-pane fade" id="appointment_request_form" role="tabpanel">
     <!--begin::Card-->
     <div class="card pt-4 mb-6 mb-xl-9">
         <!--begin::Card header-->
         <div class="card-header border-0">
-            <div class="alert alert-warning"> Burada seçilen hizmete göre soru çıkarılsın mı bu durum seçilecektir.
-                Örneğin Gelin Başı hizmetini seçtiğinizde hangi soruların çıkmasını istiyorsanız o soruları işaretleyiniz
+            <!--begin::Card title-->
+            <div class="card-title">
+                <h2>Form Bilgileri</h2>
             </div>
+            <!--end::Card title-->
         </div>
         <!--end::Card header-->
         <!--begin::Card body-->
         <div class="card-body pt-0 pb-5">
             <!--begin::Form-->
-            <form class="form" method="post" action="{{route('business.requestForm.updateQuestion', $requestForm->id)}}" id="kt_ecommerce_customer_profile">
-                @csrf
-                @foreach($selectedBusinessServices as $businessService)
-                    <!--begin::question-->
-                    <div class="m-0">
-                        <!--begin::Heading-->
-                        <div class="d-flex align-items-center collapsible py-3 toggle @if($loop->first) active @else collapsed @endif mb-0" data-bs-toggle="collapse"
-                             data-bs-target="#qustion_{{$businessService->id}}">
-                            <!--begin::Icon-->
-                            <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
-                                <i class="ki-duotone ki-minus-square toggle-on text-primary fs-1">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                </i>
-                                <i class="ki-duotone ki-plus-square toggle-off fs-1">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                </i>
-                            </div>
-                            <!--end::Icon-->
-
-                            <!--begin::Title-->
-                            <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">
-                                {{$businessService->service->subCategory->getName()}}
-                            </h4>
-                            <!--end::Title-->
-                        </div>
-                        <!--end::Heading-->
-
-                        <!--begin::Body-->
-                        <div id="qustion_{{$businessService->id}}" class="collapse @if($loop->first) show @endif fs-6 ms-1">
-                            @foreach($allQuestions as $question)
-                                <!--begin::Text-->
-                                <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10 inclusiveBox">
-                                    <div class="d-flex border-0 border-bottom-1 border-dashed border-secondary p-2 mb-2" style="font-size: 15px">
-                                        <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                            <input class="form-check-input serviceChecks @if($question->status == 0) addedServiceBtn @endif" @if($question->status != 0) name="question_id[]" @endif  type="checkbox" value="{{$businessService->id."_".$question->id}}">
-                                        </div>
-                                        <span>{{$question->title}}</span>
-                                    </div>
-                                    @if($question->status == 0)
-                                        <div class="ms-5 activeBox" style="display: none">
-                                            <div class="title border-dashed p-2 bg-light-warning">Bu seçtiğiniz soru için ek hizmetler bulunuyor. Seçmek isterseniz kutuları seçili duruma getirin</div>
-                                            <div class="bg-gray-300 p-3">
-                                                <div class="row">
-                                                    <div class="fv-row">
-                                                        <!--begin::Label-->
-                                                        <label class="required form-label">Hizmet Seçiniz</label>
-                                                        <!--end::Label-->
-
-                                                        <!--begin::Select2-->
-                                                        <select name="question_id[]" id="city_select_{{$businessService->id}}" multiple aria-label="Hizmet Seçiniz" data-control="select2" data-placeholder="Hizmet Seçiniz..."
-                                                                class="form-select form-select-solid fw-bold subServiceSelect">
-                                                            <option></option>
-                                                            @foreach($businessService->service->categorys->subCategories as $subCategory)
-                                                                <option value="{{$businessService->id."_".$question->id. "_".$subCategory->id}}" >{{$subCategory->getName()}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <!--end::Select2-->
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
-                                <!--end::Text-->
-                            @endforeach
-
-                        </div>
-                        <!--end::Content-->
-
-
-                        <!--begin::Separator-->
-                        <div class="separator separator-dashed"></div>
-                        <!--end::Separator-->
-                    </div>
-                    <!--end::question-->
-                @endforeach
-
-                <!--end::Row-->
-                <div class="d-flex justify-content-end">
-                    <!--begin::Button-->
-                    <button type="submit" id="kt_ecommerce_customer_profile_submit" class="btn btn-light-primary">
-                        <span class="indicator-label">Kaydet</span>
-                        <span class="indicator-progress">Kaydediliyor...
-						<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                    </button>
-                    <!--end::Button-->
+            <form class="form" action="#" id="kt_ecommerce_customer_profile">
+                <!--begin::Input group-->
+                <div class="fv-row mb-7">
+                    <!--begin::Label-->
+                    <label class="required fs-6 fw-semibold mb-2">Adı Soyadı
+                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="İletişime Geçilecek Kişinin Adı ve Soyadı"></i>
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="text" class="form-control form-control-solid" placeholder="" name="name" value="{{$appointmentRequest->user_name}}" />
+                    <!--end::Input-->
                 </div>
+                <!--begin::Input group-->
+                <!--begin::Input group-->
+                <div class="fv-row mb-7">
+                    <!--begin::Label-->
+                    <label class="required fs-6 fw-semibold mb-2">Telefon
+                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Kişinin Telefon Numarası"></i>
+                    </label>
+                    <!--end::Label-->
+                    @php
+                     $phone = clearPhone($appointmentRequest->phone);
+                     if ($appointmentRequest->contact_type == 2){
+                         $phone = maskPhone($phone);
+                     }
+                    @endphp
+                    <!--begin::Input-->
+                    <input type="text" class="form-control form-control-solid" placeholder="" name="name" value="{{$phone}}" />
+                    <!--end::Input-->
+                </div>
+                <!--begin::Input group-->
+                <!--begin::Input group-->
+                <div class="fv-row mb-7">
+                    <!--begin::Label-->
+                    <label class="required fs-6 fw-semibold mb-2">E-posta
+                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Kişinin E-posta Adresi"></i>
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="text" class="form-control form-control-solid" placeholder="" name="name" value="{{$appointmentRequest->email}}" />
+                    <!--end::Input-->
+                </div>
+                <!--begin::Input group-->
+                <div class="fv-row mb-7">
+                    <!--begin::Label-->
+                    <label class="required fs-6 fw-semibold mb-2">Hizmet
+                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Hangi Hizmeti Almak İstiyor"></i>
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="text" class="form-control form-control-solid" placeholder="" name="name" value="{{$appointmentRequest->service_name}}" />
+                    <!--end::Input-->
+                </div>
+                <!--begin::Input group-->
+                <div class="fv-row mb-7">
+                    <!--begin::Label-->
+                    <label class="required fs-6 fw-semibold mb-2">Ne Zaman
+                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Hizmeti Hangi Zaman veya Aralığında Almak İstiyor"></i>
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="text" class="form-control form-control-solid" placeholder="" name="name"
+                           value="{{$appointmentRequest->goal_time_type == 1 ? "Belirli bir tarihte": ($appointmentRequest->goal_time_type == 2 ? "Belirli bir süre içerisinde" : "Tarih belli değil")}}" />
+                    <!--end::Input-->
+                </div>
+                <div class="fv-row mb-7">
+                    <!--begin::Label-->
+                    <label class="required fs-6 fw-semibold mb-2">Tarih / Zaman
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="text" class="form-control form-control-solid" placeholder="" name="name" value="{{$appointmentRequest->goal_time}}" />
+                    <!--end::Input-->
+                </div>
+                <div class="fv-row mb-7">
+                    <!--begin::Label-->
+                    <label class="required fs-6 fw-semibold mb-2">İletişim Tercihi
+                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Eğer müşteri cevabı sms ile istyior ise güncelle formundan cevabınızı sms ile iletebilirsiniz"></i>
+
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="text" class="form-control form-control-solid" placeholder="" name="name"
+                           value="{{$appointmentRequest->contact_type == 1 ? "Müşteriyi arama iznini verdi. Arayabilirsiniz"
+                                    : "Müşteri arama iznini vermedi cevabınızı sms ile istiyor"}}"
+                    />
+                    <!--end::Input-->
+                </div>
+                <div class="fv-row mb-7">
+                    <!--begin::Label-->
+                    <label class="fs-6 fw-semibold mb-2">Not
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <textarea type="text" class="form-control form-control-solid" rows="5" placeholder=""
+                              name="name" >{{$appointmentRequest->note}}</textarea>
+                    <!--end::Input-->
+                </div>
+                @if(isset($appointmentRequest->questions))
+                    <div class="bg-gray-300 p-5 rounded mb-7">
+                        <h3 class="title">Ek Sorular</h3>
+
+                        @foreach($appointmentRequest->questions as $key => $question)
+                            <div class="fv-row mb-7">
+                                <!--begin::Label-->
+                                <label class="required fs-6 fw-semibold mb-2">{{$key}}
+                                </label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" class="form-control form-control-solid" placeholder="" name="name" value="{{$question}}" />
+                                <!--end::Input-->
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+                @if(isset($appointmentRequest->added_services))
+                    <div class="bg-gray-300 p-5 rounded mb-7">
+                        <h3 class="title">Ek Hizmetler</h3>
+
+                        <div class="d-flex">
+                            @foreach($appointmentRequest->added_services as $service)
+                                <div class="d-flex">
+                                    <div class="form-check mx-3 bg-white rounded" style="">
+                                        <input class="form-check-input my-3" type="checkbox" checked="" disabled value="" id="flexCheckDefault" style="margin-left: -20px;">
+                                        <label class="form-check-label m-3" for="flexCheckDefault">
+                                            {{$service}}
+                                        </label>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
             </form>
             <!--end::Form-->
         </div>
