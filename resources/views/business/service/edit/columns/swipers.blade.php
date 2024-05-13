@@ -2,7 +2,7 @@
     <!--begin::Col-->
     <div class="col-12">
         <!--begin::Card widget 3-->
-        <div class="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100" style="background-color: #F1416C;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
+        <div class="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100" style="background-color: #132c3d;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
             <!--begin::Card body-->
             <div class="card-body d-flex align-items-end mb-3">
                 <!--begin::Info-->
@@ -27,7 +27,7 @@
     <!--begin::Col-->
     <div class="col-12">
         <!--begin::Card widget 3-->
-        <div class="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100" style="background-color: #0da141;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
+        <div class="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100" style="background-color: #484286;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
 
             <!--begin::Card body-->
             <div class="card-body d-flex align-items-end mb-3">
@@ -53,7 +53,7 @@
     <!--begin::Col-->
     <div class="col-12">
         <!--begin::Card widget 3-->
-        <div class="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100" style="background-color: #9b0b62;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
+        <div class="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100" style="background-color: #132c3d;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
 
             <!--begin::Card body-->
             <div class="card-body d-flex align-items-end mb-3">
@@ -78,7 +78,7 @@
 <div class="swiper-slide">
     <div class="col-12">
         <!--begin::Card widget 3-->
-        <div class="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100" style="background-color: rgba(255,255,255,0.38);background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
+        <div class="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100" style="background-color: #484286;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
             <!--begin::Card body-->
             <div class="card-body d-flex align-items-end mb-3">
                 <!--begin::Info-->
