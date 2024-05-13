@@ -49,7 +49,8 @@ class PackageSale extends Model
 {
     use HasFactory;
 
-    protected array $dates = ["seller_date"];
+
+    protected $casts = ["seller_date" => "datetime"];
     const PACKAGE_TYPES = [
         0 => ["id" => 0, "name" => "Seans"],
         1 => ["id" => 1, "name" => "Dakika"],
@@ -59,6 +60,7 @@ class PackageSale extends Model
     {
         return Carbon::parse($this->seller_date)->format('d.m.Y');
     }
+
     public function packageType($type)
     {
         return self::PACKAGE_TYPES[$this->type][$type] ?? null;
@@ -90,6 +92,7 @@ class PackageSale extends Model
     {
         return $this->hasMany(PackagePayment::class, 'package_id', 'id');
     }
+
     public function policies()
     {
         return $this->hasMany(PackageSalePolicy::class, 'package_sale_id', 'id');

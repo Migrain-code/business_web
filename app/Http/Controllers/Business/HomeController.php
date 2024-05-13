@@ -28,7 +28,13 @@ class HomeController extends Controller
         $customerTotal = $this->business->customers->count();
         $todayCiro = $this->calculateToday();
         $todayCosts = $this->business->costs()->whereDate('operation_date', now()->toDateString())->sum('price');
-        return view('business.dashboard.index', compact( 'monthlySaleTotal', 'serviceTotal', 'customerTotal', 'monthlyPackageSaleTotal', 'todayCiro', 'todayCosts'));
+        $todayAppointments = $this->business->appointments()->whereDate('start_time', now()->toDateString())->count();
+        $newCustomerCount = $this->business->customers()->whereDate('created_at',now()->toDateString())->count();
+        $totalCustomerCount = $this->business->customers->count();
+        $todaySaleCount = $this->business->sales()->whereDate('created_at',now()->toDateString())->count();
+        $todayPackageSaleCount = $this->business->packages()->whereDate('seller_date',now()->toDateString())->count();
+        $todayAppointmentRequestCount = $this->business->requests()->whereStatus(0)->whereDate('created_at', now()->toDateString())->count();
+        return view('business.dashboard.index', compact('todayAppointments','newCustomerCount','totalCustomerCount', 'todaySaleCount','todayPackageSaleCount','todayAppointmentRequestCount', 'monthlySaleTotal', 'serviceTotal', 'customerTotal', 'monthlyPackageSaleTotal', 'todayCiro', 'todayCosts'));
     }
 
     public function calculateSale()

@@ -1,7 +1,7 @@
 <div class="col-xl-4 mb-2">
 
     <!--begin::Statistics Widget 5-->
-    <a href="#" class="card bg-danger hoverable card-xl-stretch mb-xl-8">
+    <a href="#" class="card hoverable card-xl-stretch mb-xl-8" style="background-color: #132c3d;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg');background-size: cover">
         <!--begin::Body-->
         <div class="card-body">
             <div class="d-flex align-items-center">
@@ -30,7 +30,7 @@
 <div class="col-xl-4 mb-2">
 
     <!--begin::Statistics Widget 5-->
-    <a href="#" class="card bg-primary hoverable card-xl-stretch mb-xl-8">
+    <a href="#" class="card hoverable card-xl-stretch mb-xl-8" style="background-color: #484286;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg');background-size: cover">
         <!--begin::Body-->
         <div class="card-body">
             <div class="d-flex align-items-center">
@@ -64,7 +64,7 @@
 <div class="col-xl-4 mb-2">
 
     <!--begin::Statistics Widget 5-->
-    <a href="#" class="card bg-danger hoverable card-xl-stretch mb-5 mb-xl-8">
+    <a href="#" class="card hoverable card-xl-stretch mb-5 mb-xl-8" style="background-color: #132c3d;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg');background-size: cover">
         <!--begin::Body-->
         <div class="card-body">
             <div class="d-flex align-items-center">
@@ -91,6 +91,32 @@
     </a>
     <!--end::Statistics Widget 5-->
 </div>
+<!--end::Row-->
+<a class="btn btn-flex btn-color-primary d-flex flex-stack fs-base p-0 ms-2 mb-2 mb-7 toggle collapsible collapsed" data-bs-toggle="collapse" href="#kt_app_dashboards_collapse" data-kt-toggle-text="Daha Az">
+    <span data-kt-toggle-text-target="true">6 Diğer İstatistikler</span>
+    <!--begin::Svg Icon | path: icons/duotune/general/gen036.svg-->
+    <span class="svg-icon toggle-on svg-icon-2 me-0">
+															<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+																<rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+																<rect x="6.0104" y="10.9247" width="12" height="2" rx="1" fill="currentColor" />
+															</svg>
+														</span>
+    <!--end::Svg Icon-->
+    <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
+    <span class="svg-icon toggle-off svg-icon-2 me-0">
+															<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+																<rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+																<rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="currentColor" />
+																<rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor" />
+															</svg>
+														</span>
+    <!--end::Svg Icon-->
+</a>
+<div class="flex-row row collapse" id="kt_app_dashboards_collapse">
+    @include('business.dashboard.parts.other-charts')
+</div>
+
+
 <div class="card card-xl-stretch mb-xl-8">
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">

@@ -231,6 +231,10 @@ class Business extends Model
         return $this->hasMany(Product::class, 'business_id', 'id');
     }
 
+    public function lowStockProducts()
+    {
+        return $this->products()->where('piece' ,'<', 10);
+    }
     public function packages()
     {
         return $this->hasMany(PackageSale::class, 'business_id', 'id');
