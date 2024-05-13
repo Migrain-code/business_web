@@ -554,6 +554,27 @@
         });
     });
 </script>
+<script>
+    // JavaScript ile butonlara tıklama olayını dinle
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tüm butonları seç
+        var buttons = document.querySelectorAll('.business-footer-store a');
+
+        // Her buton için tıklama olayını dinle
+        buttons.forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                Swal.fire({
+                    icon: 'info',
+                    title: "Hey, Beklemede Kal!",
+                    text: "Mobil Uygulamamız Çok Yakında Seninle Olacak. İlgin İçin Teşekkürler!",
+                    confirmButtonText: "Tamam"
+                });
+            });
+        });
+    });
+</script>
+
 @yield('scripts')
 
 </body>
