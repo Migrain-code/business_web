@@ -313,7 +313,7 @@
                                 <!--begin::Details-->
                                 <div class="fw-semibold ms-6">
                                     <a href="{{route('business.package-sale.edit', $packageSale->id)}}" class="fs-6 fw-bold text-gray-900 text-hover-primary">
-                                        {{$productSale->customer->name}} Müşterisine Paket Satışı Yaptı
+                                        {{$packageSale->customer->name}} Müşterisine Paket Satışı Yaptı
                                     </a>
 
                                     <!--begin::Info-->
