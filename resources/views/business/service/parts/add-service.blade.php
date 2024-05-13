@@ -70,7 +70,7 @@
                             <div class="d-flex">
                                 @foreach($typeList as $type)
                                     <div class="form-check form-check-custom form-check-solid form-check-lg me-2">
-                                        <input class="form-check-input" name="type_id" type="radio" value="{{$type->id}}" id="flexCheckboxLg{{$type->id}}"/>
+                                        <input class="form-check-input" @checked($typeList->count() == 1) name="type_id" type="radio" value="{{$type->id}}" id="flexCheckboxLg{{$type->id}}"/>
                                         <label class="form-check-label" for="flexCheckboxLg{{$type->id}}">
                                             {{$type->name}}
                                         </label>

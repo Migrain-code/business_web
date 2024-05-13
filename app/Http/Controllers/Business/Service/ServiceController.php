@@ -39,8 +39,14 @@ class ServiceController extends Controller
     public function index()
     {
         $serviceCategories = ServiceCategory::all();
-        $typeList = BusinnessType::all();
-        return view('business.service.index', compact('serviceCategories', 'typeList'));
+        $business = $this->business;
+        if ($business->type_id == 3){
+            $typeList = BusinnessType::all();
+        } else{
+            $typeList = BusinnessType::whereId($business->type_id)->get();
+        }
+
+        return view('business.service.index', compact('serviceCategories', 'typeList', 'business'));
     }
 
     /**
@@ -120,6 +126,7 @@ class ServiceController extends Controller
      */
     public function edit(BusinessService $service)
     {
+        $business = $this->business;
         $appointmentCount = $this->business->appointments()
             ->whereHas('services', function ($q) use ($service){
                 $q->where('service_id', $service->id);
@@ -135,7 +142,11 @@ class ServiceController extends Controller
             ->where('service_id', $service->id)
             ->sum('total');
         $serviceCategories = ServiceCategory::all();
-        $typeList = BusinnessType::all();
+        if ($business->type_id == 3){
+            $typeList = BusinnessType::all();
+        } else{
+            $typeList = BusinnessType::whereId($business->type_id)->get();
+        }
         return view('business.service.edit.index', compact('serviceCategories', 'typeList', 'service', 'appointmentCount', 'personelCount', 'packageCount'));
     }
 
@@ -248,8 +259,8 @@ class ServiceController extends Controller
             ->editColumn('type', function ($q) {
                 return $q->gender->name;
             })
-            ->editColumn('time', function ($q) {
-                return $q->time. ".dk";
+            ->editColumn('is_featured', function ($q) {
+                return create_switch($q->id, $q->is_featured == 1 ? true : false, 'BusinessService', 'is_featured');
             })
             ->editColumn('created_at', function ($q) {
                 return $q->created_at->format('d.m.Y H:i');

@@ -52,7 +52,7 @@
                         <th class="min-w-125px">Eklenme Tarihi</th>
                         <th class="min-w-125px">Kategori</th>
                         <th class="min-w-125px">Hizmet Adı</th>
-                        <th class="min-w-125px">Hizmet Süresi</th>
+                        <th class="min-w-125px">Sık Kullanılan</th>
                         <th class="min-w-125px">Hizmet Fiyatı</th>
                         <th class="min-w-125px">Tür</th>
                         <th class="text-end min-w-70px">İşlemler</th>
@@ -80,7 +80,7 @@
             {data: 'created_at'},
             {data: 'category'},
             {data: 'sub_category'},
-            {data: 'time'},
+            {data: 'is_featured'},
             {data: 'price'},
             {data: 'type'},
             {data: 'action'}
