@@ -24,6 +24,9 @@
 @endsection
 @section('content')
     <div id="kt_app_content" class="app-content ">
+        <div class="d-flex mb-5 flex-end">
+            <a href="{{route('business.setup.pass')}}" class="btn btn-primary">Kurulumu Atla <i class="fa fa-xmark-circle ms-2 fs-4"></i> </a>
+        </div>
         <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid gap-10" id="kt_create_account_stepper">
             @include('business.setup.parts.aside')
 

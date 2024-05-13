@@ -95,6 +95,8 @@ Route::prefix('isletme')->as('business.')->group(function (){
         /*-----------------------  Setup  ------------------------*/
         Route::prefix('setup')->as('setup.')->group(function (){
             Route::get('/step-1', [SetupController::class, 'step1'])->name('step1');
+            Route::get('/step/pass', [SetupController::class, 'stepPass'])->name('pass');
+            Route::get('/step/set', [SetupController::class, 'setSetup'])->name('setSetup');
             Route::post('/step-1', [SetupController::class, 'step1Update']);
             Route::post('/step-2', [SetupController::class, 'step2Update']);
             Route::post('/step-3', [SetupController::class, 'step3Update']);
@@ -158,7 +160,8 @@ Route::prefix('isletme')->as('business.')->group(function (){
 
         Route::post('appointment/{appointment}/service', [AppointmentServicesController::class,'store'])->name('appointment.service.add');
         Route::delete('appointmentServices/{appointmentServices}', [AppointmentServicesController::class,'destroy'])->name('appointment.service.destroy');
-
+        Route::get('/personel/{personel}/appointment', [AppointmentServicesController::class, 'getClock']);
+        Route::get('/personel-randevular', [AppointmentServicesController::class, 'personelAppointment'])->name('appointment.personelAppointment');
         /* -------------------- Randevu Oluşturma --------------------------*/
         Route::prefix('appointment-create')->as('appointmentCreate.')->controller(AppointmentCreateController::class)->group(function () {
             Route::get('/', 'index')->name('index');

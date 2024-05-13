@@ -28,7 +28,7 @@ class SetupControlMiddleWare
                 }
             } else {
 
-                if ($user->personels->count() > 0 && $user->services->count() > 0){
+                /*if ($user->personels->count() > 0 && $user->services->count() > 0){
                     if ($request->routeIs('business.setup.*') || $request->routeIs('business.payment.*') || $request->routeIs('business.detailSetup.*')) {
                         // Kullanıcı setup sayfalarına veya ödeme sayfalarına erişmeye çalışıyorsa
                         return redirect()->route('business.home');
@@ -46,7 +46,9 @@ class SetupControlMiddleWare
                         // Kullanıcı setup yapmışsa ve diğer sayfalara erişmeye çalışıyorsa
                         return redirect()->route('business.detailSetup.step2');
                     }
-                }
+                }*/
+                //return redirect()->route('business.home');
+                return $next($request);
                 // Kullanıcı setup yapmışsa
 
             }

@@ -38,6 +38,26 @@ class SetupController extends Controller
         return view('business.setup.step-1.index', compact('businessCategories', 'dayList', 'business', 'monthlyPackages', 'yearlyPackages', 'proparties'));
     }
 
+    public function stepPass()
+    {
+        $business = $this->business;
+        $business->setup_status = 1;
+        $business->save();
+        return to_route('business.home')->with('response',[
+            'status' => "success",
+            'message' => "İşletme Kurulum İşleminiz Geçildi. Menüden kuruluma tekrar gidebilirsiniz"
+        ]);
+    }
+    public function setSetup()
+    {
+        $business = $this->business;
+        $business->setup_status = 0;
+        $business->save();
+        return to_route('business.setup.step1')->with('response',[
+            'status' => "success",
+            'message' => "İşletme Kurulum İşleminiz Aktif Edildi."
+        ]);
+    }
     public function step1Update(Step1UpdateRequest $request)
     {
         $business = $this->business;

@@ -1,5 +1,5 @@
-@extends('personel.layouts.master')
-@section('title', 'Hesabım')
+@extends('business.layouts.master')
+@section('title', 'Randevular')
 @section('styles')
     <style>
         #loader {
@@ -13,88 +13,96 @@
 @endsection
 @section('breadcrumbs')
     <!--begin::Item-->
+    <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
+        <a href="{{route('business.home')}}"> Gösterge Paneli </a>
+    </li>
+    <!--end::Item-->
+    <li class="breadcrumb-item">
+        <i class="ki-duotone ki-right fs-3 text-gray-500 mx-n1"></i></li>
+    <!--end::Item-->
     <!--begin::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-       <a href="{{route('personel.home')}}"> Hesabım </a>
+        Randevular
     </li>
     <!--end::Item-->
 @endsection
 @section('content')
     <div id="kt_app_content" class="app-content ">
-        @include('personel.layouts.menu.nav')
-        <!--begin::Row-->
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="kt_ecommerce_personel_overview" role="tabpanel">
-                @include('personel.dashboard.parts.tab-2')
+        <div class="col-xxl-12 mb-5 mb-xl-10">
+            <div class="card card-flush mb-6 mb-xl-9">
+                <!--begin::Card header-->
+                <div class="card-header mt-6 align-items-center">
+                    <!--begin::Card title-->
+                    <div class="card-title flex-column">
+                        <h2 class="mb-1">Personel Randevu Takvimi</h2>
 
-            </div>
-            <div class="tab-pane fade" id="kt_ecommerce_personel_appointment" role="tabpanel">
-                @include('personel.dashboard.parts.calendar')
+                        <div class="fs-6 fw-semibold text-muted">Seçtiğiniz personelin hangi gündeki randevularını görmek istiyorsanız. O güne tıklayınız.</div>
+                    </div>
+                    <select id="personelSelectArea" id="city_select" aria-label="Personel Seçiniz" data-control="select2" data-placeholder="Personel Seçiniz..." data-dropdown-parent="#kt_app_content" class="form-select form-select-solid fw-bold">
+                        @foreach($personels as $personel)
+                            <option value="{{$personel->id}}" @selected($loop->first)>{{$personel->name}}</option>
+                        @endforeach
+                    </select>
+                    <!--end::Card title-->
+                </div>
+                <!--end::Card header-->
+
+                <!--begin::Card body-->
+                <div class="card-body p-9 pt-4">
+                    <!--begin::Dates-->
+                    <ul class="nav nav-pills d-flex flex-nowrap hover-scroll-x py-2 scrollable-container">
+                        @foreach($dates as $date)
+                            <!--begin::Date-->
+                            <li class="nav-item me-1">
+                                <a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-40px me-2 py-4 btn-active-primary clickedDate @if($date["value"] == now()->format('Y-m-d')) active @endif"
+                                   data-bs-toggle="tab" href="#kt_schedule_day" data-date="{{$date["value"]}}">
+
+                                    <span class="opacity-50 fs-7 fw-semibold">{{$date["day"]}}</span>
+                                    <span class="fs-6 fw-bolder">{{$date["date"]}}</span>
+                                </a>
+                            </li>
+                            <!--end::Date-->
+                        @endforeach
+
+                    </ul>
+                    <!--end::Dates-->
+
+                    <!--begin::Tab Content-->
+                    <div class="tab-content position-relative min-h-150px">
+                        <div id="loader" style="display: none;">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <div class="scroll-y me-n7 pe-7" id="clockContainer" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="200px">
+
+                        </div>
+                        <div class="w-100 mt-5 d-flex align-items-center justify-content-center scrollBottomButton">
+                            <i class="fa fa-chevron-down fs-2"></i>
+                        </div>
+                    </div>
+                    <!--end::Tab Content-->
+                </div>
+                <!--end::Card body-->
             </div>
 
         </div>
-        <!--end::Row-->
     </div>
-    <!--end::Content-->
-    @php
-        use Illuminate\Support\Carbon;
-        $year = now()->year;
-        $months = [];
-        for ($i = 1; $i <= 12; $i++){
-            $month = $year."-".$i. "-01";
-            $months[] = Carbon::parse($month)->translatedFormat('F');
-        }
-    @endphp
+
 @endsection
 @section('scripts')
-    <script>
-        var appointmentData = [
-            {!! $personel->appointments->whereIn('status', [1])->count() !!},
-            {!! $personel->appointments->whereIn('status', [2, 5, 6])->count() !!},
-            {!! $personel->appointments->whereIn('status', [3, 4])->count() !!}
-        ];
-        var months = @json($months);
-        var packageSales = @json($personel->getMonthlyPackageSales());
-        var productSales = @json($personel->getMonthlyProductSales());
-    </script>
-    <!-- DataTables Buttons JS -->
-    <script src="/business/assets/js/project/personel-account/overview/project.js"></script>
-
-    <script>
-
-        $(".timeSelector").flatpickr({
-            enableTime: true,
-            noCalendar: true,
-            dateFormat: "H:i",
-            time_24hr: true
-        });
-
-        var allChecked = false;
-        $("#serviceAllSelect").on('click', function (){
-            let btn = $(this);
-            if (!allChecked) {
-                $('.serviceChecks').prop('checked', true);
-                allChecked = true;
-                btn.text("Seçimi Kaldır");
-            } else{
-                $('.serviceChecks').prop('checked', false);
-                allChecked = false;
-                btn.text("Tümünü Seç");
-            }
-        });
-    </script>
     <script>
         $('.clickedDate').on('click', function () {
             var date = $(this).data('date');
             fetchAppointment(date);
         });
-        $('.appointmentTab').on('click', function (){
+        $(document).ready(function (){
             var targetNavItem = document.querySelector('.clickedDate.active');
 
             var targetNavItemLeft = targetNavItem.offsetLeft;
 
             document.querySelector('.scrollable-container').scrollLeft = targetNavItemLeft;
-           fetchAppointment('{{now()->format('Y-m-d')}}')
+            fetchAppointment('{{now()->format('Y-m-d')}}')
         });
 
         $('.scrollBottomButton').on('click', function (){
@@ -111,11 +119,12 @@
         });
 
         function fetchAppointment(date){
+            var personelId = $('#personelSelectArea').val();
             document.getElementById('loader').style.display = 'block';
             var container = document.getElementById('clockContainer');
             container.innerHTML="<div></div>";
             $.ajax({
-                url: '/personel/today/appointment',
+                url: `/isletme/personel/${personelId}/appointment`,
                 type: "GET",
                 data: {
                     'appointment_date': date,
@@ -253,4 +262,5 @@
             });
         }
     </script>
+
 @endsection
