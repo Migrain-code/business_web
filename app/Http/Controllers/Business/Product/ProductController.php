@@ -34,7 +34,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('business.product.index');
+        $business = $this->business;
+        return view('business.product.index', compact('business'));
     }
 
     /**
