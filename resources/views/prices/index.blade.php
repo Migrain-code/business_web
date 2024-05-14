@@ -110,7 +110,7 @@
                         <a href="javascript:;" class="sliderPrev">
                             <img src="/front/assets/images/icons/ico-slider-left.svg">
                         </a>
-                        <a href="javascript:;" class="sliderNext">
+                        <a href="javascript:;" class="sliderNext" style="background: #828a9e57;">
                             <img src="/front/assets/images/icons/ico-slider-right.svg">
                         </a>
                     </div>
@@ -122,10 +122,10 @@
                         </div>
                 </section>
                 <!-- Yıllık Paketler -->
-                <section class="home-properties packages" id="tab2">
-                    <div class="row packages-list">
+                <section class="home-properties packages" id="tab2" style="overflow-x: auto;">
+                    <div class="row packages-list customScrollArea">
                         @foreach($yearlyPackages as $package)
-                            <div class="col-lg-4 col-md-6" >
+                            <div class="col-4" >
                                 <div class="package-item">
                                     <div class="icon">
                                         <img src="{{image($package->icon)}}" style="width: 40px;" alt="" />
