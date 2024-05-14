@@ -69,6 +69,7 @@ class PacketOrderController extends Controller
         $newRequest->setBasketId("BP".rand(1, 10000));
         $newRequest->setPaymentChannel(\Iyzipay\Model\PaymentChannel::WEB);
         $newRequest->setPaymentGroup(\Iyzipay\Model\PaymentGroup::PRODUCT);
+        $newRequest->setCallbackUrl(route('business.packet.payment.callback', [$packet->id, authUser()->id]) . '?count=' . $count . '&kdv=' ."20");
 
         $paymentCard = new \Iyzipay\Model\PaymentCard();
         $paymentCard->setCardHolderName($request->input('card_name'));
