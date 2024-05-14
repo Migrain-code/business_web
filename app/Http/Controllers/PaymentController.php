@@ -15,14 +15,15 @@ class PaymentController extends Controller
     public function callback(Request $request, BussinessPackage $packet, BusinessOfficial $official)
     {
         Auth::guard('official')->loginUsingId($official->id);
-
+        $user = authUser()->business;
         $payment = (new Iyzico())->completePayment($request->paymentId);
 
         if ($payment->getStatus() == 'success') {
+            $business =  $user->business;
 
             $packetOrder = new PacketOrder();
             $packetOrder->packet_id = $packet->id;
-            $packetOrder->company_id = $this->business->id;
+            $packetOrder->business_id = $user->business->id;
             $packetOrder->price = $payment->getPrice();
             $packetOrder->tax = $request->kdv ?? 0;
             $packetOrder->discount = $request->discount ?? 0;
@@ -30,11 +31,13 @@ class PaymentController extends Controller
             $packetOrder->payment_type = 'CARD';
             $packetOrder->save();
 
-            $business = Business::find(authUser()->business->id);
-
+            $business->package_id = $packet->id;
+            $business->packet_start_date = now();
+            $business->packet_end_date = now()->addDays($packet->type == 0 ? 30 : 365);
+            $business->save();
             //$this->createInvoice($packetOrder->id, $packetOrder->price - $packetOrder->tax, $packet->id = 43841443, $company->getParachuteId());
 
-            return to_route('business.packet.payment.success', ['siparis-no' => $packetOrder->id]);
+            return to_route('business.packet.payment.success', ['order-no' => $packetOrder->id]);
         }
         return to_route('business.packet.payment.fail');
     }
