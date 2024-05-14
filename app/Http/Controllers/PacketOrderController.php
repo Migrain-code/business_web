@@ -131,7 +131,7 @@ class PacketOrderController extends Controller
                 'message' => $response->getErrorMessage()
             ]);
         }
-
+        dd($response);
         echo $response->getHtmlContent();
     }
 
