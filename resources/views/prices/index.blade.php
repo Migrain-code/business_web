@@ -115,14 +115,14 @@
                         </a>
                     </div>
                 </div>
-                <section class="home-properties packages" id="tab1" style="overflow-x: auto;">
+                <section class="home-properties packages customPackage1" id="tab1" style="overflow-x: auto;">
 
                         <div class="row packages-list customScrollArea">
                             @include('prices.parts.package')
                         </div>
                 </section>
                 <!-- Yıllık Paketler -->
-                <section class="home-properties packages" id="tab2" style="overflow-x: auto;">
+                <section class="home-properties packages customPackage2" id="tab2" style="overflow-x: auto;">
                     <div class="row packages-list customScrollArea">
                         @foreach($yearlyPackages as $package)
                             <div class="col-4" >
@@ -161,31 +161,58 @@
             document.getElementById('tab2').style.display = "none";
         });
         var counter = 0;
+        var activeTab = 1;
         $('.switchClick').on('click', function (){
             document.getElementById('tab2').style.display = "none";
             document.getElementById('tab1').style.display = "block";
+            activeTab = 1;
             if(counter%2 == 0){
                 //yıllık aktif
                 document.getElementById('tab1').style.display = "none";
                 document.getElementById('tab2').style.display = "block";
+                activeTab = 2;
             }
 
            counter++;
-           console.log('counter', counter)
-        });
-    </script>
-    <script>
-        $('.sliderNext').on('click', function (){
 
-            var currentScrollLeft = $('.packages').scrollLeft();
-            currentScrollLeft+= 300;
-            $('.packages').scrollLeft(currentScrollLeft);
+        });
+        $('.sliderNext').on('click', function (){
+            if(activeTab === 1){
+                var currentScrollLeft = $('.customPackage1').scrollLeft();
+                currentScrollLeft+= 300;
+                if(currentScrollLeft > 900){
+                    currentScrollLeft = 0;
+                }
+                $('.customPackage1').scrollLeft(currentScrollLeft);
+            } else{
+                var currentScrollLeft2 = $('.customPackage2').scrollLeft();
+                currentScrollLeft2+= 300;
+                if(currentScrollLeft2 > 900){
+                    currentScrollLeft2 = 0;
+                }
+                $('.customPackage2').scrollLeft(currentScrollLeft2);
+            }
+
+
         });
         $('.sliderPrev').on('click', function (){
 
-            var currentScrollLeft = $('.packages').scrollLeft();
-            currentScrollLeft-= 300;
-            $('.packages').scrollLeft(currentScrollLeft);
+            if(activeTab === 1){
+                var currentScrollLeft = $('.customPackage1').scrollLeft();
+                currentScrollLeft-= 300;
+                if(currentScrollLeft > 900){
+                    currentScrollLeft = 0;
+                }
+                $('.customPackage1').scrollLeft(currentScrollLeft);
+            } else{
+                var currentScrollLeft2 = $('.customPackage2').scrollLeft();
+                currentScrollLeft2-= 300;
+
+                $('.customPackage2').scrollLeft(currentScrollLeft2);
+            }
+
+
         });
     </script>
+
 @endsection
