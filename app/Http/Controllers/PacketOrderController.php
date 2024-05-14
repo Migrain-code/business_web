@@ -66,7 +66,7 @@ class PacketOrderController extends Controller
         $newRequest->setPaidPrice($packet->price);
         $newRequest->setCurrency(\Iyzipay\Model\Currency::TL);
         $newRequest->setInstallment(1);
-        $newRequest->setCallbackUrl(route('business.packet.payment.callback'));
+        //$newRequest->setCallbackUrl(route('business.packet.payment.callback'));
         $newRequest->setBasketId("BP".rand(1, 10000));
         $newRequest->setPaymentChannel(\Iyzipay\Model\PaymentChannel::WEB);
         $newRequest->setPaymentGroup(\Iyzipay\Model\PaymentGroup::PRODUCT);
