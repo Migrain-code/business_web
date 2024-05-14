@@ -23,7 +23,7 @@ class PaymentController extends Controller
             $business =  $user->business;
 
             $packetOrder = new PacketOrder();
-            $packetOrder->packet_id = $packet->id;
+            $packetOrder->package_id = $packet->id;
             $packetOrder->business_id = $user->business->id;
             $packetOrder->price = $payment->getPrice();
             $packetOrder->tax = $request->kdv ?? 0;
