@@ -68,7 +68,7 @@ class PacketOrderController extends Controller
         );
         $payment->setShippingAddress();
         $payment->setBillingAddress();
-        $payment->addBasketItem($packet->id, $packet->name, 'Paket', "15");
+        $payment->addBasketItem($packet->id, $packet->name, 'Paket', $amount);
         $response = $payment->createPaymentRequest();
 
         if ($response->getStatus() == 'failure') {
