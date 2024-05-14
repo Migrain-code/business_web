@@ -67,13 +67,13 @@ class PacketOrderController extends Controller
 
         $payment = new \App\Services\Iyzico();
         $payment->setConversationId(rand());
-        $payment->setPrice($amount);
+        $payment->setPrice(str($amount));
         $payment->setCallbackUrl(route('business.packet.payment.callback', [$packet->id, authUser()->id]) . '?count=' . $count . '&kdv=' . $kdv);
         $payment->setCard($request->card_name, str($request->card_number)->replace(' ', ''), $month, $year, $request->card_cvv, false);
         $payment->setBuyer(authUser()->id, $name, $surname, authUser()->phone, authUser()->email);
         $payment->setShippingAddress();
         $payment->setBillingAddress();
-        $payment->addBasketItem($packet->id, $packet->name, 'Paket', $amount);
+        $payment->addBasketItem("BP".$packet->id, $packet->name, 'Paket', $amount);
         $response = $payment->createPaymentRequest();
         dd($response);
         if ($response->getStatus() == 'failure') {
