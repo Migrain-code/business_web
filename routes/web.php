@@ -260,7 +260,6 @@ Route::prefix('isletme')->as('business.')->group(function (){
         /* -------------------- Abonelik Özeti --------------------------*/
         Route::get('abonelik', [SubscribtionController::class, 'index'])->name('subscription.index');
 
-
         Route::prefix('paketler')->as('packet.')->group(function (){
             Route::get('/', [PacketOrderController::class, 'index'])->name('index');
             Route::get('/paket/{packet}/satin-al', [PacketOrderController::class, 'buy'])->name('buy');
