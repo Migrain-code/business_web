@@ -92,22 +92,22 @@ class PacketOrderController extends Controller
         $buyer->setRegistrationDate($user->created_at->format('Y-m-d H:i:s'));
         $buyer->setRegistrationAddress($this->business->address);
         $buyer->setIp($request->ip());
-        $buyer->setCity($this->business->city->name);
+        $buyer->setCity($this->business->cities->name);
         $buyer->setCountry("Turkey");
         $newRequest->setBuyer($buyer);
 
         $shippingAddress = new \Iyzipay\Model\Address();
         $shippingAddress->setContactName($user->name);
-        $shippingAddress->setCity($this->business->city->name);
+        $shippingAddress->setCity($this->business->cities->name);
         $shippingAddress->setCountry("Turkey");
-        $shippingAddress->setAddress($this->business->city->address);
+        $shippingAddress->setAddress($this->business->cities->address);
         $newRequest->setShippingAddress($shippingAddress);
 
         $billingAddress = new \Iyzipay\Model\Address();
         $billingAddress->setContactName($user->name);
-        $billingAddress->setCity($this->business->city->name);
+        $billingAddress->setCity($this->business->cities->name);
         $billingAddress->setCountry("Turkey");
-        $billingAddress->setAddress($this->business->city->address);
+        $billingAddress->setAddress($this->business->cities->address);
         $newRequest->setBillingAddress($billingAddress);
 
         $basketItems = array();
