@@ -82,7 +82,7 @@ class PacketOrderController extends Controller
         $payment->setBillingAddress();
         $payment->addBasketItem($packet->id, $packet->name, 'Paket', $amount);
         $response = $payment->createPaymentRequest();
-        dd($response->getStatus());
+
         if ($response->getStatus() == 'failure') {
             $request->flash();
             return back()->with('response', [
