@@ -43,88 +43,42 @@ class PacketOrderController extends Controller
         $kdv = 20;
         $amount = $packet->price;
 
+        if ($request->paymentType == 'BANK_TRANSFER') {
+            $packetOrder = new PacketOrder();
+            $packetOrder->packet_id = $packet->id;
+            $packetOrder->business_id = $this->business->id;
+            $packetOrder->price = $amount;
+            $packetOrder->tax = $prices['kdv'] ?? 0;
+            $packetOrder->discount = $prices['discount'] ?? 0;
+            $packetOrder->payment_id = 0;
+            $packetOrder->payment_type = 'BANK_TRANSFER';
+            $packetOrder->status = 'PENDING';
+            $packetOrder->save();
+
+            return to_route('business.packet.payment.success', ['odeme' => 'havale', 'siparis-no' => $packetOrder->id]);
+        }
 
         $parts = explode(' ', $request->card_name);
 
         $surname = array_pop($parts);
         $name = implode(' ', $parts);
 
+
         $month = $request->card_expiry_month;
         $year = $request->card_expiry_year;
 
+
         $payment = new \App\Services\Iyzico();
-
-        $options = new \Iyzipay\Options();
-        $options->setApiKey("sandbox-ySUSboVTBmQZqnu2r8RIMFdSfNbVzllx");
-        $options->setSecretKey("sandbox-86h7NjkcNi8T6J3RQUUiw5raND4AdmSV");
-        $options->setBaseUrl("https://sandbox-api.iyzipay.com");
-
-        $newRequest = new \Iyzipay\Request\CreatePaymentRequest();
-        $newRequest->setLocale(\Iyzipay\Model\Locale::TR);
-        $newRequest->setConversationId(rand(1, 100000));
-        $newRequest->setPrice($packet->price);
-        $newRequest->setPaidPrice($packet->price);
-        $newRequest->setCurrency(\Iyzipay\Model\Currency::TL);
-        $newRequest->setInstallment(1);
-        $newRequest->setCallbackUrl(route('business.packet.payment.callback'));
-        $newRequest->setBasketId("BP".rand(1, 10000));
-        $newRequest->setPaymentChannel(\Iyzipay\Model\PaymentChannel::WEB);
-        $newRequest->setPaymentGroup(\Iyzipay\Model\PaymentGroup::PRODUCT);
-
-        $paymentCard = new \Iyzipay\Model\PaymentCard();
-        $paymentCard->setCardHolderName($request->input('card_name'));
-        $paymentCard->setCardNumber($request->input('card_number'));
-        $paymentCard->setExpireMonth("12");
-        $paymentCard->setExpireYear("2030");
-        $paymentCard->setCvc("123");
-        $paymentCard->setRegisterCard(0);
-        $newRequest->setPaymentCard($paymentCard);
-
-        $name = explode(' ', $this->user->name);
-        $user = $this->user;
-        $buyer = new \Iyzipay\Model\Buyer();
-        $buyer->setId("BO". authUser()->id);
-        $buyer->setName($name[0]);
-        $buyer->setSurname($name[1]);
-        $buyer->setGsmNumber($user->phone);
-        $buyer->setEmail($user->email);
-        $buyer->setIdentityNumber("11111111111");
-        $buyer->setLastLoginDate(now()->format('Y-m-d H:i:s'));
-        $buyer->setRegistrationDate($user->created_at->format('Y-m-d H:i:s'));
-        $buyer->setRegistrationAddress($this->business->address);
-        $buyer->setIp($request->ip());
-        $buyer->setCity($this->business->cities->name);
-        $buyer->setCountry("Turkey");
-        $newRequest->setBuyer($buyer);
-
-        $shippingAddress = new \Iyzipay\Model\Address();
-        $shippingAddress->setContactName($user->name);
-        $shippingAddress->setCity($this->business->cities->name);
-        $shippingAddress->setCountry("Turkey");
-        $shippingAddress->setAddress($this->business->address);
-        $newRequest->setShippingAddress($shippingAddress);
-
-        $billingAddress = new \Iyzipay\Model\Address();
-        $billingAddress->setContactName($user->name);
-        $billingAddress->setCity($this->business->cities->name);
-        $billingAddress->setCountry("Turkey");
-        $billingAddress->setAddress($this->business->address);
-        $newRequest->setBillingAddress($billingAddress);
-
-        $basketItems = array();
-        $firstBasketItem = new \Iyzipay\Model\BasketItem();
-        $firstBasketItem->setId("BP". rand(1, 10000));
-        $firstBasketItem->setName($packet->name);
-        $firstBasketItem->setCategory1("Paketler");
-        $firstBasketItem->setCategory2("Hizmet Paketleri");
-        $firstBasketItem->setItemType(\Iyzipay\Model\BasketItemType::VIRTUAL);
-        $firstBasketItem->setPrice($packet->price);
-        $basketItems[0] = $firstBasketItem;
-
-        $newRequest->setBasketItems($basketItems);
-
-        $response = \Iyzipay\Model\Payment::create($newRequest, $options);
-
+        $payment->setConversationId(rand());
+        $payment->setPrice($amount);
+        $payment->setCallbackUrl(route('business.packet.payment.callback', [$packet->id, authUser()->id]) . '?count=' . $count . '&kdv=' . $kdv);
+        $payment->setCard($request->name, str($request->card_number)->replace(' ', ''), $month, $year, $request->cvv);
+        $payment->setBuyer(authUser()->id, $name, $surname, authUser()->phone, authUser()->email);
+        $payment->setShippingAddress();
+        $payment->setBillingAddress();
+        $payment->addBasketItem($packet->id, $packet->name, 'Paket', $amount);
+        $response = $payment->createPaymentRequest();
+        dd($response->getStatus());
         if ($response->getStatus() == 'failure') {
             $request->flash();
             return back()->with('response', [
@@ -136,10 +90,10 @@ class PacketOrderController extends Controller
         echo $response->getHtmlContent();
     }
 
-    public function callback(Request $request)
+    public function callback(Request $request, BussinessPackage $packet, BusinessOfficial $official)
     {
-        //Auth::guard('official')->loginUsingId($official->id);
-        $request->dd();
+        Auth::guard('official')->loginUsingId($official->id);
+
         $payment = (new Iyzico())->completePayment($request->paymentId);
 
         if ($payment->getStatus() == 'success') {
