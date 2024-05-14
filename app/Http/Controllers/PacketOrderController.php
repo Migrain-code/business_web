@@ -40,8 +40,8 @@ class PacketOrderController extends Controller
         //$request->dd();
 
         $count = 1;
-        $kdv = 20;
-        $amount = $packet->price;
+        $kdv = "20";
+        $amount = str_replace(',', '.', $packet->price);
 
         $parts = explode(' ', $request->card_name);
 
