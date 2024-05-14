@@ -87,7 +87,7 @@ class PacketOrderController extends Controller
         $buyer->setSurname($name[1]);
         $buyer->setGsmNumber($user->phone);
         $buyer->setEmail($user->email);
-        $buyer->setIdentityNumber("");
+        $buyer->setIdentityNumber("11111111111");
         $buyer->setLastLoginDate(now()->format('Y-m-d H:i:s'));
         $buyer->setRegistrationDate($user->created_at->format('Y-m-d H:i:s'));
         $buyer->setRegistrationAddress($this->business->address);
