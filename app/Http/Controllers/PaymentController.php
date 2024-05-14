@@ -30,6 +30,7 @@ class PaymentController extends Controller
             $packetOrder->discount = $request->discount ?? 0;
             $packetOrder->payment_id = $payment->getPaymentId();
             $packetOrder->payment_type = 'CARD';
+            $packetOrder->status = 'PAYED';
             $packetOrder->save();
 
             $business->package_id = $packet->id;
