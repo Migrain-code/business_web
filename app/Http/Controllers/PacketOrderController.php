@@ -122,15 +122,15 @@ class PacketOrderController extends Controller
 
         $newRequest->setBasketItems($basketItems);
 
-        $payment = \Iyzipay\Model\Payment::create($newRequest, $options);
-        dd($payment);
-        /*if ($response->getStatus() == 'failure') {
+        $response = \Iyzipay\Model\Payment::create($newRequest, $options);
+
+        if ($response->getStatus() == 'failure') {
             $request->flash();
             return back()->with('response', [
                 'status' => 'error',
                 'message' => $response->getErrorMessage()
             ]);
-        }*/
+        }
 
         echo $response->getHtmlContent();
     }
