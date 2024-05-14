@@ -42,20 +42,6 @@ class PacketOrderController extends Controller
         $kdv = 20;
         $amount = $packet->price;
 
-        if ($request->paymentType == 'BANK_TRANSFER') {
-            $packetOrder = new PacketOrder();
-            $packetOrder->packet_id = $packet->id;
-            $packetOrder->business_id = $this->business->id;
-            $packetOrder->price = $amount;
-            $packetOrder->tax = $prices['kdv'] ?? 0;
-            $packetOrder->discount = $prices['discount'] ?? 0;
-            $packetOrder->payment_id = 0;
-            $packetOrder->payment_type = 'BANK_TRANSFER';
-            $packetOrder->status = 'PENDING';
-            $packetOrder->save();
-
-            return to_route('business.packet.payment.success', ['odeme' => 'havale', 'siparis-no' => $packetOrder->id]);
-        }
 
         $parts = explode(' ', $request->card_name);
 
@@ -66,23 +52,102 @@ class PacketOrderController extends Controller
         $year = $request->card_expiry_year;
 
         $payment = new \App\Services\Iyzico();
-        $payment->setConversationId(rand());
-        $payment->setPrice(str($amount));
-        $payment->setCallbackUrl(route('business.packet.payment.callback', [$packet->id, authUser()->id]) . '?count=' . $count . '&kdv=' . $kdv);
-        $payment->setCard($request->card_name, str($request->card_number)->replace(' ', ''), $month, $year, $request->card_cvv, false);
-        $payment->setBuyer(authUser()->id, $name, $surname, authUser()->phone, authUser()->email);
-        $payment->setShippingAddress();
-        $payment->setBillingAddress();
-        $payment->addBasketItem("BP".$packet->id, $packet->name, 'Paket', $amount);
-        $response = $payment->createPaymentRequest();
-        dd($response);
-        if ($response->getStatus() == 'failure') {
+
+        $options = new \Iyzipay\Options();
+        $options->setApiKey("sandbox-ySUSboVTBmQZqnu2r8RIMFdSfNbVzllx");
+        $options->setSecretKey("sandbox-86h7NjkcNi8T6J3RQUUiw5raND4AdmSV");
+        $options->setBaseUrl("https://sandbox-api.iyzipay.com");
+
+        $newRequest = new \Iyzipay\Request\CreatePaymentRequest();
+        $newRequest->setLocale(\Iyzipay\Model\Locale::TR);
+        $newRequest->setConversationId("123456789");
+        $newRequest->setPrice("1");
+        $newRequest->setPaidPrice("1.2");
+        $newRequest->setCurrency(\Iyzipay\Model\Currency::TL);
+        $newRequest->setInstallment(1);
+        $newRequest->setBasketId("B67832");
+        $newRequest->setPaymentChannel(\Iyzipay\Model\PaymentChannel::WEB);
+        $newRequest->setPaymentGroup(\Iyzipay\Model\PaymentGroup::PRODUCT);
+
+        $paymentCard = new \Iyzipay\Model\PaymentCard();
+        $paymentCard->setCardHolderName("John Doe");
+        $paymentCard->setCardNumber("5528790000000008");
+        $paymentCard->setExpireMonth("12");
+        $paymentCard->setExpireYear("2030");
+        $paymentCard->setCvc("123");
+        $paymentCard->setRegisterCard(0);
+        $newRequest->setPaymentCard($paymentCard);
+
+        $buyer = new \Iyzipay\Model\Buyer();
+        $buyer->setId("BY789");
+        $buyer->setName("John");
+        $buyer->setSurname("Doe");
+        $buyer->setGsmNumber("+905350000000");
+        $buyer->setEmail("email@email.com");
+        $buyer->setIdentityNumber("74300864791");
+        $buyer->setLastLoginDate("2015-10-05 12:43:35");
+        $buyer->setRegistrationDate("2013-04-21 15:12:09");
+        $buyer->setRegistrationAddress("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1");
+        $buyer->setIp("85.34.78.112");
+        $buyer->setCity("Istanbul");
+        $buyer->setCountry("Turkey");
+        $buyer->setZipCode("34732");
+        $newRequest->setBuyer($buyer);
+
+        $shippingAddress = new \Iyzipay\Model\Address();
+        $shippingAddress->setContactName("Jane Doe");
+        $shippingAddress->setCity("Istanbul");
+        $shippingAddress->setCountry("Turkey");
+        $shippingAddress->setAddress("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1");
+        $shippingAddress->setZipCode("34742");
+        $newRequest->setShippingAddress($shippingAddress);
+
+        $billingAddress = new \Iyzipay\Model\Address();
+        $billingAddress->setContactName("Jane Doe");
+        $billingAddress->setCity("Istanbul");
+        $billingAddress->setCountry("Turkey");
+        $billingAddress->setAddress("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1");
+        $billingAddress->setZipCode("34742");
+        $newRequest->setBillingAddress($billingAddress);
+
+        $basketItems = array();
+        $firstBasketItem = new \Iyzipay\Model\BasketItem();
+        $firstBasketItem->setId("BI101");
+        $firstBasketItem->setName("Binocular");
+        $firstBasketItem->setCategory1("Collectibles");
+        $firstBasketItem->setCategory2("Accessories");
+        $firstBasketItem->setItemType(\Iyzipay\Model\BasketItemType::PHYSICAL);
+        $firstBasketItem->setPrice("0.3");
+        $basketItems[0] = $firstBasketItem;
+
+        $secondBasketItem = new \Iyzipay\Model\BasketItem();
+        $secondBasketItem->setId("BI102");
+        $secondBasketItem->setName("Game code");
+        $secondBasketItem->setCategory1("Game");
+        $secondBasketItem->setCategory2("Online Game Items");
+        $secondBasketItem->setItemType(\Iyzipay\Model\BasketItemType::VIRTUAL);
+        $secondBasketItem->setPrice("0.5");
+        $basketItems[1] = $secondBasketItem;
+
+        $thirdBasketItem = new \Iyzipay\Model\BasketItem();
+        $thirdBasketItem->setId("BI103");
+        $thirdBasketItem->setName("Usb");
+        $thirdBasketItem->setCategory1("Electronics");
+        $thirdBasketItem->setCategory2("Usb / Cable");
+        $thirdBasketItem->setItemType(\Iyzipay\Model\BasketItemType::PHYSICAL);
+        $thirdBasketItem->setPrice("0.2");
+        $basketItems[2] = $thirdBasketItem;
+        $newRequest->setBasketItems($basketItems);
+
+        $payment = \Iyzipay\Model\Payment::create($newRequest, $options);
+        dd($payment);
+        /*if ($response->getStatus() == 'failure') {
             $request->flash();
             return back()->with('response', [
                 'status' => 'error',
                 'message' => $response->getErrorMessage()
             ]);
-        }
+        }*/
 
         echo $response->getHtmlContent();
     }
