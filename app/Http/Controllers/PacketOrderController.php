@@ -100,14 +100,14 @@ class PacketOrderController extends Controller
         $shippingAddress->setContactName($user->name);
         $shippingAddress->setCity($this->business->cities->name);
         $shippingAddress->setCountry("Turkey");
-        $shippingAddress->setAddress($this->business->cities->address);
+        $shippingAddress->setAddress($this->business->address);
         $newRequest->setShippingAddress($shippingAddress);
 
         $billingAddress = new \Iyzipay\Model\Address();
         $billingAddress->setContactName($user->name);
         $billingAddress->setCity($this->business->cities->name);
         $billingAddress->setCountry("Turkey");
-        $billingAddress->setAddress($this->business->cities->address);
+        $billingAddress->setAddress($this->business->address);
         $newRequest->setBillingAddress($billingAddress);
 
         $basketItems = array();
