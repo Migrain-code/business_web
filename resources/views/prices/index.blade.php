@@ -40,8 +40,8 @@
                 position: relative;
                 display: flex;
                 justify-content: center;
-                margin-top: 10%;
-                margin-bottom: -20%;
+                margin-top: 50px;
+                margin-bottom: -100px;
             }
         }
     </style>
