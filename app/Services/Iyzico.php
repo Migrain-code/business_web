@@ -19,19 +19,6 @@ class Iyzico
     private Address $shippingAddress;
     private Address $billingAddress;
     private array $basketItems = [];
-    public function post($url, $header, $content)
-    {
-        return $this->curl->exec($url, array(
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => $content,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_VERBOSE => false,
-            CURLOPT_HEADER => false,
-            CURLOPT_HTTPHEADER => $header,
-            CURLOPT_SSL_VERIFYPEER=>false,
-        ));
-    }
     public function createPaymentRequest()
     {
         $request = new \Iyzipay\Request\CreatePaymentRequest();

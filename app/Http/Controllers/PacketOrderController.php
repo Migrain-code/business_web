@@ -14,11 +14,12 @@ use Illuminate\Support\Facades\Auth;
 class PacketOrderController extends Controller
 {
     private $business;
-
+    private $user;
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            $this->business = auth()->user()->business;
+            $this->user = auth()->user();
+            $this->business = $this->user->business;
             return $next($request);
         });
     }
@@ -60,83 +61,65 @@ class PacketOrderController extends Controller
 
         $newRequest = new \Iyzipay\Request\CreatePaymentRequest();
         $newRequest->setLocale(\Iyzipay\Model\Locale::TR);
-        $newRequest->setConversationId("123456789");
-        $newRequest->setPrice("1");
-        $newRequest->setPaidPrice("1.2");
+        $newRequest->setConversationId(rand(1, 100000));
+        $newRequest->setPrice($packet->price);
+        $newRequest->setPaidPrice($packet->price);
         $newRequest->setCurrency(\Iyzipay\Model\Currency::TL);
         $newRequest->setInstallment(1);
-        $newRequest->setBasketId("B67832");
+        $newRequest->setBasketId("BP".rand(1, 10000));
         $newRequest->setPaymentChannel(\Iyzipay\Model\PaymentChannel::WEB);
         $newRequest->setPaymentGroup(\Iyzipay\Model\PaymentGroup::PRODUCT);
 
         $paymentCard = new \Iyzipay\Model\PaymentCard();
-        $paymentCard->setCardHolderName("John Doe");
-        $paymentCard->setCardNumber("5528790000000008");
+        $paymentCard->setCardHolderName($request->input('card_name'));
+        $paymentCard->setCardNumber($request->input('card_number'));
         $paymentCard->setExpireMonth("12");
         $paymentCard->setExpireYear("2030");
         $paymentCard->setCvc("123");
         $paymentCard->setRegisterCard(0);
         $newRequest->setPaymentCard($paymentCard);
 
+        $name = explode(' ', $this->user->name);
+        $user = $this->user;
         $buyer = new \Iyzipay\Model\Buyer();
-        $buyer->setId("BY789");
-        $buyer->setName("John");
-        $buyer->setSurname("Doe");
-        $buyer->setGsmNumber("+905350000000");
-        $buyer->setEmail("email@email.com");
-        $buyer->setIdentityNumber("74300864791");
-        $buyer->setLastLoginDate("2015-10-05 12:43:35");
-        $buyer->setRegistrationDate("2013-04-21 15:12:09");
-        $buyer->setRegistrationAddress("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1");
-        $buyer->setIp("85.34.78.112");
-        $buyer->setCity("Istanbul");
+        $buyer->setId("BO". rand(1, 10000));
+        $buyer->setName($name[0]);
+        $buyer->setSurname($name[1]);
+        $buyer->setGsmNumber($user->phone);
+        $buyer->setEmail($user->email);
+        $buyer->setIdentityNumber("");
+        $buyer->setLastLoginDate(now()->format('Y-m-d H:i:s'));
+        $buyer->setRegistrationDate($user->created_at->format('Y-m-d H:i:s'));
+        $buyer->setRegistrationAddress($this->business->address);
+        $buyer->setIp($request->ip());
+        $buyer->setCity($this->business->city->name);
         $buyer->setCountry("Turkey");
-        $buyer->setZipCode("34732");
         $newRequest->setBuyer($buyer);
 
         $shippingAddress = new \Iyzipay\Model\Address();
-        $shippingAddress->setContactName("Jane Doe");
-        $shippingAddress->setCity("Istanbul");
+        $shippingAddress->setContactName($user->name);
+        $shippingAddress->setCity($this->business->city->name);
         $shippingAddress->setCountry("Turkey");
-        $shippingAddress->setAddress("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1");
-        $shippingAddress->setZipCode("34742");
+        $shippingAddress->setAddress($this->business->city->address);
         $newRequest->setShippingAddress($shippingAddress);
 
         $billingAddress = new \Iyzipay\Model\Address();
-        $billingAddress->setContactName("Jane Doe");
-        $billingAddress->setCity("Istanbul");
+        $billingAddress->setContactName($user->name);
+        $billingAddress->setCity($this->business->city->name);
         $billingAddress->setCountry("Turkey");
-        $billingAddress->setAddress("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1");
-        $billingAddress->setZipCode("34742");
+        $billingAddress->setAddress($this->business->city->address);
         $newRequest->setBillingAddress($billingAddress);
 
         $basketItems = array();
         $firstBasketItem = new \Iyzipay\Model\BasketItem();
-        $firstBasketItem->setId("BI101");
-        $firstBasketItem->setName("Binocular");
-        $firstBasketItem->setCategory1("Collectibles");
-        $firstBasketItem->setCategory2("Accessories");
-        $firstBasketItem->setItemType(\Iyzipay\Model\BasketItemType::PHYSICAL);
-        $firstBasketItem->setPrice("0.3");
+        $firstBasketItem->setId("BP". rand(1, 10000));
+        $firstBasketItem->setName($packet->name);
+        $firstBasketItem->setCategory1("Paketler");
+        $firstBasketItem->setCategory2("Hizmet Paketleri");
+        $firstBasketItem->setItemType(\Iyzipay\Model\BasketItemType::VIRTUAL);
+        $firstBasketItem->setPrice($packet->price);
         $basketItems[0] = $firstBasketItem;
 
-        $secondBasketItem = new \Iyzipay\Model\BasketItem();
-        $secondBasketItem->setId("BI102");
-        $secondBasketItem->setName("Game code");
-        $secondBasketItem->setCategory1("Game");
-        $secondBasketItem->setCategory2("Online Game Items");
-        $secondBasketItem->setItemType(\Iyzipay\Model\BasketItemType::VIRTUAL);
-        $secondBasketItem->setPrice("0.5");
-        $basketItems[1] = $secondBasketItem;
-
-        $thirdBasketItem = new \Iyzipay\Model\BasketItem();
-        $thirdBasketItem->setId("BI103");
-        $thirdBasketItem->setName("Usb");
-        $thirdBasketItem->setCategory1("Electronics");
-        $thirdBasketItem->setCategory2("Usb / Cable");
-        $thirdBasketItem->setItemType(\Iyzipay\Model\BasketItemType::PHYSICAL);
-        $thirdBasketItem->setPrice("0.2");
-        $basketItems[2] = $thirdBasketItem;
         $newRequest->setBasketItems($basketItems);
 
         $payment = \Iyzipay\Model\Payment::create($newRequest, $options);
