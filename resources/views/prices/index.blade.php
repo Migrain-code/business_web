@@ -29,6 +29,21 @@
             margin-top: auto;
             text-transform: uppercase;
         }
+        .toolBarArea{
+            display: none;
+        }
+        @media screen and (max-width: 768px) {
+            .customScrollArea{
+               width: 1000px;
+            }
+            .toolBarArea{
+                position: relative;
+                display: flex;
+                justify-content: center;
+                margin-top: 10%;
+                margin-bottom: -20%;
+            }
+        }
     </style>
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
@@ -102,8 +117,19 @@
                     </div>
                 </div>
                 <!-- Aylık Paketler -->
+                <div class="toolBarArea">
+                    <div class="sliderArrow">
+                        <a href="javascript:;" class="sliderPrev">
+                            <img src="/front/assets/images/icons/ico-slider-left.svg">
+                        </a>
+                        <a href="javascript:;" class="sliderNext">
+                            <img src="/front/assets/images/icons/ico-slider-right.svg">
+                        </a>
+                    </div>
+                </div>
                 <section class="home-properties packages" id="tab1" style="overflow-x: auto;">
-                        <div class="row packages-list" style="width: 1200px;">
+
+                        <div class="row packages-list customScrollArea">
                             @include('prices.parts.package')
                         </div>
                 </section>
@@ -158,6 +184,20 @@
 
            counter++;
            console.log('counter', counter)
+        });
+    </script>
+    <script>
+        $('.sliderNext').on('click', function (){
+
+            var currentScrollLeft = $('.packages').scrollLeft();
+            currentScrollLeft+= 300;
+            $('.packages').scrollLeft(currentScrollLeft);
+        });
+        $('.sliderPrev').on('click', function (){
+
+            var currentScrollLeft = $('.packages').scrollLeft();
+            currentScrollLeft-= 300;
+            $('.packages').scrollLeft(currentScrollLeft);
         });
     </script>
 @endsection
