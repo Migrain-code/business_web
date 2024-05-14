@@ -27,3 +27,14 @@
         @include('proparties.parts.tabs')
     </article>
 @endsection
+@section('scripts')
+    <script>
+        $('.customTab').on('click', function(){
+           var title = $(this).data('title');
+           var description = $(this).data('description');
+
+           $('#pageTitle').text(title);
+           $('#pageDescription').attr('content',description);
+        });
+    </script>
+@endsection

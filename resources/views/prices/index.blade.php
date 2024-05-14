@@ -102,8 +102,8 @@
                     </div>
                 </div>
                 <!-- Aylık Paketler -->
-                <section class="home-properties packages" id="tab1">
-                        <div class="row packages-list">
+                <section class="home-properties packages" id="tab1" style="overflow-x: auto;">
+                        <div class="row packages-list" style="width: 1200px;">
                             @include('prices.parts.package')
                         </div>
                 </section>

@@ -108,7 +108,7 @@
         <div class="separator"></div>
         <div class="scroll-x h-50px overflow-y-hidden">
             <!--begin::Nav-->
-            <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold" style="width: 600px">
+            <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold" style="width: 800px">
                 <!--begin::Nav item-->
                 <li class="nav-item">
                     <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.edit')) active @endif" href="{{route('business.personel.edit', $personel->id)}}">

@@ -1,5 +1,5 @@
-<title>{{setting('business_site_title')}} | @yield('title', '')</title>
-<meta name="description" content="@yield('description', setting('business_meta_descriptions'))">
+<title id="pageTitle">{{setting('business_site_title')}} | @yield('title', '')</title>
+<meta name="description" id="pageDescription" content="@yield('description', setting('business_meta_descriptions'))">
 <link rel="canonical" href="https://www.business.hizlirandevu.com.tr" />
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="{{setting('business_site_title')}}">

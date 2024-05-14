@@ -70,68 +70,6 @@
                         <div class="card-title">
                             <h2>Randevu Detayı (#{{$appointment->id}})</h2>
                         </div>
-                        <div class="btn-wrapper">
-                            <button type="button" class="btn btn-lg btn-icon btn-icon-primary btn-light-primary me-n3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
-                                <span class="svg-icon svg-icon-3 svg-icon-primary">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
-                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <rect x="5" y="5" width="5" height="5" rx="1" fill="currentColor"></rect>
-                                            <rect x="14" y="5" width="5" height="5" rx="1" fill="currentColor" opacity="0.3"></rect>
-                                            <rect x="5" y="14" width="5" height="5" rx="1" fill="currentColor" opacity="0.3"></rect>
-                                            <rect x="14" y="14" width="5" height="5" rx="1" fill="currentColor" opacity="0.3"></rect>
-                                        </g>
-                                    </svg>
-                                </span>
-                                <!--end::Svg Icon-->
-                            </button>
-                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3" data-kt-menu="true" style="">
-                                <!--begin::Heading-->
-                                <div class="menu-item px-3">
-                                    <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">İşlemler</div>
-                                </div>
-                                <!--end::Heading-->
-                                @if($appointment->status == 0)
-                                    <form method="post" action="{{route('business.appointment.update', $appointment->id)}}" id="approveForm">
-                                        @csrf
-                                        @method('PUT')
-                                    </form>
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-                                        <a href="javascript:void(0)" onclick="$('#approveForm').submit()" class="menu-link px-3">Onayla</a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                @endif
-                                <!--begin::Menu item-->
-                                @if($appointment->status != 3)
-                                    <form method="post" action="{{route('business.appointment.destroy', $appointment->id)}}" id="cancelForm">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-                                    <div class="menu-item px-3">
-                                        <a href="javascript:void(0)" onclick="$('#cancelForm').submit()" class="menu-link flex-stack px-3">İptal Et
-                                            <i class="fas fa-exclamation-circle ms-2 fs-7"
-                                               data-bs-toggle="tooltip"
-                                              title="Specify a target name for future usage and reference" data-kt-initialized="1">
-
-                                            </i>
-                                        </a>
-                                    </div>
-                                @endif
-                                <!--end::Menu item-->
-                                @if($appointment->status != 0)
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-
-                                        <a href="{{route('business.appointment.edit', $appointment->id)}}" class="menu-link flex-stack px-3">Tamamla
-                                            <i class="fas fa-check-circle ms-2 fs-7">
-                                            </i>
-                                        </a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                @endif
-                            </div>
-                        </div>
 
                     </div>
                     <!--end::Card header-->
@@ -161,19 +99,45 @@
                                 <tr>
                                     <td class="text-muted">
                                         <div class="d-flex align-items-center">
-                                            <i class="ki-duotone ki-electronic-clock fs-2 me-2">
+                                            <i class="ki-duotone ki-setting-2 fs-3 me-3">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
-                                                <span class="path3"></span>
-                                                <span class="path4"></span>
-                                                <span class="path5"></span>
                                             </i>
-                                            İşlem Süresi
+                                            İşlemler
                                         </div>
                                     </td>
-                                    <td class="fw-bold text-end">
-                                        {{\Illuminate\Support\Carbon::parse($appointment->end_time)->diffInMinutes($appointment->start_time)}} .DK
+
+                                    <td class="text-muted">
+
+                                        <div class="d-flex align-items-center flex-end w-100">
+                                                @if($appointment->status == 0)
+                                                    <form method="post" action="{{route('business.appointment.update', $appointment->id)}}" id="approveForm">
+                                                        @csrf
+                                                        @method('PUT')
+                                                    </form>
+                                                    <a href="javascript:void(0)" onclick="$('#approveForm').submit()" class="btn btn-sm btn-warning px-3 me-2">Onayla</a>
+                                                @endif
+                                                <!--begin::Menu item-->
+                                                @if($appointment->status != 3)
+                                                    <form method="post" action="{{route('business.appointment.destroy', $appointment->id)}}" id="cancelForm">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+
+                                                    <a href="javascript:void(0)" onclick="$('#cancelForm').submit()" class="btn btn-sm btn-danger flex-stack px-3 me-2">İptal Et
+
+                                                    </a>
+
+                                                @endif
+                                                <!--end::Menu item-->
+                                                @if($appointment->status != 0)
+                                                        <a href="{{route('business.appointment.edit', $appointment->id)}}" class="btn btn-sm btn-primary flex-stack px-3 me-2">Tamamla
+
+                                                        </a>
+                                                @endif
+                                        </div>
                                     </td>
+
                                 </tr>
                                 <tr>
                                     <td class="text-muted">
