@@ -233,7 +233,7 @@ class Business extends Model
 
     public function lowStockProducts()
     {
-        return $this->products()->where('piece' ,'<', 10);
+        return $this->products()->where('piece' ,'<', $this->stock_count);
     }
     public function packages()
     {

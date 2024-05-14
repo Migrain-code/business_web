@@ -82,10 +82,33 @@
                     <input type="number" class="form-control form-control-solid" placeholder="Örn. 10" name="time" value="{{$service->time}}" />
                     <!--end::Input-->
                 </div>
-                <!--end::Input group-->
 
-                <!--begin::Input group-->
                 <div class="fv-row mb-7">
+                    <!--begin::Label-->
+                    <label class="fs-6 fw-semibold mb-2">
+                        <span class="required">Fiyat Türü Seçiniz</span>
+                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Bu paket hangi hizmet türünde verilecek"></i>
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <div class="d-flex">
+                        <div class="form-check form-check-custom form-check-solid form-check-lg me-2">
+                            <input class="form-check-input" @checked($service->price_type_id == 0) name="price_type_id" type="radio" value="0" id="flexCheckboxLgType1"/>
+                            <label class="form-check-label" for="flexCheckboxLgType1">
+                                Tek Fiyat
+                            </label>
+                        </div>
+                        <div class="form-check form-check-custom form-check-solid form-check-lg me-2" >
+                            <input class="form-check-input" @checked($service->price_type_id == 1) name="price_type_id" type="radio" value="1" id="flexCheckboxLgType2"/>
+                            <label class="form-check-label" for="flexCheckboxLgType2">
+                                Aralıklı Fiyat
+                            </label>
+                        </div>
+                    </div>
+                    <!--end::Input-->
+                </div>
+
+                <div class="fv-row mb-7" id="singlePrice">
                     <!--begin::Label-->
                     <label class="fs-6 fw-semibold mb-2">
                         <span class="required">Hizmet Fiyatı</span>
@@ -95,6 +118,22 @@
                     <!--begin::Input-->
                     <input type="number" class="form-control form-control-solid phone" placeholder="0.00" name="price" value="{{$service->price}}" />
                     <!--end::Input-->
+                </div>
+                <div class="fv-row mb-7" id="rangePrice" style="display: none">
+                    <!--begin::Label-->
+                    <label class="fs-6 fw-semibold mb-2">
+                        <span class="required">Hizmet Fiyat aralığı</span>
+                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Bu hizmetin ücreti"></i>
+                    </label>
+                    <!--end::Label-->
+                    <div class="d-flex">
+                        <!--begin::Input-->
+                        <input type="number" class="form-control form-control-solid me-2" placeholder="En Düşük Fiyat" name="min_price" value="{{$service->price}}" />
+                        <!--end::Input-->
+                        <!--begin::Input-->
+                        <input type="number" class="form-control form-control-solid phone" placeholder="En Yüksek Fiyat" name="max_price" value="{{$service->max_price}}" />
+                        <!--end::Input-->
+                    </div>
                 </div>
 
                 <div class="d-flex justify-content-end align-items-center gap-3">

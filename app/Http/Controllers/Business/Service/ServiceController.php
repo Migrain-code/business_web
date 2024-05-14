@@ -40,9 +40,9 @@ class ServiceController extends Controller
     {
         $serviceCategories = ServiceCategory::all();
         $business = $this->business;
-        if ($business->type_id == 3){
+        if ($business->type_id == 3) {
             $typeList = BusinnessType::all();
-        } else{
+        } else {
             $typeList = BusinnessType::whereId($business->type_id)->get();
         }
 
@@ -73,18 +73,18 @@ class ServiceController extends Controller
             ->where('sub_category', $request->input('subCategoryId'))
             ->where('category', $request->input('categoryId'))
             ->where('type', $request->input('typeId'))->first();
-        if ($findService){
-            if ($findService->is_delete == 1){
+        if ($findService) {
+            if ($findService->is_delete == 1) {
                 $findService->status = 0;
                 $findService->save();
                 return response()->json([
                     'status' => "success",
                     'message' => "Yeni Hizmet Eklendi",
                 ]);
-            } else{
+            } else {
                 return response()->json([
-                   'status' => "error",
-                   'message' => "Bu hizmeti daha önce ekledini başka ekleyemezsiniz"
+                    'status' => "error",
+                    'message' => "Bu hizmeti daha önce ekledini başka ekleyemezsiniz"
                 ]);
             }
 
@@ -95,7 +95,14 @@ class ServiceController extends Controller
         $newBusinessService->category = $request->input('categoryId');
         $newBusinessService->sub_category = $request->input('subCategoryId');
         $newBusinessService->time = $request->input('time');
-        $newBusinessService->price = $request->input('price');
+        if ($request->input('price_type_id') == 1) {
+            $newBusinessService->price = $request->input('min_price');
+            $newBusinessService->max_price = $request->input('max_price');
+        } else {
+            $newBusinessService->price = $request->input('price');
+        }
+        $newBusinessService->price_type_id = $request->input('price_type_id');
+
         $newBusinessService->save();
 
         return response()->json([
@@ -128,13 +135,13 @@ class ServiceController extends Controller
     {
         $business = $this->business;
         $appointmentCount = $this->business->appointments()
-            ->whereHas('services', function ($q) use ($service){
+            ->whereHas('services', function ($q) use ($service) {
                 $q->where('service_id', $service->id);
             })
             ->count();
 
         $personelCount = $this->business->personels()
-            ->whereHas('services', function ($q) use ($service){
+            ->whereHas('services', function ($q) use ($service) {
                 $q->where('service_id', $service->id);
             })
             ->count();
@@ -142,9 +149,9 @@ class ServiceController extends Controller
             ->where('service_id', $service->id)
             ->sum('total');
         $serviceCategories = ServiceCategory::all();
-        if ($business->type_id == 3){
+        if ($business->type_id == 3) {
             $typeList = BusinnessType::all();
-        } else{
+        } else {
             $typeList = BusinnessType::whereId($business->type_id)->get();
         }
         return view('business.service.edit.index', compact('serviceCategories', 'typeList', 'service', 'appointmentCount', 'personelCount', 'packageCount'));
@@ -163,8 +170,8 @@ class ServiceController extends Controller
             ->where('sub_category', $request->input('subCategoryId'))
             ->where('category', $request->input('categoryId'))
             ->where('type', $request->input('typeId'))->first();
-        if ($findService->id != $service->id){ // bulunan hizmet geçerli hizmet ile aynı değilse
-            if ($findService->is_delete == 1){//hizmet silinmiş mi kontrol et 1 silinmiş
+        if ($findService->id != $service->id) { // bulunan hizmet geçerli hizmet ile aynı değilse
+            if ($findService->is_delete == 1) {//hizmet silinmiş mi kontrol et 1 silinmiş
                 $findService->is_delete = 0;
                 $findService->save();
                 return response()->json([
@@ -173,20 +180,27 @@ class ServiceController extends Controller
                     sildiğiniz bir hizmet ile eşleştiği için bu hizmeti sabit bırakıp.
                     Sildiğiniz hizmeti sizin için 'hizmet listenize geri ekledik'",
                 ]);
-            } else{
+            } else {
                 return response()->json([
                     'status' => "error",
                     'message' => "Bu hizmet, hizmet listenizde bulunmaktadır. Lütfen başka bir seçim yapınız veya işlemi iptal ediniz."
                 ]);
             }
 
-        } else{
+        } else {
             if ($service) {
                 $service->type = $request->typeId;
                 $service->category = $request->input('categoryId');
                 $service->sub_category = $request->input('subCategoryId');
                 $service->time = $request->input('time');
                 $service->price = $request->input('price');
+                if ($request->input('price_type_id') == 1) {
+                    $service->price = $request->input('min_price');
+                    $service->max_price = $request->input('max_price');
+                } else {
+                    $service->price = $request->input('price');
+                }
+                $service->price_type_id = $request->input('price_type_id');
                 $service->save();
 
                 return response()->json([
@@ -266,9 +280,12 @@ class ServiceController extends Controller
                 return $q->created_at->format('d.m.Y H:i');
             })
             ->editColumn('price', function ($q) {
+                if ($q->price_type_id == 1) {
+                    return formatPrice($q->price) . " - " . formatPrice($q->max_price);
+                }
                 return formatPrice($q->price);
             })
-            ->addColumn('action', function ($q) use ($request){
+            ->addColumn('action', function ($q) use ($request) {
                 $html = '';
 
                 $html .= create_edit_button(route('business.service.edit', $q->id), 'text-white');

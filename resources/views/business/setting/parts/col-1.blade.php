@@ -106,7 +106,32 @@
         <!--end::Card body-->
     </div>
     <!--end::Status-->
+    <!--begin::Status-->
+    <div class="card card-flush py-4">
+        <!--begin::Card header-->
+        <div class="card-header">
+            <!--begin::Card title-->
+            <div class="card-title">
+                <h2>Stok Alarmı</h2>
+            </div>
+            <!--end::Card title-->
+        </div>
+        <!--end::Card header-->
 
+        <!--begin::Card body-->
+        <div class="card-body pt-0">
+            <!--begin::Select2-->
+            <input type="number" value="{{$business->stock_count}}" name="stock_count" class="form-control form-control-solid">
+            <!--end::Select2-->
+
+            <!--begin::Description-->
+            <div class="text-muted fs-7">Stok sayınız belirlenen seviyenin altına düştüğünde uyarı alacaksınız.</div>
+            <!--end::Description-->
+
+        </div>
+        <!--end::Card body-->
+    </div>
+    <!--end::Status-->
     <!--begin::Category & tags-->
     <div class="card card-flush py-4">
         <!--begin::Card header-->
@@ -156,28 +181,4 @@
     </div>
     <!--end::Category & tags-->
 
-    <div class="card card-flush py-4">
-        <!--begin::Card header-->
-        <div class="card-header">
-            <!--begin::Card title-->
-            <div class="card-title">
-                <h2>İşletme Galerisi</h2>
-            </div>
-            <!--end::Card title-->
-
-            <!--begin::Card toolbar-->
-            <div class="card-toolbar">
-                <div class="rounded-circle bg-success w-15px h-15px"
-                     id="kt_ecommerce_add_product_status"></div>
-            </div>
-            <!--begin::Card toolbar-->
-        </div>
-        <!--end::Card header-->
-
-        <!--begin::Card body-->
-        <div class="card-body pt-0">
-           <a href="{{route('business.gallery.index')}}" class="btn btn-primary">İşletme Fotoğrafı Yükle</a>
-        </div>
-        <!--end::Card body-->
-    </div>
 </div>

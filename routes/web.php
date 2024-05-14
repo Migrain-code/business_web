@@ -157,8 +157,8 @@ Route::prefix('isletme')->as('business.')->group(function (){
         Route::resource('appointment', AppointmentController::class);
         Route::get('/calendar', [AppointmentController::class, 'calendar'])->name('appointment.calendar');
         Route::get('/randevular', [AppointmentController::class, 'todayAppointment'])->name('appointment.today');
-
         Route::post('appointment/{appointment}/service', [AppointmentServicesController::class,'store'])->name('appointment.service.add');
+        Route::post('appointment/{appointment}/save/service', [AppointmentServicesController::class,'saveService'])->name('appointment.service.save');
         Route::delete('appointmentServices/{appointmentServices}', [AppointmentServicesController::class,'destroy'])->name('appointment.service.destroy');
         Route::get('/personel/{personel}/appointment', [AppointmentServicesController::class, 'getClock']);
         Route::get('/personel-randevular', [AppointmentServicesController::class, 'personelAppointment'])->name('appointment.personelAppointment');

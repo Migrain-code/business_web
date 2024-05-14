@@ -9,6 +9,7 @@ use App\Models\Appointment;
 use App\Models\Personel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use mysql_xdevapi\Exception;
 use Yajra\DataTables\DataTables;
 
 /**
@@ -179,7 +180,8 @@ class AppointmentController extends Controller
                 return Carbon::parse($q->start_time)->format('H:i');
             })
             ->addColumn('servicePrice', function ($q) use ($business) {
-                return $q->calculateTotal();
+                $total = $q->calculateTotal();
+                return is_numeric($total) ? formatPrice($total) : "Hesaplanacak";
             })
             ->editColumn('status', function ($q) {
                 return $q->status('html');

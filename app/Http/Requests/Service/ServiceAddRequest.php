@@ -30,7 +30,10 @@ class ServiceAddRequest extends FormRequest
             'categoryId' => 'required',
             'subCategoryId' => 'required',
             'time' => 'required',
-            'price' => 'required',
+            'price_type_id' => 'required',
+            'price' => 'nullable',
+            'min_price' => 'required_if:price_type_id,2',
+            'max_price' => 'required_if:price_type_id,2',
         ];
     }
 
@@ -41,10 +44,18 @@ class ServiceAddRequest extends FormRequest
             'categoryId' => 'Kategori',
             'subCategoryId' => 'Hizmet',
             'time' => 'Süre',
+            'price_type_id' => 'Fiyat Türü',
             'price' => 'Fiyat',
+            'min_price' => 'Minimum Fiyat',
+            'max_price' => 'Maksimum Fiyat',
         ];
     }
-
+    protected function withValidator($validator)
+    {
+        /*$validator->sometimes('price', 'required', function ($input) {
+            return $input->price_type_id == 1;
+        });*/
+    }
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([

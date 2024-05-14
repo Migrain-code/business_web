@@ -47,7 +47,36 @@
         var serviceId = "{{$service->id}}";
     </script>
     <script src="/business/assets/js/project/service/listing/edit.js"></script>
+    <script>
+        var selectedPriceType = 0;
+        $(document).ready(function (){
 
+            let val = $('[name="price_type_id"]:checked').val();
+            selectedPriceType = val;
+
+            if(val == 1){
+                $('#rangePrice').css('display', 'block');
+                $('#singlePrice').css('display', 'none');
+            } else{
+                $('#rangePrice').css('display', 'none');
+                $('#singlePrice').css('display', 'block');
+
+            }
+        });
+        $(document).on('change', '[name="price_type_id"]', function () {
+            let val = $(this).val();
+            selectedPriceType = val;
+            if(val == 1){
+                $('#rangePrice').css('display', 'block');
+                $('#singlePrice').css('display', 'none');
+            } else{
+                $('#rangePrice').css('display', 'none');
+                $('#singlePrice').css('display', 'block');
+
+            }
+
+        });
+    </script>
     <script>
         var swiper = new Swiper('.swiper-container', {
             slidesPerView: 4, // Her satırda gösterilecek kart sayısı

@@ -55,6 +55,20 @@ class AppointmentServicesController extends Controller
         ]);
     }
 
+    public function saveService(Request $request, Appointment $appointment)
+    {
+        foreach ($request->prices as $key => $price){
+            $findService = $appointment->services()->find($key);
+            if ($findService){
+                $findService->total = $price;
+                $findService->save();
+            }
+        }
+        return back()->with('response',[
+            'status' => "success",
+            'message' => "Randevu Hizmet Fiyatı Güncellendi"
+        ]);
+    }
     /**
      * Randevudan Hizmet Silme
      *

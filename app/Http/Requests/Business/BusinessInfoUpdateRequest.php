@@ -40,6 +40,7 @@ class BusinessInfoUpdateRequest extends FormRequest
             "type_id" => 'required',
             "team_size" => 'required',
             'about_content' => "required",
+            'stock_count' => "required",
         ];
     }
 
@@ -60,6 +61,7 @@ class BusinessInfoUpdateRequest extends FormRequest
             "type_id" => "Hizmet Verilen Cinsiyet",
             "team_size" => "Personel Sayısı",
             'about_content' => "İşletme Hakkında Yazısı",
+            'stock_count' => "Stok Alarmı"
         ];
     }
 

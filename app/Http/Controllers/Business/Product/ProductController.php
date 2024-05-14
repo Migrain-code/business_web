@@ -117,38 +117,74 @@ class ProductController extends Controller
      */
     public function datatable(Request $request)
     {
-        $sales = $this->business->products()
-            ->when($request->filled('listType'), function ($q) use ($request) {
-                if ($request->listType == "thisWeek") {
-                    $startOfWeek = now()->startOfWeek();
-                    $endOfWeek = now()->endOfWeek();
-                    $q->whereBetween('created_at', [$startOfWeek, $endOfWeek]);
-                } elseif ($request->listType == "thisMonth") {
-                    $startOfMonth = now()->startOfMonth();
-                    $endOfMonth = now()->endOfMonth();
-                    $q->whereBetween('created_at', [$startOfMonth, $endOfMonth]);
-                } elseif ($request->listType == "thisYear") {
-                    $startOfYear = now()->startOfYear();
-                    $endOfYear = now()->endOfYear();
-                    $q->whereBetween('created_at', [$startOfYear, $endOfYear]);
-                } elseif ($request->listType == "thisDay") {
-                    $q->whereDate('created_at', now()->toDateString());
-                }
-            })
-            ->when($request->filled('stockType'), function ($q) use ($request){
-                if ($request->stockType == "outStock"){
-                    $q->where('piece', 0);
-                } elseif ($request->stockType == "midStock"){
-                    $q->whereBetween('piece', [1, 30]);
-                }
-                elseif ($request->stockType == "inStock"){
-                    $q->where('piece','>', 30);
-                }
-                else{
-                    $q->where('piece', '>=', 0);
-                }
-            })
-            ->get();
+        if ($this->business->lowStockProducts->count() > 0){
+            $sales = $this->business->products()
+                ->when($request->filled('listType'), function ($q) use ($request) {
+                    if ($request->listType == "thisWeek") {
+                        $startOfWeek = now()->startOfWeek();
+                        $endOfWeek = now()->endOfWeek();
+                        $q->whereBetween('created_at', [$startOfWeek, $endOfWeek]);
+                    } elseif ($request->listType == "thisMonth") {
+                        $startOfMonth = now()->startOfMonth();
+                        $endOfMonth = now()->endOfMonth();
+                        $q->whereBetween('created_at', [$startOfMonth, $endOfMonth]);
+                    } elseif ($request->listType == "thisYear") {
+                        $startOfYear = now()->startOfYear();
+                        $endOfYear = now()->endOfYear();
+                        $q->whereBetween('created_at', [$startOfYear, $endOfYear]);
+                    } elseif ($request->listType == "thisDay") {
+                        $q->whereDate('created_at', now()->toDateString());
+                    }
+                })
+                ->when($request->filled('stockType'), function ($q) use ($request){
+                    if ($request->stockType == "outStock"){
+                        $q->where('piece', 0);
+                    } elseif ($request->stockType == "midStock"){
+                        $q->whereBetween('piece', [1, $this->business->stock_count]);
+                    }
+                    elseif ($request->stockType == "inStock"){
+                        $q->where('piece','>', $this->business->stock_count);
+                    }
+                    else{
+                        $q->where('piece', '>=', 0);
+                    }
+                })->orderBy('piece', 'asc')
+                ->get();
+        } else{
+            $sales = $this->business->products()
+                ->when($request->filled('listType'), function ($q) use ($request) {
+                    if ($request->listType == "thisWeek") {
+                        $startOfWeek = now()->startOfWeek();
+                        $endOfWeek = now()->endOfWeek();
+                        $q->whereBetween('created_at', [$startOfWeek, $endOfWeek]);
+                    } elseif ($request->listType == "thisMonth") {
+                        $startOfMonth = now()->startOfMonth();
+                        $endOfMonth = now()->endOfMonth();
+                        $q->whereBetween('created_at', [$startOfMonth, $endOfMonth]);
+                    } elseif ($request->listType == "thisYear") {
+                        $startOfYear = now()->startOfYear();
+                        $endOfYear = now()->endOfYear();
+                        $q->whereBetween('created_at', [$startOfYear, $endOfYear]);
+                    } elseif ($request->listType == "thisDay") {
+                        $q->whereDate('created_at', now()->toDateString());
+                    }
+                })
+                ->when($request->filled('stockType'), function ($q) use ($request){
+                    if ($request->stockType == "outStock"){
+                        $q->where('piece', 0);
+                    } elseif ($request->stockType == "midStock"){
+                        $q->whereBetween('piece', [1, $this->business->stock_count]);
+                    }
+                    elseif ($request->stockType == "inStock"){
+                        $q->where('piece','>', $this->business->stock_count);
+                    }
+                    else{
+                        $q->where('piece', '>=', 0);
+                    }
+                })
+                ->get();
+        }
+
         return DataTables::of($sales)
             ->editColumn('created_at', function ($q) {
                 return $q->created_at->format('d.m.Y H:i');
@@ -162,8 +198,8 @@ class ProductController extends Controller
             ->addColumn('status', function ($q){
                 if ($q->piece == 0){
                     return html()->span()->class('badge badge-light-danger')->text("Stok Tükendi");
-                } elseif ($q->piece  > 0 && $q->piece <= 30){
-                    return html()->span()->class('badge badge-light-warning')->text("Stoğu Azaldı");
+                } elseif ($q->piece  > 0 && $q->piece <= $this->business->stock_count){
+                    return html()->span()->class('badge badge-light-warning')->style('color: #967709')->text("Stoğu Azaldı");
                 } else{
                     return html()->span()->class('badge badge-light-primary')->text("Stokta");
                 }

@@ -91,7 +91,7 @@
         <script>
             $(document).ready(function () {
                 Swal.fire({
-                    'icon': "warning",
+                    'icon': "error",
                     'title': "Stok Alarmı",
                     'text' : "Stoğu azalan ürünler var. Stok Durumu Filtresini kullanarak bu ürünleri filtreleyebilirsiniz.",
                     confirmButtonText: "Tamam",

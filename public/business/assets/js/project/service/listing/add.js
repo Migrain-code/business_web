@@ -44,11 +44,36 @@ var KTModalCustomersAdd = function () {
                             }
                         }
                     },
+
+                    'price_type_id': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Fiyat Türü Alanı Gereklidir'
+                            }
+                        }
+                    },
                     'price': {
                         validators: {
                             notEmpty: {
                                 message: 'Fiyat Alanı Gereklidir'
-                            }
+                            },
+                            enabled: false // Başlangıçta devre dışı bırakıldı
+                        }
+                    },
+                    'min_price': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Minimum Fiyat Alanı Gereklidir'
+                            },
+                            enabled: false // Başlangıçta devre dışı bırakıldı
+                        }
+                    },
+                    'max_price': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Maksimum Fiyat Alanı Gereklidir'
+                            },
+                            enabled: false // Başlangıçta devre dışı bırakıldı
                         }
                     },
                 },
@@ -63,6 +88,21 @@ var KTModalCustomersAdd = function () {
             }
         );
 
+        form.querySelector('[name="price_type_id"]').addEventListener('change', function() {
+            var priceTypeId = this.value;
+
+            // Fiyat türü 2 ise, min_price ve max_price alanlarını zorunlu yap
+            if (priceTypeId === '1') {
+                validator.enableFieldValidators('min_price', true);
+                validator.enableFieldValidators('max_price', true);
+                validator.disableFieldValidators('price', true);
+            } else {
+                // Fiyat türü 2 değilse, price alanını zorunlu yap
+                validator.enableFieldValidators('price', true);
+                validator.disableFieldValidators('min_price', true);
+                validator.disableFieldValidators('max_price', true);
+            }
+        });
         // Action buttons
         submitButton.addEventListener('click', function (e) {
             e.preventDefault();
@@ -87,6 +127,9 @@ var KTModalCustomersAdd = function () {
                             formData.append("subCategoryId", $('[name="service_id"]').val());
                             formData.append("time", $('[name="time"]').val());
                             formData.append("price", $('[name="price"]').val());
+                            formData.append("min_price", $('[name="min_price"]').val());
+                            formData.append("max_price", $('[name="max_price"]').val());
+                            formData.append("price_type_id", selectedPriceType);
 
                             $.ajax({
                                 url: '/isletme/service',
@@ -122,6 +165,7 @@ var KTModalCustomersAdd = function () {
 
                                 },
                                 error: function (xhr) {
+                                    submitButton.disabled = false;
                                     var errorMessage = "<ul>";
                                     xhr.responseJSON.errors.forEach(function (error) {
                                         errorMessage += "<li>" + error + "</li>";

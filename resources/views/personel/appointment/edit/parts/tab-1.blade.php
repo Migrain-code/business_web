@@ -30,6 +30,7 @@
                         </thead>
                         <tbody class="fw-semibold text-gray-600">
                         @foreach($appointment->services as $service)
+
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">

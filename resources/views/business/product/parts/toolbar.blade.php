@@ -3,7 +3,7 @@
     <!--begin::Toolbar-->
     <div class="d-flex justify-content-end align-items-center w-100" data-kt-customer-table-toolbar="base">
         <!--begin::Filter-->
-        <div class="d-flex w-400px">
+        <div class="d-flex w-400px gap-2 me-2">
             <!--begin::Select2-->
             <select id="listType" class="form-select form-select-solid" data-control="select2"
                     data-hide-search="true" data-placeholder="Tarih Seçiniz"

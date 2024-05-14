@@ -43,9 +43,27 @@ function initEcommerceSalesSaveOrder() {
                     validators: {
                         notEmpty: {
                             message: 'Fiyat Alanı Gereklidir'
-                        }
+                        },
+                        enabled: false // Başlangıçta devre dışı bırakıldı
                     }
                 },
+                'min_price': {
+                    validators: {
+                        notEmpty: {
+                            message: 'Minimum Fiyat Alanı Gereklidir'
+                        },
+                        enabled: false // Başlangıçta devre dışı bırakıldı
+                    }
+                },
+                'max_price': {
+                    validators: {
+                        notEmpty: {
+                            message: 'Maksimum Fiyat Alanı Gereklidir'
+                        },
+                        enabled: false // Başlangıçta devre dışı bırakıldı
+                    }
+                },
+
             },
             plugins: {
                 trigger: new FormValidation.plugins.Trigger(),
@@ -77,6 +95,9 @@ function initEcommerceSalesSaveOrder() {
                     formData.append("subCategoryId", $('[name="service_id"]').val());
                     formData.append("time", $('[name="time"]').val());
                     formData.append("price", $('[name="price"]').val());
+                    formData.append("min_price", $('[name="min_price"]').val());
+                    formData.append("max_price", $('[name="max_price"]').val());
+                    formData.append("price_type_id", selectedPriceType);
                     $.ajax({
                         url: '/isletme/service/'+ serviceId,
                         type: "POST",

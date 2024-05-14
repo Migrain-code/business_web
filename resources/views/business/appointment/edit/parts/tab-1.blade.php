@@ -16,7 +16,11 @@
 
             <!--begin::Card body-->
             <div class="card-body pt-0">
-                <div class="table-responsive">
+                <form class="table-responsive" method="post" id="sendForm" action="{{route('business.appointment.service.save', $appointment->id)}}">
+                    @csrf
+                    @php
+                        $calculateTotal = true;
+                    @endphp
                     <!--begin::Table-->
                     <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
                         <thead>
@@ -30,6 +34,7 @@
                         </thead>
                         <tbody class="fw-semibold text-gray-600">
                         @foreach($appointment->services as $service)
+
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
@@ -57,8 +62,12 @@
                                 <td class="text-end">
                                     {{$service->service->time}} .DK
                                 </td>
-                                <td class="text-end">
-                                    {{formatPrice($service->servicePrice())}}
+                                <td class="d-flex flex-column flex-end">
+                                    {{$service->servicePrice()}}
+                                    @if($service->service->price_type_id == 1 && $service->total == 0)
+                                        {{$calculateTotal = false}}
+                                        <input type="number" class="form-control form-control-solid" placeholder="Net Fiyatını Giriniz" style="max-width: 150px" name="prices[{{$service->id}}]">
+                                    @endif
                                 </td>
                                 <td class="text-end">
                                     {{create_delete_button('AppointmentServices', $service->id,
@@ -69,34 +78,46 @@
                             </tr>
                         @endforeach
 
-                        <tr>
-                            <td colspan="4" class="text-end">
-                                Ara Toplam
-                            </td>
-                            <td class="text-end">
-                                {{formatPrice($appointment->calculateTotal())}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="text-end">
-                                Kampanya İndirimi ({{$appointment->discount}}%)
-                            </td>
-                            <td class="text-end">
-                                {{formatPrice($appointment->calculateCampaignDiscount())}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="fs-3 text-dark text-end">
-                                Genel Toplam
-                            </td>
-                            <td class="text-dark fs-3 fw-bolder text-end">
-                                {{formatPrice($appointment->calculateTotal()-$appointment->calculateCampaignDiscount())}}
-                            </td>
-                        </tr>
+                        @if($calculateTotal)
+                            <tr>
+                                <td colspan="4" class="text-end">
+                                    Ara Toplam
+                                </td>
+                                <td class="text-end">
+                                    {{formatPrice($appointment->calculateTotal())}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="text-end">
+                                    Kampanya İndirimi ({{$appointment->discount}}%)
+                                </td>
+                                <td class="text-end">
+                                    {{formatPrice($appointment->calculateCampaignDiscount())}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="fs-3 text-dark text-end">
+                                    Genel Toplam
+                                </td>
+                                <td class="text-dark fs-3 fw-bolder text-end">
+                                    {{formatPrice($appointment->calculateTotal()-$appointment->calculateCampaignDiscount())}}
+                                </td>
+                            </tr>
+                        @else
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td colspan="5" class="text-end">
+                                    <button type="submit" class="btn btn-primary">Net Fiyatları Kaydet</button>
+                                </td>
+                            </tr>
+                        @endif
                         </tbody>
                     </table>
                     <!--end::Table-->
-                </div>
+                </form>
             </div>
             <!--end::Card body-->
         </div>

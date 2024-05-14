@@ -111,4 +111,21 @@
         });
 
     </script>
+
+    <script>
+        var selectedPriceType = 0;
+        $(document).on('change', '[name="price_type_id"]', function () {
+            let val = $(this).val();
+            selectedPriceType = val;
+            if(val == 1){
+                $('#rangePrice').css('display', 'block');
+                $('#singlePrice').css('display', 'none');
+            } else{
+                $('#rangePrice').css('display', 'none');
+                $('#singlePrice').css('display', 'block');
+
+            }
+
+        });
+    </script>
 @endsection

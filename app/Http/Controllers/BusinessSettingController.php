@@ -39,6 +39,7 @@ class BusinessSettingController extends Controller
         $business->category_id = $request->input('category_id');
         $business->personal_count = $request->input('team_size');
         $business->approve_type = $request->input('approve_type');
+        $business->stock_count = $request->input('stock_count');
         $business->name = $request->input('name');
         if ($business->name != $request->input('name')){
             $business->slug = $this->checkSlug($request->input('name'));

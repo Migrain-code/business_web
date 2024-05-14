@@ -94,16 +94,35 @@ class AppointmentServices extends Model
     public function servicePrice()
     {
         $service = $this->service;
-        if (isset($this->appointment->room_id)) {
-            $room = $this->appointment->room;
-            if ($room->increase_type == 0) { // tl fiyat arttırma
-                $servicePrice = $service->price + $room->price;
-            } else { // yüzde fiyat arttırma
-                $servicePrice = $service->price + (($service->price * $room->price) / 100);
+        if ($service->price_type_id == 1 && $this->total == 0){ // aralıklı fiyatsa
+            return formatPrice($service->price). " - ". formatPrice($service->max_price);
+        } else{
+            if ($this->total > 0){
+                if (isset($this->appointment->room_id)) {
+                    $room = $this->appointment->room;
+                    if ($room->increase_type == 0) { // tl fiyat arttırma
+                        $servicePrice = $this->total + $room->price;
+                    } else { // yüzde fiyat arttırma
+                        $servicePrice = $this->total + (($this->total * $room->price) / 100);
+                    }
+                } else {
+                    $servicePrice = $this->total;
+                }
+            } else{
+                if (isset($this->appointment->room_id)) {
+                    $room = $this->appointment->room;
+                    if ($room->increase_type == 0) { // tl fiyat arttırma
+                        $servicePrice = $service->price + $room->price;
+                    } else { // yüzde fiyat arttırma
+                        $servicePrice = $service->price + (($service->price * $room->price) / 100);
+                    }
+                } else {
+                    $servicePrice = $service->price;
+                }
             }
-        } else {
-            $servicePrice = $service->price;
+
         }
+
         return $servicePrice;
     }
 
