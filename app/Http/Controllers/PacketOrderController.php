@@ -43,21 +43,6 @@ class PacketOrderController extends Controller
         $kdv = 20;
         $amount = $packet->price;
 
-        if ($request->paymentType == 'BANK_TRANSFER') {
-            $packetOrder = new PacketOrder();
-            $packetOrder->packet_id = $packet->id;
-            $packetOrder->business_id = $this->business->id;
-            $packetOrder->price = $amount;
-            $packetOrder->tax = $prices['kdv'] ?? 0;
-            $packetOrder->discount = $prices['discount'] ?? 0;
-            $packetOrder->payment_id = 0;
-            $packetOrder->payment_type = 'BANK_TRANSFER';
-            $packetOrder->status = 'PENDING';
-            $packetOrder->save();
-
-            return to_route('business.packet.payment.success', ['odeme' => 'havale', 'siparis-no' => $packetOrder->id]);
-        }
-
         $parts = explode(' ', $request->card_name);
 
         $surname = array_pop($parts);
@@ -82,7 +67,7 @@ class PacketOrderController extends Controller
         $payment->setBillingAddress();
         $payment->addBasketItem($packet->id, $packet->name, 'Paket', $amount);
         $response = $payment->createPaymentRequest();
-
+        dd($response);
         if ($response->getStatus() == 'failure') {
             $request->flash();
             return back()->with('response', [
