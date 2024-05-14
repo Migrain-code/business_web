@@ -43,6 +43,7 @@ use \App\Http\Controllers\DetailSetupController;
 use \App\Http\Controllers\AppointmentRequestFormController;
 use App\Http\Controllers\Business\Form\BusinessAppointmentRequestController;
 use App\Http\Controllers\PacketOrderController;
+use App\Http\Controllers\PaymentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -88,7 +89,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
     Route::get('/sifremi-unuttum-dogrulama-tekrar-gönder', [ForgotPasswordController::class, 'verifyResetRepeatPassword'])->name('verify.repeatPassword');
 
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-    Route::post('/packet/{packet}/callback/{official}', [PacketOrderController::class, 'callback'])->name('packet.payment.callback');
+    Route::post('/packet/{packet}/callback/{official}', [PaymentController::class, 'callback'])->name('packet.payment.callback');
     Route::middleware(['auth:official', 'setup'])->group(function () {
 
         Route::get('/home', [\App\Http\Controllers\Business\HomeController::class, 'index'])->name('home');
