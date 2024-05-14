@@ -97,11 +97,11 @@ class PacketOrderController extends Controller
 
     public function success()
     {
-        return view('company.packet.payment.success');
+        return view('business.package.payment.success');
     }
 
     public function fail()
     {
-        return view('company.packet.payment.fail');
+        return view('business.package.payment.failed');
     }
 }
