@@ -1,5 +1,5 @@
 @foreach($monthlyPackages as $package)
-    <div class="col-lg-4 col-md-6" data-aos="zoom-in">
+    <div class="col-4" data-aos="zoom-in">
         <div class="package-item">
             <div class="icon">
                 <img src="{{image($package->icon)}}" style="width: 40px" alt="" />
