@@ -1,5 +1,6 @@
 @extends('layouts.master')
-@section('title', 'Özellikler')
+@section('title', 'Randevu Takip Uygulaması - Özellikleri')
+@section('description', 'Randevu Takip Uygulaması, kolay randevu yönetimi sağlar. Oluşturma, düzenleme, iptal ve hatırlatma gibi özellikler sunar.')
 @section('style')
     <style>
         .home-page .home-items {

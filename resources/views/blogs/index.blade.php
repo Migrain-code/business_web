@@ -3,7 +3,8 @@
     @section('title', $blogCategories->first()->getMetaTitle())
     @section('description', $blogCategories->first()->getMetaDescription())
 @else
-    @section('title', 'Bloglar')
+    @section('title', 'Blog: İşletme Yönetimi ve Randevu Takibi Hakkında İlham Verici İçerikler')
+    @section('description', '"Blogumuzda işletme yönetimi ve randevu takibi konularında güncel ve ilham verici içerikler bulabilirsiniz. İşletmenizi büyütmek ve yönetmek için faydalı ipuçlarına göz atın!"')
 @endif
 
 @section('styles')

@@ -42,6 +42,7 @@ use \App\Http\Controllers\Business\SetupController;
 use \App\Http\Controllers\DetailSetupController;
 use \App\Http\Controllers\AppointmentRequestFormController;
 use App\Http\Controllers\Business\Form\BusinessAppointmentRequestController;
+use App\Http\Controllers\PacketOrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -87,7 +88,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
     Route::get('/sifremi-unuttum-dogrulama-tekrar-gönder', [ForgotPasswordController::class, 'verifyResetRepeatPassword'])->name('verify.repeatPassword');
 
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-
+    Route::post('/packet/{packet}/callback/{official}', [PacketOrderController::class, 'callback'])->name('packet.payment.callback');
     Route::middleware(['auth:official', 'setup'])->group(function () {
 
         Route::get('/home', [\App\Http\Controllers\Business\HomeController::class, 'index'])->name('home');
@@ -257,6 +258,15 @@ Route::prefix('isletme')->as('business.')->group(function (){
 
         /* -------------------- Abonelik Özeti --------------------------*/
         Route::get('abonelik', [SubscribtionController::class, 'index'])->name('subscription.index');
+
+
+        Route::prefix('paketler')->as('packet.')->group(function (){
+            Route::get('/', [PacketOrderController::class, 'index'])->name('index');
+            Route::get('/paket/{packet}/satin-al', [PacketOrderController::class, 'buy'])->name('buy');
+            Route::post('/paket/{packet}/ode', [PacketOrderController::class, 'pay'])->name('pay');
+            Route::get('/paket/basarili', [PacketOrderController::class, 'success'])->name('payment.success');
+            Route::get('/paket/hata', [PacketOrderController::class, 'fail'])->name('payment.fail');
+        });
 
         /* -------------------- Global Ajax İstekleri --------------------------*/
         Route::post('password-update', [BusinessOfficialController::class, 'passwordUpdate'])->name('passwordUpdate');

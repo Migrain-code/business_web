@@ -1,5 +1,6 @@
 @extends('layouts.master')
-@section('title', 'İletişim')
+@section('title', 'Bize Ulaşın: Sorularınızı, Geri Bildirimlerinizi ve İşbirliği İsteklerinizi İletin')
+@section('description', 'İletişim sayfamız aracılığıyla bizimle kolayca iletişime geçin! Sorularınızı, geri bildirimlerinizi ve işbirliği isteklerinizi bize iletin. Size en kısa sürede yanıt vereceğiz.')
 @section('styles')
 
 @endsection

@@ -1,5 +1,4 @@
 @extends('layouts.master')
-@section('title', 'Anasayfa')
 @section('style')
     <style>
         #brandList .brandListSlider .owl-carousel .item a{

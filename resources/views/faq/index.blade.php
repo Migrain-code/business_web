@@ -1,5 +1,6 @@
 @extends('layouts.master')
-@section('title', 'Destek')
+@section('title', 'Randevu Programı SSS: En Çok Merak Edilen Soruların Yanıtları')
+@section('description', 'Randevu programımız hakkında merak ettiğiniz her şeyi öğrenin! En sık karşılaşılan soruların kapsamlı yanıtlarını bu Sıkça Sorulan Sorular bölümünde bulabilirsiniz.')
 @section('style')
     <style>
         /**

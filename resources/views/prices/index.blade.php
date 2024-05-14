@@ -1,5 +1,6 @@
 @extends('layouts.master')
-@section('title', 'Fiyatlandırma')
+@section('title', 'Online Randevu Takip Programı Fiyatları')
+@section('description', 'İşletmenizin ihtiyaçlarına uygun ücretsiz çözümleri keşfedin. Profesyonel randevu yönetimi artık hiçbir maliyet gerektirmiyor.')
 @section('style')
     <style>
         .home-stats {

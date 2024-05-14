@@ -1,5 +1,6 @@
 @extends('layouts.master')
-@section('title', 'Özellikler')
+@section('title', $propartie->name)
+@section('description', $propartie->description)
 @section('style')
     <style>
         .home-page .home-items {

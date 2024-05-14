@@ -1,5 +1,8 @@
 @extends('layouts.master')
-@section('title', 'Referanslar')
+
+@section('title', 'Referanslarımız')
+@section('description', 'Müşterilerimizin deneyimlerine göz atın ve bizimle çalışmanın ne kadar değerli olduğunu keşfedin. Memnuniyet garantili hizmetimiz hakkında daha fazla bilgi edinin.')
+
 @section('style')
     <style>
         .home-references .references-items .item::after {
