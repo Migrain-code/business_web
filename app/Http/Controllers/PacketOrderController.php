@@ -82,7 +82,7 @@ class PacketOrderController extends Controller
         $name = explode(' ', $this->user->name);
         $user = $this->user;
         $buyer = new \Iyzipay\Model\Buyer();
-        $buyer->setId("BO". rand(1, 10000));
+        $buyer->setId("BO". authUser()->id);
         $buyer->setName($name[0]);
         $buyer->setSurname($name[1]);
         $buyer->setGsmNumber($user->phone);
