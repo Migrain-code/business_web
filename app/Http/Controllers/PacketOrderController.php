@@ -72,7 +72,11 @@ class PacketOrderController extends Controller
         $payment->setConversationId(rand());
         $payment->setPrice($amount);
         $payment->setCallbackUrl(route('business.packet.payment.callback', [$packet->id, authUser()->id]) . '?count=' . $count . '&kdv=' . $kdv);
-        $payment->setCard($request->name, str($request->card_number)->replace(' ', ''), $month, $year, $request->cvv);
+        $payment->setCard($request->card_name,
+            str($request->card_number)->replace(' ', '')
+            , $month,
+            $year,
+            $request->card_cvv);
         $payment->setBuyer(authUser()->id, $name, $surname, authUser()->phone, authUser()->email);
         $payment->setShippingAddress();
         $payment->setBillingAddress();
