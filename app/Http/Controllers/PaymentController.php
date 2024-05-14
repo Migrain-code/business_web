@@ -15,7 +15,8 @@ class PaymentController extends Controller
     public function callback(Request $request, BussinessPackage $packet, BusinessOfficial $official)
     {
         Auth::guard('official')->loginUsingId($official->id);
-        $user = authUser()->business;
+        $user = authUser();
+
         $payment = (new Iyzico())->completePayment($request->paymentId);
 
         if ($payment->getStatus() == 'success') {
