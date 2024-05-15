@@ -90,8 +90,8 @@ Route::prefix('isletme')->as('business.')->group(function (){
 
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     Route::post('/packet/{packet}/callback/{official}', [PaymentController::class, 'callback'])->name('packet.payment.callback');
+    Route::get('generate/invoice/{invoice}/pdf', [\App\Http\Controllers\PdfController::class, 'generatePdf'])->name('generateInvoice');
     Route::middleware(['auth:official', 'setup'])->group(function () {
-
         Route::get('/home', [\App\Http\Controllers\Business\HomeController::class, 'index'])->name('home');
 
         /*-----------------------  Setup  ------------------------*/
@@ -259,7 +259,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
 
         /* -------------------- Abonelik Özeti --------------------------*/
         Route::get('abonelik', [SubscribtionController::class, 'index'])->name('subscription.index');
-
+        /* -------------------- Abonelik Satın Al --------------------------*/
         Route::prefix('paketler')->as('packet.')->group(function (){
             Route::get('/', [PacketOrderController::class, 'index'])->name('index');
             Route::get('/paket/{packet}/satin-al', [PacketOrderController::class, 'buy'])->name('buy');
@@ -267,7 +267,9 @@ Route::prefix('isletme')->as('business.')->group(function (){
             Route::get('/paket/basarili', [PacketOrderController::class, 'success'])->name('payment.success');
             Route::get('/paket/hata', [PacketOrderController::class, 'fail'])->name('payment.fail');
         });
-
+        Route::resource('invoice', \App\Http\Controllers\InvoiceController::class)->only([
+            'index', 'show', 'datatable'
+        ]);
         /* -------------------- Global Ajax İstekleri --------------------------*/
         Route::post('password-update', [BusinessOfficialController::class, 'passwordUpdate'])->name('passwordUpdate');
 

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class PacketOrder extends Model
 {
     use HasFactory;
+
+    public function package()
+    {
+        return $this->hasOne(BussinessPackage::class, 'id', 'package_id');
+    }
 }

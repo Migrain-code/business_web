@@ -34,6 +34,7 @@ class PacketOrderController extends Controller
 
         return view('business.package.payment.form', compact('packet', 'prices'));
     }
+
     public function pay(Request $request, BussinessPackage $packet)
     {
 
@@ -54,7 +55,7 @@ class PacketOrderController extends Controller
 
 
         $payment = new \App\Services\Iyzico();
-        $payment->setConversationId(rand());
+        $payment->setConversationId(rand(1000, 10000000000));
         $payment->setPrice($amount);
         $payment->setCallbackUrl(route('business.packet.payment.callback', [$packet->id, authUser()->id]) . '?count=' . $count . '&kdv=' . $kdv);
         $payment->setCard($request->card_name,
@@ -80,9 +81,18 @@ class PacketOrderController extends Controller
     }
 
 
-    public function success()
+    public function success(Request $request)
     {
-        return view('business.package.payment.success');
+        $order = PacketOrder::find($request->input('order-no'));
+        if ($order){
+            return view('business.package.payment.success', compact('order'));
+        } else{
+            return to_route('business.home')->with('response', [
+                'status' => 'error',
+                'message' => "Sipariş Bilgisi Bulunamadı"
+            ]);
+        }
+
     }
 
     public function fail()

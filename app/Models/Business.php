@@ -158,6 +158,10 @@ class Business extends Model
         return $this->hasOne(DayList::class, 'id', 'off_day');
     }
 
+    public function invoices()
+    {
+        return $this->hasMany(PacketOrder::class, 'business_id', 'id');
+    }
     public function workTimes()
     {
         return $this->hasMany(BusinessWorkTime::class, 'business_id', 'id')->orderBy('que');
