@@ -86,9 +86,12 @@
                                         $progressPercentage = ($remainingDay / $totalDay) * 100;
                                 @endphp
                                 <!--end::Label-->
-                                <div class="progress w-100px w-xl-150px w-xxl-300px h-25px bg-light-success">
+                                <div class="progress w-100px w-xl-150px w-xxl-300px h-30px bg-gray-300 position-relative">
                                     <div class="progress-bar rounded bg-success text-white fs-7 fw-bold" role="progressbar"
-                                         style="width: {{$progressPercentage}}%;" aria-valuenow="{{$remainingDay}}" aria-valuemin="0" aria-valuemax="{{$totalDay}}">{{$remainingDay}} Kalan Gün</div>
+                                         style="width: {{$progressPercentage}}%;" aria-valuenow="{{$remainingDay}}" aria-valuemin="0" aria-valuemax="{{$totalDay}}">
+                                    </div>
+                                    <span class="position-absolute fs-7" style="top: 12%;left: 27%">Kalan Gün Sayısı: {{$remainingDay}} Gün</span>
+
                                 </div>
                             </div>
                         </div>

@@ -13,18 +13,23 @@ var KTCreateAccount = function() {
 
     function handleStepChange(e) {
         var currentStep = stepperInstance.getCurrentStepIndex();
-        if (currentStep === 5) {
+
+        if (currentStep === 4) {
+
             submitBtn.classList.remove("d-none");
             submitBtn.classList.add("d-inline-block");
             nextBtn.classList.add("d-none");
-        } else if (currentStep === 6) {
+        } else if (currentStep === 5) {
+
             submitBtn.classList.add("d-none");
             nextBtn.classList.add("d-none");
         } else {
+
             submitBtn.classList.remove("d-inline-block");
             submitBtn.classList.remove("d-none");
             nextBtn.classList.remove("d-none");
         }
+
     }
 
     function handleNextStep(e) {
@@ -34,9 +39,7 @@ var KTCreateAccount = function() {
         } else if (currentStep == 2){
            updateStep2();
         } else if (currentStep == 3){
-            updateStep3();
-        } else if (currentStep == 4){
-            updateStep4();
+           updateStep3();
         }
 
         stepperInstance.goNext();
@@ -187,55 +190,6 @@ var KTCreateAccount = function() {
         });
     }
 
-    function updateStep4(){
-        stepperInstance.goPrevious();
-        var formData = new FormData();
-        formData.append("_token", csrf_token);
-        formData.append("package_id", $('[name= "package_id"]').val());
-        $.ajax({
-            url: '/isletme/setup/step-4',
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            dataType: "JSON",
-            success: function (res) {
-                Swal.fire({
-                    text: res.message,
-                    icon: res.status,
-                    buttonsStyling: false,
-                    confirmButtonText: "Tamam!",
-                    customClass: {
-                        confirmButton: "btn btn-primary"
-                    }
-                });
-                if (res.redirectType == "redirect"){
-                    setTimeout(function (){
-                        window.location.href = '/isletme/home'
-                    }, 2000);
-                }
-
-            },
-            error: function (xhr) {
-                var errorMessage = "<ul>";
-                xhr.responseJSON.errors.forEach(function (error) {
-                    errorMessage += "<li>" + error + "</li>";
-                });
-                errorMessage += "</ul>";
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Hata!',
-                    html: errorMessage,
-                    buttonsStyling: false,
-                    confirmButtonText: "Tamam",
-                    customClass: {
-                        confirmButton: "btn btn-primary"
-                    }
-                });
-            }
-        });
-    }
     function handlePreviousStep(e) {
         stepperInstance.goPrevious();
         KTUtil.scrollTop();

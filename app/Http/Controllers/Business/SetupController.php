@@ -107,32 +107,17 @@ class SetupController extends Controller
         }
     }
 
-    public function step4Update(Step4UpdateRequest $request)
+    public function step4Update(Request $request)
     {
-        $package = BussinessPackage::find($request->package_id);
-        if($package->price == 0){
-            $business = $this->business;
-            $business->package_id = 1;
-            $business->packet_start_date = now();
-            $business->packet_end_date = now()->addDays(30);
-            $business->setup_status = 1;
-            if ($business->save()){
-                return response()->json([
-                    'status' => "success",
-                    'message' => "İşletme Kurulumunuz Tamamlandı İşletmenize ". $package->name. " Paketi Tanımlandı. Panele Yönlendiriliyorsunuz",
-                    'redirectType' => "redirect"
-                ]);
-            }
-
+        $business = $this->business;
+        $business->setup_status = 1;
+        if ($business->save()){
+            return response()->json([
+                'status' => "success",
+                'message' => "İşletme Kurulumunuz Tamamlandı İşletme Paneline Yönlendiriliyorsunuz",
+                'redirectType' => "redirect"
+            ]);
         }
-
-
-        return response()->json([
-            'status' => "success",
-            'message' => "Paket seçiminiz tamamlandı. Devam butonuna tıklayın",
-            'redirectType' => "not_redirect"
-        ]);
-
     }
 
 }

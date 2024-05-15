@@ -95,6 +95,13 @@
             <div class="menu-sub menu-sub-dropdown w-175px py-4">
                 <!--begin::Menu item-->
                 <div class="menu-item px-3">
+                    <a href="{{route('business.packet.index')}}" class="menu-link px-5">
+                        Fiyatlandırma
+                    </a>
+                </div>
+                <!--end::Menu item-->
+                <!--begin::Menu item-->
+                <div class="menu-item px-3">
                     <a href="{{route('business.invoice.index')}}" class="menu-link px-5">
                         Faturalar
                     </a>

@@ -7,28 +7,17 @@
         <!--begin::Heading-->
         <div class="pb-8 pb-lg-10">
             <!--begin::Title-->
-            <h2 class="fw-bold text-dark">Your Are Done!</h2>
+            <h2 class="fw-bold text-dark">Değerli müşterimiz,</h2>
             <!--end::Title-->
-
-            <!--begin::Notice-->
-            <div class="text-muted fw-semibold fs-6">
-                If you need more info, please
-                <a href="../../.html" class="link-primary fw-bold">
-                    Sign In
-                </a>
-                .
-            </div>
-            <!--end::Notice-->
         </div>
         <!--end::Heading-->
 
         <!--begin::Body-->
         <div class="mb-0">
             <!--begin::Text-->
-            <div class="fs-6 text-gray-600 mb-5">
-                Writing headlines for blog posts is as much an art as it is a science
-                and probably warrants its own post, but for all advise is with what
-                works for your great & amazing audience.
+            <div class="fs-5 text-gray-800 mb-5">
+                Kuaförler, güzellik merkezleri ve berberler için geliştirdiğimiz uygulamamızın kurulumu başarıyla tamamlandı.
+                Artık işletmenizi daha verimli yönetebilmeniz için gereken adımları attık.
             </div>
             <!--end::Text-->
 
@@ -43,9 +32,9 @@
                 <div class="d-flex flex-stack flex-grow-1 ">
                     <!--begin::Content-->
                     <div class=" fw-semibold">
-                        <h4 class="text-gray-900 fw-bold">We need your attention!</h4>
+                        <h4 class="text-gray-900 fw-bold">Size daha iyi hizmet verebilmek için her zaman buradayız.Herhangi bir sorunuz veya yardıma ihtiyacınız olursa,</h4>
 
-                        <div class="fs-6 text-gray-700 ">To start using great tools, please, <a href="vertical.html" class="fw-bold">Create Team Platform</a></div>
+                        <div class="fs-6 text-gray-700 ">bizimle  <a href="{{route('business.support-center.index')}}" class="fw-bold"> iletişime </a> geçmekten çekinmeyin</div>
                     </div>
                     <!--end::Content-->
 
@@ -53,6 +42,8 @@
                 <!--end::Wrapper-->
             </div>
             <!--end::Notice-->
+
+            <h3 class="mt-7 text-end">Kurulum Tamamlandı!</h3>
             <!--end::Alert-->
         </div>
         <!--end::Body-->

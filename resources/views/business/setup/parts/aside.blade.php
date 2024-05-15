@@ -95,68 +95,13 @@
             </div>
             <!--end::Step 3-->
 
-            <!--begin::Step 4-->
-            <div class="stepper-item" data-kt-stepper-element="nav">
-                <!--begin::Wrapper-->
-                <div class="stepper-wrapper">
-                    <!--begin::Icon-->
-                    <div class="stepper-icon w-40px h-40px">
-                        <i class="ki-duotone ki-check fs-2 stepper-check"></i>
-                        <span class="stepper-number">4</span>
-                    </div>
-                    <!--end::Icon-->
-
-                    <!--begin::Label-->
-                    <div class="stepper-label">
-                        <h3 class="stepper-title">
-                            Plan Seçimi
-                        </h3>
-                        <div class="stepper-desc fw-semibold">
-                            Size uygun planı seçin
-                        </div>
-                    </div>
-                    <!--end::Label-->
-                </div>
-                <!--end::Wrapper-->
-
-                <!--begin::Line-->
-                <div class="stepper-line h-40px"></div>
-                <!--end::Line-->
-            </div>
-            <!--end::Step 4-->
-            <div class="stepper-item " data-kt-stepper-element="nav">
-                <!--begin::Wrapper-->
-                <div class="stepper-wrapper">
-                    <!--begin::Icon-->
-                    <div class="stepper-icon w-40px h-40px">
-                        <i class="ki-duotone ki-check fs-2 stepper-check"></i>
-                        <span class="stepper-number">5</span>
-                    </div>
-                    <!--end::Icon-->
-
-                    <!--begin::Label-->
-                    <div class="stepper-label">
-                        <h3 class="stepper-title">
-                            Ödeme
-                        </h3>
-                        <div class="stepper-desc fw-semibold">
-                            Kredi/Banka Kartınızla ödemelerinizi yapın
-                        </div>
-                    </div>
-                    <!--end::Label-->
-                </div>
-                <!--end::Wrapper-->
-                <!--begin::Line-->
-                <div class="stepper-line h-40px"></div>
-                <!--end::Line-->
-            </div>
             <div class="stepper-item mark-completed" data-kt-stepper-element="nav">
                 <!--begin::Wrapper-->
                 <div class="stepper-wrapper">
                     <!--begin::Icon-->
                     <div class="stepper-icon w-40px h-40px">
                         <i class="ki-duotone ki-check fs-2 stepper-check"></i>
-                        <span class="stepper-number">6</span>
+                        <span class="stepper-number">4</span>
                     </div>
                     <!--end::Icon-->
 

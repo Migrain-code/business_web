@@ -33,12 +33,11 @@
             <!--begin::Content-->
             <div class="card d-flex flex-row-fluid flex-center">
                 <!--begin::Form-->
-                <form class="card-body py-20 w-100 px-9" novalidate="novalidate" id="kt_create_account_form">
+                <form class="card-body py-20 w-100 px-9" novalidate="novalidate" method="get" action="{{route('business.setup.pass')}}" id="kt_create_account_form">
+
                     @include('business.setup.parts.step-1')
                     @include('business.setup.parts.step-2')
                     @include('business.setup.parts.step-3')
-                    @include('business.setup.parts.package')
-                    @include('business.setup.parts.step-4')
                     @include('business.setup.parts.step-5')
                     <!--begin::Actions-->
                     <div class="d-flex flex-stack pt-10">
@@ -52,13 +51,13 @@
 
                         <!--begin::Wrapper-->
                         <div>
-                            <button type="button" class="btn btn-lg btn-primary me-3" data-kt-stepper-action="submit">
-                        <span class="indicator-label">
-                            Ödeme Yap
-                            <i class="ki-duotone ki-arrow-right fs-3 ms-2 me-0"><span class="path1"></span><span class="path2"></span></i>                        </span>
-                                <span class="indicator-progress">
-                            Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                        </span>
+                            <button type="submit" class="btn btn-lg btn-primary me-3" data-kt-stepper-action="submit">
+                                <span class="indicator-label">
+                                    Panele Git
+                                    <i class="ki-duotone ki-arrow-right fs-3 ms-2 me-0"><span class="path1"></span><span class="path2"></span></i>                        </span>
+                                        <span class="indicator-progress">
+                                    Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </span>
                             </button>
 
                             <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="next">
