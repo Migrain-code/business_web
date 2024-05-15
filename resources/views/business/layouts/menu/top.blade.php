@@ -29,7 +29,7 @@
         <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1" id="kt_app_header_wrapper">
 
             <!--begin::Menu wrapper-->
-            <div class="app-header-menu app-header-mobile-drawer align-items-stretch mx-auto" data-kt-drawer="true"
+            <div class="app-header-menu app-header-mobile-drawer align-items-stretch flex-start" data-kt-drawer="true"
                  data-kt-drawer-name="app-header-menu" data-kt-drawer-activate="{default: true, lg: false}"
                  data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="start"
                  data-kt-drawer-toggle="#kt_app_header_menu_toggle" data-kt-swapper="true"
@@ -51,12 +51,50 @@
                     <!--begin:Menu item-->
 
                     <!--begin:Menu ler gelebilir-->
+                    <!--end::Menu-->
+                    <div class="menu menu-rounded menu-column menu-lg-row my-5 my-lg-0 align-items-stretch fw-semibold px-2 px-lg-0" id="kt_app_header_menu" data-kt-menu="true">
+
+                        <!--begin:Menu item-->
+                        <div class="menu-item menu-here-bg me-0 me-lg-2 d-flex">
+                            <!--begin::Input wrapper-->
+                            <div class="w-100">
+                                <!--begin::Title-->
+                                <div class="d-flex">
+                                    <input id="kt_share_earn_link_input" type="text" class="form-control form-control-solid me-3 flex-grow-1"
+                                           name="search" value="{{env('REMOTE_URL').authUser()->business->slug}}" />
+
+                                    <button id="kt_share_earn_link_copy_button" class="btn btn-light fw-bold flex-shrink-0"
+                                            data-clipboard-target="#kt_share_earn_link_input">
+                                        <i class="fa fa-copy"></i>
+                                    </button>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                            <!--end::Input wrapper-->
+                            <div class="d-flex align-items-center flex-shrink-0">
+                                <!--begin::Desktop separartor-->
+                                <div class="bullet bg-secondary h-35px w-1px mx-5"></div>
+                                <!--end::Desktop separartor-->
+                                @php
+                                        $remainingDay = now()->diffInDays(authUser()->business->packet_end_date);
+                                        $package = authUser()->business->package;
+                                        $totalDay = $package->type == 0 ? 30 : 365;
+                                        $progressPercentage = ($remainingDay / $totalDay) * 100;
+                                @endphp
+                                <!--end::Label-->
+                                <div class="progress w-100px w-xl-150px w-xxl-300px h-25px bg-light-success">
+                                    <div class="progress-bar rounded bg-success text-white fs-7 fw-bold" role="progressbar"
+                                         style="width: {{$progressPercentage}}%;" aria-valuenow="{{$remainingDay}}" aria-valuemin="0" aria-valuemax="{{$totalDay}}">{{$remainingDay}} Kalan Gün</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end:Menu item-->
+                    </div>
 
                 </div>
-                <!--end::Menu-->
+
             </div>
             <!--end::Menu wrapper-->
-
             <!--begin::Navbar-->
             <div class="app-navbar flex-shrink-0">
                 <!--begin::Search Area-->

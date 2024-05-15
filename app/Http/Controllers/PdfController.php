@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PacketOrder;
+use App\Services\E_Invoice;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -18,19 +19,12 @@ class PdfController extends Controller
 
     public function getOrderStatus()
     {
-        return response()->json([
-            'OrderStatus' => [
-                "Id" => 1,
-                "Value" => "Onaylandı"
-            ],
-            [
-                "Id" => 2,
-                "Value" => "Kargolandı"
-            ],
-            [
-                "Id" => 3,
-                "Value" => "İptal Edildi"
-            ]
-        ]);
+        $invoiceGenerator = new E_Invoice();
+        $invoiceGenerator->createCustomer('1', 'Muhammet', 'asd');
+        $invoiceGenerator->createAmount(15);
+        $invoiceGenerator->createProduct("2", 'Pro Paket');
+        $invoiceGenerator->createInvoice('1', 'Test');
+        $response = $invoiceGenerator->sendInvoice();
+        return response()->json($response);
     }
 }

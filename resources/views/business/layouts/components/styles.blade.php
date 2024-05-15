@@ -57,6 +57,9 @@
         #goSalon{
             display: none;
         }
+        .customMenu{
+            display: none;
+        }
     }
 </style>
 <!--end::Global Stylesheets Bundle-->
