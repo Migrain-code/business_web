@@ -25,8 +25,9 @@ class PacketOrderController extends Controller
     }
     public function index()
     {
-        $packages = BussinessPackage::all();
-        return view('business.package.index', compact('packages'));
+        $monthlyPackages = BussinessPackage::where('type', 0)->where('price', '>', 0)->orderBy('price', 'asc')->get();
+        $yearlyPackages = BussinessPackage::where('type', 1)->where('price', '>', 0)->orderBy('price', 'asc')->get();
+        return view('business.package.index', compact('monthlyPackages', 'yearlyPackages'));
     }
     public function buy(BussinessPackage $packet)
     {

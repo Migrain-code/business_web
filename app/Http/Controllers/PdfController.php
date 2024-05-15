@@ -15,4 +15,22 @@ class PdfController extends Controller
         $content = $pdf->output();
         return response()->setContent($content);
     }
+
+    public function getOrderStatus()
+    {
+        return response()->json([
+            'OrderStatus' => [
+                "Id" => 1,
+                "Value" => "Onaylandı"
+            ],
+            [
+                "Id" => 2,
+                "Value" => "Kargolandı"
+            ],
+            [
+                "Id" => 3,
+                "Value" => "İptal Edildi"
+            ]
+        ]);
+    }
 }

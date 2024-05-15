@@ -34,11 +34,15 @@
                     <!-- begin::Actions-->
                     <div class="d-flex align-items-center min-w-300px gap-2 flex-end">
                         <!-- begin::Pint-->
-                        <button type="button" class="btn btn-success printBtn" onclick="printInvoice()">Yazdır</button>
+                        <button type="button" class="btn btn-success printBtn" onclick="printInvoice()">
+                            Yazdır <i class="fa fa-print ms-2"></i>
+                        </button>
                         <!-- end::Pint-->
-                        <!-- begin::Download-->
+                       {{--
+                         <!-- begin::Download-->
                         <a type="button" class="btn btn-light-success downBtn" href="{{route('business.generateInvoice', $invoice->id)}}">İndir</a>
                         <!-- end::Download-->
+                       --}}
                     </div>
                     <!-- end::Actions-->
             </div>
@@ -223,7 +227,5 @@
 
         }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 @endsection
