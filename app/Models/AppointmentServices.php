@@ -91,9 +91,18 @@ class AppointmentServices extends Model
         return $this->hasOne(BusinessService::class, 'id', 'service_id');
     }
 
+    public function getPersonelPrice()
+    {
+        return $this->hasOne(PersonelCustomerPriceList::class ,'business_service_id', 'service_id')->where('personel_id', $this->personel_id);
+    }
     public function servicePrice()
     {
         $service = $this->service;
+        $personelPrice = $this->getPersonelPrice;
+
+        if (isset($personelPrice)){
+            return $personelPrice->price;
+        }
         if ($service->price_type_id == 1 && $this->total == 0){ // aralıklı fiyatsa
             return formatPrice($service->price). " - ". formatPrice($service->max_price);
         } else{
