@@ -35,7 +35,7 @@
                     <div class="mb-0">
                         @foreach($businessCategories as $category)
                             <!--begin:Option-->
-                            <label class="d-flex flex-stack mb-5 cursor-pointer">
+                            <label class="d-flex flex-stack cursor-pointer">
                                 <!--begin::Icon-->
 
                                 <!--end::Icon-->
@@ -52,7 +52,10 @@
                                 </span>
 
                             </label>
-
+                            <div class="separator separator-dashed my-2" style="
+                                border-width: 2px;
+                                border-color: #e4e6efad;
+                            "></div>
                         @endforeach
 
                     </div>
