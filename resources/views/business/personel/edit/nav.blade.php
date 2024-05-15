@@ -146,6 +146,13 @@
                 <!--end::Nav item-->
                 <!--begin::Nav item-->
                 <li class="nav-item">
+                    <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.services')) active @endif" href="{{route('business.personel.services', $personel->id)}}">
+                        Hizmetler
+                    </a>
+                </li>
+                <!--end::Nav item-->
+                <!--begin::Nav item-->
+                <li class="nav-item">
                     <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.notifications')) active @endif" href="{{route('business.personel.notifications', $personel->id)}}">
                         Bildirimler
                     </a>

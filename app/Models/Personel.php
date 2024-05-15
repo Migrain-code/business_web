@@ -104,6 +104,15 @@ class Personel extends Authenticatable
     {
         return $this->hasMany(BusinessCost::class, 'personel_id', 'id');
     }
+    public function priceList()
+    {
+        return $this->hasMany(PersonelCustomerPriceList::class, 'personel_id', 'id');
+    }
+
+    public function existCustomPrice($serviceId)
+    {
+        return $this->priceList()->where('business_service_id', $serviceId)->first();
+    }
     public function permission()
     {
         return $this->hasOne(PersonelNotificationPermission::class, 'personel_id', 'id');

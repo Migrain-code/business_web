@@ -46,9 +46,7 @@
             <!--begin::Main column-->
             @include('business.personel.edit.setting.parts.col-2')
             <!--end::Main column-->
-            <!--begin::Service column-->
-            @include('business.personel.edit.setting.parts.col-3')
-            <!--end::Service column-->
+
         </form>
         <div class="d-flex justify-content-end flex-row">
 
@@ -74,18 +72,5 @@
             time_24hr: true
         });
 
-        var allChecked = false;
-        $("#serviceAllSelect").on('click', function (){
-            let btn = $(this);
-            if (!allChecked) {
-                $('.serviceChecks').prop('checked', true);
-                allChecked = true;
-                btn.text("Seçimi Kaldır");
-            } else{
-                $('.serviceChecks').prop('checked', false);
-                allChecked = false;
-                btn.text("Tümünü Seç");
-            }
-        });
     </script>
 @endsection

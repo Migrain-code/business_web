@@ -44,6 +44,7 @@ use \App\Http\Controllers\AppointmentRequestFormController;
 use App\Http\Controllers\Business\Form\BusinessAppointmentRequestController;
 use App\Http\Controllers\PacketOrderController;
 use App\Http\Controllers\PaymentController;
+use \App\Http\Controllers\PersonelCustomerPriceListController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -144,13 +145,16 @@ Route::prefix('isletme')->as('business.')->group(function (){
         Route::prefix('personel/{personel}')->as('personel.')->group(function (){
            Route::get('case', [PersonelController::class, 'case'])->name('case');//kasa
            Route::get('payments', [PersonelController::class, 'payments'])->name('payments');//ödemeler
+           Route::get('services', [PersonelController::class, 'services'])->name('services');//hizmetler
+           Route::post('services/update', [PersonelController::class, 'updateServices'])->name('services.update');//hizmetler
            Route::post('/add-payment', [PersonelController::class, 'paymentsAdd']);//ödeme ekle
            Route::get('stay-off-day', [PersonelController::class, 'stayOffDays'])->name('stayOffDays');//izin günleri
            Route::post('add-stay-off-day', [PersonelController::class, 'addStayOffDays']);//izin günü ekle
            Route::get('notification', [PersonelController::class, 'notifications'])->name('notifications');
            Route::post('add-notification', [PersonelController::class, 'sendNotify']);
            Route::get('setting', [PersonelController::class, 'setting'])->name('setting');
-
+           Route::post('/add-custom-price', [PersonelCustomerPriceListController::class, 'store']); //özel fiyat ekleme
+           Route::post('/delete-custom-price', [PersonelCustomerPriceListController::class, 'destroy']); //özel fiyat kaldırma
         });
         /* -------------------- Hizmetler --------------------------*/
         Route::resource('service', ServiceController::class);

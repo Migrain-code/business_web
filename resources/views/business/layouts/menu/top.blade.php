@@ -67,6 +67,10 @@
                                             data-clipboard-target="#kt_share_earn_link_input">
                                         <i class="fa fa-copy"></i>
                                     </button>
+
+                                    <a href="{{env('REMOTE_URL').authUser()->business->slug}}" target="_blank" data-bs-toggle="tooltip" title="Salona Git" class="btn btn-light fw-bold flex-shrink-0">
+                                        <i class="fa fa-globe"></i>
+                                    </a>
                                 </div>
                                 <!--end::Title-->
                             </div>

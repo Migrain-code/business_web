@@ -221,7 +221,6 @@ class PersonelController extends Controller
         }
         if ($personel->save()) {
             $this->saveRestDay($personel, $request->restDay);
-            $this->saveService($personel, $request->services);
             return to_route('business.personel.setting', $personel->id)->with('response', [
                 'status' => "success",
                 'message' => "Personel Bilgileri Güncellendi",
@@ -230,6 +229,21 @@ class PersonelController extends Controller
 
     }
 
+    public function services(Personel $personel)
+    {
+        $insideBalance = number_format($this->totalBalance($personel) - $this->calculatePayedBalance($personel)->sum('price'), 2);
+        $services = $this->business->services;
+        return view('business.personel.edit.services.index', compact('personel', 'insideBalance', 'services'));
+    }
+
+    public function updateServices(Request $request, Personel $personel)
+    {
+        $this->saveService($personel, $request->services);
+        return back()->with('response', [
+            'status' => "success",
+            'message' => "Personelin Hizmetleri Güncellendi"
+        ]);
+    }
     public function saveRestDay($personel, $restDayId):void
     {
         $this->checkDayControl($personel);
