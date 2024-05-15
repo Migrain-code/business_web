@@ -28,7 +28,7 @@ class SetupController extends Controller
     }
     public function step1()
     {
-        $businessCategories = BusinessCategory::orderBy('order_number', 'asc')->get();
+        $businessCategories = BusinessCategory::where('status', 1)->orderBy('order_number', 'asc')->get();
         $dayList = DayList::all();
         $business = $this->business;
         $proparties = BussinessPackagePropartieList::all();
