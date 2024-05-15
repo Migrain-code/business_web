@@ -59,9 +59,8 @@
         <!--end::Menu item-->
         <!--begin::Menu item-->
         <div class="menu-item px-5">
-            <a href="{{route('business.settings')}}" class="menu-link px-5">
+            <a href="{{env('REMOTE_URL').authUser()->business->slug}}" class="menu-link px-5">
                 Salona Git
-                <!--todo: salona git linki koyulacak -->
             </a>
         </div>
         <!--end::Menu item-->
