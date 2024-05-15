@@ -69,7 +69,7 @@
                         <th class="min-w-125px">Telefon Numarası</th>
                         <th class="min-w-125px">Kasa Yetkisi</th>
                         <th class="min-w-125px">Mesai Saatleri</th>
-                        <th class="min-w-125px">Yemek Saatleri</th>
+                        <th class="min-w-125px">Durum</th>
                         <th class="min-w-125px">Randevu Aralığı</th>
                         <th class="text-end min-w-70px">İşlemler</th>
                     </tr>
@@ -98,7 +98,7 @@
             {data: 'phone'},
             {data: 'safe'},
             {data: 'start_time'},
-            {data: 'food_start'},
+            {data: 'status'},
             {data: 'range'},
             {data: 'action'}
         ];

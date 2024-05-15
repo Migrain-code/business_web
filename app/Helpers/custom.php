@@ -184,7 +184,7 @@ function create_form_delete_button($model, $id, $title, $content)
 
 }
 
-function create_switch($id, $checked, $model, $colum = 'is_active'): \Spatie\Html\BaseElement|\Spatie\Html\Elements\Div
+function create_switch($id, $checked, $model, $colum = 'is_active', $title = null): \Spatie\Html\BaseElement|\Spatie\Html\Elements\Div
 {
     $input = html()->input('checkbox', 'featured', $id)
         ->checked($checked)
@@ -192,7 +192,8 @@ function create_switch($id, $checked, $model, $colum = 'is_active'): \Spatie\Htm
         ->attribute('data-model', 'App\Models\\' . str_replace('App\Models\\', '', $model))
         ->attribute('data-column', $colum);
 
-    return html()->div($input)->class('form-check form-switch');
+    return html()->div($input)->class('form-check form-switch')
+        ->attribute('title', $title);
 }
 function create_custom_route_switch($id, $checked, $model, $column, $route): \Spatie\Html\BaseElement|\Spatie\Html\Elements\Div
 {

@@ -184,8 +184,9 @@
             if(selectedServiceCount === 0){
                 Swal.fire({
                     title: "Hizmet seçimi yapmadan personel seçimine geçemezsiniz.",
-                    text: "Lütfen Hizmet Seçiniz",
+                    text: "Eğer herhangi bir hizmet seçim alanı görmüyorsanız. Personellerinize hizmet listenizden hizmet atayınız.",
                     icon: 'error',
+                    confirmButtonText:'Tamam'
                 });
                 stepper.currentStepIndex = 0;
             }

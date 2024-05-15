@@ -99,9 +99,20 @@
             <!--end::Select2-->
 
             <!--begin::Description-->
-            <div class="text-muted fs-7">Personele Kasa Yetkisi verilsin mi?</div>
+            <div class="text-muted fs-7 mb-7">Personele Kasa Yetkisi verilsin mi?</div>
             <!--end::Description-->
+            <select class="form-select mb-2" name="is_case_gender" data-control="select2" data-hide-search="true"
+                    data-placeholder="Kasa Seçimi" id="kt_ecommerce_add_product_status_select">
+                <option></option>
+                @foreach($types as $type)
+                    <option value="{{$type->id}}" @selected($personel->safe_gender == $type->id)>{{$type->name}}</option>
+                @endforeach
+            </select>
+            <!--end::Select2-->
 
+            <!--begin::Description-->
+            <div class="text-muted fs-7">Personele Hangi Kasaya Bakacak?</div>
+            <!--end::Description-->
         </div>
         <!--end::Card body-->
     </div>

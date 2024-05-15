@@ -39,7 +39,6 @@ class PersonalUpdateRequest extends FormRequest
             'rate' => 'required',
             'range' => 'required',
             'description' => 'nullable',
-            'services' => 'required',
             'product_rate' => 'required',
             'is_case' => 'required',
         ];
@@ -62,7 +61,6 @@ class PersonalUpdateRequest extends FormRequest
             'rate' => 'Hizmet Payı',
             'range' => 'Randevu Aralığı',
             'description' => 'Açıklama',
-            'services' => 'Hizmetler',
             'product_rate' => "Satış Payı",
             'is_case' => "Kasa Yetki Durumu"
         ];

@@ -214,7 +214,7 @@ class PersonelController extends Controller
         $personel->range = $request->range;
         $personel->description = $request->description;
         $personel->rest_day = $request->restDay[0];
-
+        $personel->is_case_gender = $request->input('is_case_gender');
         if ($request->hasFile('avatar')) {
             $response = UploadFile::uploadFile($request->file('avatar'), 'personel_images');
             $personel->image = $response["image"]["way"];
@@ -532,8 +532,7 @@ class PersonelController extends Controller
 
     public function datatable(Request $request)
     {
-        $business = $this->business;
-        $personels = $business->personels;
+        $personels = $this->business->personels;
 
         return DataTables::of($personels)
             ->editColumn('id', function ($q) {
@@ -546,13 +545,13 @@ class PersonelController extends Controller
                 return createPhone($q->phone, formatPhone($q->phone));
             })
             ->editColumn('safe', function ($q) {
-                return create_switch($q->id, $q->safe == 1 ? true : false, 'Personel', 'safe');
+                return create_switch($q->id, $q->safe == 1 ? true : false, 'Personel', 'safe', 'Kasa Yetkisi Verilsin mi?');
             })
-            ->addColumn('start_time', function ($q) {
+            ->editColumn('start_time', function ($q) {
                 return $q->start_time . " - " . $q->end_time;
             })
-            ->addColumn('food_start', function ($q) {
-                return $q->food_start . " - " . $q->food_end;
+            ->editColumn('status', function ($q) {
+                return create_switch($q->id, $q->status == 1 ? true : false, 'Personel', 'status', 'Personel Randevu Alabilsin mi?');
             })
             ->addColumn('range', function ($q) {
                 return $q->range . " .DK";
