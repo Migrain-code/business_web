@@ -1,5 +1,5 @@
 <!--begin::Aside-->
-<div class="card d-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px w-xxl-400px">
+<div class="card d-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px w-xxl-400px setupMenu">
     <!--begin::Wrapper-->
     <div class="card-body px-6 px-lg-10 px-xxl-15 py-20">
         <!--begin::Nav-->

@@ -67,16 +67,6 @@
                 </div>
                 <!--end::Col-->
 
-                <!--begin::Col-->
-                <div class="col">
-                    <!--begin::Option-->
-                    <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4">
-                        <input type="radio" class="btn-check" name="team_size" @checked($business->personal_count == "50+") value="50+">
-                        <span class="fw-bold fs-3">50+</span>
-                    </label>
-                    <!--end::Option-->
-                </div>
-                <!--end::Col-->
             </div>
             <!--end::Row-->
 
@@ -85,7 +75,7 @@
 
         <!--begin::Input group-->
         <div class="fv-row row">
-            <div class="col-6">
+            <div class="col-12 col-lg-6 mb-10">
                 <!--begin::Label-->
                 <label class="form-label mb-3">İşletme Adınız
                     <span class="ms-1" data-bs-toggle="tooltip" title="İşletmenizin arama sonuçlarında görüntüleneceği adı">
@@ -102,7 +92,7 @@
                 <input type="text" class="form-control form-control-lg form-control-solid" name="business_name" placeholder="" value="{{$business->name}}">
                 <!--end::Input-->
             </div>
-            <div class="col-6">
+            <div class="col-12 col-lg-6">
                 <div class="mb-10 fv-row">
                     <!--begin::Label-->
                     <label class="form-label mb-3">İnstagram Kullanıcı Adı

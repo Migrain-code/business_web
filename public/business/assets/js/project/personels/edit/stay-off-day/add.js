@@ -16,17 +16,17 @@ var KTModalUsageAdd = function () {
             formUsage,
             {
                 fields: {
-                    'off_date': {
+                    'start_time': {
                         validatorUsages: {
                             notEmpty: {
                                 message: 'İzin Başlangıç Tarihi Gereklidir'
                             }
                         }
                     },
-                    'day_amount': {
+                    'end_time': {
                         validatorUsages: {
                             notEmpty: {
-                                message: 'İzin Verilecek Gün Sayısı Gereklidir'
+                                message: 'İzin Bitiş Tarihi Gereklidir'
                             }
                         }
                     },
@@ -59,8 +59,9 @@ var KTModalUsageAdd = function () {
                             submitButtonUsage.removeAttribute('data-kt-indicator');
                             var formData = new FormData();
                             formData.append("_token", csrf_token);
-                            formData.append("off_date", $('[name="off_date"]').val());
-                            formData.append("day_amount", $('[name="day_amount"]').val());
+                            formData.append("start_time", $('[name="start_time"]').val());
+                            formData.append("end_time", $('[name="end_time"]').val());
+                            formData.append("personels", $('[name="personels"]').val());
                             $('.flatpickr-calendar').removeClass('open');
                             $.ajax({
                                 url: '/isletme/personel/'+ personelId +'/add-stay-off-day',

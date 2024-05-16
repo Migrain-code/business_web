@@ -319,37 +319,36 @@ class PersonelController extends Controller
 
     public function addStayOffDays(PersonelStayOffDayAddRequest $request, Personel $personel)
     {
-        $startDate = Carbon::parse($request->off_date);
-        $endDate = Carbon::parse($request->day_amount);
-
-
-        /*$existPer = $personel->stayOffDays()
-            ->where(function ($query) use ($startDate, $endDate) {
-                $query->whereDate('start_time', '<=', $startDate)
-                    ->whereDate('end_time', '>=', $endDate);
-            })
-            ->first();
-
-        if ($existPer) {
+        if ($this->checkStayOffDayControl($personel->id, $request->start_time, $request->end_time)) {
             return response()->json([
                 'status' => "error",
-                'message' => "Seçtiğiniz Tarihlerde İzin Eklediniz.",
+                'message' => "Bu Tarihlerde " . $personel->name . " Personeline İzin Eklediniz. Personeli Listeden Çıkarıp Sonradan Sadece Bu Personeli Seçerek Ekleyebilirsiniz.",
             ]);
-        }*/
+        }
 
         $personelStayOffDay = new PersonelStayOffDay();
         $personelStayOffDay->business_id = $this->business->id;
         $personelStayOffDay->personel_id = $personel->id;
-        $personelStayOffDay->start_time = $startDate;
-        $personelStayOffDay->end_time = $endDate;
+        $personelStayOffDay->start_time = $request->start_time;
+        $personelStayOffDay->end_time = $request->end_time;
         $personelStayOffDay->save();
+        if ($personelStayOffDay->save()){
+            return response()->json([
+                'status' => "success",
+                'message' => "Personele İzin Eklendi.",
+            ]);
+        }
 
-        return response()->json([
-            'status' => "success",
-            'message' => "Personele İzin Eklendi.",
-        ]);
     }
-
+    public function checkStayOffDayControl($personel_id, $secilen_tarih_baslangic, $secilen_tarih_bitis)
+    {
+        return PersonelStayOffDay::where('personel_id', $personel_id)
+            ->where(function($query) use ($secilen_tarih_baslangic, $secilen_tarih_bitis) {
+                $query->whereBetween('start_time', [$secilen_tarih_baslangic, $secilen_tarih_bitis])
+                    ->orWhereBetween('end_time', [$secilen_tarih_baslangic, $secilen_tarih_bitis]);
+            })
+            ->exists();
+    }
     public function notifications(Personel $personel)
     {
         $startOfWeek = now()->startOfWeek();

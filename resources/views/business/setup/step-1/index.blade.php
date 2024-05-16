@@ -17,7 +17,11 @@
               border: 1px solid #600ee4;
               outline: 0px;
           }
-
+          @media screen and (max-width: 768px) {
+              .setupMenu{
+                  display: none !important;
+              }
+          }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
