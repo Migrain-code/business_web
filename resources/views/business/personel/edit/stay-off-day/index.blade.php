@@ -135,7 +135,7 @@
                             <th class="min-w-100px">İzin Bitiş Tarihi</th>
                             <th class="min-w-100px">Bitmesine Kalan</th>
                             <th class="min-w-100px">Toplam Gün</th>
-                            <td></td>
+                            <td class="min-w-100px">İşlemler</td>
                         </tr>
                     </thead>
                     <!--begin::Table body-->

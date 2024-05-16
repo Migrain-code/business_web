@@ -16,7 +16,7 @@
         <!--begin::Card body-->
         <div class="card-body pt-0">
             @foreach($services as $service)
-                <div class="d-flex flex-stack">
+                <div class="d-flex flex-stack flex-column flex-md-row">
                     <div class="d-flex border-0 border-secondary p-2 mb-2" data-bs-toggle="tooltip" title="Bu hizmeti eklemek için seçiniz" style="font-size: 15px">
                         <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                             <input class="form-check-input serviceChecks" @checked(in_array($service->id, $personel->services()->pluck('service_id')->toArray())) name="services[]" type="checkbox"

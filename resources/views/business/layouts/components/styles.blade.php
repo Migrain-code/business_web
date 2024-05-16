@@ -60,6 +60,12 @@
         .customMenu{
             display: none;
         }
+        .btn.btn-primary{
+            padding: 5px 12px !important;
+        }
+        .btn.btn-danger{
+            padding: 5px 12px !important;
+        }
     }
 </style>
 <!--end::Global Stylesheets Bundle-->
