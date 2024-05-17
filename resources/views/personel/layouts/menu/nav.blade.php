@@ -5,7 +5,7 @@
         <div class="d-flex flex-wrap flex-sm-nowrap mb-6">
             <!--begin::Image-->
             <div class="d-flex flex-center flex-shrink-0 bg-light rounded w-100px h-100px w-lg-150px h-lg-150px me-7 mb-4" id="personelProfileImage">
-                <img class="rounded" style="width: 150px;height: 150px;object-fit: contain;" src="{{image($personel->image)}}" alt="image">
+                <img class="rounded" style="width: 110px;height: 110px;object-fit: contain;" src="{{image($personel->image)}}" alt="image">
             </div>
             <!--end::Image-->
 
@@ -76,23 +76,7 @@
                         </div>
                         <!--end::Stat-->
 
-                        <!--begin::Stat-->
-                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                            <!--begin::Number-->
-                            <div class="d-flex align-items-center">
-                                <i class="ki-duotone ki-wallet fs-2 text-success me-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                </i>
-                                <div class="fs-4 fw-bold" data-kt-countup="true" data-kt-countup-value="{{$personel->insideBalance()}}" data-kt-countup-prefix="₺">{{$personel->insideBalance()}}</div>
-                            </div>
-                            <!--end::Number-->
 
-                            <!--begin::Label-->
-                            <div class="fw-semibold fs-6 text-gray-400">İçerideki Bakiye</div>
-                            <!--end::Label-->
-                        </div>
-                        <!--end::Stat-->
                     </div>
                     <!--end::Stats-->
 
@@ -106,95 +90,101 @@
         <div class="separator"></div>
 
         <div class="p-5">
-            <div class="row g-5 g-xl-8">
-                <div class="col-xl-3">
+            <div class="scroll-x">
+                <div style="width: 1200px">
+                    <div class="row g-5 g-xl-8 ">
+                        <div class="col-3">
 
-                    <!--begin::Statistics Widget 5-->
-                    <a href="#" class="card hoverable card-xl-stretch mb-xl-8 text-white" style="background-color: #132c3d;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
-                        <!--begin::Body-->
-                        <div class="card-body">
-                            <i class="ki-duotone ki-chart-simple text-danger fs-2x ms-n1">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                                <span class="path3"></span>
-                                <span class="path4"></span>
-                            </i>
+                            <!--begin::Statistics Widget 5-->
+                            <a href="#" class="card hoverable card-xl-stretch mb-xl-8 text-white" style="background-color: #132c3d;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
+                                <!--begin::Body-->
+                                <div class="card-body">
+                                    <i class="ki-duotone ki-chart-simple text-danger fs-2x ms-n1">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                        <span class="path4"></span>
+                                    </i>
 
-                            <div class="fw-bold fs-2 mb-2 mt-5">
-                               {{formatPrice($personel->totalBalance())}}
-                            </div>
+                                    <div class="fw-bold fs-2 mb-2 mt-5">
+                                        {{formatPrice($personel->totalBalance())}}
+                                    </div>
 
-                            <div class="fw-semibold text-gray-400">
-                                Toplam Yapılan Kazanç
-                            </div>
+                                    <div class="fw-semibold text-gray-400">
+                                        Toplam Yapılan Kazanç
+                                    </div>
+                                </div>
+                                <!--end::Body-->
+                            </a>
+                            <!--end::Statistics Widget 5-->
                         </div>
-                        <!--end::Body-->
-                    </a>
-                    <!--end::Statistics Widget 5-->
+
+                        <div class="col-3">
+
+                            <!--begin::Statistics Widget 5-->
+                            <a href="#" class="card hoverable card-xl-stretch mb-xl-8" style="background-color: #484286;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
+                                <!--begin::Body-->
+                                <div class="card-body">
+                                    <i class="ki-duotone ki-cheque text-gray-100 fs-2x ms-n1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span></i>
+
+                                    <div class="text-gray-100 fw-bold fs-2 mb-2 mt-5">
+                                        {{$personel->getCustomer()}}
+                                    </div>
+
+                                    <div class="fw-semibold text-gray-100">
+                                        Müşteriye Hizmet verildi
+                                    </div>
+                                </div>
+                                <!--end::Body-->
+                            </a>
+                            <!--end::Statistics Widget 5-->
+                        </div>
+
+                        <div class="col-3">
+
+                            <!--begin::Statistics Widget 5-->
+                            <a href="#" class="card hoverable card-xl-stretch mb-xl-8" style="background-color: #132c3d;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
+                                <!--begin::Body-->
+                                <div class="card-body">
+                                    <i class="ki-duotone ki-briefcase text-white fs-2x ms-n1"><span class="path1"></span><span class="path2"></span></i>
+
+                                    <div class="text-white fw-bold fs-2 mb-2 mt-5">
+                                        {{$personel->appointments->count()}}
+                                    </div>
+
+                                    <div class="fw-semibold text-white">
+                                        İşlemde Hizmet Verdi
+                                    </div>
+                                </div>
+                                <!--end::Body-->
+                            </a>
+                            <!--end::Statistics Widget 5-->
+                        </div>
+
+                        <div class="col-3">
+
+                            <!--begin::Statistics Widget 5-->
+                            <a href="#" class="card hoverable card-xl-stretch mb-5 mb-xl-8" style="background-color: #484286;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
+                                <!--begin::Body-->
+                                <div class="card-body">
+                                    <i class="ki-duotone ki-chart-pie-simple text-white fs-2x ms-n1"><span class="path1"></span><span class="path2"></span></i>
+
+                                    <div class="text-white fw-bold fs-2 mb-2 mt-5">
+                                        {{formatPrice($personel->insideBalance())}}
+                                    </div>
+
+                                    <div class="fw-semibold text-white">
+                                        İçeride Kalan Bakiye
+                                    </div>
+                                </div>
+                                <!--end::Body-->
+                            </a>
+                            <!--end::Statistics Widget 5-->
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="col-xl-3">
-
-                    <!--begin::Statistics Widget 5-->
-                    <a href="#" class="card hoverable card-xl-stretch mb-xl-8" style="background-color: #484286;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
-                        <!--begin::Body-->
-                        <div class="card-body">
-                            <i class="ki-duotone ki-cheque text-gray-100 fs-2x ms-n1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span></i>
-
-                            <div class="text-gray-100 fw-bold fs-2 mb-2 mt-5">
-                                {{$personel->getCustomer()}}
-                            </div>
-
-                            <div class="fw-semibold text-gray-100">
-                                Müşteriye Hizmet verildi
-                            </div>
-                        </div>
-                        <!--end::Body-->
-                    </a>
-                    <!--end::Statistics Widget 5-->
-                </div>
-
-                <div class="col-xl-3">
-
-                    <!--begin::Statistics Widget 5-->
-                    <a href="#" class="card hoverable card-xl-stretch mb-xl-8" style="background-color: #132c3d;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
-                        <!--begin::Body-->
-                        <div class="card-body">
-                            <i class="ki-duotone ki-briefcase text-white fs-2x ms-n1"><span class="path1"></span><span class="path2"></span></i>
-
-                            <div class="text-white fw-bold fs-2 mb-2 mt-5">
-                                {{$personel->appointments->count()}}
-                            </div>
-
-                            <div class="fw-semibold text-white">
-                                İşlemde Hizmet Verdi
-                            </div>
-                        </div>
-                        <!--end::Body-->
-                    </a>
-                    <!--end::Statistics Widget 5-->
-                </div>
-
-                <div class="col-xl-3">
-
-                    <!--begin::Statistics Widget 5-->
-                    <a href="#" class="card hoverable card-xl-stretch mb-5 mb-xl-8" style="background-color: #484286;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
-                        <!--begin::Body-->
-                        <div class="card-body">
-                            <i class="ki-duotone ki-chart-pie-simple text-white fs-2x ms-n1"><span class="path1"></span><span class="path2"></span></i>
-
-                            <div class="text-white fw-bold fs-2 mb-2 mt-5">
-                               {{formatPrice($personel->insideBalance())}}
-                            </div>
-
-                            <div class="fw-semibold text-white">
-                               İçeride Kalan Bakiye
-                            </div>
-                        </div>
-                        <!--end::Body-->
-                    </a>
-                    <!--end::Statistics Widget 5-->
-                </div>
             </div>
         </div>
 
@@ -202,14 +192,14 @@
         <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
             <!--begin::Nav item-->
             <li class="nav-item">
-                <a class="nav-link text-active-primary py-5 me-6  active" data-bs-toggle="tab" href="#kt_ecommerce_personel_overview" role="tab">
+                <a class="nav-link text-active-primary py-5 me-6" data-bs-toggle="tab" href="#kt_ecommerce_personel_overview" role="tab">
                     Önizleme
                 </a>
             </li>
             <!--end::Nav item-->
             <!--begin::Nav item-->
             <li class="nav-item">
-                <a class="nav-link text-active-primary py-5 me-6 appointmentTab" data-bs-toggle="tab" href="#kt_ecommerce_personel_appointment" role="tab">
+                <a class="nav-link text-active-primary py-5 me-6 appointmentTab active" data-bs-toggle="tab" href="#kt_ecommerce_personel_appointment" role="tab">
                     Randevular
                 </a>
             </li>

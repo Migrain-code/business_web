@@ -24,11 +24,11 @@
         @include('personel.layouts.menu.nav')
         <!--begin::Row-->
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="kt_ecommerce_personel_overview" role="tabpanel">
+            <div class="tab-pane fade " id="kt_ecommerce_personel_overview" role="tabpanel">
                 @include('personel.dashboard.parts.tab-2')
 
             </div>
-            <div class="tab-pane fade" id="kt_ecommerce_personel_appointment" role="tabpanel">
+            <div class="tab-pane fade show active" id="kt_ecommerce_personel_appointment" role="tabpanel">
                 @include('personel.dashboard.parts.calendar')
             </div>
 
@@ -84,6 +84,10 @@
         });
     </script>
     <script>
+        $(document).ready(function (){
+           var defaultDate = '{{now()->format('Y-m-d')}}';
+            fetchAppointment(defaultDate);
+        });
         $('.clickedDate').on('click', function () {
             var date = $(this).data('date');
             fetchAppointment(date);
