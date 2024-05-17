@@ -13,7 +13,7 @@
                     <option value="all" selected>Tümü</option>
                     <option value="Kadın">Kadın</option>
                     <option value="Erkek">Erkek</option>
-                    <option value="Unisex">Unisex</option>
+                    <option value="Unisex">Kadın/Erkek</option>
                 </select>
             </form>
 

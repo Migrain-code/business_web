@@ -86,7 +86,7 @@
 
                                 <option value="0">Kadın</option>
                                 <option value="1">Erkek</option>
-                                <option value="2">Unisex</option>
+                                <option value="2">Kadın/Erkek</option>
                             </select>
                             <!--end::Input-->
 
