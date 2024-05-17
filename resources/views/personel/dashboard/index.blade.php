@@ -9,6 +9,11 @@
             transform: translate(-50%, -50%);
             z-index: 9999;
         }
+        @media screen and (max-width:500px) {
+            .miniSummaryContent{
+                display: none !important;
+            }
+        }
     </style>
 @endsection
 @section('breadcrumbs')

@@ -4,8 +4,8 @@
         <!--begin::Details-->
         <div class="d-flex flex-wrap flex-sm-nowrap mb-6">
             <!--begin::Image-->
-            <div class="d-flex flex-center flex-shrink-0 bg-light rounded w-100px h-100px w-lg-150px h-lg-150px me-7 mb-4" id="personelProfileImage">
-                <img class="rounded" style="width: 110px;height: 110px;object-fit: contain;" src="{{image($personel->image)}}" alt="image">
+            <div class="d-flex flex-center flex-shrink-0 bg-light rounded-circle w-100px h-100px w-lg-150px h-lg-150px me-7 mb-4" id="personelProfileImage">
+                <img class="rounded-circle" style="width: 110px;height: 110px;object-fit: contain;" src="{{image($personel->image)}}" alt="image">
             </div>
             <!--end::Image-->
 
@@ -41,7 +41,7 @@
                 <!--end::Head-->
 
                 <!--begin::Info-->
-                <div class="d-flex flex-wrap justify-content-start">
+                <div class="d-flex flex-wrap justify-content-start miniSummaryContent">
                     <!--begin::Stats-->
                     <div class="d-flex flex-wrap">
                         <!--begin::Stat-->
