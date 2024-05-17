@@ -13,6 +13,7 @@ class BusinessRoomController extends Controller
 
     public function __construct()
     {
+        $this->middleware(["permission:customRoom.view"]);
         $this->middleware(function ($request, $next) {
             $this->user = auth()->user();
             $this->business = $this->user->business;

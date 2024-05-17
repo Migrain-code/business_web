@@ -10,7 +10,16 @@
                 <div class="card-title">
                     <h2>Hizmetler</h2>
                 </div>
-                <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_service"><i class="fa fa-plus-circle"></i> Hizmet Ekle</a>
+                <div class="d-flex gap-2">
+                    <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_service">
+                        <i class="fa fa-plus-circle"></i>
+                        Hizmet Ekle
+                    </a>
+                    <a href="{{route('business.adission.printAdission', $appointment->id)}}" target="_blank" class="btn btn-warning">
+                        <i class="fa fa-print"></i>
+                        Yazdır
+                    </a>
+                </div>
             </div>
             <!--end::Card header-->
 

@@ -22,6 +22,8 @@ class ProductController extends Controller
 
     public function __construct()
     {
+        $this->middleware(['permission:product.view']);
+
         $this->middleware(function ($request, $next) {
             $this->business = auth('official')->user()->business;
             return $next($request);

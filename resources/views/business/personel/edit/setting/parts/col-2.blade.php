@@ -118,6 +118,7 @@
 
                 </div>
                 <!--end::Input group-->
+                @can('case.view')
                 <!--begin::Input group-->
                 <div class="mb-4 fv-row">
                     <!--begin::Label-->
@@ -136,6 +137,7 @@
 
                 </div>
                 <!--end::Input group-->
+
                 <!--begin::Input group-->
                 <div class="mb-4 fv-row">
                     <!--begin::Label-->
@@ -152,6 +154,7 @@
                     </select>
                     <!--end::Select2-->
                 </div>
+                @endcan
                 <!--end::Input group-->
                 <!--begin::Input group-->
                 <div class="mb-4 fv-row">

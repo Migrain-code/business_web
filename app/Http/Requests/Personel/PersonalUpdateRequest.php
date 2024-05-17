@@ -25,6 +25,25 @@ class PersonalUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if (authUser()->hasPermissionTo('case.view')){
+            return [
+                'name' => 'required',
+                'email' => 'required',
+                'phone' => 'required',
+                'approve_type' => 'required',
+                'restDay' => 'required',
+                'start_time' => 'required',
+                'end_time' => 'required',
+                'food_start_time' => 'nullable',
+                'food_end_time' => 'nullable',
+                'gender_type' => 'required',
+                'rate' => 'required',
+                'range' => 'required',
+                'description' => 'nullable',
+                'product_rate' => 'required',
+                //'is_case' => 'required',
+            ];
+        }
         return [
             'name' => 'required',
             'email' => 'required',
@@ -36,11 +55,9 @@ class PersonalUpdateRequest extends FormRequest
             'food_start_time' => 'nullable',
             'food_end_time' => 'nullable',
             'gender_type' => 'required',
-            'rate' => 'required',
             'range' => 'required',
             'description' => 'nullable',
-            'product_rate' => 'required',
-            'is_case' => 'required',
+            //'is_case' => 'required',
         ];
     }
 
@@ -62,7 +79,7 @@ class PersonalUpdateRequest extends FormRequest
             'range' => 'Randevu Aralığı',
             'description' => 'Açıklama',
             'product_rate' => "Satış Payı",
-            'is_case' => "Kasa Yetki Durumu"
+            //'is_case' => "Kasa Yetki Durumu"
         ];
     }
 }

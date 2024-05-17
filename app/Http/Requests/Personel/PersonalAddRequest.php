@@ -25,6 +25,27 @@ class PersonalAddRequest extends FormRequest
      */
     public function rules()
     {
+        if (authUser()->hasPermissionTo('case.view')){
+            return [
+                'name' => 'required',
+                'email' => 'required|unique:personels',
+                'phone' => 'required|unique:personels',
+                'password' => 'required',
+                'approve_type' => 'required',
+                'restDay' => 'required',
+                'start_time' => 'required',
+                'end_time' => 'required',
+                //'food_start_time' => 'required',
+                //'food_end_time' => 'required',
+                'gender_type' => 'required',
+                'rate' => 'required',
+                'range' => 'required',
+                'description' => 'nullable',
+                'services' => 'required',
+                'product_rate' => 'required',
+                //'is_case' => 'required',
+            ];
+        }
         return [
             'name' => 'required',
             'email' => 'required|unique:personels',
@@ -37,12 +58,10 @@ class PersonalAddRequest extends FormRequest
             //'food_start_time' => 'required',
             //'food_end_time' => 'required',
             'gender_type' => 'required',
-            'rate' => 'required',
             'range' => 'required',
             'description' => 'nullable',
             'services' => 'required',
-            'product_rate' => 'required',
-            'is_case' => 'required',
+            //'is_case' => 'required',
         ];
     }
 
@@ -66,7 +85,7 @@ class PersonalAddRequest extends FormRequest
             'description' => 'Açıklama',
             'services' => 'Hizmetler',
             'product_rate' => "Satış Payı",
-            'is_case' => "Kasa Yetki Durumu"
+           // 'is_case' => "Kasa Yetki Durumu"
         ];
     }
 

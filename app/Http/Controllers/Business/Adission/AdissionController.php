@@ -80,6 +80,17 @@ class AdissionController extends Controller
     }
 
     /**
+     * Adisyon Yazdır
+     *
+     * @param Appointment $adission
+     * @return \Illuminate\Http\Response
+     */
+    public function printAdission(Appointment $adission)
+    {
+        return view('business.adission.edit.print.index', compact('adission'));
+    }
+
+    /**
      * Adisyon Geldi
      *
      * @param \Illuminate\Http\Request $request

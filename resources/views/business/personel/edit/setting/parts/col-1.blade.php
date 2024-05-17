@@ -68,6 +68,7 @@
         <!--end::Personel Avatar Card-->
     </div>
     <!--end::Thumbnail settings-->
+    @can('case.view')
     <!--begin::Status-->
     <div class="card card-flush py-4">
         <!--begin::Card header-->
@@ -117,6 +118,7 @@
         <!--end::Card body-->
     </div>
     <!--end::Status-->
+    @endcan
 
     <!--begin::Category & tags-->
     <div class="card card-flush py-4">

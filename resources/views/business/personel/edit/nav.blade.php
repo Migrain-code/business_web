@@ -130,19 +130,23 @@
                     </a>
                 </li>
                 <!--end::Nav item-->
-                <!--begin::Nav item-->
-                <li class="nav-item">
-                    <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.case')) active @endif" href="{{route('business.personel.case', $personel->id)}}">
-                        Kasa
-                    </a>
-                </li>
-                <!--end::Nav item-->
+                @can('case.view')
+                    <!--begin::Nav item-->
+                    <li class="nav-item">
+                        <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.case')) active @endif" href="{{route('business.personel.case', $personel->id)}}">
+                            Kasa
+                        </a>
+                    </li>
+                    <!--end::Nav item-->
+                @endcan
+                @can('cost.view')
                 <!--begin::Nav item-->
                 <li class="nav-item">
                     <a class="nav-link text-active-primary py-5 me-6 @if(request()->routeIs('business.personel.payments')) active @endif" href="{{route('business.personel.payments', $personel->id)}}">
                         Ödemeler
                     </a>
                 </li>
+                @endcan
                 <!--end::Nav item-->
                 <!--begin::Nav item-->
                 <li class="nav-item">

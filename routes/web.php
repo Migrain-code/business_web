@@ -150,7 +150,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
         Route::delete('package-sale/{packageUsage}/delete-usage', [PackageSaleOperationController::class, 'deleteUsage']);
 
         /* -------------------- Personeller --------------------------*/
-        Route::resource('personel', PersonelController::class);
+        Route::resource('personel', PersonelController::class)->middleware('personelLimit');
         Route::prefix('personel/{personel}')->as('personel.')->group(function (){
            Route::get('case', [PersonelController::class, 'case'])->name('case');//kasa
            Route::get('payments', [PersonelController::class, 'payments'])->name('payments');//ödemeler
@@ -214,6 +214,9 @@ Route::prefix('isletme')->as('business.')->group(function (){
             Route::get('/{adission}/receivable', [AdissionAddCashPointController::class, 'receivableList']);
             Route::post('/{adission}/receivable', [AdissionAddCashPointController::class, 'receivableAdd']);
             Route::delete('/{adission}/receivable/{receivable}', [AdissionAddCashPointController::class, 'receivableDelete']);
+
+            Route::get('/{adission}/print', [AdissionController::class, 'printAdission'])->name('printAdission');
+
         });
 
         /* -------------------- Destek Talepleri --------------------------*/

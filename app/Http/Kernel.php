@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\CheckAppointmentLimit;
+use App\Http\Middleware\CheckPersonelLimit;
 use App\Http\Middleware\SetupControlMiddleWare;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -68,6 +69,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'setup' => SetupControlMiddleWare::class,
         'appointmentLimit' => CheckAppointmentLimit::class,
+        'personelLimit' => CheckPersonelLimit::class,
         'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,

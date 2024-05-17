@@ -22,6 +22,7 @@ use App\Services\UploadFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
 
 /**
@@ -34,6 +35,9 @@ class PersonelController extends Controller
 
     public function __construct()
     {
+        $this->middleware(['permission:case.view'])->only(['case']);
+        $this->middleware(['permission:cost.view'])->only(['payments']);
+
         $this->middleware(function ($request, $next) {
             $this->business = auth('official')->user()->business;
             return $next($request);
@@ -52,12 +56,19 @@ class PersonelController extends Controller
 
     public function create()
     {
+        $personelCount = Session::get('personelCount');
+        if(isset($personelCount)){
+            if ($personelCount == $this->business->personels->count() || $this->business->personels->count() > $personelCount){
+                abort(403);
+            }
+        }
         $dayList = DayList::all();
         $services = $this->business->services;
         $ranges = AppointmentRange::all();
         $types = BusinnessType::all();
         return view('business.personel.create.index', compact('dayList', 'services', 'ranges', 'types'));
     }
+
     public function existPhone($phone)
     {
         $existPhone = Personel::where('phone', $phone)->first();
@@ -68,6 +79,7 @@ class PersonelController extends Controller
         }
         return $result;
     }
+
     /**
      * Personel Ekle
      *
@@ -76,10 +88,10 @@ class PersonelController extends Controller
      */
     public function store(PersonalAddRequest $request)
     {
-        if ($this->existPhone(clearPhone($request->phone))){
+        if ($this->existPhone(clearPhone($request->phone))) {
             return response()->json([
-               'status' => "error",
-               'message' => "Bu telefon numarası ile kayıtlı personel bulunmakta"
+                'status' => "error",
+                'message' => "Bu telefon numarası ile kayıtlı personel bulunmakta"
             ]);
         }
         $personel = new Personel();
@@ -91,14 +103,20 @@ class PersonelController extends Controller
         $personel->phone = clearPhone($request->phone);
         $personel->accepted_type = $request->approve_type;
         //$personel->accept = $request->accept;
-        $personel->safe = boolval($request->is_case);
+        if ($request->filled('is_case')) {
+            $personel->safe = boolval($request->is_case);
+        } else {
+            $personel->safe = 0;
+        }
         $personel->start_time = $request->start_time;
         $personel->end_time = $request->end_time;
         $personel->food_start = $request->food_start_time;
         $personel->food_end = $request->food_end_time;
         $personel->gender = $request->gender_type;
-        $personel->rate = $request->rate;
-        $personel->product_rate = $request->product_rate;
+        if (authUser()->hasPermissionTo('case.view')) {
+            $personel->product_rate = $request->product_rate;
+            $personel->rate = $request->rate;
+        }
         $personel->range = $request->range;
         $personel->description = $request->description;
         $personel->rest_day = $request->restDay[0];
@@ -124,7 +142,7 @@ class PersonelController extends Controller
                 $personelService->personel_id = $personel->id;
                 $personelService->save();
             }
-            if ($request->ajax()){
+            if ($request->ajax()) {
                 return response()->json([
                     'status' => "success",
                     'message' => "Personel Kayıt Edildi",
@@ -142,12 +160,13 @@ class PersonelController extends Controller
         ]);
     }
 
-    public function savePermission($personelId):void
+    public function savePermission($personelId): void
     {
         $notificationPermission = new PersonelNotificationPermission();
         $notificationPermission->personel_id = $personelId;
         $notificationPermission->save();
     }
+
     /**
      * Personel Detayı
      *
@@ -186,8 +205,8 @@ class PersonelController extends Controller
      */
     public function update(PersonalUpdateRequest $request, Personel $personel)
     {
-        if ($personel->phone != clearPhone($request->phone)){
-            if ($this->existPhone(clearPhone($request->phone))){
+        if ($personel->phone != clearPhone($request->phone)) {
+            if ($this->existPhone(clearPhone($request->phone))) {
                 return response()->json([
                     'status' => "error",
                     'message' => "Bu telefon numarası ile kayıtlı personel bulunmakta"
@@ -198,19 +217,26 @@ class PersonelController extends Controller
         $personel->business_id = $this->business->id;
         $personel->name = $request->input('name');
         $personel->email = $request->email;
-        if ($request->filled('password')){
+        if ($request->filled('password')) {
             $personel->password = Hash::make($request->password);
         }
         $personel->phone = clearPhone($request->phone);
         $personel->accepted_type = $request->approve_type;
-        $personel->safe = boolval($request->is_case);
+        if ($request->filled('is_case')) {
+            $personel->safe = boolval($request->is_case);
+        } else {
+            $personel->safe = 0;
+        }
         $personel->start_time = $request->start_time;
         $personel->end_time = $request->end_time;
         $personel->food_start = $request->food_start_time;
         $personel->food_end = $request->food_end_time;
         $personel->gender = $request->gender_type;
-        $personel->rate = $request->rate;
-        $personel->product_rate = $request->product_rate;
+
+        if (authUser()->hasPermissionTo('case.view')) {
+            $personel->product_rate = $request->product_rate;
+            $personel->rate = $request->rate;
+        }
         $personel->range = $request->range;
         $personel->description = $request->description;
         $personel->rest_day = $request->restDay[0];
@@ -244,27 +270,29 @@ class PersonelController extends Controller
             'message' => "Personelin Hizmetleri Güncellendi"
         ]);
     }
-    public function saveRestDay($personel, $restDayId):void
+
+    public function saveRestDay($personel, $restDayId): void
     {
         $this->checkDayControl($personel);
         $personel->restDayAll()->update(['status' => 0]);
-        foreach ($restDayId as $day_id){
+        foreach ($restDayId as $day_id) {
             $restDay = $personel->restDayAll()->where('day_id', $day_id)->first();
-            if ($restDay){
+            if ($restDay) {
                 $restDay->status = 1;
                 $restDay->save();
-            } else{
+            } else {
                 $restDay->status = 0;
                 $restDay->save();
             }
 
         }
     }
-    public function checkDayControl($personel):void
+
+    public function checkDayControl($personel): void
     {
-        if ($personel->restDayAll->count() == 0){
+        if ($personel->restDayAll->count() == 0) {
             $dayList = DayList::all();
-            foreach ($dayList as $day){
+            foreach ($dayList as $day) {
                 $newRestDay = new PersonelRestDay();
                 $newRestDay->personel_id = $personel->id;
                 $newRestDay->day_id = $day->id;
@@ -274,11 +302,12 @@ class PersonelController extends Controller
         }
 
     }
-    public function saveService($personel, $services):void
+
+    public function saveService($personel, $services): void
     {
         foreach ($services as $serviceId) {
             $existPersonelService = $personel->services()->where('service_id', $serviceId)->first();
-            if (!$existPersonelService){
+            if (!$existPersonelService) {
                 $personelService = new PersonelService();
                 $personelService->service_id = $serviceId;
                 $personelService->personel_id = $personel->id;
@@ -287,6 +316,7 @@ class PersonelController extends Controller
         }
         $personel->services()->whereNotIn('service_id', $services)->delete();
     }
+
     /**
      * Personel Sil
      *
@@ -332,7 +362,7 @@ class PersonelController extends Controller
         $personelStayOffDay->start_time = $request->start_time;
         $personelStayOffDay->end_time = $request->end_time;
         $personelStayOffDay->save();
-        if ($personelStayOffDay->save()){
+        if ($personelStayOffDay->save()) {
             return response()->json([
                 'status' => "success",
                 'message' => "Personele İzin Eklendi.",
@@ -340,15 +370,17 @@ class PersonelController extends Controller
         }
 
     }
+
     public function checkStayOffDayControl($personel_id, $secilen_tarih_baslangic, $secilen_tarih_bitis)
     {
         return PersonelStayOffDay::where('personel_id', $personel_id)
-            ->where(function($query) use ($secilen_tarih_baslangic, $secilen_tarih_bitis) {
+            ->where(function ($query) use ($secilen_tarih_baslangic, $secilen_tarih_bitis) {
                 $query->whereBetween('start_time', [$secilen_tarih_baslangic, $secilen_tarih_bitis])
                     ->orWhereBetween('end_time', [$secilen_tarih_baslangic, $secilen_tarih_bitis]);
             })
             ->exists();
     }
+
     public function notifications(Personel $personel)
     {
         $startOfWeek = now()->startOfWeek();
@@ -425,6 +457,7 @@ class PersonelController extends Controller
         $types = BusinnessType::all();
         return view('business.personel.edit.setting.index', compact('personel', 'insideBalance', 'dayList', 'services', 'ranges', 'types'));
     }
+
     public function paymentsAdd(PersonelCostAddRequest $request, Personel $personel)
     {
         $cost = new BusinessCost();
@@ -531,7 +564,12 @@ class PersonelController extends Controller
 
     public function datatable(Request $request)
     {
-        $personels = $this->business->personels;
+        $personelCount = Session::get('personelCount');
+        if (isset($personelCount)){
+            $personels = $this->business->personels()->take($personelCount)->get();
+        } else{
+            $personels = $this->business->personels;
+        }
 
         return DataTables::of($personels)
             ->editColumn('id', function ($q) {
@@ -558,7 +596,7 @@ class PersonelController extends Controller
             ->addColumn('action', function ($q) {
                 $html = "";
                 $html .= create_edit_button(route('business.personel.edit', $q->id));
-                $html .= create_delete_button('Personel', $q->id, 'Personel', 'Personel Kaydını Silmek İstediğinize Eminmisiniz? Personelin sadece kişisel kayıtları silinecektir.', 'false','/isletme/ajax/delete/object', false);
+                $html .= create_delete_button('Personel', $q->id, 'Personel', 'Personel Kaydını Silmek İstediğinize Eminmisiniz? Personelin sadece kişisel kayıtları silinecektir.', 'false', '/isletme/ajax/delete/object', false);
 
                 return $html;
             })

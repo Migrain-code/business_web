@@ -87,17 +87,19 @@
     </script>
     <script src="/business/assets/js/project/product/listing/listing.js"></script>
     <script src="/business/assets/js/project/product/listing/add.js"></script>
-    @if($business->lowStockProducts->count() > 0)
-        <script>
-            $(document).ready(function () {
-                Swal.fire({
-                    'icon': "error",
-                    'title': "Stok Alarmı",
-                    'text' : "Stoğu azalan ürünler var. Stok Durumu Filtresini kullanarak bu ürünleri filtreleyebilirsiniz.",
-                    confirmButtonText: "Tamam",
+    @can('stockAlert.view')
+        @if($business->lowStockProducts->count() > 0)
+            <script>
+                $(document).ready(function () {
+                    Swal.fire({
+                        'icon': "error",
+                        'title': "Stok Alarmı",
+                        'text' : "Stoğu azalan ürünler var. Stok Durumu Filtresini kullanarak bu ürünleri filtreleyebilirsiniz.",
+                        confirmButtonText: "Tamam",
+                    });
                 });
-            });
-        </script>
-    @endif
+            </script>
+        @endif
+    @endcan
 
 @endsection

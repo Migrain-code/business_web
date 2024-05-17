@@ -67,7 +67,9 @@
                         </th>
                         <th class="min-w-125px">Personel Adı</th>
                         <th class="min-w-125px">Telefon Numarası</th>
+                        @if(authUser()->hasPermissionTo('case.view'))
                         <th class="min-w-125px">Kasa Yetkisi</th>
+                        @endif
                         <th class="min-w-125px">Mesai Saatleri</th>
                         <th class="min-w-125px">Durum</th>
                         <th class="min-w-125px">Randevu Aralığı</th>
@@ -96,7 +98,10 @@
             {data: 'id'},
             {data: 'name'},
             {data: 'phone'},
+            @if(authUser()->hasPermissionTo('case.view'))
             {data: 'safe'},
+            @endif
+
             {data: 'start_time'},
             {data: 'status'},
             {data: 'range'},

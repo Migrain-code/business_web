@@ -400,9 +400,11 @@
                         </span>
                         <span class="menu-title position-relative">
                             Ürünler
-                             @if(authUser()->business->lowStockProducts->count() > 0)
-                                <span class="bullet bullet-dot bg-danger h-15px w-15px position-absolute translate-middle top-50 start-50 animation-blink" data-bs-toggle="tooltip" title="Stoğu Azalan Ürün Var"></span>
-                             @endif
+                             @can('stockAlert.view')
+                                 @if(authUser()->business->lowStockProducts->count() > 0)
+                                    <span class="bullet bullet-dot bg-danger h-15px w-15px position-absolute translate-middle top-50 start-50 animation-blink" data-bs-toggle="tooltip" title="Stoğu Azalan Ürün Var"></span>
+                                 @endif
+                             @endcan
                         </span>
                     </a>
                     <!--end:Menu link-->
