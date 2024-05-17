@@ -90,8 +90,12 @@
     </script>
     <script>
         $(document).ready(function (){
-           var defaultDate = '{{now()->format('Y-m-d')}}';
-            fetchAppointment(defaultDate);
+            var targetNavItem = document.querySelector('.clickedDate.active');
+
+            var targetNavItemLeft = targetNavItem.offsetLeft;
+
+            document.querySelector('.scrollable-container').scrollLeft = targetNavItemLeft;
+            fetchAppointment('{{now()->format('Y-m-d')}}')
         });
         $('.clickedDate').on('click', function () {
             var date = $(this).data('date');
