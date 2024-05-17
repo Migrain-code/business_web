@@ -214,7 +214,7 @@ class PersonelController extends Controller
         $personel->range = $request->range;
         $personel->description = $request->description;
         $personel->rest_day = $request->restDay[0];
-        $personel->is_case_gender = $request->input('is_case_gender');
+        $personel->safe_gender = $request->input('is_case_gender');
         if ($request->hasFile('avatar')) {
             $response = UploadFile::uploadFile($request->file('avatar'), 'personel_images');
             $personel->image = $response["image"]["way"];

@@ -126,7 +126,8 @@ function create_send_button($route, $message = "", $additional_class = null)
 
 function create_edit_button($route, $additional_class = null)
 {
-    return html()->a($route, html()->i('')->class('fa fa-edit'))->class('btn btn-primary btn-sm me-1 ' . $additional_class);
+    return html()->a($route, html()->i('')->class('fa fa-edit'))
+        ->class('btn btn-primary btn-sm me-1');
 }
 
 function create_swap_button($route, $additional_class = null)
@@ -144,9 +145,11 @@ function create_copy_button($id, $additional_class = null)
         ->attribute('title','Şube Kopyala')
         ->data('object-id', $id);
 }
-function create_info_button($content = null, $additional_class = null)
+function create_info_button($link,$text, $additional_class = null)
 {
-    return html()->a('#', html()->i('')->class('fa fa-question-circle'))->class('btn btn-warning btn-sm me-1 ' . $additional_class);
+    return html()->a($link)->text($text)
+        ->class('me-1 ' . $additional_class)
+        ->attribute('target', "_blank");
 }
 
 function create_delete_button($model, $id, $title, $content, $isReload = "false", $route = '/isletme/ajax/delete/object', $deleteType = true)

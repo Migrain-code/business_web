@@ -27,6 +27,7 @@ class CustomerInfoController extends Controller
 
     public function __construct()
     {
+        $this->middleware(['permission:cashPoint.view'])->only(['cashPointList']);
         $this->middleware(function ($request, $next) {
             $this->business = auth('official')->user()->business;
             return $next($request);

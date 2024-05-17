@@ -6,6 +6,7 @@ use App\Models\Business;
 use App\Models\BusinessOfficial;
 use App\Models\BussinessPackage;
 use App\Models\PacketOrder;
+use App\Services\E_Invoice;
 use App\Services\Iyzico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,7 @@ class PaymentController extends Controller
         if ($payment->getStatus() == 'success') {
             $business =  $user->business;
 
+
             $packetOrder = new PacketOrder();
             $packetOrder->package_id = $packet->id;
             $packetOrder->business_id = $user->business->id;
@@ -32,16 +34,38 @@ class PaymentController extends Controller
             $packetOrder->payment_type = 'CARD';
             $packetOrder->status = 'PAYED';
             $packetOrder->save();
+            $invoice = $this->createEInvoice($packetOrder);
 
+            if ($invoice != false){
+                $packetOrder->invoice_no = $invoice->guid;
+                $packetOrder->invoice_url = $invoice->url;
+            } else{
+                $packetOrder->invoice_no = "FALSE";
+            }
+            $packetOrder->save();
             $business->package_id = $packet->id;
             $business->packet_start_date = now();
             $business->packet_end_date = now()->addDays($packet->type == 0 ? 30 : 365);
             $business->save();
-            //$this->createInvoice($packetOrder->id, $packetOrder->price - $packetOrder->tax, $packet->id = 43841443, $company->getParachuteId());
 
             return to_route('business.packet.payment.success', ['order-no' => $packetOrder->id]);
         }
         return to_route('business.packet.payment.fail');
     }
 
+    public function createEInvoice($packetOrder)
+    {
+        $invoiceGenerator = new E_Invoice();
+        $invoiceGenerator->createCustomer($packetOrder->business_id, $packetOrder->business->name, $packetOrder->business->address);
+        $invoiceGenerator->createAmount($packetOrder->price);
+        $invoiceGenerator->createProduct($packetOrder->package_id, $packetOrder->package->name. " Üyelik Paketi");
+        $invoiceGenerator->createInvoice($packetOrder->id);
+        $response = json_decode($invoiceGenerator->sendInvoice());
+
+        if ($response->error == ""){
+            return $response;
+        } else{
+            return false;
+        }
+    }
 }

@@ -138,6 +138,20 @@
 
 
     </script>
-
+    <script>
+       var forbiddenArea = $('.forbiddenArea');
+       if(forbiddenArea.length > 0){
+           /*Swal.fire({
+               title: 'Yetkisiz Erişim',
+               icon: 'error',
+               html: "Bu alana erişim sağlama için paket yükseltmeniz gerekmektedir.",
+               confirmButtonText: "Tamam"
+           }).then(function (res){
+                if(res.isConfirmed){
+                    window.location.href = "{{url()->previous()}}"
+                }
+           });*/
+       }
+    </script>
 @endif
 @yield('scripts')

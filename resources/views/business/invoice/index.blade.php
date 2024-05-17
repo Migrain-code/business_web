@@ -74,7 +74,7 @@
         let DATA_URL = "{{route('business.invoice.datatable')}}";
         let DATA_COLUMNS = [
             {data: 'created_at'},
-            {data: 'payment_id'},
+            {data: 'invoice_no'},
             {data: 'price'},
             {data: 'status'},
             {data: 'tax'},

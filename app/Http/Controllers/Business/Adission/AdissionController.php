@@ -21,6 +21,7 @@ class AdissionController extends Controller
 
     public function __construct()
     {
+        $this->middleware(['permission:adission.view']);
         $this->middleware(function ($request, $next) {
             $this->business = auth()->user()->business;
             return $next($request);

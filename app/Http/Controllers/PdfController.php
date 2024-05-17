@@ -19,12 +19,8 @@ class PdfController extends Controller
 
     public function getOrderStatus()
     {
-        $invoiceGenerator = new E_Invoice();
-        $invoiceGenerator->createCustomer('1', 'Muhammet', 'asd');
-        $invoiceGenerator->createAmount(15);
-        $invoiceGenerator->createProduct("2", 'Pro Paket');
-        $invoiceGenerator->createInvoice('1', 'Test');
-        $response = $invoiceGenerator->sendInvoice();
-        return response()->json($response);
+
     }
+
+
 }

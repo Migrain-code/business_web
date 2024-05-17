@@ -13,4 +13,9 @@ class PacketOrder extends Model
     {
         return $this->hasOne(BussinessPackage::class, 'id', 'package_id');
     }
+
+    public function business()
+    {
+        return $this->hasOne(Business::class, 'id', 'business_id');
+    }
 }

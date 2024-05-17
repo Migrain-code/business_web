@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PacketOrder;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
 
 class InvoiceController extends Controller
@@ -51,6 +52,9 @@ class InvoiceController extends Controller
                 $taxPrice = ($q->package->price * 20) / 100;
                 $calculatePrice = $q->package->price - $taxPrice;
                 return formatPrice($calculatePrice + $taxPrice);
+            })
+            ->editColumn('invoice_no', function ($q){
+                return create_info_button($q->invoice_url, Str::limit($q->invoice_no, 20));
             })
             ->addColumn('status', function ($q){
                 if ($q->status != "PAYED"){

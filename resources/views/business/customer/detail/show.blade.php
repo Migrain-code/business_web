@@ -53,35 +53,45 @@
                                href="#kt_ecommerce_customer_general">Bilgileri</a>
                         </li>
                         <!--end:::Tab item-->
+                        @if(authUser()->hasPermissionTo('cashPoint.view'))
                         <!--begin:::Tab item-->
                         <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4 cashPoint" data-customer="{{$customer->id}}" data-bs-toggle="tab"
                                href="#kt_ecommerce_customer_cashpoint">Parapuanları</a>
                         </li>
+                        @endif
                         <!--end:::Tab item-->
+                        @if(authUser()->hasPermissionTo('productSale.view'))
                         <!--begin:::Tab item-->
                         <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4 productSale" data-customer="{{$customer->id}}" data-bs-toggle="tab"
                                href="#kt_ecommerce_customer_productSale">Ürün Satışları</a>
                         </li>
                         <!--end:::Tab item-->
+                        @endif
                         <!--begin:::Tab item-->
+                        @if(authUser()->hasPermissionTo('packageSale.view'))
                         <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4 packageSale" data-customer="{{$customer->id}}" data-bs-toggle="tab"
                                href="#kt_ecommerce_customer_packageSale">Paket Satışları</a>
                         </li>
                         <!--end:::Tab item-->
+                        @endif
                         <!--begin:::Tab item-->
+                        @if(authUser()->hasPermissionTo('cost.view'))
                         <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4 receivable" data-customer="{{$customer->id}}" data-bs-toggle="tab"
                                href="#kt_ecommerce_customer_recevivable">Salona Borçları</a>
                         </li>
                         <!--end:::Tab item-->
+                        @endif
                         <!--begin:::Tab item-->
+                        @if(authUser()->hasAnyPermission(['packageSale.view', 'productSale.view', 'adission.view']))
                         <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4 payments" data-customer="{{$customer->id}}" data-bs-toggle="tab"
                                href="#kt_ecommerce_customer_payments">Ödemeleri</a>
                         </li>
+                        @endif
                         <!--end:::Tab item-->
                         <!--begin:::Tab item-->
                         <li class="nav-item">

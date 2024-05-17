@@ -346,7 +346,7 @@
                     <!--begin:Menu link-->
                     <a class="menu-link" href="{{route('business.sale.index')}}">
                         <span class="menu-icon">
-												<!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg-->
+                                                <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg-->
                             <span class="svg-icon svg-icon-2">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M21 10H13V11C13 11.6 12.6 12 12 12C11.4 12 11 11.6 11 11V10H3C2.4 10 2 10.4 2 11V13H22V11C22 10.4 21.6 10 21 10Z" fill="currentColor" />

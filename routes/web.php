@@ -55,6 +55,15 @@ use \App\Http\Controllers\PersonelCustomerPriceListController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('per', function (){
+    $role = \Spatie\Permission\Models\Role::findById(1);
+    $permissions = \Spatie\Permission\Models\Permission::all();
+    foreach ($permissions as $permission){
+        $role->givePermissionTo($permission->name);
+
+    }
+});
+
 include "guards/personel.php";
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 Route::get('/ozellikler', [HomeController::class, 'proparties'])->name('proparties');
@@ -169,15 +178,17 @@ Route::prefix('isletme')->as('business.')->group(function (){
         Route::get('/personel/{personel}/appointment', [AppointmentServicesController::class, 'getClock']);
         Route::get('/personel-randevular', [AppointmentServicesController::class, 'personelAppointment'])->name('appointment.personelAppointment');
         /* -------------------- Randevu Oluşturma --------------------------*/
-        Route::prefix('appointment-create')->as('appointmentCreate.')->controller(AppointmentCreateController::class)->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::get('get/services', 'getService');
-            Route::get('get/customers', 'getCustomer');
-            Route::post('get/personel', 'getPersonel');
-            Route::get('get/date', 'getDate');
-            Route::post('get/clock', 'getClock');
-            Route::post('/store', 'appointmentCreate')->name('store');
-            Route::post('/summary', 'summary');
+        Route::middleware('appointmentLimit')->group(function (){
+            Route::prefix('appointment-create')->as('appointmentCreate.')->controller(AppointmentCreateController::class)->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('get/services', 'getService');
+                Route::get('get/customers', 'getCustomer');
+                Route::post('get/personel', 'getPersonel');
+                Route::get('get/date', 'getDate');
+                Route::post('get/clock', 'getClock');
+                Route::post('/store', 'appointmentCreate')->name('store');
+                Route::post('/summary', 'summary');
+            });
         });
 
         /* -------------------- Adisyonlar --------------------------*/

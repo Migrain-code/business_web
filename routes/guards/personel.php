@@ -48,5 +48,30 @@ Route::prefix('personel')->as('personel.')->group(function (){
         Route::post('notification-permission', [\App\Http\Controllers\Personel\PersonelSettingController::class, 'notificationPermissionUpdate']);
         Route::post('password-update', [\App\Http\Controllers\Personel\PersonelSettingController::class, 'passwordUpdate'])->name('passwordUpdate');
 
+        /* -------------------- Adisyonlar --------------------------*/
+        Route::resource('adission', \App\Http\Controllers\Personel\Adission\AdissionController::class);
+        Route::prefix('adission')->as('adission.')->group(function () {
+
+            Route::get('/{adission}/sale/datatable', [\App\Http\Controllers\Personel\Adission\AdissionProductSaleController::class, 'index'])->name('sale.datatable');
+            Route::get('/{adission}/sale/create', [\App\Http\Controllers\Personel\Adission\AdissionProductSaleController::class, 'create']);
+            Route::post('/{adission}/sale/add', [\App\Http\Controllers\Personel\Adission\AdissionProductSaleController::class, 'store'])->name('sale.add');
+
+            Route::get('/{adission}/payment', [\App\Http\Controllers\Personel\Adission\AdissionPaymentController::class, 'index']);//tahsilat listesi
+            Route::post('/{adission}/payment/add', [\App\Http\Controllers\Personel\Adission\AdissionPaymentController::class, 'store']);//tahsilat ekle
+            Route::delete('/{adission}/payment/{payment}', [\App\Http\Controllers\Personel\Adission\AdissionPaymentController::class, 'destroy']);//tahsilat sil
+
+            Route::post('/{adission}/payment/save', [\App\Http\Controllers\Personel\Adission\AdissionPaymentController::class, 'paymentSave']);
+            Route::get('/{adission}/payment/close', [\App\Http\Controllers\Personel\Adission\AdissionPaymentController::class, 'closePayment'])->name('paymentClose');
+
+            //Parapuan Kullan
+            Route::get('/{adission}/cash-point', [\App\Http\Controllers\Personel\Adission\AdissionAddCashPointController::class, 'index']);
+            Route::post('/{adission}/cash-point', [\App\Http\Controllers\Personel\Adission\AdissionAddCashPointController::class, 'store'])->name('cashPoint.add');
+
+            //Alacak Ekle
+            Route::get('/{adission}/receivable', [\App\Http\Controllers\Personel\Adission\AdissionAddCashPointController::class, 'receivableList']);
+            Route::post('/{adission}/receivable', [\App\Http\Controllers\Personel\Adission\AdissionAddCashPointController::class, 'receivableAdd']);
+            Route::delete('/{adission}/receivable/{receivable}', [\App\Http\Controllers\Personel\Adission\AdissionAddCashPointController::class, 'receivableDelete']);
+        });
+
     });
 });
