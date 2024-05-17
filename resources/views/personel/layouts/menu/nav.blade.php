@@ -2,7 +2,7 @@
 <div class="card mb-6 mb-xl-9">
     <div class="card-body pt-9 pb-0">
         <!--begin::Details-->
-        <div class="d-flex flex-wrap flex-sm-nowrap mb-6">
+        <div class="d-flex flex-wrap flex-sm-nowrap justify-content-center mb-6">
             <!--begin::Image-->
             <div class="d-flex flex-center flex-shrink-0 bg-light rounded-circle w-100px h-100px w-lg-150px h-lg-150px me-7 mb-4" id="personelProfileImage">
                 <img class="rounded-circle" style="width: 110px;height: 110px;object-fit: contain;" src="{{image($personel->image)}}" alt="image">
