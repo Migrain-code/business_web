@@ -109,18 +109,20 @@
                             <!--end:Menu link-->
                         </div>
                         <!--end:Menu item-->
-                        <!--begin:Menu item-->
-                        <div class="menu-item">
-                            <!--begin:Menu link-->
-                            <a class="menu-link" href="{{route('business.product.index')}}">
+                        @can('product.view')
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link" href="{{route('business.product.index')}}">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-                                <span class="menu-title">Ürünler</span>
-                            </a>
-                            <!--end:Menu link-->
-                        </div>
-                        <!--end:Menu item-->
+                                    <span class="menu-title">Ürünler</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                        @endcan
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
@@ -144,70 +146,73 @@
                             </a>
                             <!--end:Menu link-->
                         </div>
-                        <!--end:Menu item-->
-                        <div class="menu-inner flex-column collapse" id="kt_app_sidebar_menu_dashboards_collapse">
-                            <!--begin:Menu item-->
-                            <div class="menu-item">
-                                <!--begin:Menu link-->
-                                <a class="menu-link" href="{{route('business.cost.index')}}">
+                        @can('case.view')
+                            <div class="menu-inner flex-column collapse" id="kt_app_sidebar_menu_dashboards_collapse">
+                                <!--begin:Menu item-->
+                                <div class="menu-item">
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link" href="{{route('business.cost.index')}}">
 														<span class="menu-bullet">
 															<span class="bullet bullet-dot"></span>
 														</span>
-                                    <span class="menu-title">Masraflar</span>
-                                </a>
-                                <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item">
-                                <!--begin:Menu link-->
-                                <a class="menu-link" href="{{route('business.receivable.index')}}">
+                                        <span class="menu-title">Masraflar</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                </div>
+                                <!--end:Menu item-->
+                                <!--begin:Menu item-->
+                                <div class="menu-item">
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link" href="{{route('business.receivable.index')}}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">Alacaklar</span>
-                                </a>
-                                <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item">
-                                <!--begin:Menu link-->
-                                <a class="menu-link" href="{{route('business.dep.index')}}">
+                                        <span class="menu-title">Alacaklar</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                </div>
+                                <!--end:Menu item-->
+                                <!--begin:Menu item-->
+                                <div class="menu-item">
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link" href="{{route('business.dep.index')}}">
 														<span class="menu-bullet">
 															<span class="bullet bullet-dot"></span>
 														</span>
-                                    <span class="menu-title">Borçlar</span>
-                                </a>
-                                <!--end:Menu link-->
+                                        <span class="menu-title">Borçlar</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                </div>
+                                <!--end:Menu item-->
+
                             </div>
                             <!--end:Menu item-->
-
-                        </div>
-                        <div class="menu-item">
-                            <div class="menu-content">
-                                <a class="btn btn-flex btn-color-primary d-flex flex-stack fs-base p-0 ms-2 mb-2 toggle collapsible collapsed" data-bs-toggle="collapse" href="#kt_app_sidebar_menu_dashboards_collapse" data-kt-toggle-text="Daha Az">
-                                    <span data-kt-toggle-text-target="true">3 Daha Fazla Göster</span>
-                                    <!--begin::Svg Icon | path: icons/duotune/general/gen036.svg-->
-                                    <span class="svg-icon toggle-on svg-icon-2 me-0">
+                            <div class="menu-item">
+                                <div class="menu-content">
+                                    <a class="btn btn-flex btn-color-primary d-flex flex-stack fs-base p-0 ms-2 mb-2 toggle collapsible collapsed" data-bs-toggle="collapse" href="#kt_app_sidebar_menu_dashboards_collapse" data-kt-toggle-text="Daha Az">
+                                        <span data-kt-toggle-text-target="true">3 Daha Fazla Göster</span>
+                                        <!--begin::Svg Icon | path: icons/duotune/general/gen036.svg-->
+                                        <span class="svg-icon toggle-on svg-icon-2 me-0">
 															<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 																<rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
 																<rect x="6.0104" y="10.9247" width="12" height="2" rx="1" fill="currentColor" />
 															</svg>
 														</span>
-                                    <!--end::Svg Icon-->
-                                    <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
-                                    <span class="svg-icon toggle-off svg-icon-2 me-0">
+                                        <!--end::Svg Icon-->
+                                        <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
+                                        <span class="svg-icon toggle-off svg-icon-2 me-0">
 															<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 																<rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
 																<rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="currentColor" />
 																<rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor" />
 															</svg>
 														</span>
-                                    <!--end::Svg Icon-->
-                                </a>
+                                        <!--end::Svg Icon-->
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        @endcan
+
                     </div>
                     <!--end:Menu sub-->
                 </div>
@@ -311,19 +316,23 @@
                     </a>
                     <!--end:Menu link-->
                 </div>
-                <!--begin:Menu item-->
-                <div class="menu-item pt-5">
-                    <!--begin:Menu content-->
-                    <div class="menu-content">
-                        <span class="menu-heading fw-bold text-uppercase fs-7">Satış İşlemleri</span>
+                @if(authUser()->can('adission.view') || authUser()->can('adission.view') || authUser()->can('productSale.view') || authUser()->can('packageSale.view') || authUser()->can('product.view'))
+                    <!--begin:Menu item-->
+                    <div class="menu-item pt-5">
+                        <!--begin:Menu content-->
+                        <div class="menu-content">
+                            <span class="menu-heading fw-bold text-uppercase fs-7">Satış İşlemleri</span>
+                        </div>
+                        <!--end:Menu content-->
                     </div>
-                    <!--end:Menu content-->
-                </div>
-                <!--end:Menu item-->
+                    <!--end:Menu item-->
+                @endif
+
                 <!--begin:Menu item-->
-                <div class="menu-item">
-                    <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('business.adission.index')}}">
+                @can('adission.view')
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link" href="{{route('business.adission.index')}}">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-cheque fs-3">
                                  <span class="path1"></span>
@@ -336,15 +345,16 @@
                             </i>
 
                         </span>
-                        <span class="menu-title">Adisyonlar</span>
-                    </a>
-                    <!--end:Menu link-->
-                </div>
-                <!--end:Menu item-->
-                <!--begin:Menu item-->
-                <div class="menu-item">
-                    <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('business.sale.index')}}">
+                            <span class="menu-title">Adisyonlar</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                @endcan
+                @can('productSale.view')
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link" href="{{route('business.sale.index')}}">
                         <span class="menu-icon">
                                                 <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -356,16 +366,20 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Ürün Satışları</span>
+                            <span class="menu-title">Ürün Satışları</span>
 
-                    </a>
-                    <!--end:Menu link-->
-                </div>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--end:Menu item-->
+                @endcan
                 <!--end:Menu item-->
-                <!--begin:Menu item-->
-                <div class="menu-item">
-                    <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('business.package-sale.index')}}">
+                @can('packageSale.view')
+
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link" href="{{route('business.package-sale.index')}}">
                         <span class="menu-icon">
 												<!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -376,12 +390,14 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Paket Satışları</span>
-                    </a>
-                    <!--end:Menu link-->
-                </div>
+                            <span class="menu-title">Paket Satışları</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                @endcan
 
                 <!--end:Menu item-->
+                @can('product.view')
                 <!--begin:Menu item-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
@@ -410,6 +426,7 @@
                     <!--end:Menu link-->
                 </div>
                 <!--begin:Menu item-->
+                @endcan
                 <div class="menu-item pt-5">
                     <!--begin:Menu content-->
                     <div class="menu-content">
@@ -598,25 +615,28 @@
                     <!--end:Menu sub-->
                 </div>
                 <!--end:Menu item-->
+                @can('official.view')
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link" href="{{route('business.business-official.index')}}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-profile-user fs-3">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                        <span class="path4"></span>
+                                </i>
+                                <!--end::Svg Icon-->
+                            </span>
+                            <span class="menu-title">Yetkililer</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--end:Menu item-->
+                @endcan
                 <!--begin:Menu item-->
-                <div class="menu-item">
-                    <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('business.business-official.index')}}">
-                        <span class="menu-icon">
-                            <i class="ki-duotone ki-profile-user fs-3">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                    <span class="path4"></span>
-                            </i>
-                            <!--end::Svg Icon-->
-                        </span>
-                        <span class="menu-title">Yetkililer</span>
-                    </a>
-                    <!--end:Menu link-->
-                </div>
-                <!--end:Menu item-->
-                <!--begin:Menu item-->
+                @can('customRoom.view')
                 <div class="menu-item">
                     <!--begin:Menu link-->
                     <a class="menu-link" href="{{route('business.room.index')}}">
@@ -634,6 +654,9 @@
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
+                @endcan
+
+                @can('case.view')
                 <!--begin:Menu item-->
                 <div class="menu-item pt-5">
                     <!--begin:Menu content-->
@@ -661,6 +684,7 @@
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
+                @can('prim.view')
                 <!--begin:Menu item-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
@@ -675,6 +699,7 @@
                     </a>
                     <!--end:Menu link-->
                 </div>
+                @endcan
                 <!--end:Menu item-->
                 <!--begin:Menu item-->
                 <div class="menu-item">
@@ -730,6 +755,7 @@
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
+                @endcan
                 <!--begin:Menu item-->
                 <div class="menu-item pt-5">
                     <!--begin:Menu content-->
@@ -841,7 +867,7 @@
                         <span class="menu-title">İşletme Ayarları</span>
                     </a>
                     <!--end:Menu link-->
-
+                    @can('promossion.view')
                     <!--begin:Menu link-->
                     <a class="menu-link" href="{{route('business.promossion.index')}}">
                         <span class="menu-icon">
@@ -853,6 +879,7 @@
                         </span>
                         <span class="menu-title">Promosyon Ayarları</span>
                     </a>
+                    @endcan
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
@@ -960,6 +987,7 @@
                         <span class="menu-title">Hizmetler</span>
                     </a>
                     <!--end:Menu link-->
+                    @can('promossion.view')
                     <!--begin:Menu link-->
                     <a class="menu-link" href="{{route('business.promossion.index')}}">
                         <span class="menu-icon">
@@ -972,6 +1000,7 @@
                         <span class="menu-title">Promosyonlar</span>
                     </a>
                     <!--end:Menu link-->
+                    @endcan
                     <!--begin:Menu link-->
                     <a class="menu-link" href="{{route('business.customer.index')}}">
                         <span class="menu-icon">
@@ -985,6 +1014,7 @@
                         <span class="menu-title">Müşteriler</span>
                     </a>
                     <!--end:Menu link-->
+                    @can('product.view')
                     <!--begin:Menu link-->
                     <a class="menu-link" href="{{route('business.product.index')}}">
                         <span class="menu-icon">
@@ -1002,6 +1032,7 @@
                         <span class="menu-title">Ürünler</span>
                     </a>
                     <!--end:Menu link-->
+                    @endcan
                     <!--begin:Menu item-->
 
                     <!--begin:Menu link-->

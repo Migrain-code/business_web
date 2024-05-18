@@ -45,7 +45,7 @@
 
         <!--begin::Menu item-->
         <div class="menu-item px-5">
-            <a href="{{route('business.business-official.edit', authUser()->id)}}" class="menu-link px-5">
+            <a href="{{route('business.official.setting')}}" class="menu-link px-5">
                 Profilim
             </a>
         </div>
@@ -72,6 +72,7 @@
         </div>
         <!--end::Menu item-->
         @if(authUser()->is_admin == 1)
+            @can('branche.view')
             <div class="menu-item px-5">
                 <a href="{{route('business.branche.index')}}" class="menu-link px-5">
                     <span class="menu-text">Şubeler</span>
@@ -80,6 +81,7 @@
                                     </span>
                 </a>
             </div>
+            @endcan
         @endif
         <!--begin::Menu item-->
 

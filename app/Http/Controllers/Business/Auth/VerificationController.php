@@ -168,7 +168,7 @@ class VerificationController extends Controller
         $business->name = $business_name;
         $business->slug = $this->checkSlug($business_name);
         $business->company_id = rand(1000000, 9999999);
-        $business->package_id = 1;
+        $business->package_id = null;
         $business->save();
 
         return $business;

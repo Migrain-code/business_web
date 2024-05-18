@@ -78,13 +78,22 @@
                             <div class="d-flex align-items-center flex-shrink-0">
                                 <!--begin::Desktop separartor-->
                                 <div class="bullet bg-secondary h-35px w-1px mx-5"></div>
-                                <!--end::Desktop separartor-->
-                                @php
+                                @if(isset(authUser()->business->package))
+                                    @php
                                         $remainingDay = now()->diffInDays(authUser()->business->packet_end_date);
                                         $package = authUser()->business->package;
                                         $totalDay = $package->type == 0 ? 30 : 365;
                                         $progressPercentage = ($remainingDay / $totalDay) * 100;
-                                @endphp
+                                    @endphp
+                                @else
+                                    @php
+                                        $remainingDay = "Sınırsız";
+                                        $progressPercentage = 100;
+                                        $totalDay = 100;
+                                    @endphp
+                                @endif
+                                <!--end::Desktop separartor-->
+
                                 <!--end::Label-->
                                 <div class="progress w-100px w-xl-150px w-xxl-300px h-30px bg-gray-300 position-relative">
                                     <div class="progress-bar rounded bg-success text-white fs-7 fw-bold" role="progressbar"

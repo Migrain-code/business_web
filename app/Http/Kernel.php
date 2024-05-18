@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\CheckAppointmentLimit;
 use App\Http\Middleware\CheckPersonelLimit;
+use App\Http\Middleware\CheckUserRole;
 use App\Http\Middleware\SetupControlMiddleWare;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -70,6 +71,7 @@ class Kernel extends HttpKernel
         'setup' => SetupControlMiddleWare::class,
         'appointmentLimit' => CheckAppointmentLimit::class,
         'personelLimit' => CheckPersonelLimit::class,
+        'checkRole' => CheckUserRole::class,
         'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,

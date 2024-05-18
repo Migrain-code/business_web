@@ -108,7 +108,7 @@ var KTEcommerceUpdateProfile = function () {
                                         submitButton.disabled = false;
                                         if (result.isConfirmed) {
                                             if (res.status == "success"){
-                                                window.location.href = "/isletme/business-official";
+                                                window.location.href = "/isletme/home";
                                             }
                                         }
                                     });

@@ -71,7 +71,7 @@ class BusinessBrancheController extends Controller
         $business->slug = Str::slug($request->input('business_name'));
         $business->branch_name = $request->input('name');
         $business->company_id = $this->business->company_id;
-        $business->package_id = 1;
+        $business->package_id = null;
         if ($business->save()){
             return response()->json([
                'status' => "success",
@@ -125,7 +125,7 @@ class BusinessBrancheController extends Controller
         $branche->slug = $slugedName;
         $branche->branch_name = $request->input('name');
         $branche->company_id = $this->business->company_id;
-        $branche->package_id = 1;
+        $branche->package_id = null;
         if ($branche->save()){
 
             $this->addPromotion($branche->id);

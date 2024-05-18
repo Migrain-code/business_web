@@ -45,6 +45,7 @@ use App\Http\Controllers\Business\Form\BusinessAppointmentRequestController;
 use App\Http\Controllers\PacketOrderController;
 use App\Http\Controllers\PaymentController;
 use \App\Http\Controllers\PersonelCustomerPriceListController;
+use \App\Http\Controllers\OfficialSettingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,14 +56,6 @@ use \App\Http\Controllers\PersonelCustomerPriceListController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('per', function (){
-    $role = \Spatie\Permission\Models\Role::findById(1);
-    $permissions = \Spatie\Permission\Models\Permission::all();
-    foreach ($permissions as $permission){
-        $role->givePermissionTo($permission->name);
-
-    }
-});
 
 include "guards/personel.php";
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
@@ -101,7 +94,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     Route::post('/packet/{packet}/callback/{official}', [PaymentController::class, 'callback'])->name('packet.payment.callback');
     Route::get('generate/invoice/{invoice}/pdf', [\App\Http\Controllers\PdfController::class, 'generatePdf'])->name('generateInvoice');
-    Route::middleware(['auth:official', 'setup'])->group(function () {
+    Route::middleware(['auth:official', 'setup', 'checkRole'])->group(function () {
         Route::get('/home', [\App\Http\Controllers\Business\HomeController::class, 'index'])->name('home');
 
         /*-----------------------  Setup  ------------------------*/
@@ -240,6 +233,8 @@ Route::prefix('isletme')->as('business.')->group(function (){
 
         /* -------------------- Yetkililer --------------------------*/
         Route::resource('business-official', BusinessOfficialController::class);
+        Route::get('official/setting', [OfficialSettingController::class, 'index'])->name('official.setting');
+        Route::put('official/setting/{official}/update', [OfficialSettingController::class, 'update'])->name('official.setting.update');
 
         /* -------------------- Promosyonlar --------------------------*/
         Route::resource('promossion', BusinessPromossionController::class);
