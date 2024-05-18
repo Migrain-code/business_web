@@ -57,7 +57,7 @@
             <div class="row">
                 <div class="col-lg-3 col-12">
                     <!--begin::Nav-->
-                    @include('business.appointment-create.steps.nav')
+                    @include('personel.appointment-create.steps.nav')
                     <!--end::Nav-->
                 </div>
                 <div class="col-lg-8 col-12">
@@ -66,10 +66,10 @@
                         <!--begin::Group-->
                         @csrf
                         <div class="mb-5">
-                            @include('business.appointment-create.steps.step-1')
-                            @include('business.appointment-create.steps.step-2')
-                            @include('business.appointment-create.steps.step-3')
-                            @include('business.appointment-create.steps.step-4')
+                            @include('personel.appointment-create.steps.step-1')
+                            @include('personel.appointment-create.steps.step-2')
+                            @include('personel.appointment-create.steps.step-3')
+                            @include('personel.appointment-create.steps.step-4')
                         </div>
                         <!--end::Group-->
 

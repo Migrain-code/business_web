@@ -22,6 +22,11 @@
     ::-webkit-scrollbar-track{
         background: #1e1e2d;
     }
+    @media (max-width: 876px) {
+        .stepperDisplay {
+            display: none !important;
+        }
+    }
 </style>
 <!--end::Global Stylesheets Bundle-->
 @yield('styles')

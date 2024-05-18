@@ -51,6 +51,7 @@ class AppointmentCreateController extends Controller
         $unisexServices = $this->transformServices($unisexServiceCategories);
 
         $rooms = $business->activeRooms;
+
         return view('personel.appointment-create.index', compact('rooms','womanServices', 'manServices', 'unisexServices', 'business'));
     }
 
@@ -69,7 +70,7 @@ class AppointmentCreateController extends Controller
             $service = BusinessService::find($id);
             $servicePersonels = [];
             foreach ($service->personels as $item) {
-                if ($item->personel) {
+                if ($item->personel && $item->personel->status == 1) {
                     $servicePersonels[] = [
                         'id' => $item->personel?->id . "_" . $service->id,
                         'name' => $item->personel?->name,
@@ -456,13 +457,22 @@ class AppointmentCreateController extends Controller
 
             $transformedServices = [];
             foreach ($services as $service) {
-                //if ($service->personels->count() > 0) { //hizmeti veren personel sayısı birden fazla ise listede göster
-                $transformedServices[] = [
-                    'id' => $service->id,
-                    'name' => $service->subCategory->getName(),
-                    'price' => $service->price_type_id == 0 ? formatPrice($service->price) : formatPrice($service->price). " - ". formatPrice($service->max_price),
-                ];
+                if ($service->personels->count() > 0) { //hizmeti veren personel sayısı birden fazla ise listede göster
+                    $isActive = false;
+                    foreach ($service->personels as $personelService){
+                        if ($personelService->personel->status == 1){
+                            $isActive = true;
+                        }
+                    }
+                    if ($isActive){
+                        $transformedServices[] = [
+                            'id' => $service->id,
+                            'name' => $service->subCategory->getName(),
+                            'price' => $service->price_type_id == 0 ? formatPrice($service->price) : formatPrice($service->price) . " - " . formatPrice($service->max_price),
+                        ];
+                    }
 
+                }
             }
             $transformedDataWoman[] = [
                 'id' => $services->first()->category,
