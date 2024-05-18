@@ -59,7 +59,7 @@
                             <!--begin::Input wrapper-->
                             <div class="w-100">
                                 <!--begin::Title-->
-                                <div class="d-flex">
+                                <div class="d-flex gap-2">
                                     <input id="kt_share_earn_link_input" type="text" class="form-control form-control-solid me-3 flex-grow-1"
                                            name="search" value="{{env('REMOTE_URL').authUser()->business->slug}}" />
 
@@ -87,9 +87,9 @@
                                     @endphp
                                 @else
                                     @php
-                                        $remainingDay = "Sınırsız";
-                                        $progressPercentage = 100;
-                                        $totalDay = 100;
+                                        $remainingDay =  now()->diffInDays(authUser()->business->packet_end_date);
+                                        $totalDay = 30;
+                                        $progressPercentage = ($remainingDay / $totalDay) * 100;
                                     @endphp
                                 @endif
                                 <!--end::Desktop separartor-->
@@ -114,7 +114,15 @@
             <!--begin::Navbar-->
             <div class="app-navbar flex-shrink-0">
                 <!--begin::Search Area-->
-
+                <!--begin::Notifications-->
+                <div class="app-navbar-item ms-1 ms-lg-3">
+                    <!--begin::Menu- wrapper-->
+                    <a href="{{route('business.subscription.index')}}" class="btn btn-flex flex-center btn-info h-35px h-md-40px pulse-button" style="border-radius: 20px;">
+                        <span class="d-block d-sm-none ps-1">Yükselt</span>
+                        <span class="d-none d-sm-block ps-1">Paket Yükselt</span>
+                    </a>
+                </div>
+                <!--end::Notifications-->
                 <!--end::Search Area-->
                 <!--begin::Notifications-->
                 <div class="app-navbar-item ms-1 ms-lg-3">

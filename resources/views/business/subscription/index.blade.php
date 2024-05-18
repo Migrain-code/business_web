@@ -22,54 +22,62 @@
     <div id="kt_app_content" class="app-content">
         <!--begin::Card-->
        <div class="row">
-           <div class="col-4">
-               <div class="card min-h-500px">
-                   <div class="card-header p-5 fs-3">
-                       <ul>
-                           @foreach($package->proparties as $propartie)
-                               <li> {{$propartie->list->name}}</li>
-                           @endforeach
-                       </ul>
-                   </div>
-                   <!--begin::Card header-->
-                   <div class="card-body">
-                       <div class="row">
-                           <div class="col d-flex flex-stack">
-                               <h2>{{$package->name}}</h2>
-                               <h2>{{$package->price. "₺"}} / {{$package->type == 0 ? "Aylık": "Yıllık"}}</h2>
-                           </div>
+           @if(isset($package))
+               <div class="col-lg-4">
+                   <div class="card min-h-400px">
+                       <div class="card-header p-5 fs-3">
+                           <ul>
+                               @foreach($package->proparties as $propartie)
+                                   <li> {{$propartie->list->name}}</li>
+                               @endforeach
+                           </ul>
                        </div>
-                       <!--begin::Separator-->
-                       <div class="separator separator-dashed my-4"></div>
-                       <!--end::Separator-->
-                       <div class="row d-flex align-items-center">
-                           <div class="col-4">
-                               <h1>{{$remainingDay}}</h1>
-                               <span class="fs-3">Kalan Gün</span>
-                           </div>
-                           <div class="col-8">
-                               @php
-                                   $totalDay = $package->type == 0 ? 30 : 365;
-                                   $progressPercentage = ($remainingDay / $totalDay) * 100;
-                               @endphp
-                               <div class="h-30px mx-3 w-100 bg-gray-200 rounded">
-                                   <div class="bg-primary rounded h-30px" role="progressbar" style="width: {{$progressPercentage}}%;" aria-valuenow="{{$remainingDay}}" aria-valuemin="0" aria-valuemax="{{$totalDay}}"></div>
+                       <!--begin::Card header-->
+                       <div class="card-body">
+                           <div class="row">
+                               <div class="col d-flex flex-stack">
+                                   <h2>{{$package->name}}</h2>
+                                   <h2>{{$package->price. "₺"}} / {{$package->type == 0 ? "Aylık": "Yıllık"}}</h2>
                                </div>
                            </div>
-                       </div>
-                       <!--begin::Separator-->
-                       <div class="separator separator-dashed my-4"></div>
-                       <!--end::Separator-->
-                       <div class="row d-flex">
-                           <div class="col ">
-                               <a class="btn btn-primary w-100 mt-5 freePackageChange" href="javascript:void(0)">Ücretsiz Pakete Geç</a>
+                           <!--begin::Separator-->
+                           <div class="separator separator-dashed my-4"></div>
+                           <!--end::Separator-->
+                           <div class="row d-flex align-items-center">
+
+                               <div class="col-12 mt-3">
+                                   @php
+                                       $totalDay = $package->type == 0 ? 30 : 365;
+                                       $progressPercentage = ($remainingDay / $totalDay) * 100;
+                                   @endphp
+                                   <div class="progress w-100px w-xl-150px w-xxl-300px h-30px bg-gray-300 position-relative">
+                                       <div class="progress-bar bg-success text-white fs-7 fw-bold" role="progressbar"
+                                            style="width: {{$progressPercentage}}%;" aria-valuenow="{{$progressPercentage}}" aria-valuemin="0" aria-valuemax="{{$totalDay}}">
+                                       </div>
+                                       <span class="position-absolute fs-7" style="top: 12%;left: 27%">Kalan Gün Sayısı: {{$remainingDay}} Gün</span>
+
+                                   </div>
+                               </div>
                            </div>
+
+                           @if($package->id != 1 && $package->id != 6)
+                               <!--begin::Separator-->
+                               <div class="separator separator-dashed my-4"></div>
+                               <!--end::Separator-->
+                               <div class="row d-flex">
+                                   <div class="col ">
+                                       <a class="btn btn-primary w-100 mt-5 freePackageChange" href="javascript:void(0)">Ücretsiz Pakete Geç</a>
+                                   </div>
+                               </div>
+                           @endif
+
                        </div>
                    </div>
                </div>
-           </div>
+           @endif
+
            <!--end::Card-->
-           <div class="col-8">
+           <div class="@if(isset($package)) col-lg-8 @else col-lg-12 @endif ">
                <div class="card">
                    <div class="card-body">
                        <!--begin::Plans-->
@@ -89,21 +97,21 @@
                            <!--end::Nav group-->
                            <!--begin::Row-->
                            <div id="priceTab1" class="row g-10">
-                               @foreach($monthlyPackages as $package)
+                               @foreach($monthlyPackages as $mPackage)
                                    <!--begin::Col-->
-                                   <div class="col-xl-6">
+                                   <div class="@if(isset($package)) col-md-6 @else col-md-4 @endif ">
                                        <div class="d-flex ">
                                            <!--begin::Option-->
                                            <div class="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
                                                <!--begin::Heading-->
                                                <div class="mb-7 text-center">
                                                    <!--begin::Title-->
-                                                   <h1 class="text-dark mb-5 fw-bolder">{{$package->name}}</h1>
+                                                   <h1 class="text-dark mb-5 fw-bolder">{{$mPackage->name}}</h1>
                                                    <!--end::Title-->
                                                    <!--begin::Price-->
                                                    <div class="text-center">
 
-                                                       <span class="fs-3x fw-bold text-primary" data-kt-plan-price-month="39" data-kt-plan-price-annual="399">{{$package->price}}</span>
+                                                       <span class="fs-3x fw-bold text-primary" data-kt-plan-price-month="39" data-kt-plan-price-annual="399">{{$mPackage->price}}</span>
                                                        <span class="mb-2 text-primary fs-3">₺</span>
                                                        <span class="fs-7 fw-semibold opacity-50">/
 																		<span data-kt-element="period">Ay</span></span>
@@ -113,7 +121,7 @@
                                                <!--end::Heading-->
                                                <!--begin::Features-->
                                                <div class="w-100 mb-10">
-                                                   @foreach($package->proparties as $propartie)
+                                                   @foreach($mPackage->proparties as $propartie)
                                                        <!--begin::Item-->
                                                        <div class="d-flex align-items-center mb-5">
                                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">{{$propartie->list->name}}</span>
@@ -133,7 +141,7 @@
                                                </div>
                                                <!--end::Features-->
                                                <!--begin::Select-->
-                                               <a href="{{route('business.packet.buy', $package->id)}}" class="btn btn-sm btn-primary">Bu Pakete Geç</a>
+                                               <a href="{{route('business.packet.buy', $mPackage->id)}}" class="btn btn-sm btn-primary">Bu Pakete Geç</a>
                                                <!--end::Select-->
                                            </div>
                                            <!--end::Option-->
@@ -143,30 +151,30 @@
                                @endforeach
                            </div>
                            <div id="priceTab2" class="row" style="display: none">
-                               @foreach($yearlyPackages->where('type',1) as $package)
+                               @foreach($yearlyPackages->where('type',1) as $yPackage)
                                    <!--begin::Col-->
-                                   <div class="col-xl-6">
+                                   <div class="@if(isset($package)) col-md-6 @else col-md-4 @endif ">
                                        <div class="d-flex ">
                                            <!--begin::Option-->
                                            <div class="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
                                                <!--begin::Heading-->
                                                <div class="mb-7 text-center">
                                                    <!--begin::Title-->
-                                                   <h1 class="text-dark mb-5 fw-bolder">{{$package->name}}</h1>
+                                                   <h1 class="text-dark mb-5 fw-bolder">{{$yPackage->name}}</h1>
                                                    <!--end::Title-->
                                                    <!--begin::Price-->
                                                    <div class="text-center">
-                                                       <span class="fs-3x fw-bold text-primary" data-kt-plan-price-month="39" data-kt-plan-price-annual="399">{{$package->price}}</span>
+                                                       <span class="fs-3x fw-bold text-primary" data-kt-plan-price-month="39" data-kt-plan-price-annual="399">{{$yPackage->price}}</span>
                                                        <span class="mb-2 text-primary fs-3">₺</span>
                                                        <span class="fs-7 fw-semibold opacity-50">/
-																		<span data-kt-element="period">{{$package->price == 0 ? "Ay" : "Yıl"}}</span></span>
+																		<span data-kt-element="period">{{$yPackage->price == 0 ? "Ay" : "Yıl"}}</span></span>
                                                    </div>
                                                    <!--end::Price-->
                                                </div>
                                                <!--end::Heading-->
                                                <!--begin::Features-->
                                                <div class="w-100 mb-10">
-                                                   @foreach($package->proparties as $propartie)
+                                                   @foreach($yPackage->proparties as $propartie)
                                                        <!--begin::Item-->
                                                        <div class="d-flex align-items-center mb-5">
                                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">{{$propartie->list->name}}</span>
@@ -186,7 +194,7 @@
                                                </div>
                                                <!--end::Features-->
                                                <!--begin::Select-->
-                                               <a href="{{route('business.packet.buy', $package->id)}}" class="btn btn-sm btn-primary">Bu Pakete Geç</a>
+                                               <a href="{{route('business.packet.buy', $yPackage->id)}}" class="btn btn-sm btn-primary">Bu Pakete Geç</a>
                                                <!--end::Select-->
                                            </div>
                                            <!--end::Option-->

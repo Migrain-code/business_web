@@ -1,4 +1,4 @@
-<div class="stepper-nav mb-10 w-100 flex-column">
+<div class="stepper-nav mb-10 w-100 flex-column stepperDisplay">
     <!--begin::Step 1-->
     <div class="stepper-item mx-8 my-4 current" data-kt-stepper-element="nav">
         <!--begin::Wrapper-->

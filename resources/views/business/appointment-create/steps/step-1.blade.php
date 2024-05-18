@@ -57,7 +57,7 @@
     @else
         <input type="hidden" name="room_id" value="">
     @endif
-    <div class="col-8">
+    <div class="col-lg-8">
         <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
             @if($business->type_id == 1)
                 <li class="nav-item">
@@ -76,9 +76,7 @@
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_man">Erkek</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_unisex">Unisex</a>
-                    </li>
+
             @endif
 
 

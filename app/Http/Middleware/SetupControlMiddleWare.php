@@ -28,6 +28,15 @@ class SetupControlMiddleWare
                 }
             } else {
 
+                if (!isset($user->package) && $user->packet_end_date < now()){ // Paket Tanımlı Değilse
+                    if ($request->routeIs('business.subscription.index')){
+                        return $next($request);
+                    }
+                    return to_route('business.subscription.index')->with('response', [
+                       'status' => "warning",
+                       'message' => "İlk Kayıt Süreniz Doldu. Bir abonelik paketi seçmeden sistemi kullanmaya devam edemezsiniz."
+                    ]);
+                }
                 /*if ($user->personels->count() > 0 && $user->services->count() > 0){
                     if ($request->routeIs('business.setup.*') || $request->routeIs('business.payment.*') || $request->routeIs('business.detailSetup.*')) {
                         // Kullanıcı setup sayfalarına veya ödeme sayfalarına erişmeye çalışıyorsa

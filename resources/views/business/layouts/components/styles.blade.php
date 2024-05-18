@@ -11,8 +11,44 @@
 <link href="/business/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 <link href="/business/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 <link href="/business/assets/css/custom.css" rel="stylesheet" type="text/css" />
-
 <style>
+    .pulse-button {
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+    }
+
+    .pulse-button::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius: 20px;
+        width: 75%;
+        height: 30px;
+        opacity: 0.6;
+        z-index: -1;
+        transform: translate(-50%, -50%) scale(1);
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: translate(-50%, -50%) scale(1);
+            box-shadow: 0 0 0 0 rgba(114, 57, 244, 0.7);
+        }
+        70% {
+            transform: translate(-50%, -50%) scale(1.5);
+            box-shadow: 0 0 15px 30px rgba(114, 57, 244, 0);
+        }
+        100% {
+            transform: translate(-50%, -50%) scale(1);
+            box-shadow: 0 0 0 0 rgba(114, 57, 244, 0);
+        }
+    }
+</style>
+<style>
+
     ::-webkit-scrollbar{
         width: 5px;
     }
@@ -65,6 +101,9 @@
         }
         .btn.btn-danger{
             padding: 5px 12px !important;
+        }
+        .stepperDisplay{
+            display: none !important;
         }
     }
 </style>
