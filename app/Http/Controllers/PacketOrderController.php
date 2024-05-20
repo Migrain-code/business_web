@@ -55,13 +55,13 @@ class PacketOrderController extends Controller
     public function useCoupon(Request $request, BussinessPackage $packet)
     {
         //$request->dd();
-        $findCoupon = Coupon::where('code', $request->input('coupon_code'))->first();
+        $findCoupon = Coupon::where('code', $request->input('coupon_code'))->whereStatus(1)->first();
         if ($findCoupon){
             $findCouponOfficial = CouponOfficial::where('coupon_id', $findCoupon->id)
                 ->where('official_id', authUser()->id)
                 ->first();
             if ($findCouponOfficial){
-                if ($findCouponOfficial/*->status == 0*/){
+                if ($findCouponOfficial->status == 0){
                     Session::put('coupon', $findCoupon);
                     $findCouponOfficial->status = 1;
                     $findCouponOfficial->save();
