@@ -34,10 +34,6 @@
                                     <!--begin:Title-->
                                     <h3 style="text-align:left; color:#181C32; font-size: 18px; font-weight:600; margin-bottom: 22px">Sipariş özeti</h3>
                                     <!--end:Title-->
-                                    @php
-                                        $taxPrice = ($order->package->price * 20) / 100;
-                                        $calculatePrice = $order->package->price - $taxPrice;
-                                    @endphp
                                     <!--begin:Items-->
                                     <div style="padding-bottom:9px">
                                         <!--begin:Item-->
@@ -46,17 +42,28 @@
                                             <div style="font-family:Arial,Helvetica,sans-serif">İşletme - {{$order->package->type == 0 ? "Aylık": "Yıllık"}} fatura</div>
                                             <!--end:Description-->
                                             <!--begin:Total-->
-                                            <div style="font-family:Arial,Helvetica,sans-serif">{{formatPrice($calculatePrice)}}</div>
+                                            <div style="font-family:Arial,Helvetica,sans-serif">{{formatPrice($generalTotal)}}</div>
                                             <!--end:Total-->
                                         </div>
                                         <!--end:Item-->
                                         <!--begin:Item-->
-                                        <div style="display:flex; justify-content: space-between; color:#7E8299; font-size: 14px; font-weight:500;">
+                                        <div style="display:flex; justify-content: space-between; color:#7E8299; font-size: 14px; font-weight:500;margin-bottom: 8px;">
                                             <!--begin:Description-->
                                             <div style="font-family:Arial,Helvetica,sans-serif">KDV (20%)</div>
                                             <!--end:Description-->
                                             <!--begin:Total-->
                                             <div style="font-family:Arial,Helvetica,sans-serif">{{formatPrice($taxPrice)}}</div>
+                                            <!--end:Total-->
+                                        </div>
+                                        <!--end:Item-->
+
+                                        <!--begin:Item-->
+                                        <div style="display:flex; justify-content: space-between; color:#7E8299; font-size: 14px; font-weight:500;">
+                                            <!--begin:Description-->
+                                            <div style="font-family:Arial,Helvetica,sans-serif">İndirim</div>
+                                            <!--end:Description-->
+                                            <!--begin:Total-->
+                                            <div style="font-family:Arial,Helvetica,sans-serif">{{formatPrice($discountTotal)}}</div>
                                             <!--end:Total-->
                                         </div>
                                         <!--end:Item-->
@@ -69,7 +76,7 @@
                                             <div style="font-family:Arial,Helvetica,sans-serif">Toplam ödeme</div>
                                             <!--end:Description-->
                                             <!--begin:Total-->
-                                            <div style="color:#50cd89; font-weight:700; font-family:Arial,Helvetica,sans-serif">{{formatPrice($calculatePrice + $taxPrice)}}</div>
+                                            <div style="color:#50cd89; font-weight:700; font-family:Arial,Helvetica,sans-serif">{{formatPrice($total)}}</div>
                                             <!--end:Total-->
                                         </div>
                                         <!--end:Item-->

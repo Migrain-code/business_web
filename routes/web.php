@@ -277,6 +277,8 @@ Route::prefix('isletme')->as('business.')->group(function (){
             Route::get('/', [PacketOrderController::class, 'index'])->name('index');
             Route::get('/paket/{packet}/satin-al', [PacketOrderController::class, 'buy'])->name('buy');
             Route::post('/paket/{packet}/ode', [PacketOrderController::class, 'pay'])->name('pay');
+            Route::post('/paket/{packet}/coupon', [PacketOrderController::class, 'useCoupon'])->name('useCoupon');
+            Route::post('/paket/{packet}/coupon/delete', [PacketOrderController::class, 'removeCoupon'])->name('removeCoupon');
             Route::get('/paket/basarili', [PacketOrderController::class, 'success'])->name('payment.success');
             Route::get('/paket/hata', [PacketOrderController::class, 'fail'])->name('payment.fail');
         });

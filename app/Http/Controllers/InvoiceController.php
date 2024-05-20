@@ -51,7 +51,8 @@ class InvoiceController extends Controller
             ->addColumn('total', function ($q) {
                 $taxPrice = ($q->package->price * 20) / 100;
                 $calculatePrice = $q->package->price - $taxPrice;
-                return formatPrice($calculatePrice + $taxPrice);
+                $total = ($calculatePrice + $taxPrice) - $q->discount;
+                return formatPrice($total);
             })
             ->editColumn('invoice_no', function ($q){
                 return create_info_button($q->invoice_url, Str::limit($q->invoice_no, 20));

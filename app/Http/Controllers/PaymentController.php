@@ -23,7 +23,6 @@ class PaymentController extends Controller
         if ($payment->getStatus() == 'success') {
             $business =  $user->business;
 
-
             $packetOrder = new PacketOrder();
             $packetOrder->package_id = $packet->id;
             $packetOrder->business_id = $user->business->id;
@@ -55,10 +54,11 @@ class PaymentController extends Controller
 
     public function createEInvoice($packetOrder)
     {
+        $originalPrice = $packetOrder->price + $packetOrder->discount;
         $invoiceGenerator = new E_Invoice();
         $invoiceGenerator->createCustomer($packetOrder->business_id, $packetOrder->business->name, $packetOrder->business->address);
-        $invoiceGenerator->createAmount($packetOrder->price);
-        $invoiceGenerator->createProduct($packetOrder->package_id, $packetOrder->package->name. " Üyelik Paketi");
+        $invoiceGenerator->createAmount($originalPrice, $packetOrder->discount);
+        $invoiceGenerator->createProduct($packetOrder->package_id, $packetOrder->package->name. " Üyelik Paketi", $packetOrder->discount);
         $invoiceGenerator->createInvoice($packetOrder->id);
         $response = json_decode($invoiceGenerator->sendInvoice());
 

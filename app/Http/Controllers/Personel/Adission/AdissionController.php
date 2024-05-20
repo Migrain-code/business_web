@@ -18,12 +18,21 @@ use Yajra\DataTables\DataTables;
 class AdissionController extends Controller
 {
     private $business;
-
+    private $personel;
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            $this->business = auth()->user()->business;
-            return $next($request);
+            $this->personel = auth()->user();
+            $this->business = $this->personel->business;
+            if ($this->personel->safe == 1){
+                return $next($request);
+            } else{
+                return to_route('personel.home')->with('response', [
+                   'status' => "warning",
+                   'message' => "Adisyonlara sadece kasa yetkiniz varsa erişebilirsiniz"
+                ]);
+            }
+
         });
     }
 
@@ -126,6 +135,12 @@ class AdissionController extends Controller
                     } else {
                         $q->whereNotIn('status', [0,1]);
                     }
+                })->when(isset($this->personel->safe_gender), function ($q) {
+                    $q->whereHas('services', function ($subQ){
+                        $subQ->whereHas('service', function ($serviceQ){
+                            $serviceQ->where('type', $this->personel->safe_gender);
+                        });
+                    });
                 });
 
         return DataTables::of($appointments)

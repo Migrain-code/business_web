@@ -128,7 +128,7 @@
                                                     <!--end::Thumbnail-->
                                                     <!--begin::Title-->
                                                     <div class="ms-5">
-                                                        <div class="fw-bold">Product 1</div>
+                                                        <div class="fw-bold">{{$invoice->package->name. " Paket"}}</div>
                                                         <div class="fs-7 text-muted">Hizmet Paketi</div>
                                                     </div>
                                                     <!--end::Title-->
@@ -162,11 +162,14 @@
                                             <td class="text-end">{{formatPrice($taxPrice)}}</td>
                                         </tr>
                                         <!--end::VAT-->
-
+                                        <tr>
+                                            <td colspan="3" class="text-end">İndirim</td>
+                                            <td class="text-end">{{formatPrice($invoice->discount)}}</td>
+                                        </tr>
                                         <!--begin::Grand total-->
                                         <tr>
                                             <td colspan="3" class="fs-3 text-dark fw-bold text-end">Genel Toplam</td>
-                                            <td class="text-dark fs-3 fw-bolder text-end">{{formatPrice($calculatePrice + $taxPrice)}}</td>
+                                            <td class="text-dark fs-3 fw-bolder text-end">{{formatPrice(($calculatePrice + $taxPrice) - $invoice->discount)}}</td>
                                         </tr>
                                         <!--end::Grand total-->
                                         </tbody>

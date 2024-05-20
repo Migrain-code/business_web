@@ -78,7 +78,7 @@ class E_Invoice
 
     }
 
-    public function createAmount($invoicePrice)
+    public function createAmount($invoicePrice, $discount)
     {
         $taxPrice = ($invoicePrice * 20) / 100;
         $netTotal = $invoicePrice - $taxPrice;
@@ -86,15 +86,15 @@ class E_Invoice
         $this->amounts = [
             "currency" => "TL",
             "gross" => $netTotal,
-            "discount" => 0,
+            "discount" => $discount,
             "net" => $netTotal,
             "tax" => $taxPrice,
-            "total" => $invoicePrice,
+            "total" => $invoicePrice - $discount,
         ];
 
     }
 
-    public function createProduct($productId, $productName)
+    public function createProduct($productId, $productName, $discount = 0)
     {
         $this->product[] = [
             "productId" => $productId,
@@ -103,10 +103,10 @@ class E_Invoice
             "quantity" => 1,
             "unitPrice" => $this->amounts["net"],
             "grossPrice" => $this->amounts["gross"],
-            "discount" => 0,
+            "discount" => $discount,
             "net" => $this->amounts["net"],
             "tax" => $this->amounts["tax"],
-            "total" => $this->amounts["total"]
+            "total" => $this->amounts["net"] + $this->amounts["tax"]
         ];
 
     }

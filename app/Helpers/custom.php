@@ -59,7 +59,9 @@ function clearPhone($phoneNumber)
 
 
 }
-
+function clearNumber($number){
+    return str_replace([' ', '(', ')', '-', '_'], '', $number);
+}
 function formatPhone($phone)
 {
     return preg_replace('~.*(\d{3})[^\d]{0,7}(\d{3})[^\d]{0,7}(\d{4}).*~', '($1) $2-$3', $phone);
@@ -211,7 +213,8 @@ function create_custom_route_switch($id, $checked, $model, $column, $route): \Sp
 }
 function formatPrice($price)
 {
-    return number_format($price, 2) . ' ₺';
+    $formattedPrice = number_format($price, 2, '.', ''). " ₺";
+    return $formattedPrice;
 }
 
 function createButtonAndMenu()
