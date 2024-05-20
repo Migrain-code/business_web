@@ -70,6 +70,7 @@ class PacketOrderController extends Controller
                         $business->package_id = $packet->id;
                         $business->packet_start_date = now();
                         $business->packet_end_date = now()->addDays($packet->type == 0 ? 30 : 365);
+                        $business->save();
                         Session::forget('coupon');
                         return to_route('business.home')->with('response', [
                             'status' => "success",
