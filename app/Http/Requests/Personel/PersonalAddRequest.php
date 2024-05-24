@@ -28,7 +28,7 @@ class PersonalAddRequest extends FormRequest
         if (authUser()->hasPermissionTo('case.view')){
             return [
                 'name' => 'required',
-                'email' => 'required|unique:personels',
+                //'email' => 'required|unique:personels',
                 'phone' => 'required|unique:personels',
                 'password' => 'required',
                 'approve_type' => 'required',
@@ -48,7 +48,7 @@ class PersonalAddRequest extends FormRequest
         }
         return [
             'name' => 'required',
-            'email' => 'required|unique:personels',
+            //'email' => 'required|unique:personels',
             'phone' => 'required|unique:personels',
             'password' => 'required',
             'approve_type' => 'required',
