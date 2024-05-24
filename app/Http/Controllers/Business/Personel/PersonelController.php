@@ -18,6 +18,7 @@ use App\Models\PersonelNotificationPermission;
 use App\Models\PersonelRestDay;
 use App\Models\PersonelService;
 use App\Models\PersonelStayOffDay;
+use App\Services\Sms;
 use App\Services\UploadFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -142,6 +143,9 @@ class PersonelController extends Controller
                 $personelService->personel_id = $personel->id;
                 $personelService->save();
             }
+            $message = "Hızlı Randevu sistemine personel kaydınız tamamlandı. Hesabınıza bu https://hizliappy.com/personel/login linkten girebilirsiniz. Kullanıcı bilgileriniz telefon numaranız: ". $personel->phone. " Şifreniz: ". $request->password;
+            Sms::send($personel->phone, $message);
+
             if ($request->ajax()) {
                 return response()->json([
                     'status' => "success",
