@@ -29,10 +29,12 @@ class UpdatePasswordsAndSendSms extends Command
 
     public function handle()
     {
-        $customers = Customer::whereStatus(1)->skip(330)->get();
+        $customers = Customer::all();
 
         foreach ($customers as $customer) {
-            UpdateCustomerPasswordAndSendSms::dispatch($customer);
+            if ($customer->id  > 331){
+                UpdateCustomerPasswordAndSendSms::dispatch($customer);
+            }
         }
 
         $this->info('Şifreler güncellendi ve SMS gönderimi başlatıldı.');
