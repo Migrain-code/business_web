@@ -110,9 +110,11 @@
         <!--end::Stepper-->
 
     </div>
+    @include('personel.appointment-create.modal.add-customer')
 
 @endsection
 @section('scripts')
+    <script src="/business/assets/js/project/personel-account/appointment/add-customer.js"></script>
     <script>
         $('#searchCustomer').on('input keypress', function() {
             var searchValue = $(this).val().toLowerCase(); // Arama değerini küçük harfe çevir
@@ -318,24 +320,24 @@
             });
             var selectedRoomId  = $('input[name="room_id"]:checked').val();
 
-                var clocks = "";
-                $.ajax({
-                    url: '/personel/appointment-create/get/clock',
-                    type: "POST",
-                    data: {
-                        '_token' : csrf_token,
-                        'personelIds' : personelValues,
-                        'date': clickedDate,
-                        'room_id': selectedRoomId,
-                    },
-                    dataType: "JSON",
-                    success: function (res) {
-                        if(res.status === "error"){
-                                Swal.fire({
-                                    title: res.message,
-                                    icon: res.status,
-                                });
-                            clocks += `
+            var clocks = "";
+            $.ajax({
+                url: '/personel/appointment-create/get/clock',
+                type: "POST",
+                data: {
+                    '_token' : csrf_token,
+                    'personelIds' : personelValues,
+                    'date': clickedDate,
+                    'room_id': selectedRoomId,
+                },
+                dataType: "JSON",
+                success: function (res) {
+                    if(res.status === "error"){
+                        Swal.fire({
+                            title: res.message,
+                            icon: res.status,
+                        });
+                        clocks += `
                                 <div class="col-12">
                                     <input type="radio" class="btn-check" name="clock"  id="kt_radio_buttons_2_option_error" disabled />
                                     <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-4 d-flex align-items-center mb-5" style="border-radius: 15px !important;" for="kt_radio_buttons_2_option_error">
@@ -345,49 +347,45 @@
                                     </label>
                                 </div>
                             `
-                        } else{
-                            var counter = 0;
-                            $.each(res, function(index, item){
-                                clocks += `
+                    } else{
+                        var counter = 0;
+                        $.each(res, function(index, item){
+                            clocks += `
                             <div class="col-lg-3 col-4">
                                 <input type="radio" class="btn-check" name="clock" value="${item.value}"  id="kt_radio_buttons_2_option_${item.value}" ${item.durum === false ? 'disabled' : ""}/>
-                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-4 d-flex align-items-center mb-5" style="border-radius: 15px !important;" for="kt_radio_buttons_2_option_${item.value}">
+                                <label class="btn btn-outline btn-outline-dashed ${item.durum === true ? 'btn-light-success' : "btn-active-light-primary"}  p-4 d-flex align-items-center mb-5" style="border-radius: 15px !important;${item.durum === true ? 'background: #50cd892e !important;' : ""}" for="kt_radio_buttons_2_option_${item.value}">
                                 <span class="d-block fw-semibold text-start">
                                     <span class="text-gray-900 fw-bold d-block fs-3">${item.saat}</span>
                                  </span>
                                 </label>
                             </div>
                         `
-                            });
-                        }
-
-
+                        });
                     }
-                });
-                setTimeout(function() {
-                    document.getElementById('loader').style.display = 'none';
-                    document.getElementById('clockContainer').innerHTML = clocks;
-                }, 1000)
-        }
 
-        function getCustomer(){
-            var checkedInputs = document.querySelectorAll('input[name="clock"]:checked');
-            if(checkedInputs.length === 0){
-                Swal.fire({
-                    title: "Saat seçimi yapmadan müşteri seçimine geçemezsiniz.",
-                    text: "Lütfen Saat Seçiniz",
-                    icon: 'error',
-                });
-                stepper.currentStepIndex = 2;
-            }
-            $.ajax({
-                url: '/personel/appointment-create/get/customers',
-                type: "GET",
-                dataType: "JSON",
-                success: function (res) {
-                    var customers = "";
-                    $.each(res, function(index, item){
-                        customers += `
+
+                }
+            });
+            setTimeout(function() {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('clockContainer').innerHTML = clocks;
+            }, 1000)
+        }
+        $('#searchCustomer').on('keyup', function (){
+            let searchedName = $(this).val();
+            if(searchedName.length >= 3){
+                $.ajax({
+                    url: '/personel/appointment-create/get/customers',
+                    type: "GET",
+                    dataType: "JSON",
+                    data: {
+                        'searchedName' : searchedName,
+                    },
+                    success: function (res) {
+                        var customers = "";
+                        if(res.length > 0){
+                            $.each(res, function(index, item){
+                                customers += `
                         <div data-name="${item.name}">
                              <!--begin:Option-->
                             <label class="d-flex flex-stack mb-5 cursor-pointer">
@@ -416,12 +414,27 @@
                             <!--end::Option-->
                         </div>
                         `
-                    });
+                            });
+                        } else{
+                            customers+= `<div class="alert alert-warning w-100">Müşteri bulunamadı</div>`
+                        }
+                        document.getElementById('customerContainer').innerHTML = customers;
 
-                    document.getElementById('customerContainer').innerHTML = customers;
+                    }
+                });
+            }
+        });
+        function getCustomer(){
+            var checkedInputs = document.querySelectorAll('input[name="clock"]:checked');
+            if(checkedInputs.length === 0){
+                Swal.fire({
+                    title: "Saat seçimi yapmadan müşteri seçimine geçemezsiniz.",
+                    text: "Lütfen Saat Seçiniz",
+                    icon: 'error',
+                });
+                stepper.currentStepIndex = 2;
+            }
 
-                }
-            });
         }
 
         var submitButton = document.querySelector('[data-kt-stepper-action="submit"]');

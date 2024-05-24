@@ -28,6 +28,7 @@ Route::prefix('personel')->as('personel.')->group(function (){
             Route::get('/', 'index')->name('index');
             Route::get('get/services', 'getService');
             Route::get('get/customers', 'getCustomer');
+            Route::post('new/customer', 'newCustomer');
             Route::post('get/personel', 'getPersonel');
             Route::get('get/date', 'getDate');
             Route::post('get/clock', 'getClock');

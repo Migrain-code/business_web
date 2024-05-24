@@ -9,9 +9,10 @@
             type="text"
             class="form-control form-control-solid w-100 ps-13"
             placeholder="Müşterilerde Ara" id="searchCustomer">
+        <button class="btn btn-primary w-lg-250px" type="button" data-bs-toggle="modal" data-bs-target="#kt_modal_add_customer">Müşteri Ekle</button>
     </div>
     <div id="customerContainer">
-
+        <div class="alert alert-info">Müşteri adını veya soyadını yukarıdaki alana yazarak arayabilirsiniz</div>
     </div>
 </div>
 <!--begin::Step 4-->
