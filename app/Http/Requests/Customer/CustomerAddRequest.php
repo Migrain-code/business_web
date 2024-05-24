@@ -29,7 +29,7 @@ class CustomerAddRequest extends FormRequest
             'name' => 'required|string|max:255',
             'phone' => 'required|min:10|unique:customers',
             'email' => 'required|email|min:4',
-            'password' => 'required|min:8',
+            //'password' => 'required|min:8',
         ];
     }
 

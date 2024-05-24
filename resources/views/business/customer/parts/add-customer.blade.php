@@ -108,18 +108,6 @@
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="fs-6 fw-semibold mb-2">
-                                <span class="required">Şifre</span>
-                                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Şifre Zorunlu"></i>
-                            </label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="password" class="form-control form-control-solid" placeholder="" name="password" value="" />
-                            <!--end::Input-->
-                        </div>
 
                         <!--begin::Input group-->
                         <div class="fv-row mb-7">

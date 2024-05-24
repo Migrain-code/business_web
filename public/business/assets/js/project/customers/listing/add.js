@@ -84,7 +84,6 @@ var KTModalCustomersAdd = function () {
                             formData.append("name", $('[name="name"]').val());
                             formData.append("email", $('[name="email"]').val());
                             formData.append("phone", $('[name="phone"]').val());
-                            formData.append("password", $('[name="password"]').val());
                             formData.append("gender", $('[name="gender"]').val());
                             formData.append("city_id", $('[name="city_id"]').val());
                             formData.append("district_id", $('[name="district_id"]').val());

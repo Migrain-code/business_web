@@ -47,13 +47,14 @@ class CustomerController extends Controller
                 'message' => "Lütfen Telefon Numarasını 11 Haneli olarak giriş yapın"
             ]);
         }
+        $generatePassword = rand(100000, 999999);
         $customer = new Customer();
         $customer->name = $request->input('name');
         $customer->email = $request->input('email');
         $customer->phone = clearPhone($request->input('phone'));
         $customer->city_id = $request->input('city_id');
         $customer->district_id = $request->input('district_id');
-        $customer->password = Hash::make($request->input('password'));
+        $customer->password = Hash::make($generatePassword);
         $customer->gender = $request->input('gender');
         $customer->status = 0;
         if ($request->hasFile('image')) {
@@ -61,6 +62,10 @@ class CustomerController extends Controller
             $customer->image = $response["image"]["way"];
         }
         if ($customer->save()) {
+            $message = "Merhaba ".$customer->name.", Hızlı Randevu sistemimize hoş geldiniz!
+            Randevularınızı yönetmek için: https://hizlirandevu.com.tr/customer/login adresinden giriş yapabilirsiniz.
+            Kullanıcı Adınız: [".$customer->phone."] Şifreniz: [".$generatePassword."]. İyi günler dileriz, Hızlı Randevu Ekibi";
+            $customer->sendSms($message);
             $this->addPermission($customer->id);
             $this->addBusinessCustomerList($customer->id);
             return response()->json([
