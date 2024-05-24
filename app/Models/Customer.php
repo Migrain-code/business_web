@@ -64,7 +64,7 @@ class Customer extends Authenticatable
 {
     use HasFactory;
     protected $guarded = [];
-
+    protected $fillable = ["password"];
     public function business()
     {
         return $this->hasMany(BusinessCustomer::class, 'customer_id', 'id');

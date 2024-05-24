@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Home\InformationAddRequest;
+use App\Jobs\SendSmsJob;
+use App\Jobs\UpdateCustomerPasswordAndSendSms;
 use App\Models\Ads;
 use App\Models\BusinessBlog;
 use App\Models\BusinessContact;
@@ -62,7 +64,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-      // $this->updateCustomer();
         $brands = Sponsor::whereStatus(1)->get();
         $mainPagePartitions = MaingPage::whereType(1)->whereStatus(1)->get();
         $comments = Comment::whereStatus(1)->take(5)->get();
