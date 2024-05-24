@@ -28,7 +28,7 @@ class PersonalUpdateRequest extends FormRequest
         if (authUser()->hasPermissionTo('case.view')){
             return [
                 'name' => 'required',
-                'email' => 'required',
+                //'email' => 'required',
                 'phone' => 'required',
                 'approve_type' => 'required',
                 'restDay' => 'required',
@@ -46,7 +46,7 @@ class PersonalUpdateRequest extends FormRequest
         }
         return [
             'name' => 'required',
-            'email' => 'required',
+            //'email' => 'required',
             'phone' => 'required',
             'approve_type' => 'required',
             'restDay' => 'required',
