@@ -35675,7 +35675,7 @@ code:not([class*=language-]) {
 }
 .form-check-custom.form-check-solid .form-check-input {
   border: 0;
-  background-color: var(--kt-form-check-input-bg-solid);
+  background-color: #eff2f5;
 }
 .form-check-custom.form-check-solid .form-check-input:active, .form-check-custom.form-check-solid .form-check-input:focus {
   filter: none;
