@@ -7,11 +7,14 @@ use App\Http\Requests\Home\InformationAddRequest;
 use App\Models\Ads;
 use App\Models\BusinessBlog;
 use App\Models\BusinessContact;
+use App\Models\BusinessCustomer;
 use App\Models\BusinessFaqCategory;
 use App\Models\BussinessPackage;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\ContactInfo;
+use App\Models\Customer;
+use App\Models\CustomerNotificationPermission;
 use App\Models\MaingPage;
 use App\Models\Page;
 use App\Models\Propartie;
@@ -21,17 +24,51 @@ use App\Services\SendMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class HomeController extends Controller
 {
+    public function updateCustomer()
+    {
+       /* $customers = DB::table('user')->where('sms_status', 'Y')->skip(3500)->take(250)->get();
+        foreach ($customers as $customer){
+            $user = new Customer();
+            $user->name = $customer->name;
+            $user->email = $customer->email;
+            $user->phone = $customer->phone;
+            $user->birthday = $customer->date_birth;
+            $user->password = Hash::make(rand(111111, 999999));
+            $user->gender = $customer->sex == "K" ? 1 : 2;
+            $user->save();
+        }*/
+        /*$customers = Customer::all();
+        foreach ($customers as $customer){
+            $businessCustomer = new BusinessCustomer();
+            $businessCustomer->business_id = 1;
+            $businessCustomer->customer_id = $customer->id;
+            $businessCustomer->type = 0;
+            $businessCustomer->status = 1;
+            $businessCustomer->save();
+        }*/
+       /* $customers = Customer::all();
+        foreach ($customers as $customer){
+            $businessCustomer = new CustomerNotificationPermission();
+            $businessCustomer->customer_id = $customer->id;
+            $businessCustomer->save();
+        }*/
+
+        return "success";
+    }
     /**
      * Anasayfa
      */
     public function index()
     {
+       // $this->updateCustomer();
         $brands = Sponsor::whereStatus(1)->get();
         $mainPagePartitions = MaingPage::whereType(1)->whereStatus(1)->get();
         $comments = Comment::whereStatus(1)->take(5)->get();
