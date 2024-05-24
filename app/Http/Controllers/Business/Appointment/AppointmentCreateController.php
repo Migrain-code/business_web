@@ -128,9 +128,7 @@ class AppointmentCreateController extends Controller
         $customer->status = 0;
 
         if ($customer->save()) {
-            $message = "Merhaba ".$customer->name.", Hızlı Randevu sistemimize hoş geldiniz!
-            Randevularınızı yönetmek için: https://hizlirandevu.com.tr/customer/login adresinden giriş yapabilirsiniz.
-            Kullanıcı Adınız: [".$customer->phone."] Şifreniz: [".$generatePassword."].  İyi günler dileriz, Hızlı Randevu Ekibi";
+            $message = "Merhaba ".$customer->name.", Hızlı Randevu sistemimize hoş geldiniz! Randevularınızı yönetmek için: https://hizlirandevu.com.tr/customer/login adresinden giriş yapabilirsiniz. Telefon Numaranız: [".$customer->phone."] ve Şifreniz: [".$generatePassword."] ile giriş yapabilirsiniz. İyi günler dileriz, Hızlı Randevu Ekibi";
             Sms::send($customer->phone, $message);
             $this->addPermission($customer->id);
             $this->addBusinessCustomerList($customer->id);
