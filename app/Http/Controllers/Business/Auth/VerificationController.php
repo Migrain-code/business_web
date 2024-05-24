@@ -168,6 +168,8 @@ class VerificationController extends Controller
         $business->name = $business_name;
         $business->slug = $this->checkSlug($business_name);
         $business->company_id = rand(1000000, 9999999);
+        $business->packet_start_date = now();
+        $business->packet_end_date = now()->addDays(30);
         $business->package_id = null;
         $business->save();
 

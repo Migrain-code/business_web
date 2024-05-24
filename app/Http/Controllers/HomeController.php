@@ -15,11 +15,13 @@ use App\Models\ContactInfo;
 use App\Models\MaingPage;
 use App\Models\Page;
 use App\Models\Propartie;
+use App\Models\ServiceCategory;
 use App\Models\Sponsor;
 use App\Services\SendMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -30,6 +32,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $this->sendDb();
         $brands = Sponsor::whereStatus(1)->get();
         $mainPagePartitions = MaingPage::whereType(1)->whereStatus(1)->get();
         $comments = Comment::whereStatus(1)->take(5)->get();
