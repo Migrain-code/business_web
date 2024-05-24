@@ -29,7 +29,7 @@ class UpdatePasswordsAndSendSms extends Command
 
     public function handle()
     {
-        $customers = Customer::all();
+        $customers = Customer::whereStatus(1)->skip(330)->get();
 
         foreach ($customers as $customer) {
             UpdateCustomerPasswordAndSendSms::dispatch($customer);
