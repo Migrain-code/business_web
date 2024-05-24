@@ -51,7 +51,9 @@
                     <!--begin::Input-->
                     <select name="increase_type" id="increaseTypeSelect" aria-label="Fiyat Türü Seçiniz" data-control="select2" data-placeholder="Fiyat Türü Seçiniz..." data-dropdown-parent="#kt_ecommerce_customer_general" class="form-select form-select-solid fw-bold">
                         <option value="">Fiyat Türü Seçiniz</option>
-                        <option value="0" @selected($room->increase_type == 0)>TL Fiyat Arttırma</option>
+                        {{--
+                            <option value="0" @selected($room->increase_type == 0)>TL Fiyat Arttırma</option>
+                        --}}
                         <option value="1" @selected($room->increase_type == 1)>Yüzdelik Fiyat Arttırma</option>
                     </select>
                 </div>
