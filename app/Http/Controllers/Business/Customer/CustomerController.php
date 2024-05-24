@@ -8,6 +8,7 @@ use App\Models\BusinessCustomer;
 use App\Models\Customer;
 use App\Models\CustomerNotificationPermission;
 use App\Models\NotificationIcon;
+use App\Services\Sms;
 use App\Services\UploadFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -65,7 +66,7 @@ class CustomerController extends Controller
             $message = "Merhaba ".$customer->name.", Hızlı Randevu sistemimize hoş geldiniz!
             Randevularınızı yönetmek için: https://hizlirandevu.com.tr/customer/login adresinden giriş yapabilirsiniz.
             Kullanıcı Adınız: [".$customer->phone."] Şifreniz: [".$generatePassword."]. İyi günler dileriz, Hızlı Randevu Ekibi";
-            $customer->sendSms($message);
+            Sms::send($customer->phone, $message);
             $this->addPermission($customer->id);
             $this->addBusinessCustomerList($customer->id);
             return response()->json([
