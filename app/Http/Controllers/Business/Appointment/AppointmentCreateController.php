@@ -11,10 +11,14 @@ use App\Http\Resources\Business\BusinessServiceResource;
 use App\Http\Resources\Customer\CustomerListResource;
 use App\Models\Appointment;
 use App\Models\AppointmentServices;
+use App\Models\BusinessCustomer;
 use App\Models\BusinessService;
+use App\Models\Customer;
+use App\Models\CustomerNotificationPermission;
 use App\Models\Personel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @group AppointmentCreate
@@ -97,9 +101,59 @@ class AppointmentCreateController extends Controller
     {
         $user = $request->user();
         $business = $user->business;
-        return response()->json(CustomerListResource::collection($business->customers));
+        $customers = $business->customers()->whereHas('customer', function ($q) use ($request){
+            $q->where('name', 'like', '%'. $request->input('searchedName'). '%');
+        })->take(20)->get();
+        return response()->json(CustomerListResource::collection($customers));
     }
 
+    /**
+     * Randevuda Müşteri Ekle
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|void
+     */
+    public function newCustomer(Request $request)
+    {
+        if (strlen(clearPhone($request->input('phone'))) != 11){
+            return response()->json([
+                'status' => "error",
+                'message' => "Lütfen Telefon Numarasını 11 Haneli olarak giriş yapın"
+            ]);
+        }
+        $generatePassword = rand(100000, 999999);
+        $customer = new Customer();
+        $customer->name = $request->input('name');
+        $customer->phone = clearPhone($request->input('phone'));
+        $customer->password = Hash::make($generatePassword);
+        $customer->status = 0;
+
+        if ($customer->save()) {
+            $this->addPermission($customer->id);
+            $this->addBusinessCustomerList($customer->id);
+            return response()->json([
+                'status' => "success",
+                'message' => "Müşteri Başarılı Bir Şekilde Eklendi"
+            ]);
+        }
+    }
+    public function addPermission($id)
+    {
+        $permission = new CustomerNotificationPermission();
+        $permission->customer_id = $id;
+        $permission->save();
+
+        return $permission;
+    }
+    public function addBusinessCustomerList($id)
+    {
+        $businessCustomer = new BusinessCustomer();
+        $businessCustomer->business_id = $this->business->id;
+        $businessCustomer->customer_id = $id;
+        $businessCustomer->type = 1;
+        $businessCustomer->status = 1;
+        $businessCustomer->save();
+        return $businessCustomer;
+    }
     /**
      *
      * Tarih Listesi

@@ -110,9 +110,10 @@
         <!--end::Stepper-->
 
     </div>
-
+    @include('business.appointment-create.modal.add-customer')
 @endsection
 @section('scripts')
+    <script src="/business/assets/js/project/appointment/add-customer.js"></script>
     <script>
         $('#searchCustomer').on('input keypress', function() {
             var searchValue = $(this).val().toLowerCase(); // Arama değerini küçük harfe çevir
@@ -370,25 +371,21 @@
                     document.getElementById('clockContainer').innerHTML = clocks;
                 }, 1000)
         }
-
-        function getCustomer(){
-            var checkedInputs = document.querySelectorAll('input[name="clock"]:checked');
-            if(checkedInputs.length === 0){
-                Swal.fire({
-                    title: "Saat seçimi yapmadan müşteri seçimine geçemezsiniz.",
-                    text: "Lütfen Saat Seçiniz",
-                    icon: 'error',
-                });
-                stepper.currentStepIndex = 2;
-            }
-            $.ajax({
-                url: '/isletme/appointment-create/get/customers',
-                type: "GET",
-                dataType: "JSON",
-                success: function (res) {
-                    var customers = "";
-                    $.each(res, function(index, item){
-                        customers += `
+        $('#searchCustomer').on('keyup', function (){
+            let searchedName = $(this).val();
+            if(searchedName.length >= 3){
+                $.ajax({
+                    url: '/isletme/appointment-create/get/customers',
+                    type: "GET",
+                    dataType: "JSON",
+                    data: {
+                      'searchedName' : searchedName,
+                    },
+                    success: function (res) {
+                        var customers = "";
+                        if(res.length > 0){
+                            $.each(res, function(index, item){
+                                customers += `
                         <div data-name="${item.name}">
                              <!--begin:Option-->
                             <label class="d-flex flex-stack mb-5 cursor-pointer">
@@ -417,12 +414,27 @@
                             <!--end::Option-->
                         </div>
                         `
-                    });
+                            });
+                        } else{
+                            customers+= `<div class="alert alert-warning w-100">Müşteri bulunamadı</div>`
+                        }
+                        document.getElementById('customerContainer').innerHTML = customers;
 
-                    document.getElementById('customerContainer').innerHTML = customers;
+                    }
+                });
+            }
+        });
+        function getCustomer(){
+            var checkedInputs = document.querySelectorAll('input[name="clock"]:checked');
+            if(checkedInputs.length === 0){
+                Swal.fire({
+                    title: "Saat seçimi yapmadan müşteri seçimine geçemezsiniz.",
+                    text: "Lütfen Saat Seçiniz",
+                    icon: 'error',
+                });
+                stepper.currentStepIndex = 2;
+            }
 
-                }
-            });
         }
 
         var submitButton = document.querySelector('[data-kt-stepper-action="submit"]');
