@@ -32,7 +32,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $this->sendDb();
         $brands = Sponsor::whereStatus(1)->get();
         $mainPagePartitions = MaingPage::whereType(1)->whereStatus(1)->get();
         $comments = Comment::whereStatus(1)->take(5)->get();
