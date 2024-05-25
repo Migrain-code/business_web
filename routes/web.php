@@ -94,7 +94,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     Route::post('/packet/{packet}/callback/{official}', [PaymentController::class, 'callback'])->name('packet.payment.callback');
     Route::get('generate/invoice/{invoice}/pdf', [\App\Http\Controllers\PdfController::class, 'generatePdf'])->name('generateInvoice');
-    Route::middleware(['auth:official', 'setup'/*, 'checkRole'*/])->group(function () {
+    Route::middleware(['auth:official', 'setup', 'checkRole'])->group(function () {
         Route::get('/home', [\App\Http\Controllers\Business\HomeController::class, 'index'])->name('home');
 
         /*-----------------------  Setup  ------------------------*/
