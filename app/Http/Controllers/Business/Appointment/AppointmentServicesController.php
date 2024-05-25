@@ -149,6 +149,7 @@ class AppointmentServicesController extends Controller
         // Get all appointments for the given date
         $appointments = $personel->appointments()
             ->whereDate('start_time', $getDate)
+            ->whereNotIn('status', [3])
             ->get();
 
         $i = $startTime;
@@ -165,7 +166,7 @@ class AppointmentServicesController extends Controller
                 $appointmentStart = Carbon::parse($appointment->start_time);
                 $appointmentEnd = Carbon::parse($appointment->end_time);
 
-                // Check if the slotStart or slotEnd falls within an appointment range
+                // SlotStart veya slotEnd'in bir randevu aralığına denk gelip gelmediğini kontrol edin
                 if (
                     ($slotStart >= $appointmentStart && $slotStart < $appointmentEnd) ||
                     ($slotEnd > $appointmentStart && $slotEnd <= $appointmentEnd) ||
