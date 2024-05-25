@@ -186,7 +186,7 @@ class AppointmentCreateController extends Controller
                     'day' => "Bugün",
                     'month' => $date->translatedFormat('F'),
                     'text' => "Bugün",
-                    'value' => $date,
+                    'value' => $date->toDateString(),
                 ];
             } else if ($dateStartOfDay->eq($tomorrow)) {
                 $dates[] = [
@@ -194,7 +194,7 @@ class AppointmentCreateController extends Controller
                     'day' => "Yarın",
                     'text' => "Yarın",
                     'month' => $date->translatedFormat('F'),
-                    'value' => $date,
+                    'value' => $date->toDateString(),
                 ];
             } else {
                 $dates[] = [
@@ -202,7 +202,7 @@ class AppointmentCreateController extends Controller
                     'month' => $date->translatedFormat('F'),
                     'day' => $date->translatedFormat('l'),
                     'text' => $date->translatedFormat('d F l'),
-                    'value' => $date,
+                    'value' => $date->toDateString(),
                 ];
             }
         }

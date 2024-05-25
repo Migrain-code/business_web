@@ -54,6 +54,7 @@ class AppointmentCreateController extends Controller
         $unisexServices = $this->transformServices($unisexServiceCategories);
 
         $rooms = $business->activeRooms;
+
         return view('business.appointment-create.index', compact('rooms','womanServices', 'manServices', 'unisexServices', 'business'));
     }
 
@@ -171,6 +172,7 @@ class AppointmentCreateController extends Controller
             $remainingDate[] = Carbon::now()->addDays($i);
             $i++;
         }
+
         foreach ($remainingDate as $date) {
             $dateStartOfDay = clone $date;
             $dateStartOfDay->startOfDay();
@@ -184,7 +186,7 @@ class AppointmentCreateController extends Controller
                     'day' => "Bugün",
                     'month' => $date->translatedFormat('F'),
                     'text' => "Bugün",
-                    'value' => $date,
+                    'value' => $date->toDateString(),
                 ];
             } else if ($dateStartOfDay->eq($tomorrow)) {
                 $dates[] = [
@@ -192,7 +194,7 @@ class AppointmentCreateController extends Controller
                     'day' => "Yarın",
                     'text' => "Yarın",
                     'month' => $date->translatedFormat('F'),
-                    'value' => $date,
+                    'value' => $date->toDateString(),
                 ];
             } else {
                 $dates[] = [
@@ -200,7 +202,7 @@ class AppointmentCreateController extends Controller
                     'month' => $date->translatedFormat('F'),
                     'day' => $date->translatedFormat('l'),
                     'text' => $date->translatedFormat('d F l'),
-                    'value' => $date,
+                    'value' => $date->toDateString(),
                 ];
             }
         }
