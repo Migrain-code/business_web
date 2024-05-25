@@ -7,6 +7,7 @@ use App\Http\Resources\Customer\CustomerDetailResource;
 use App\Http\Resources\Customer\CustomerListResource;
 use App\Models\Appointment;
 use App\Models\AppointmentServices;
+use App\Models\Personel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -59,15 +60,12 @@ class HomeController extends Controller
     }
     public function getDate()
     {
-        $remainingDays = Carbon::now()->subDays(1)->diffInDays(Carbon::now()->copy()->endOfMonth());
-        $startOfMonth = now()->startOfMonth();
-        $endOfMonth = now()->endOfMonth();
-        $llop = 0;
-        $currentDate = clone $startOfMonth; // Klonlama işlemi ile orijinal nesneyi değiştirmeyiz
+        $i = 0;
+        $remainingDate = [];
 
-        while ($currentDate <= $endOfMonth) {
-            $remainingDate[] = clone $currentDate; // Klonlanmış nesneyi diziye ekleriz
-            $currentDate->addDays(1); // Orijinal nesneyi güncelleme yerine yeni bir nesne oluştururuz
+        while ($i <= 30) {
+            $remainingDate[] = Carbon::now()->addDays($i);
+            $i++;
         }
         foreach ($remainingDate as $date) {
             $dateStartOfDay = clone $date;
@@ -81,21 +79,21 @@ class HomeController extends Controller
                     'date' => $date->translatedFormat('d'),
                     'day' => "Bugün",
                     'text' => "Bugün",
-                    'value' => $date->format('Y-m-d'),
+                    'value' => $date,
                 ];
             } else if ($dateStartOfDay->eq($tomorrow)) {
                 $dates[] = [
                     'date' => $date->translatedFormat('d'),
                     'day' => "Yarın",
                     'text' => "Yarın",
-                    'value' => $date->format('Y-m-d'),
+                    'value' => $date,
                 ];
             } else {
                 $dates[] = [
                     'date' => $date->translatedFormat('d'),
                     'day' => $date->translatedFormat('l'),
                     'text' => $date->translatedFormat('d F l'),
-                    'value' => $date->format('Y-m-d'),
+                    'value' => $date,
                 ];
             }
         }
@@ -107,24 +105,57 @@ class HomeController extends Controller
         $personel = $this->personel;
         $clocks = [];
         $getDate = Carbon::parse($request->appointment_date);
-        $i = Carbon::parse($getDate->format('Y-m-d').' '.$personel->start_time);
+        $startTime = Carbon::parse($getDate->format('Y-m-d').' '.$personel->start_time);
         $endTime = Carbon::parse($getDate->format('Y-m-d').' '.$personel->end_time);
+        $appointmentRange = $personel->appointmentRange->time; // Assuming this is in minutes
 
-        while ($i < $endTime){
+        // Get all appointments for the given date
+        $appointments = $personel->appointments()
+            ->whereDate('start_time', $getDate)
+            ->get();
 
-            $getAppointment = $personel->appointments()->where('start_time', $i->toDateTime())->first();
+        $i = $startTime;
+
+        while ($i < $endTime) {
+            $slotStart = $i->copy();
+            $slotEnd = $i->copy()->addMinutes($appointmentRange);
+
+            // Check if the current slot overlaps with any appointment
+            $isBooked = false;
+            $appointmentDetails = null;
+
+            foreach ($appointments as $appointment) {
+                $appointmentStart = Carbon::parse($appointment->start_time);
+                $appointmentEnd = Carbon::parse($appointment->end_time);
+
+                // Check if the slotStart or slotEnd falls within an appointment range
+                if (
+                    ($slotStart >= $appointmentStart && $slotStart < $appointmentEnd) ||
+                    ($slotEnd > $appointmentStart && $slotEnd <= $appointmentEnd) ||
+                    ($slotStart <= $appointmentStart && $slotEnd >= $appointmentEnd)
+                ) {
+                    $isBooked = true;
+                    $appointmentDetails = $appointment;
+                    break;
+                }
+            }
+
             $clocks[] = [
-                'clock' => $i->format('H:i'). "-". $i->addMinute($personel->appointmentRange->time)->format('H:i'),
-                'title' =>isset($getAppointment) ? $getAppointment->service->subCategory->name : '',
-                'customer' =>isset($getAppointment) ? CustomerDetailResource::make($getAppointment->appointment->customer) : "",
-                'route' =>isset($getAppointment) ? route('personel.appointment.detail', $getAppointment->appointment_id) : '',
-                'status' => isset($getAppointment),
-                'color_code' =>  isset($getAppointment) ? $getAppointment->status('color_code') : 'primary',
+                'clock' => $slotStart->format('H:i')."-".$slotEnd->format('H:i'),
+                'title' => $isBooked ? $appointmentDetails->service->subCategory->name : '',
+                'customer' => $isBooked ? CustomerDetailResource::make($appointmentDetails->appointment->customer) : "",
+                'route' => $isBooked ? route('business.appointment.show', $appointmentDetails->appointment_id) : '',
+                'status' => $isBooked,
+                'color_code' => $isBooked ? $appointmentDetails->status('color_code') : 'primary',
             ];
+
+            // Move to the next slot
+            $i->addMinutes($appointmentRange);
         }
 
         return $clocks;
     }
+
     public function appointment()
     {
         $personel = authUser();

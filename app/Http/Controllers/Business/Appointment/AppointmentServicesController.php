@@ -92,15 +92,12 @@ class AppointmentServicesController extends Controller
     }
     public function getDate()
     {
-        $remainingDays = Carbon::now()->subDays(1)->diffInDays(Carbon::now()->copy()->endOfMonth());
-        $startOfMonth = now()->startOfMonth();
-        $endOfMonth = now()->endOfMonth();
-        $llop = 0;
-        $currentDate = clone $startOfMonth; // Klonlama işlemi ile orijinal nesneyi değiştirmeyiz
+        $i = 0;
+        $remainingDate = [];
 
-        while ($currentDate <= $endOfMonth) {
-            $remainingDate[] = clone $currentDate; // Klonlanmış nesneyi diziye ekleriz
-            $currentDate->addDays(1); // Orijinal nesneyi güncelleme yerine yeni bir nesne oluştururuz
+        while ($i <= 30) {
+            $remainingDate[] = Carbon::now()->addDays($i);
+            $i++;
         }
         foreach ($remainingDate as $date) {
             $dateStartOfDay = clone $date;
@@ -114,21 +111,21 @@ class AppointmentServicesController extends Controller
                     'date' => $date->translatedFormat('d'),
                     'day' => "Bugün",
                     'text' => "Bugün",
-                    'value' => $date->format('Y-m-d'),
+                    'value' => $date,
                 ];
             } else if ($dateStartOfDay->eq($tomorrow)) {
                 $dates[] = [
                     'date' => $date->translatedFormat('d'),
                     'day' => "Yarın",
                     'text' => "Yarın",
-                    'value' => $date->format('Y-m-d'),
+                    'value' => $date,
                 ];
             } else {
                 $dates[] = [
                     'date' => $date->translatedFormat('d'),
                     'day' => $date->translatedFormat('l'),
                     'text' => $date->translatedFormat('d F l'),
-                    'value' => $date->format('Y-m-d'),
+                    'value' => $date,
                 ];
             }
         }

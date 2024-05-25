@@ -20,7 +20,7 @@
                 @foreach($dates as $date)
                     <!--begin::Date-->
                     <li class="nav-item me-1">
-                        <a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-40px me-2 py-4 btn-active-primary clickedDate @if($date["value"] == now()->format('Y-m-d')) active @endif"
+                        <a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-40px me-2 py-4 btn-active-primary clickedDate @if($loop->first) active @endif"
                            data-bs-toggle="tab" href="#kt_schedule_day" data-date="{{$date["value"]}}">
 
                             <span class="opacity-50 fs-7 fw-semibold">{{$date["day"]}}</span>
