@@ -150,9 +150,11 @@ class AppointmentServicesController extends Controller
         $appointments = $personel->appointments()
             ->whereDate('start_time', $getDate)
             ->whereNotIn('status', [3])
+            ->orderBy('start_time')
             ->get();
 
         $i = $startTime;
+        $lastAppointment = null;
 
         while ($i < $endTime) {
             $slotStart = $i->copy();
@@ -178,20 +180,33 @@ class AppointmentServicesController extends Controller
                 }
             }
 
-            $clocks[] = [
-                'clock' => $slotStart->format('H:i')."-".$slotEnd->format('H:i'),
-                'title' => $isBooked ? $appointmentDetails->service->subCategory->name : '',
-                'customer' => $isBooked ? CustomerDetailResource::make($appointmentDetails->appointment->customer) : "",
-                'route' => $isBooked ? route('business.appointment.show', $appointmentDetails->appointment_id) : '',
-                'status' => $isBooked,
-                'color_code' => $isBooked ? $appointmentDetails->status('color_code') : 'primary',
-            ];
+            if ($isBooked && $lastAppointment && $lastAppointment->id == $appointmentDetails->id) {
+                // Eğer mevcut randevu aynı randevunun devamıysa, sadece bitiş saatini güncelle
+                $clocks[count($clocks) - 1]['clock'] = $clocks[count($clocks) - 1]['clock_start'] . "-" . $slotEnd->format('H:i');
+            } else {
+                $clocks[] = [
+                    'clock' => $slotStart->format('H:i')."-".$slotEnd->format('H:i'),
+                    'clock_start' => $slotStart->format('H:i'), // Başlangıç saatini saklayın
+                    'title' => $isBooked ? $appointmentDetails->service->subCategory->name : '',
+                    'customer' => $isBooked ? CustomerDetailResource::make($appointmentDetails->appointment->customer) : "",
+                    'route' => $isBooked ? route('business.appointment.show', $appointmentDetails->appointment_id) : '',
+                    'status' => $isBooked,
+                    'color_code' => $isBooked ? $appointmentDetails->status('color_code') : 'primary',
+                ];
+            }
+
+            // Eğer randevu devam ediyorsa lastAppointment'ı güncelle
+            $lastAppointment = $isBooked ? $appointmentDetails : null;
 
             // Move to the next slot
             $i->addMinutes($appointmentRange);
         }
 
+        // clock_start alanını kaldırın çünkü bu yalnızca dahili kullanım içindir
+        foreach ($clocks as &$clock) {
+            unset($clock['clock_start']);
+        }
+
         return $clocks;
     }
-
 }
