@@ -38,6 +38,13 @@ class PacketOrderController extends Controller
 
     public function buy(BussinessPackage $packet)
     {
+        if ($packet->price == 0){
+            $business = $this->business;
+            $business->package_id = $packet->id;
+            $business->packet_start_date = now();
+            $business->packet_end_date = now()->addDays($packet->type == 0 ? 30 : 365);
+            $business->save();
+        }
         $discountTotal = 0;
         $discountRate = 0;
         $prices = $packet->price;
