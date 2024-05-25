@@ -195,35 +195,5 @@ class AppointmentServicesController extends Controller
 
         return $clocks;
     }
-    public function findTimes($personel)
-    {
-        $disableds = [];
 
-        // personelin dolu randevu saatlerini al iptal edilmişleri de dahil et
-        $appointments = $personel->appointments()->whereNotIn('status', [3])->get();
-
-        foreach ($appointments as $appointment) {
-            $startDateTime = Carbon::parse($appointment->start_time);
-            $endDateTime = Carbon::parse($appointment->end_time);
-
-            $currentDateTime = $startDateTime->copy();
-            while ($currentDateTime <= $endDateTime) {
-
-                $disableds[] = $currentDateTime->format('d.m.Y H:i');
-
-                $currentDateTime->addMinutes(intval($personel->appointmentRange->time));
-            }
-        }
-
-        // randevu almaya 30 dk öncesine kadar izin ver
-        $startTime = Carbon::parse($personel->start_time);
-        $endTime = Carbon::parse($personel->end_time);
-        for ($i=$startTime;  $i < $endTime; $i->addMinutes(intval($personel->appointmentRange->time))){
-            if ($i < now()->addMinutes(5)){
-                $disableds[] = $i->format('d.m.Y H:i');
-            }
-        }
-
-        return $disableds;
-    }
 }
