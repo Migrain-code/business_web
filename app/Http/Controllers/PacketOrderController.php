@@ -44,6 +44,11 @@ class PacketOrderController extends Controller
             $business->packet_start_date = now();
             $business->packet_end_date = now()->addDays($packet->type == 0 ? 30 : 365);
             $business->save();
+
+            return to_route('business.home')->with('response', [
+               'status' => "success",
+               'message' => "Ücretsiz Paket Seçimi Yaptığınız için ödeme yapmayacaksınız"
+            ]);
         }
         $discountTotal = 0;
         $discountRate = 0;
