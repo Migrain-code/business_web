@@ -525,7 +525,7 @@ class AppointmentCreateController extends Controller
                         $transformedServices[] = [
                             'id' => $service->id,
                             'name' => $service->subCategory->getName(),
-                            'price' => $service->price_type_id == 0 ? formatPrice($service->price) : formatPrice($service->price) . " - " . formatPrice($service->max_price),
+                            'price' => $service->price_type_id == 0 ? $service->price : $service->price . " - " . $service->max_price,
                         ];
                     }
 

@@ -456,5 +456,27 @@
             event.preventDefault();
         });
     </script>
+    <script>
+        $('.roomCheckBox').change(function(){
+            // Seçili olan checkbox'un discount değerini al ve göster
+            const selectedCheckbox = $('.roomCheckBox:checked');
+            const discount = parseInt(selectedCheckbox.attr('data-discount'));
+            $('.servicePrices').each(function(){
+                // Eski fiyatı al
+                let price = parseFloat($(this).text());
 
+                if(discount === 0){
+                    // Orijinal fiyatı göster
+                    let originalPrice = $(this).data('price');
+                    $(this).text(originalPrice.toFixed(2)+ " ₺");
+                } else {
+                    // İndirim uygula
+                    price += (price * discount / 100);
+
+                    // Yeni fiyatı göster
+                    $(this).text(price.toFixed(2)+ " ₺");
+                }
+            });
+        });
+    </script>
 @endsection

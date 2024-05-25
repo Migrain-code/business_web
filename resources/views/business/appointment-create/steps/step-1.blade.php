@@ -11,7 +11,7 @@
                         <div class="d-flex align-items-center me-2">
                             <!--begin::Radio-->
                             <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
-                                <input class="form-check-input" type="radio" checked name="room_id" value=""/>
+                                <input class="form-check-input roomCheckBox" data-discount="0" type="radio" checked name="room_id" value=""/>
                             </div>
                             <!--end::Radio-->
 
@@ -35,7 +35,7 @@
                             <div class="d-flex align-items-center me-2">
                                 <!--begin::Radio-->
                                 <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
-                                    <input class="form-check-input" type="radio" @checked($room->is_main == 1) name="room_id" value="{{$room->id}}"/>
+                                    <input class="form-check-input roomCheckBox" type="radio" @checked($room->is_main == 1) name="room_id" value="{{$room->id}}" data-discount="{{$room->price}}"/>
                                 </div>
                                 <!--end::Radio-->
 
@@ -104,7 +104,8 @@
                                         <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                             <input class="form-check-input serviceChecks w-25px h-25px" name="services[]" type="checkbox" value="{{$subService["id"]}}">
                                         </div>
-                                        <span>{{$subService["name"] ." - ". $subService["price"]}}</span>
+                                        <span>{{$subService["name"] ." - "}} <b class="servicePrices" data-price="{{$subService["price"]}}">{{formatPrice($subService["price"])}}</b></span>
+
                                     </div>
                                 @endforeach
                             </div>
@@ -138,7 +139,7 @@
                                         <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                             <input class="form-check-input serviceChecks w-25px h-25px" name="services[]" type="checkbox" value="{{$subService["id"]}}">
                                         </div>
-                                        <span>{{$subService["name"] ." - ". $subService["price"]}}</span>
+                                        <span>{{$subService["name"] ." - "}} <b class="servicePrices" data-price="{{$subService["price"]}}">{{formatPrice($subService["price"])}}</b></span>
 
                                     </div>
                                 @endforeach
