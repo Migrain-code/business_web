@@ -38,7 +38,7 @@
 
                         <div class="fs-6 fw-semibold text-muted">Seçtiğiniz personelin hangi gündeki randevularını görmek istiyorsanız. O güne tıklayınız.</div>
                     </div>
-                    <select id="personelSelectArea" id="city_select" aria-label="Personel Seçiniz" data-control="select2" data-placeholder="Personel Seçiniz..." data-dropdown-parent="#kt_app_content" class="form-select form-select-solid fw-bold">
+                    <select id="personelSelectArea" aria-label="Personel Seçiniz" data-control="select2" data-placeholder="Personel Seçiniz..." data-dropdown-parent="#kt_app_content" class="form-select form-select-solid fw-bold">
                         @foreach($personels as $personel)
                             <option value="{{$personel->id}}" @selected($loop->first)>{{$personel->name}}</option>
                         @endforeach
@@ -117,7 +117,9 @@
             // Mouse elementin dışına çıktığında kaydırmayı durdur
             clearInterval(scrollInterval);
         });
-
+        $('#personelSelectArea').on('change', function (){
+            fetchAppointment('{{now()->format('Y-m-d')}}')
+        });
         function fetchAppointment(date){
             var personelId = $('#personelSelectArea').val();
             document.getElementById('loader').style.display = 'block';
