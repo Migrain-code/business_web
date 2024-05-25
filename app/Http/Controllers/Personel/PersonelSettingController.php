@@ -62,7 +62,7 @@ class PersonelSettingController extends Controller
         if ($request->filled('password')){
             $personel->password = Hash::make($request->password);
         }
-        $personel->phone = $request->phone;
+        $personel->phone = clearPhone($request->phone);
         $personel->accepted_type = $request->approve_type;
         $personel->start_time = $request->start_time;
         $personel->end_time = $request->end_time;
