@@ -27,7 +27,7 @@ class PersonalUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'nullable',
             'phone' => 'required',
             'approve_type' => 'required',
             'restDay' => 'required',
@@ -37,7 +37,7 @@ class PersonalUpdateRequest extends FormRequest
             //'food_end_time' => 'required',
             'gender_type' => 'required',
             'range' => 'required',
-            'description' => 'required',
+            'description' => 'nullable',
             'services' => 'required',
         ];
     }
