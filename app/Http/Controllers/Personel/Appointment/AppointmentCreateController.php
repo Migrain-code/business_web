@@ -259,7 +259,7 @@ class AppointmentCreateController extends Controller
                         if ($personel->checkDateIsOff($getDate)) {
                             return response()->json([
                                 "status" => "error",
-                                "message" => 'Personel ' . Carbon::parse($personel->stayOffDays->start_time)->format('d.m.Y H:i') . " tarihinden " . Carbon::parse($personel->stayOffDays->end_time)->format('d.m.Y H:i') . " Tarihine Kadar İzinlidir",
+                                "message" => "Personel bu tarihte hizmet vermemektedir"
                             ], 200);
                         } else {
                             //tüm koşullar sağlanmış ise personel saat takvimi
