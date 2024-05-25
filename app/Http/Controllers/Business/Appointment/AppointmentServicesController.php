@@ -145,23 +145,85 @@ class AppointmentServicesController extends Controller
     {
         $clocks = [];
         $getDate = Carbon::parse($request->appointment_date);
-        $i = Carbon::parse($getDate->format('Y-m-d').' '.$personel->start_time);
+        $startTime = Carbon::parse($getDate->format('Y-m-d').' '.$personel->start_time);
         $endTime = Carbon::parse($getDate->format('Y-m-d').' '.$personel->end_time);
+        $appointmentRange = $personel->appointmentRange->time; // Assuming this is in minutes
 
-        while ($i < $endTime){
+        // Get all appointments for the given date
+        $appointments = $personel->appointments()
+            ->whereDate('start_time', $getDate)
+            ->get();
 
-            $getAppointment = $personel->appointments()->where('start_time', $i->toDateTime())->first();
+        $i = $startTime;
+
+        while ($i < $endTime) {
+            $slotStart = $i->copy();
+            $slotEnd = $i->copy()->addMinutes($appointmentRange);
+
+            // Check if the current slot overlaps with any appointment
+            $isBooked = false;
+            $appointmentDetails = null;
+
+            foreach ($appointments as $appointment) {
+                $appointmentStart = Carbon::parse($appointment->start_time);
+                $appointmentEnd = Carbon::parse($appointment->end_time);
+
+                // Check if the slotStart or slotEnd falls within an appointment range
+                if (
+                    ($slotStart >= $appointmentStart && $slotStart < $appointmentEnd) ||
+                    ($slotEnd > $appointmentStart && $slotEnd <= $appointmentEnd) ||
+                    ($slotStart <= $appointmentStart && $slotEnd >= $appointmentEnd)
+                ) {
+                    $isBooked = true;
+                    $appointmentDetails = $appointment;
+                    break;
+                }
+            }
+
             $clocks[] = [
-                'clock' => $i->format('H:i'). "-". $i->addMinute($personel->appointmentRange->time)->format('H:i'),
-                'title' =>isset($getAppointment) ? $getAppointment->service->subCategory->name : '',
-                'customer' =>isset($getAppointment) ? CustomerDetailResource::make($getAppointment->appointment->customer) : "",
-                'route' =>isset($getAppointment) ? route('business.appointment.show', $getAppointment->appointment_id) : '',
-                'status' => isset($getAppointment),
-                'color_code' =>  isset($getAppointment) ? $getAppointment->status('color_code') : 'primary',
+                'clock' => $slotStart->format('H:i')."-".$slotEnd->format('H:i'),
+                'title' => $isBooked ? $appointmentDetails->service->subCategory->name : '',
+                'customer' => $isBooked ? CustomerDetailResource::make($appointmentDetails->appointment->customer) : "",
+                'route' => $isBooked ? route('business.appointment.show', $appointmentDetails->appointment_id) : '',
+                'status' => $isBooked,
+                'color_code' => $isBooked ? $appointmentDetails->status('color_code') : 'primary',
             ];
+
+            // Move to the next slot
+            $i->addMinutes($appointmentRange);
         }
 
         return $clocks;
     }
+    public function findTimes($personel)
+    {
+        $disableds = [];
 
+        // personelin dolu randevu saatlerini al iptal edilmişleri de dahil et
+        $appointments = $personel->appointments()->whereNotIn('status', [3])->get();
+
+        foreach ($appointments as $appointment) {
+            $startDateTime = Carbon::parse($appointment->start_time);
+            $endDateTime = Carbon::parse($appointment->end_time);
+
+            $currentDateTime = $startDateTime->copy();
+            while ($currentDateTime <= $endDateTime) {
+
+                $disableds[] = $currentDateTime->format('d.m.Y H:i');
+
+                $currentDateTime->addMinutes(intval($personel->appointmentRange->time));
+            }
+        }
+
+        // randevu almaya 30 dk öncesine kadar izin ver
+        $startTime = Carbon::parse($personel->start_time);
+        $endTime = Carbon::parse($personel->end_time);
+        for ($i=$startTime;  $i < $endTime; $i->addMinutes(intval($personel->appointmentRange->time))){
+            if ($i < now()->addMinutes(5)){
+                $disableds[] = $i->format('d.m.Y H:i');
+            }
+        }
+
+        return $disableds;
+    }
 }
