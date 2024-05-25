@@ -286,9 +286,10 @@
 
                             dates += `
                             <li class="nav-item me-1">
-                                <a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-40px me-2 py-4 btn-active-primary ${counter === 0 ? 'active': ''}" onclick="getClock('${item.value}')" data-bs-toggle="tab">
+                                <a class="nav-link btn d-flex flex-column flex-center min-w-40px me-2 py-4 btn-active-primary ${counter === 0 ? 'active': ''}" onclick="getClock('${item.value}')" data-bs-toggle="tab" style="border-radius: 15px !important;">
                                     <span class="opacity-75 fs-5 fw-semibold">${item.date}</span>
                                     <span class="fs-6 fw-bolder">${item.day}</span>
+                                    <span class="fs-7">${item.month}</span>
                                 </a>
                             </li>
                         `;

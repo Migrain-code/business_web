@@ -184,6 +184,7 @@ class AppointmentCreateController extends Controller
                 $dates[] = [
                     'date' => $date->translatedFormat('d'),
                     'day' => "Bugün",
+                    'month' => $date->translatedFormat('F'),
                     'text' => "Bugün",
                     'value' => $date,
                 ];
@@ -192,11 +193,13 @@ class AppointmentCreateController extends Controller
                     'date' => $date->translatedFormat('d'),
                     'day' => "Yarın",
                     'text' => "Yarın",
+                    'month' => $date->translatedFormat('F'),
                     'value' => $date,
                 ];
             } else {
                 $dates[] = [
                     'date' => $date->translatedFormat('d'),
+                    'month' => $date->translatedFormat('F'),
                     'day' => $date->translatedFormat('l'),
                     'text' => $date->translatedFormat('d F l'),
                     'value' => $date,
@@ -406,7 +409,7 @@ class AppointmentCreateController extends Controller
             $endDateTime = Carbon::parse($appointment->end_time);
 
             $currentDateTime = $startDateTime->copy();
-            while ($currentDateTime <= $endDateTime) {
+            while ($currentDateTime < $endDateTime) {
 
                 $disableds[] = $currentDateTime->format('d.m.Y H:i');
 

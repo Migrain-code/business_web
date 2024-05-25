@@ -182,6 +182,7 @@ class AppointmentCreateController extends Controller
                 $dates[] = [
                     'date' => $date->translatedFormat('d'),
                     'day' => "Bugün",
+                    'month' => $date->translatedFormat('F'),
                     'text' => "Bugün",
                     'value' => $date,
                 ];
@@ -190,11 +191,13 @@ class AppointmentCreateController extends Controller
                     'date' => $date->translatedFormat('d'),
                     'day' => "Yarın",
                     'text' => "Yarın",
+                    'month' => $date->translatedFormat('F'),
                     'value' => $date,
                 ];
             } else {
                 $dates[] = [
                     'date' => $date->translatedFormat('d'),
+                    'month' => $date->translatedFormat('F'),
                     'day' => $date->translatedFormat('l'),
                     'text' => $date->translatedFormat('d F l'),
                     'value' => $date,
@@ -254,7 +257,7 @@ class AppointmentCreateController extends Controller
                         if ($personel->checkDateIsOff($getDate)) {
                             return response()->json([
                                 "status" => "error",
-                                "message" => 'Personel ' . Carbon::parse($personel->stayOffDays->start_time)->format('d.m.Y H:i') . " tarihinden " . Carbon::parse($personel->stayOffDays->end_time)->format('d.m.Y H:i') . " Tarihine Kadar İzinlidir",
+                                "message" => 'Personel bu tarihte hizmet vermemektedir',
                             ], 200);
                         } else {
                             //tüm koşullar sağlanmış ise personel saat takvimi
@@ -262,6 +265,7 @@ class AppointmentCreateController extends Controller
                                 $clocks[] = [
                                     'id' => $getDate->format('d_m_Y_' . $i->format('H_i')),
                                     'saat' => $i->format('H:i'),
+
                                     'date' => $getDate->format('d.m.Y'),
                                     'value' => $getDate->format('d.m.Y ' . $i->format('H:i')),
                                     'durum' => in_array($getDate->format('d.m.Y ') . $i->format('H:i'), $disabledDays[0]) ? false : true,
@@ -404,7 +408,7 @@ class AppointmentCreateController extends Controller
             $endDateTime = Carbon::parse($appointment->end_time);
 
             $currentDateTime = $startDateTime->copy();
-            while ($currentDateTime <= $endDateTime) {
+            while ($currentDateTime < $endDateTime) {
 
                 $disableds[] = $currentDateTime->format('d.m.Y H:i');
 
