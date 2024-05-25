@@ -47,12 +47,12 @@
             <div class="card-body">
                 <div class="row">
                     @foreach($personels as $personel)
-                        <div class="col-12 col-lg-4 mb-3">
+                        <div class="col-12 col-lg-3 mb-3">
                             <!--begin::Personel Widget 5-->
                             <div class="card  bg-gray-100">
                                 <!--begin::Header-->
                                 <div class="card-header d-flex align-items-center justify-content-center flex-column border-0 mt-4">
-                                    <img src="{{image($personel->image)}}" class="w-50px h-50px rounded-circle"/>
+                                    <img src="{{image($personel->image)}}" class="w-60px h-60px rounded-circle"/>
 
                                     <h3 class="mt-2">
                                         <span class="fw-bold mb-1 text-dark">{{$personel->name}}</span>
@@ -86,7 +86,7 @@
                                                 <!--begin::Label-->
                                                 <div class="timeline-label fw-bold text-gray-800 fs-6">
                                                    <span class="cursor-pointer" data-bs-toggle="tooltip" title="Başlangıç Saati"> {{$appointment->start_time->format('H:i')}}</span>
-                                                   <span class="cursor-pointer text-gray-700" data-bs-toggle="tooltip" title="Bitiş Saati"> {{$appointment->end_time->format('H:i')}}</span>
+                                                   <span class="cursor-pointer text-gray-700 endTime" data-end-time="{{$appointment->end_time->format('H:i')}}" data-bs-toggle="tooltip" title="Bitiş Saati"> {{$appointment->end_time->format('H:i')}}</span>
 
                                                 </div>
                                                 <!--end::Label-->
@@ -97,9 +97,7 @@
                                                 <!--end::Badge-->
                                                 <!--begin::Content-->
                                                 <div class="timeline-content d-flex align-items-center">
-                                                    <div class="col ms-3" style="max-width: 55px">
-                                                        <img src="{{image($appointment->appointment->customer->image)}}" class="w-50px h-50px rounded-circle"/>
-                                                    </div>
+
                                                     <div class="col-8 ms-2">
                                                         <div class="fw-bold text-muted">{{$appointment->appointment->customer->name}}</div>
                                                         <div class="fw-bold">{{$appointment->service->subCategory->name}}</div>
@@ -130,6 +128,31 @@
     </div>
 @endsection
 @section('scripts')
+    <script>
+        function checkAppointments() {
+            const now = new Date();
+            const endTimeElements = document.querySelectorAll('.endTime');
 
+            endTimeElements.forEach(function(element) {
+                const endTimeStr = element.getAttribute('data-end-time');
+                const endTimeParts = endTimeStr.split(':');
+                const endTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), endTimeParts[0], endTimeParts[1]);
+
+                if (now > endTime) {
+                    const timelineItem = element.closest('.timeline-item');
+                    if (timelineItem) {
+                        timelineItem.style.display = 'none';
+                    }
+                }
+            });
+            console.log('saat kontrolü çalıştırıldı');
+        }
+
+        // İlk kontrol
+        checkAppointments();
+
+        // 5 dakikada bir kontrol et
+        setInterval(checkAppointments, 5 * 60 * 1000);
+    </script>
 
 @endsection

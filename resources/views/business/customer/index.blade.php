@@ -41,6 +41,7 @@
                                 class="path1"></span><span class="path2"></span></i> <input
                             type="text" data-kt-customer-table-filter="search"
                             class="form-control form-control-solid w-250px ps-13"
+                            id="customerNameSearchArea"
                             placeholder="Müşterilerde Ara">
                     </div>
                     <!--end::Search-->

@@ -159,7 +159,13 @@ class CustomerController extends Controller
     public function datatable(Request $request)
     {
         $business = $this->business;
-        $customers = $business->customers;
+        $customers = $business->customers()->with('customer')->select('id', 'customer_id', 'status', 'created_at')
+            ->when($request->filled('name'), function ($q) use ($request){
+                $q->whereHas('customer', function ($q) use ($request){
+                    $q->where('name', 'like', '%' . $request->input('name') . '%');
+                });
+            })
+            ->take(250)->get();
 
         return DataTables::of($customers)
             ->editColumn('id', function ($q) {

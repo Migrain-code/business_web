@@ -143,7 +143,7 @@ class Personel extends Authenticatable
 
     public function todayAppointments()
     {
-        return $this->appointments()->whereDate('start_time', now()->toDateString());
+        return $this->appointments()->whereDate('start_time', now()->toDateString())->orderBy('start_time', 'asc');
     }
 
     public function sales()

@@ -155,7 +155,7 @@ class AppointmentServicesController extends Controller
                 'clock' => $i->format('H:i'). "-". $i->addMinute($personel->appointmentRange->time)->format('H:i'),
                 'title' =>isset($getAppointment) ? $getAppointment->service->subCategory->name : '',
                 'customer' =>isset($getAppointment) ? CustomerDetailResource::make($getAppointment->appointment->customer) : "",
-                'route' =>isset($getAppointment) ? route('personel.appointment.detail', $getAppointment->appointment_id) : '',
+                'route' =>isset($getAppointment) ? route('business.appointment.show', $getAppointment->appointment_id) : '',
                 'status' => isset($getAppointment),
                 'color_code' =>  isset($getAppointment) ? $getAppointment->status('color_code') : 'primary',
             ];

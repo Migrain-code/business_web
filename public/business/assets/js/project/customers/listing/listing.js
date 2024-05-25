@@ -36,6 +36,9 @@ var KTCustomersList = function () {
             ],
             ajax: {
                 url: DATA_URL,
+                data: function (d) {
+                    d.name = $('#customerNameSearchArea').val();
+                }
             },
         });
 
@@ -52,13 +55,6 @@ var KTCustomersList = function () {
         });
     }
 
-    // Search Datatable --- official docs reference: https://datatables.net/reference/api/search()
-    var handleSearchDatatable = () => {
-        const filterSearch = document.querySelector('[data-kt-customer-table-filter="search"]');
-        filterSearch.addEventListener('keyup', function (e) {
-            datatable.search(e.target.value).draw();
-        });
-    }
 
     // Delete customer
     var handleDeleteRows = () => {
@@ -117,7 +113,9 @@ var KTCustomersList = function () {
             })
         });
     }
-
+    $('#customerNameSearchArea').on('keydown', function (){
+        datatable.ajax.reload();
+    });
     // Handle status filter dropdown
     var handleStatusFilter = () => {
         const filterStatus = document.querySelector('[data-kt-ecommerce-order-filter="status"]');
@@ -221,7 +219,7 @@ var KTCustomersList = function () {
 
             initCustomerList();
             initToggleToolbar();
-            handleSearchDatatable();
+
             initExportButtons();
             handleDeleteRows();
             handleStatusFilter();
