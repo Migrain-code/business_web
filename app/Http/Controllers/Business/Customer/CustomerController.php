@@ -57,7 +57,8 @@ class CustomerController extends Controller
         $customer->district_id = $request->input('district_id');
         $customer->password = Hash::make($generatePassword);
         $customer->gender = $request->input('gender');
-        $customer->status = 0;
+        $customer->status = 1;
+        $customer->verify_phone = 1;
         if ($request->hasFile('image')) {
             $response = UploadFile::uploadFile($request->file('image'));
             $customer->image = $response["image"]["way"];

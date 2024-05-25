@@ -125,8 +125,8 @@ class AppointmentCreateController extends Controller
         $customer->name = $request->input('name');
         $customer->phone = clearPhone($request->input('phone'));
         $customer->password = Hash::make($generatePassword);
-        $customer->status = 0;
-
+        $customer->status = 1;
+        $customer->verify_phone = 1;
         if ($customer->save()) {
             $message = "Merhaba ".$customer->name.", Hızlı Randevu sistemimize hoş geldiniz! Randevularınızı yönetmek için: https://hizlirandevu.com.tr/customer/login adresinden giriş yapabilirsiniz. Telefon Numaranız: [".$customer->phone."] ve Şifreniz: [".$generatePassword."] ile giriş yapabilirsiniz. İyi günler dileriz, Hızlı Randevu Ekibi";
             Sms::send($customer->phone, $message);
