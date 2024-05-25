@@ -296,8 +296,8 @@
                             counter++;
                         });
                         document.getElementById('dateContainer').innerHTML= dates;
-                        var now = new Date();
-                        getClock(now.toLocaleDateString());
+
+                        getClock('{{now()}}');
                     },
                 });
             }

@@ -265,7 +265,6 @@ class AppointmentCreateController extends Controller
                                 $clocks[] = [
                                     'id' => $getDate->format('d_m_Y_' . $i->format('H_i')),
                                     'saat' => $i->format('H:i'),
-
                                     'date' => $getDate->format('d.m.Y'),
                                     'value' => $getDate->format('d.m.Y ' . $i->format('H:i')),
                                     'durum' => in_array($getDate->format('d.m.Y ') . $i->format('H:i'), $disabledDays[0]) ? false : true,
