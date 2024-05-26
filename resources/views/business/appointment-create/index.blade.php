@@ -60,9 +60,9 @@
                     @include('business.appointment-create.steps.nav')
                     <!--end::Nav-->
                 </div>
-                <div class="col-lg-8 col-12">
+                <div class="col-lg-9 col-12">
                     <!--begin::Form-->
-                    <form class="form w-lg-650px mx-auto" method="post" action="{{route('business.appointmentCreate.store')}}" novalidate="novalidate" id="kt_stepper_example_basic_form">
+                    <form class="form w-100 mx-auto" method="post" action="{{route('business.appointmentCreate.store')}}" novalidate="novalidate" id="kt_stepper_example_basic_form">
                         <!--begin::Group-->
                         @csrf
                         <div class="mb-5">
@@ -285,14 +285,14 @@
                         $.each(res.dates, function(index, item) {
 
                             dates += `
-                            <li class="nav-item me-1">
-                                <a class="nav-link btn d-flex flex-column flex-center min-w-40px me-2 py-4 btn-active-primary ${counter === 0 ? 'active': ''}" onclick="getClock('${item.value}')" data-bs-toggle="tab" style="border-radius: 15px !important;">
-                                    <span class="opacity-75 fs-5 fw-semibold">${item.date}</span>
-                                    <span class="fs-6 fw-bolder">${item.day}</span>
-                                    <span class="fs-7">${item.month}</span>
-                                </a>
-                            </li>
-                        `;
+                                    <li class="nav-item me-1">
+                                        <a class="nav-link btn d-flex flex-column flex-center min-w-40px me-2 py-4 btn-active-primary ${counter === 0 ? 'active': ''}" onclick="getClock('${item.value}')" data-bs-toggle="tab" style="border-radius: 15px !important;">
+                                            <span class="opacity-75 fs-5 fw-semibold">${item.date}</span>
+                                            <span class="fs-6 fw-bolder">${item.day}</span>
+                                            <span class="fs-7">${item.month}</span>
+                                        </a>
+                                    </li>
+                                `;
                             counter++;
                         });
                         document.getElementById('dateContainer').innerHTML= dates;
@@ -352,7 +352,7 @@
                             var counter = 0;
                             $.each(res, function(index, item){
                                 clocks += `
-                            <div class="col-lg-3 col-4">
+                            <div class="col-lg-2 col-4">
                                 <input type="radio" class="btn-check" name="clock" value="${item.value}"  id="kt_radio_buttons_2_option_${item.value}" ${item.durum === false ? 'disabled' : ""}/>
                                 <label class="btn btn-outline btn-outline-dashed ${item.durum === true ? 'btn-light-success' : "btn-active-light-primary"}  p-4 d-flex align-items-center mb-5" style="border-radius: 15px !important;${item.durum === true ? 'background: #50cd892e !important;' : ""}" for="kt_radio_buttons_2_option_${item.value}">
                                 <span class="d-block fw-semibold text-start">
