@@ -220,7 +220,7 @@
                                         @php
                                             $formattedPhone = formatPhone($appointment->customer->phone);
                                         @endphp
-                                        {!! createPhone($formattedPhone, $formattedPhone) !!}
+                                        {!! createPhone($appointment->customer->phone, $formattedPhone) !!}
                                     </td>
                                 </tr>
                                 </tbody>
