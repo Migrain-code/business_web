@@ -228,7 +228,7 @@
                                         @php
                                             $formattedPhone = formatPhone($appointment->customer->phone);
                                         @endphp
-                                        {!! createPhone($formattedPhone, $formattedPhone) !!}
+                                        {!! createPhone("+90 ".$formattedPhone, $formattedPhone) !!}
                                     </td>
                                 </tr>
                                 </tbody>
