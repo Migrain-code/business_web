@@ -228,7 +228,7 @@
                                         @php
                                             $formattedPhone = formatPhone($appointment->customer->phone);
                                         @endphp
-                                        <a href="tel: {{$formattedPhone}}">{{$formattedPhone}}</a>
+                                        {!! createPhone($formattedPhone, $formattedPhone) !!}
                                     </td>
                                 </tr>
                                 </tbody>
