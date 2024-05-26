@@ -352,7 +352,7 @@
                         var counter = 0;
                         $.each(res, function(index, item){
                             clocks += `
-                            <div class="col-lg-3 col-4">
+                            <div class="col-lg-2 col-4">
                                 <input type="radio" class="btn-check" name="clock" value="${item.value}"  id="kt_radio_buttons_2_option_${item.value}" ${item.durum === false ? 'disabled' : ""}/>
                                 <label class="btn btn-outline btn-outline-dashed ${item.durum === true ? 'btn-light-success' : "btn-active-light-primary"}  p-4 d-flex align-items-center mb-5" style="border-radius: 15px !important;${item.durum === true ? 'background: #50cd892e !important;' : ""}" for="kt_radio_buttons_2_option_${item.value}">
                                 <span class="d-block fw-semibold text-start">
