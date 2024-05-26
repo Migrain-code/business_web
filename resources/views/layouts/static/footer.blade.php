@@ -574,7 +574,15 @@
         });
     });
 </script>
-
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(function(OneSignal) {
+        OneSignal.init({
+            appId: "685cd9a9-30de-4a89-9c2f-39c12190ad8b",
+        });
+    });
+</script>
 @yield('scripts')
 
 </body>
