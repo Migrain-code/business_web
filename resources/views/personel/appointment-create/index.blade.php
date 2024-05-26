@@ -60,9 +60,9 @@
                     @include('personel.appointment-create.steps.nav')
                     <!--end::Nav-->
                 </div>
-                <div class="col-lg-8 col-12">
+                <div class="col-lg-9 col-12">
                     <!--begin::Form-->
-                    <form class="form w-lg-650px mx-auto" method="post" action="{{route('personel.appointmentCreate.store')}}" novalidate="novalidate" id="kt_stepper_example_basic_form">
+                    <form class="form w-100 mx-auto" method="post" action="{{route('personel.appointmentCreate.store')}}" novalidate="novalidate" id="kt_stepper_example_basic_form">
                         <!--begin::Group-->
                         @csrf
                         <div class="mb-5">

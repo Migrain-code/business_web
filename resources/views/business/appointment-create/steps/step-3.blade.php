@@ -5,9 +5,9 @@
         <div class="card-header">
             <!--begin::Card title-->
             <div class="card-title flex-column">
-                <h2 class="mb-1">Randevu Takvimi</h2>
+                <h2 class="mb-1">Tarih Saat Seçimi</h2>
 
-                <div class="fs-6 fw-semibold text-muted">2 yaklaşan randevu</div>
+                <div class="fs-6 fw-semibold text-muted">Tarih ve saat seçimi</div>
             </div>
             <!--end::Card title-->
 
