@@ -21,7 +21,7 @@
     <!--end::Item-->
     <!--begin::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-        <a href="{{route('personel.appointments')}}"> Randevular </a>
+        <a href="{{route('personel.appointment.index')}}"> Randevular </a>
     </li>
     <!--end::Item-->
     <li class="breadcrumb-item">

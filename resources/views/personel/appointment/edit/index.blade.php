@@ -14,7 +14,7 @@
     <!--end::Item-->
     <!--begin::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-        <a href="{{route('personel.appointments')}}"> Randevular </a>
+        <a href="{{route('personel.appointment.index')}}"> Randevular </a>
     </li>
     <!--end::Item-->
     <li class="breadcrumb-item">
@@ -45,7 +45,7 @@
                 <!--end:::Tabs-->
 
                 <!--begin::Button-->
-                <a href="{{route('personel.appointments')}}" class="btn btn-icon btn-light btn-active-secondary btn-sm ms-auto me-lg-n7">
+                <a href="{{route('personel.appointment.index')}}" class="btn btn-icon btn-light btn-active-secondary btn-sm ms-auto me-lg-n7">
                     <i class="ki-duotone ki-left fs-2"></i> </a>
                 <!--end::Button-->
 
@@ -91,19 +91,45 @@
                                 <tr>
                                     <td class="text-muted">
                                         <div class="d-flex align-items-center">
-                                            <i class="ki-duotone ki-electronic-clock fs-2 me-2">
+                                            <i class="ki-duotone ki-setting-2 fs-3 me-3">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
-                                                <span class="path3"></span>
-                                                <span class="path4"></span>
-                                                <span class="path5"></span>
                                             </i>
-                                            İşlem Süresi
+                                            İşlemler
                                         </div>
                                     </td>
-                                    <td class="fw-bold text-end">
-                                        {{\Illuminate\Support\Carbon::parse($appointment->end_time)->diffInMinutes($appointment->start_time)}} .DK
+
+                                    <td class="text-muted">
+
+                                        <div class="d-flex align-items-center flex-end w-100">
+                                            @if($appointment->status == 0)
+                                                <form method="post" action="{{route('personel.appointment.update', $appointment->id)}}" id="approveForm">
+                                                    @csrf
+                                                    @method('PUT')
+                                                </form>
+                                                <a href="javascript:void(0)" onclick="$('#approveForm').submit()" class="btn btn-sm btn-warning px-3 me-2">Onayla</a>
+                                            @endif
+                                            <!--begin::Menu item-->
+                                            @if($appointment->status != 3)
+                                                <form method="post" action="{{route('personel.appointment.destroy', $appointment->id)}}" id="cancelForm">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+
+                                                <a href="javascript:void(0)" onclick="$('#cancelForm').submit()" class="btn btn-sm btn-danger flex-stack px-3 me-2">İptal Et
+
+                                                </a>
+
+                                            @endif
+                                            <!--end::Menu item-->
+                                            @if($appointment->status != 0)
+                                                <a href="{{route('personel.appointment.edit', $appointment->id)}}" class="btn btn-sm btn-primary flex-stack px-3 me-2">Tamamla
+
+                                                </a>
+                                            @endif
+                                        </div>
                                     </td>
+
                                 </tr>
                                 <tr>
                                     <td class="text-muted">

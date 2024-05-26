@@ -15,12 +15,11 @@ Route::prefix('personel')->as('personel.')->group(function (){
     Route::middleware('auth:personel')->group(function () {
         Route::get('/home', [\App\Http\Controllers\Personel\HomeController::class, 'index'])->name('home');
         Route::get('/appointment/calendar', [\App\Http\Controllers\Personel\HomeController::class, 'calendar'])->name('appointment.calendar');
-        Route::post('/appointment/update', [\App\Http\Controllers\Personel\HomeController::class, 'updateAppointment']);
-        Route::get('/appointment', [\App\Http\Controllers\Personel\HomeController::class, 'appointment'])->name('appointments');
         Route::get('/case', [\App\Http\Controllers\Personel\HomeController::class, 'case'])->name('case.index');
         Route::get('/prim', [\App\Http\Controllers\Personel\HomeController::class, 'prim'])->name('prim.index');
         Route::get('/today/appointment', [\App\Http\Controllers\Personel\HomeController::class, 'getClock']);
-        Route::get('/appointment/{appointment}/detay', [\App\Http\Controllers\Personel\HomeController::class, 'appointmentDetail'])->name('appointment.detail');
+
+        Route::resource('appointment', \App\Http\Controllers\Personel\Appointment\AppointmentController::class);
         Route::post('appointment/{appointment}/service', [\App\Http\Controllers\Personel\Appointment\AppointmentServicesController::class,'store'])->name('appointment.service.add');
         Route::delete('appointmentServices/{appointmentServices}', [\App\Http\Controllers\Personel\Appointment\AppointmentServicesController::class,'destroy'])->name('appointment.service.destroy');
 

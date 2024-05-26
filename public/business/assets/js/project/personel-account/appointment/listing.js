@@ -1,148 +1,235 @@
-var datatableReceivable;
-const reportTitle = "Personel "+ personelName + " Randevu Raporu";
-function initReceivableTable() {
+"use strict";
 
-    // DataTables zaten başlatılmışsa, yeni bir örneği başlatma
-    if (!$.fn.DataTable.isDataTable(datatableReceivable)) {
-        datatableReceivable = $('#receivableDataTable').DataTable({
+// Class definition
+var KTCustomersList = function () {
+    // Define shared variables
+    var table, datatable;
+    // Private functions
+    var initCustomerList = function () {
+        // Set date data order
+        const tableRows = table.querySelectorAll('tbody tr');
+
+        tableRows.forEach(row => {
+            const dateRow = row.querySelectorAll('td');
+            const realDate = moment(dateRow[5].innerHTML, "DD MMM YYYY, LT").format(); // select date from 5th column in table
+            dateRow[5].setAttribute('data-order', realDate);
+        });
+
+        // Init datatable --- more info on datatables: https://datatables.net/manual/
+        datatable = $(table).DataTable({
             "language": {
                 "url": "https://cdn.datatables.net/plug-ins/1.11.2/i18n/tr.json"
             },
+            serverSide: true,
+            processing : true,
+            columns: DATA_COLUMNS,
             responsive: true,
             "info": false,
-            'order': [0],
-            dom: 'Bfrtip',
+            'order': [],
+            dom: 'Bfrtip',//B eklersek başına doma ekler
             buttons: [
-                {extend: "copyHtml5", title: reportTitle},
-                {extend: "excelHtml5", title: reportTitle},
-                {extend: "csvHtml5", title: reportTitle},
-                {extend: "pdfHtml5", title: reportTitle}
-            ]
+                'copy', 'excel', 'csv', 'pdf'
+            ],
+            'columnDefs': [
+                { orderable: false, targets: 0 }, // Disable ordering on column 0 (checkbox)
+                { orderable: false, targets: 6 }, // Disable ordering on column 6 (actions)
+            ],
+            ajax: {
+                url: DATA_URL,
+            },
         });
 
-        // Düğmelerin eklenmesi
-        new $.fn.dataTable.Buttons('#receivableDataTable', {
+        // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
+        datatable.on('draw', function () {
+
+            initToggleToolbar();
+            handleDeleteRows();
+            toggleToolbars();
+            setTimeout(() => {
+                document.getElementById('datatable_filter').style.display = "none";
+                $('.dt-buttons').css('display', 'none');
+            }, 1);
+        });
+    }
+
+    // Search Datatable --- official docs reference: https://datatables.net/reference/api/search()
+    var handleSearchDatatable = () => {
+        const filterSearch = document.querySelector('[data-kt-customer-table-filter="search"]');
+        filterSearch.addEventListener('keyup', function (e) {
+            datatable.search(e.target.value).draw();
+        });
+    }
+
+    // Delete customer
+    var handleDeleteRows = () => {
+        // Select all delete buttons
+        const deleteButtons = table.querySelectorAll('[data-kt-customer-table-filter="delete_row"]');
+
+        deleteButtons.forEach(d => {
+            // Delete button on click
+            d.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Select parent row
+                const parent = e.target.closest('tr');
+
+                // Get customer name
+                const customerName = parent.querySelectorAll('td')[1].innerText;
+
+                // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
+                Swal.fire({
+                    text: "Are you sure you want to delete " + customerName + "?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    buttonsStyling: false,
+                    confirmButtonText: "Yes, delete!",
+                    cancelButtonText: "No, cancel",
+                    customClass: {
+                        confirmButton: "btn fw-bold btn-danger",
+                        cancelButton: "btn fw-bold btn-active-light-primary"
+                    }
+                }).then(function (result) {
+                    if (result.value) {
+                        Swal.fire({
+                            text: "You have deleted " + customerName + "!.",
+                            icon: "success",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn fw-bold btn-primary",
+                            }
+                        }).then(function () {
+                            // Remove current row
+                            datatable.row($(parent)).remove().draw();
+                        });
+                    } else if (result.dismiss === 'cancel') {
+                        Swal.fire({
+                            text: customerName + " was not deleted.",
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn fw-bold btn-primary",
+                            }
+                        });
+                    }
+                });
+            })
+        });
+    }
+
+    // Handle status filter dropdown
+    var handleStatusFilter = () => {
+        const filterStatus = document.querySelector('[data-kt-ecommerce-order-filter="status"]');
+        $(filterStatus).on('change', e => {
+            let value = e.target.value;
+            if (value === 'all') {
+                value = '';
+            }
+            datatable.column(5).search(value).draw();
+        });
+    }
+
+    // Init toggle toolbar
+    var initToggleToolbar = () => {
+        // Toggle selected action toolbar
+        // Select all checkboxes
+        const checkboxes = table.querySelectorAll('.delete[type="checkbox"]');
+        // Select elements
+        const deleteSelected = document.querySelector('[data-kt-customer-table-select="delete_selected"]');
+
+        // Toggle delete selected toolbar
+        checkboxes.forEach(c => {
+            // Checkbox on click event
+            c.addEventListener('click', function () {
+                setTimeout(function () {
+                    toggleToolbars();
+                }, 50);
+            });
+        });
+
+        // Deleted selected rows
+
+    }
+
+    // Toggle toolbars
+    const toggleToolbars = () => {
+        // Define variables
+        const toolbarBase = document.querySelector('[data-kt-customer-table-toolbar="base"]');
+        const toolbarSelected = document.querySelector('[data-kt-customer-table-toolbar="selected"]');
+        const selectedCount = document.querySelector('[data-kt-customer-table-select="selected_count"]');
+
+        // Select refreshed checkbox DOM elements
+        const allCheckboxes = table.querySelectorAll('tbody .delete[type="checkbox"]');
+
+        // Detect checkboxes state & count
+        let checkedState = false;
+        let count = 0;
+
+        // Count checked boxes
+        allCheckboxes.forEach(c => {
+            if (c.checked) {
+                checkedState = true;
+                count++;
+            }
+        });
+
+        // Toggle toolbars
+        if (checkedState) {
+            selectedCount.innerHTML = count;
+            toolbarBase.classList.add('d-none');
+            toolbarSelected.classList.remove('d-none');
+        } else {
+            toolbarBase.classList.remove('d-none');
+            toolbarSelected.classList.add('d-none');
+        }
+    }
+    function initExportButtons() {
+        const reportTitle = "Customer Orders Report";
+        new $.fn.dataTable.Buttons(table, {
             buttons: [
                 {extend: "copyHtml5", title: reportTitle},
                 {extend: "excelHtml5", title: reportTitle},
                 {extend: "csvHtml5", title: reportTitle},
                 {extend: "pdfHtml5", title: reportTitle}
             ]
-        }).container().appendTo($("#kt_ecommerce_report_customer_receivable_export"));
-    }
+        }).container().appendTo($("#kt_ecommerce_report_customer_orders_export"));
 
-    // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
-    datatableReceivable.on('draw', function () {
-
-        setTimeout(() => {
-            $('.dataTables_filter').css('display', 'none');
-            $('.dt-buttons').css('display', 'none');
-        }, 1);
-    });
-
-    document.querySelectorAll("#kt_ecommerce_report_customer_orders_export_menu_receivable [data-kt-ecommerce-export-receivable]").forEach(buttonReceivable => {
-        buttonReceivable.addEventListener("click", event => {
-            event.preventDefault();
-            const exportTypeReceivable = event.target.getAttribute("data-kt-ecommerce-export-receivable");
-            if (exportTypeReceivable === "print") {
-                printReceivable();
-            } else {
+        document.querySelectorAll("#kt_ecommerce_report_customer_orders_export_menu [data-kt-ecommerce-export]").forEach(button => {
+            button.addEventListener("click", event => {
+                event.preventDefault();
+                const exportType = event.target.getAttribute("data-kt-ecommerce-export");
                 setTimeout(() => {
-                    let btnContainer = document.getElementById('kt_ecommerce_report_customer_receivable_export');
-                    const exportButton = btnContainer.querySelector(".dt-buttons .buttons-" + exportTypeReceivable);
+                    const exportButton = document.querySelector(".dt-buttons .buttons-" + exportType);
                     if (exportButton) {
                         exportButton.click();
                     } else {
-                        console.error(`Export button for ${exportTypeReceivable} not found.`);
+                        console.error(`Export button for ${exportType} not found.`);
                     }
                 }, 0);
+            });
+        });
+    }
+    // Public methods
+    return {
+        init: function () {
+            table = document.querySelector('#datatable');
+
+            if (!table) {
+                return;
             }
 
-        });
-    });
-}
-
-$('select[name="listTypeReceivable"]').on('change', function () {
-    var selectedValue = $(this).val();
-    var startDate, endDate;
-
-    // Seçilen değere göre tarih aralığını belirle
-    switch (selectedValue) {
-        case 'thisWeek':
-            startDate = moment().startOf('week').format('YYYY-MM-DD');
-            endDate = moment().endOf('week').format('YYYY-MM-DD');
-            break;
-        case 'thisMonth':
-            startDate = moment().startOf('month').format('YYYY-MM-DD');
-            endDate = moment().endOf('month').format('YYYY-MM-DD');
-            break;
-        case 'thisYear':
-            startDate = moment().startOf('year').format('YYYY-MM-DD');
-            endDate = moment().endOf('year').format('YYYY-MM-DD');
-            break;
-        case 'all':
-            // Bu yıldan 1 önceki yılı al
-            startDate = moment().subtract(1, 'years').startOf('year').format('YYYY-MM-DD');
-            // Bugüne kadar olan tüm tarihler
-            endDate = moment().endOf('year').format('YYYY-MM-DD');
-            break;
-    }
-
-    datatableReceivable.rows().every(function (rowIdx, tableLoop, rowLoop) {
-        this.nodes().to$().show();
-    });
-    // Tarih aralığına göre filtrele
-    datatableReceivable.rows().every(function (rowIdx, tableLoop, rowLoop) {
-        var data = this.data();
-        var date = moment(data[0], 'DD.MM.YYYY HH:mm'); // İlk sütunun tarihini al ve formatına göre dönüştür
-        if (!date.isBetween(startDate, endDate)) {
-            this.nodes().to$().hide(); // Eğer tarih aralığı dışındaysa, satırı gizle
-        }
-    });
-
-    // Tabloyu yeniden çiz
-    datatableReceivable.draw();
-});
-
-var printWindowAppointment;
-
-function printReceivable() {
-    // Eğer zaten bir yazdırma penceresi açıksa, işlemi iptal edin
-    if (printWindowAppointment && !printWindowAppointment.closed) {
-        console.log("Zaten bir yazdırma penceresi açık. İşlem iptal edildi.");
-        return;
-    }
-
-    var tableElementPayment = document.getElementById('receivableDataTable');
-    $('#datatable').find('tr').each(function() {
-        $(this).find('td:eq(6), th:eq(6)').hide(); // 0 tabanlı indexleme olduğu için 4. sütunu gizliyoruz
-    });
-    // Yazdırma penceresini aç
-    printWindowAppointment = window.open('', '_blank');
-    printWindowAppointment.document.write('<html><head><title>'+reportTitle+'</title>');
-
-    // Orijinal sayfanızda tanımlanan CSS stillerini yazdırma penceresine ekleyin
-    var links = document.getElementsByTagName("link");
-    for (var i = 0; i < links.length; i++) {
-        var link = links[i];
-        if (link.rel === "stylesheet") {
-            printWindowAppointment.document.write('<link rel="stylesheet" type="text/css" href="' + link.href + '">');
+            initCustomerList();
+            initToggleToolbar();
+            handleSearchDatatable();
+            initExportButtons();
+            handleDeleteRows();
+            handleStatusFilter();
         }
     }
-    var now = new Date();
-    var formattedDateTime = now.toLocaleString();
-    printWindowAppointment.document.write('</head><body style="padding-left: 20px">');
-    printWindowAppointment.document.write('</head><div class="card-header p-3 text-center d-flex justify-content-between"><h3>'+reportTitle+'</h3><span>'+formattedDateTime+'</span></div>');
-    printWindowAppointment.document.write(tableElementPayment.outerHTML);
-    printWindowAppointment.document.write('</body></html>');
-    printWindowAppointment.document.close();
+}();
 
-    // Yeni pencerede yazdırma penceresini aç
-    setTimeout(function (){
-        printWindowAppointment.print();
-    }, 1000);
-    location.reload();
-}
-$(document).ready(function (){
-   initReceivableTable();
+// On document ready
+KTUtil.onDOMContentLoaded(function () {
+    KTCustomersList.init();
 });
