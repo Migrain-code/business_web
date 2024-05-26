@@ -152,7 +152,7 @@ class HomeController extends Controller
                     'clock_start' => $slotStart->format('H:i'), // Başlangıç saatini saklayın
                     'title' => $isBooked ? $appointmentDetails->service->subCategory->name : '',
                     'customer' => $isBooked ? CustomerDetailResource::make($appointmentDetails->appointment->customer) : "",
-                    'route' => $isBooked ? route('personel.appointment.detail', $appointmentDetails->appointment_id) : '',
+                    'route' => $isBooked ? route('personel.appointment.show', $appointmentDetails->appointment_id) : '',
                     'status' => $isBooked,
                     'color_code' => $isBooked ? $appointmentDetails->status('color_code') : 'primary',
                 ];

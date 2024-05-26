@@ -208,7 +208,7 @@
                             <!--end::Info-->
 
                             <!--begin::Action-->
-                            <a href="{{route('personel.appointment.detail', $appointment->appointment_id)}}" class="btn btn-bg-light btn-active-color-primary btn-sm">Detay</a>
+                            <a href="{{route('personel.appointment.show', $appointment->appointment_id)}}" class="btn btn-bg-light btn-active-color-primary btn-sm">Detay</a>
                             <!--end::Action-->
                         </div>
                         <!--end::Time-->
