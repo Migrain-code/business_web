@@ -100,7 +100,10 @@
 
                                                     <div class="col-8 ms-2">
                                                         <div class="fw-bold text-muted">{{$appointment->appointment->customer->name}}</div>
-                                                        <div class="fw-bold">{{$appointment->service->subCategory->name}} {{isset($appointment->appointment->room_id) ? $appointment->appointment->room->name : ""}}</div>
+                                                        <div class="fw-bold">{{$appointment->service->subCategory->name}} </div>
+
+                                                        @if(isset($appointment->appointment->room_id)) @endif
+                                                        <div class="fw-semibold" style="color: {{$appointment->appointment->room->color}}">{{$appointment->appointment->room->name}}</div>
                                                     </div>
                                                 </div>
                                                 <!--end::Content-->
