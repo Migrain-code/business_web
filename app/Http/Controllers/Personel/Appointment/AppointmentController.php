@@ -80,7 +80,7 @@ class AppointmentController extends Controller
         //Randevudaki personeller listeye eklenecek
         $personels = $this->business->personels;
         $services = $this->business->services()->whereNotIn('id', $appointmentServiceIds)->get();
-
+        dd(image($appointment->customer->image));
         return view('personel.appointment.edit.index', compact('appointment', 'personels', 'services'));
     }
 

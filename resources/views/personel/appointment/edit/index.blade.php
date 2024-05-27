@@ -178,7 +178,7 @@
                                         <div class="d-flex align-items-center justify-content-end">
                                             <!--begin:: Avatar -->
                                             <div class="symbol symbol-circle symbol-25px overflow-hidden me-3">
-                                                <a href="{{route('business.customer.edit', $appointment->customer_id)}}">
+                                                <a href="#">
                                                     <div class="symbol-label">
                                                         <img src="{{image($appointment->customer->image)}}"
                                                              alt="{{$appointment->customer->name}}" class="w-100">
