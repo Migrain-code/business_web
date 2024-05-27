@@ -31,20 +31,22 @@
         Bugünkü Randevular
     </li>
 @endsection
+@section('toolbar')
+    <button class="btn btn-primary" onclick="openFullScreen()">Takvimi Büyüt</button>
+@endsection
 @section('content')
-    <div id="kt_app_content" class="app-content ">
+    <div class="app-content " id="appointmentCalendar">
         <div class="card ">
             <!--begin::Card header-->
             <div class="card-header">
                 <h2 class="card-title fw-bold">
                     Randevu Takvimi
                 </h2>
-
             </div>
             <!--end::Card header-->
 
             <!--begin::Card body-->
-            <div class="card-body">
+            <div class="card-body" >
                 <div class="row">
                     @foreach($personels as $personel)
                         <div class="col-12 col-lg-3 mb-3">
@@ -159,5 +161,48 @@
         // 5 dakikada bir kontrol et
         setInterval(checkAppointments, 5 * 60 * 1000);
     </script>
+    <script>
+        function openFullScreen() {
+            // appointmentCalendar div'inin içeriğini al
+            var content = document.getElementById('appointmentCalendar').outerHTML;
 
+            // Sayfadaki tüm stil elemanlarını al
+            var styles = document.head.getElementsByTagName('style');
+            var links = document.head.getElementsByTagName('link');
+
+            // Pencerenin genişlik ve yüksekliğini al
+            var width = window.innerWidth;
+            var height = window.innerHeight + 30;
+
+            // Yeni bir pencere aç (tam ekran boyutunda)
+            var newWindow = window.open('', '', `width=${width},height=${height}`);
+            // Yeni pencereye içeriği yaz
+            newWindow.document.write('<html><head>');
+
+            var links = document.getElementsByTagName("link");
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i];
+                if (link.rel === "stylesheet") {
+                    newWindow.document.write('<link rel="stylesheet" type="text/css" href="' + link.href + '">');
+                }
+            }
+            newWindow.document.write('</head><body>');
+            newWindow.document.write(content);
+            newWindow.document.write('</body></html>');
+            newWindow.document.close(); // HTML dokümanını tamamla
+
+            // Yeni pencereyi tam ekran yap
+            newWindow.onload = function() {
+                if (newWindow.document.documentElement.requestFullscreen) {
+                    newWindow.document.documentElement.requestFullscreen();
+                } else if (newWindow.document.documentElement.mozRequestFullScreen) { // Firefox
+                    newWindow.document.documentElement.mozRequestFullScreen();
+                } else if (newWindow.document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                    newWindow.document.documentElement.webkitRequestFullscreen();
+                } else if (newWindow.document.documentElement.msRequestFullscreen) { // IE/Edge
+                    newWindow.document.documentElement.msRequestFullscreen();
+                }
+            };
+        }
+    </script>
 @endsection
