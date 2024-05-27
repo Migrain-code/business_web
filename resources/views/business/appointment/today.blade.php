@@ -52,7 +52,7 @@
                             <div class="card  bg-gray-100">
                                 <!--begin::Header-->
                                 <div class="card-header d-flex align-items-center justify-content-center flex-column border-0 mt-4">
-                                    <img src="{{image($personel->image)}}" class="w-60px h-60px rounded-circle"/>
+                                    <img src="{{image($personel->image)}}" class="w-60px h-60px rounded-circle" style="object-fit: cover"/>
 
                                     <h3 class="mt-2">
                                         <span class="fw-bold mb-1 text-dark">{{$personel->name}}</span>
