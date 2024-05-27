@@ -495,13 +495,13 @@ class AppointmentCreateController extends Controller
             $appointment->status = 0; // Onay bekliyor
         }
         if ($appointment->save()) {
-            return to_route('personel.appointments')->with('response',[
+            return to_route('personel.appointment.index')->with('response',[
                 'status' => "success",
                 'message' => "Randevunuz başarılı bir şekilde oluşturuldu",
             ]);
         }
 
-        return to_route('personel.appointments')->with('response',[
+        return to_route('personel.appointment.index')->with('response',[
             'status' => "error",
             'message' => "Bir hata sebebiyle randevunuz oluşturulamadı lütfen tekrar deneyiniz",
         ]);
