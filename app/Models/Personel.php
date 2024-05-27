@@ -123,7 +123,7 @@ class Personel extends Authenticatable
     }
     public function notificationMenu()
     {
-        return $this->hasMany(PersonelNotification::class, 'personel_id', 'id')->latest()->take(5);
+        return $this->hasMany(PersonelNotification::class, 'personel_id', 'id')->orderBy('created_at', 'desc')->take(10);
     }
 
     public function restDays()

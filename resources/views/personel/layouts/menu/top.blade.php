@@ -89,7 +89,7 @@
                              style="background-image:url('/business/assets/media/misc/menu-header-bg.jpg')">
                             <!--begin::Title-->
                             <h3 class="text-white fw-semibold px-9 mt-10 mb-6">
-                                Bildirimler <span class="fs-8 opacity-75 ps-3">{{authUser()->notifications->count()}} Bildiriminiz var</span>
+                                Bildirimler <span class="fs-8 opacity-75 ps-3">{{authUser()->notificationMenu->count()}} Bildiriminiz var</span>
                             </h3>
                             <!--end::Title-->
 
@@ -111,7 +111,7 @@
                             <div class="tab-pane fade show active" id="kt_topbar_notifications_1" role="tabpanel">
                                 <!--begin::Items-->
                                 <div class="scroll-y mh-325px my-5 px-8">
-                                    @forelse(authUser()->notifications as $notification)
+                                    @forelse(authUser()->notificationMenu as $notification)
                                         <!--begin::Item-->
                                         <div class="d-flex flex-stack py-4">
                                             <!--begin::Section-->

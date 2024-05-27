@@ -105,5 +105,21 @@
     });
 </script>
 <script src="/business/assets/js/custom.js"></script>
+<script>
+    function checkNotifications() {
+        const now = new Date();
+        const endTimeElements = document.querySelectorAll('.endTime');
 
+        endTimeElements.forEach(function(element) {
+
+        });
+
+    }
+
+    // İlk kontrol
+    checkNotifications();
+
+    // 5 dakikada bir kontrol et
+    setInterval(checkNotifications, 5 * 60 * 1000);
+</script>
 @yield('scripts')
