@@ -104,7 +104,7 @@
                                         <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                             <input class="form-check-input serviceChecks w-25px h-25px" name="services[]" type="checkbox" value="{{$subService["id"]}}">
                                         </div>
-                                        <span>{{$subService["name"] ." - "}} <b class="servicePrices" data-price="{{$subService["price"]}}">{{formatPrice($subService["price"])}}</b></span>
+                                        <span>{{$subService["name"] ." - "}} <b class="servicePrices" data-price="{{$subService["price"]}}">{{$subService["price"]}} TL</b></span>
 
                                     </div>
                                 @endforeach
@@ -139,7 +139,7 @@
                                         <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                             <input class="form-check-input serviceChecks w-25px h-25px" name="services[]" type="checkbox" value="{{$subService["id"]}}">
                                         </div>
-                                        <span>{{$subService["name"] ." - "}} <b class="servicePrices" data-price="{{$subService["price"]}}">{{formatPrice($subService["price"])}}</b></span>
+                                        <span>{{$subService["name"] ." - "}} <b class="servicePrices" data-price="{{$subService["price"]}}">{{$subService["price"]}} TL</b></span>
 
                                     </div>
                                 @endforeach
@@ -172,7 +172,7 @@
                                         <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                             <input class="form-check-input serviceChecks w-25px h-25px" name="services[]" type="checkbox" value="{{$subService["id"]}}">
                                         </div>
-                                        <span>{{$subService["name"] ." - ". formatPrice($subService["price"])}}</span>
+                                        <span>{{$subService["name"] ." - "}} <b class="servicePrices" data-price="{{$subService["price"]}}">{{$subService["price"]}} TL</b></span>
 
                                     </div>
                                 @endforeach
