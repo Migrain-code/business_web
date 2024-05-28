@@ -131,6 +131,11 @@ class Personel extends Authenticatable
         return $this->hasMany(PersonelRestDay::class, 'personel_id', 'id')->where('status', 1);
     }
 
+    public function rooms()
+    {
+        return $this->hasMany(PersonelRoom::class, 'personel_id', 'id');
+    }
+
     public function restDayAll()
     {
         return $this->hasMany(PersonelRestDay::class, 'personel_id', 'id');

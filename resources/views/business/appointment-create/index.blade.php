@@ -170,8 +170,19 @@
 
 
         function getPersonel(){
+            var rooms = $('input[name="room_id"]');
+            var selectedRoomId = null;
+
+            if (rooms.length > 0) {
+                let selectedInput = $('input[name="room_id"]:checked');
+                if(selectedInput.length > 0){
+                    selectedRoomId = selectedInput.val();
+                }
+            }
+
             var formData = new FormData();
             formData.append("_token", csrf_token);
+            formData.append("selectedRoomId", selectedRoomId);
             var inputs = document.querySelectorAll('input[name="services[]"]');
             var selectedServiceCount = 0;
             if (inputs.length > 0) {

@@ -11,11 +11,14 @@ use App\Http\Resources\Business\BusinessServiceResource;
 use App\Http\Resources\Customer\CustomerListResource;
 use App\Models\Appointment;
 use App\Models\AppointmentServices;
+use App\Models\Business;
 use App\Models\BusinessCustomer;
+use App\Models\BusinessRoom;
 use App\Models\BusinessService;
 use App\Models\Customer;
 use App\Models\CustomerNotificationPermission;
 use App\Models\Personel;
+use App\Models\PersonelRoom;
 use App\Services\Sms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -66,18 +69,35 @@ class AppointmentCreateController extends Controller
      */
     public function getPersonel(Request $request)
     {
+        $roomPersonelIds = [];
         $getData = $request->services;
+
 
         $ap_services = [];
         foreach ($getData as $id) {
             $service = BusinessService::find($id);
+            $business = Business::find($service->business_id);
+            $selectedRoomId = $request->input('selectedRoomId');
+            if ($request->has('selectedRoomId') && $selectedRoomId != "null"){
+                $roomPersonelIds = PersonelRoom::where('business_id', $business->id)->where('room_id', $request->input('selectedRoomId'))->pluck('personel_id')->toArray();
+            }
             $servicePersonels = [];
             foreach ($service->personels as $item) {
                 if ($item->personel && $item->personel->status == 1) {
-                    $servicePersonels[] = [
-                        'id' => $item->personel?->id . "_" . $service->id,
-                        'name' => $item->personel?->name,
-                    ];
+                    if ($request->filled('selectedRoomId') && $selectedRoomId != "null"){
+                        if (in_array($item->personel->id, $roomPersonelIds)){
+                            $servicePersonels[] = [
+                                'id' => $item->personel?->id . "_" . $service->id,
+                                'name' => $item->personel?->name,
+                            ];
+                        }
+                    } else{
+                        $servicePersonels[] = [
+                            'id' => $item->personel?->id . "_" . $service->id,
+                            'name' => $item->personel?->name,
+                        ];
+                    }
+
                 }
 
             }

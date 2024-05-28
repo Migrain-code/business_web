@@ -16,6 +16,7 @@ use App\Models\Personel;
 use App\Models\PersonelNotification;
 use App\Models\PersonelNotificationPermission;
 use App\Models\PersonelRestDay;
+use App\Models\PersonelRoom;
 use App\Models\PersonelService;
 use App\Models\PersonelStayOffDay;
 use App\Services\Sms;
@@ -217,7 +218,18 @@ class PersonelController extends Controller
                 ]);
             }
         }
+        if($request->has('salons')){
+           $personel->rooms()->delete();
 
+           foreach ($request->salons as $salonId){
+               $personelRoom = new PersonelRoom();
+               $personelRoom->business_id = $this->business->id;
+               $personelRoom->personel_id = $personel->id;
+               $personelRoom->room_id = $salonId;
+               $personelRoom->save();
+           }
+
+        }
         $personel->business_id = $this->business->id;
         $personel->name = $request->input('name');
         $personel->email = $request->email;
@@ -459,7 +471,9 @@ class PersonelController extends Controller
         $services = $this->business->services;
         $ranges = AppointmentRange::all();
         $types = BusinnessType::all();
-        return view('business.personel.edit.setting.index', compact('personel', 'insideBalance', 'dayList', 'services', 'ranges', 'types'));
+        $roomIds = $personel->rooms()->pluck('room_id')->toArray();
+
+        return view('business.personel.edit.setting.index', compact('personel', 'insideBalance', 'dayList', 'services', 'ranges', 'types', 'roomIds'));
     }
 
     public function paymentsAdd(PersonelCostAddRequest $request, Personel $personel)

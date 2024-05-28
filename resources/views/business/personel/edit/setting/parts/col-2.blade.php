@@ -156,6 +156,26 @@
                 </div>
                 @endcan
                 <!--end::Input group-->
+
+                @if($personel->business->rooms->where('status', 1)->count() > 0)
+                    <div class="mb-4 fv-row">
+                        <!--begin::Label-->
+                        <label class="required form-label">Salon</label>
+                        <!--end::Label-->
+
+                        <!--begin::Select2-->
+                        <select class="form-select mb-2" name="salons[]" multiple data-control="select2" data-placeholder="Salon Seçiniz"
+                                data-allow-clear="true">
+                            <option value=""></option>
+                            <option value="0" @selected(in_array(0, $roomIds))>Salon</option>
+                            @foreach($personel->business->rooms as $room)
+                                <option value="{{$room->id}}" @selected(in_array($room->id, $roomIds))>{{$room->name}}</option>
+                            @endforeach
+                        </select>
+                        <!--end::Select2-->
+                    </div>
+                @endif
+
                 <!--begin::Input group-->
                 <div class="mb-4 fv-row">
                     <!--begin::Label-->

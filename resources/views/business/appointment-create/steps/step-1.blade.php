@@ -11,7 +11,7 @@
                         <div class="d-flex align-items-center me-2">
                             <!--begin::Radio-->
                             <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
-                                <input class="form-check-input roomCheckBox" data-discount="0" type="radio" checked name="room_id" value=""/>
+                                <input class="form-check-input roomCheckBox" data-discount="0" type="radio" checked name="room_id" value="0"/>
                             </div>
                             <!--end::Radio-->
 
