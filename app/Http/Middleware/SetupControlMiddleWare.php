@@ -36,6 +36,27 @@ class SetupControlMiddleWare
                        'status' => "warning",
                        'message' => "İlk Kayıt Süreniz Doldu. Bir abonelik paketi seçmeden sistemi kullanmaya devam edemezsiniz."
                     ]);
+                } else{
+
+                    if (isset($user->package) && $user->packet_end_date < now()){
+                        if ($request->routeIs('business.subscription.index')){
+                            return $next($request);
+                        }
+                        $user->package_id = 1;
+                        $user->packet_start_date = now();
+                        $user->packet_end_date = now()->addDays(30);
+                        $user->save();
+
+                        $authUser->setPermission(1);
+                        return to_route('business.subscription.index')->with('response', [
+                            'status' => "warning",
+                            'message' => "Paket Kullanım Süreniz Doldu. Otomatik olarak ücretsiz pakete geçildi."
+                        ]);
+                    }
+                    else{
+                        return $next($request);
+                    }
+
                 }
                 /*if ($user->personels->count() > 0 && $user->services->count() > 0){
                     if ($request->routeIs('business.setup.*') || $request->routeIs('business.payment.*') || $request->routeIs('business.detailSetup.*')) {

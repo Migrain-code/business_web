@@ -10,6 +10,7 @@ use App\Services\E_Invoice;
 use App\Services\Iyzico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class PaymentController extends Controller
 {
@@ -47,6 +48,7 @@ class PaymentController extends Controller
             $business->packet_end_date = now()->addDays($packet->type == 0 ? 30 : 365);
             $business->save();
 
+            $user->setPermission($packet->id);
             return to_route('business.packet.payment.success', ['order-no' => $packetOrder->id]);
         }
         return to_route('business.packet.payment.fail');

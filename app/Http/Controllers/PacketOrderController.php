@@ -44,7 +44,8 @@ class PacketOrderController extends Controller
             $business->packet_start_date = now();
             $business->packet_end_date = now()->addDays($packet->type == 0 ? 30 : 365);
             $business->save();
-
+            $user = $this->user;
+            $user->setPermission($packet->id);
             return to_route('business.home')->with('response', [
                'status' => "success",
                'message' => "Ücretsiz Paket Seçimi Yaptığınız için ödeme yapmayacaksınız"
@@ -83,6 +84,8 @@ class PacketOrderController extends Controller
                         $business->packet_start_date = now();
                         $business->packet_end_date = now()->addDays($packet->type == 0 ? 30 : 365);
                         $business->save();
+                        $user = $this->user;
+                        $user->setPermission($packet->id);
                         Session::forget('coupon');
                         return to_route('business.home')->with('response', [
                             'status' => "success",

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -99,5 +100,18 @@ class BusinessOfficial extends Authenticatable
                 ";
         $notification->link = uniqid();
         $notification->save();
+    }
+
+    public function setPermission($roleId)
+    {
+        $role = Role::findById($roleId);
+        $permissions = $this->permissions;
+        foreach ($permissions as $permission) {
+            $this->revokePermissionTo($permission->name);
+        }
+        $rolePermissions = $role->permissions;
+        foreach ($rolePermissions as $permission) {
+            $this->givePermissionTo($permission->name);
+        }
     }
 }
