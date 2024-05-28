@@ -183,6 +183,8 @@
                                         <!--begin::Time-->
                                         <div class="fs-7 mb-1">
                                             ${item.clock}
+                                            <span style="color: ${item.salon_color}">(${item.salon})</span>
+
 
                                         </div>
                                         <!--end::Time-->

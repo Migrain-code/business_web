@@ -154,6 +154,8 @@ class HomeController extends Controller
                     'customer' => $isBooked ? CustomerDetailResource::make($appointmentDetails->appointment->customer) : "",
                     'route' => $isBooked ? route('personel.appointment.show', $appointmentDetails->appointment_id) : '',
                     'status' => $isBooked,
+                    'salon' => isset($appointmentDetails->appointment->room) ? $appointmentDetails->appointment->room->name : "Salon",
+                    'salon_color' => isset($appointmentDetails->appointment->room) ? $appointmentDetails->appointment->room->color : "#009ef7",
                     'color_code' => $isBooked ? $appointmentDetails->status('color_code') : 'primary',
                 ];
             }
