@@ -157,7 +157,7 @@ class AppointmentController extends Controller
     public function datatable(Request $request)
     {
         $business = $this->business;
-        $appointments = $business->appointments()->whereNotIn('status', [4,5,6])->get();
+        $appointments = $business->appointments()->has('customer')->whereNotIn('status', [4,5,6])->get();
 
         return DataTables::of($appointments)
             ->addColumn('customerName', function ($q) use ($business) {
