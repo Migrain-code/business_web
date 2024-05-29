@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Business\Gallery;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Gallery\GalleryAddRequest;
-use App\Http\Resources\Gallery\GalleryListResource;
+use Illuminate\Support\Facades\Storage;
 use App\Models\BusinessGallery;
 use App\Services\UploadFile;
+use Intervention\Image\Laravel\Facades\Image;
+
 
 /**
  * @group BusinessGallery
@@ -49,10 +51,9 @@ class GalleryController extends Controller
         if ($percentageUsed != 100){
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
-                $response = UploadFile::uploadFile($request->file('image'), 'business_galleries');
                 $businessGallery = new BusinessGallery();
                 $businessGallery->business_id = $this->business->id;
-                $businessGallery->way = $response["image"]["way"];
+                $businessGallery->way = $this->insertFiligran($file);
                 $businessGallery->byte = $file->getSize();
                 $businessGallery->name = $this->business->name . "_" . $this->business->gallery->count();
                 $businessGallery->save();
@@ -75,6 +76,29 @@ class GalleryController extends Controller
 
     }
 
+    public function insertFiligran($file)
+    {
+        $fileName = $file->getClientOriginalName();
+        $img = Image::read($file);
+
+        $img->place(
+            public_path('/business/assets/media/logos/filigran_logo.png'),
+            'center',
+            10,
+            10,
+            30
+        );
+        $tempPath = 'temp/' . uniqid().".webp";
+
+        $img->save(storage_path('app/' . $tempPath));
+        $tempFile = new \Illuminate\Http\File(storage_path('app/' . $tempPath));
+
+        // Geçici dosyayı yükleme sınıfına gönder
+        $response = UploadFile::uploadFile($tempFile, 'business_galleries', $fileName);
+        // Geçici dosyayı sil
+        Storage::delete($tempPath);
+        return $response["image"]["way"];
+    }
     /**
      * Görsel Silme
      *
