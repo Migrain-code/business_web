@@ -97,7 +97,7 @@
                                                         <div class="fw-bold text-muted">{{$appointment->appointment->customer->name}}</div>
                                                         <div class="fw-bold">{{$appointment->service->subCategory->name}} </div>
 
-                                                        @if(isset($appointment->appointment->room_id))
+                                                        @if(isset($appointment->appointment->room_id) && $appointment->appointment->room_id > 0)
                                                             <div class="fw-semibold" style="color: {{$appointment->appointment->room->color}}">{{$appointment->appointment->room->name}}</div>
 
                                                         @endif
