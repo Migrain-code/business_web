@@ -495,7 +495,7 @@ class AppointmentCreateController extends Controller
             $appointment->status = 0; // Onay bekliyor
         }
         if ($appointment->save()) {
-            $message = $business->name. " İşletmesine". $appointment->start_time. " tarihine randevunuz oluşturuldu.";
+            $message = $business->name. " İşletmesine ". $appointment->start_time->format('d.m.Y H:i'). " tarihine randevunuz oluşturuldu.";
             $appointment->customer->sendSms($message);
             return to_route('personel.appointment.index')->with('response',[
                 'status' => "success",
