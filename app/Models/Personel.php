@@ -80,6 +80,7 @@ use Illuminate\Support\Carbon;
 class Personel extends Authenticatable
 {
     use HasFactory, Notifiable;
+
     public function business()
     {
         return $this->hasOne(Business::class, 'id', 'business_id');
@@ -104,6 +105,7 @@ class Personel extends Authenticatable
     {
         return $this->hasMany(BusinessCost::class, 'personel_id', 'id');
     }
+
     public function priceList()
     {
         return $this->hasMany(PersonelCustomerPriceList::class, 'personel_id', 'id');
@@ -113,14 +115,17 @@ class Personel extends Authenticatable
     {
         return $this->priceList()->where('business_service_id', $serviceId)->first();
     }
+
     public function permission()
     {
         return $this->hasOne(PersonelNotificationPermission::class, 'personel_id', 'id');
     }
+
     public function notifications()
     {
         return $this->hasMany(PersonelNotification::class, 'personel_id', 'id')->orderBy('created_at')->take(5);
     }
+
     public function notificationMenu()
     {
         return $this->hasMany(PersonelNotification::class, 'personel_id', 'id')->orderBy('created_at', 'desc')->take(10);
@@ -182,6 +187,7 @@ class Personel extends Authenticatable
     {
         return $this->totalServicePrice() + $this->totalSalePrice();
     }
+
     public function getMonthlyPackageSales()
     {
         $sales = [];
@@ -208,16 +214,14 @@ class Personel extends Authenticatable
     public function checkDateIsOff($getDate)
     {
         // stayOffDays ilişkisini kullanarak izin tarihlerini alıyoruz.
-        $getDate = Carbon::parse($getDate);
-        $offDays = $this->stayOffDays;
-
+        $getDate = Carbon::parse($getDate)->format('Y-m-d');
+        $offDays = $this->stayOffDays();
         if ($offDays->count() > 0) {
-            foreach ($offDays as $day) {
-                $startTime = Carbon::parse($day->start_time);
-                $endTime = Carbon::parse($day->end_time);
-                if ($getDate >= $startTime && $getDate <= $endTime) {
-                    return true;
-                }
+            $existLeave = $offDays->whereDate('start_time', '<=', $getDate)
+                ->whereDate('end_time', '>=', $getDate)
+                ->first();
+            if ($existLeave) {
+                return true;
             }
         }
         // Eğer tarih izin tarihleri arasında değilse,false döndürüyoruz.
@@ -260,8 +264,7 @@ class Personel extends Authenticatable
                 $q->whereBetween('seller_date', [$startOfYear, $endOfYear]);
             } elseif ($request->listType == "thisDay") {
                 $q->whereDate('created_at', now()->toDateString());
-            }
-            else {
+            } else {
                 $q->whereDate('seller_date', now()->subDays(1)->toDateString());
             }
         })->sum('total');
@@ -280,8 +283,7 @@ class Personel extends Authenticatable
                 $q->whereBetween('start_time', [$startOfYear, $endOfYear]);
             } elseif ($request->listType == "thisDay") {
                 $q->whereDate('created_at', now()->toDateString());
-            }
-            else {
+            } else {
                 $q->whereDate('start_time', now()->subDays(1)->toDateString());
             }
         })->get();
@@ -293,6 +295,7 @@ class Personel extends Authenticatable
         return $productPrice + $servicePrice + $packagePrice;
 
     }
+
     public function totalBalance($request = null)//toplam cirosu yani satışları
     {
         $productPrice = $this->sales()->when(filled($request), function ($q) use ($request) {
@@ -329,8 +332,7 @@ class Personel extends Authenticatable
                 $q->whereBetween('seller_date', [$startOfYear, $endOfYear]);
             } elseif ($request->listType == "thisDay") {
                 $q->whereDate('created_at', now()->toDateString());
-            }
-            else {
+            } else {
                 $q->whereDate('seller_date', now()->subDays(1)->toDateString());
             }
         })->sum('total');
@@ -349,8 +351,7 @@ class Personel extends Authenticatable
                 $q->whereBetween('start_time', [$startOfYear, $endOfYear]);
             } elseif ($request->listType == "thisDay") {
                 $q->whereDate('created_at', now()->toDateString());
-            }
-            else {
+            } else {
                 $q->whereDate('start_time', now()->subDays(1)->toDateString());
             }
         })->get();
