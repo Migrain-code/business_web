@@ -89,6 +89,7 @@
         });
     </script>
     <script>
+        var appointmentCreateRoute = '{{route('personel.appointmentCreate.index')}}'
         $(document).ready(function (){
             var targetNavItem = document.querySelector('.clickedDate.active');
 
@@ -152,8 +153,6 @@
                                         <!--begin::Time-->
                                         <div class="fs-7 mb-1">
                                             ${item.clock}
-                                            <span style="color: ${item.salon_color}">(${item.salon})</span>
-
 
                                         </div>
                                         <!--end::Time-->
@@ -167,6 +166,9 @@
 
                                     </div>
                                     <!--end::Info-->
+                                    <!--begin::Action-->
+                                    <a href="${appointmentCreateRoute}" class="btn btn-light bnt-active-light-primary btn-sm">Randevu Al</a>
+                                    <!--end::Action-->
                                 </div>
                                 <!--end::Time-->
 
@@ -187,6 +189,7 @@
                                         <!--begin::Time-->
                                         <div class="fs-7 mb-1">
                                             ${item.clock}
+                                            <span style="color: ${item.salon_color}">(${item.salon})</span>
 
                                         </div>
                                         <!--end::Time-->
