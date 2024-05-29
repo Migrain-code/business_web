@@ -107,7 +107,7 @@ class AppointmentServices extends Model
             return formatPrice($service->price). " - ". formatPrice($service->max_price);
         } else{
             if ($this->total > 0){
-                if (isset($this->appointment->room_id)) {
+                if (isset($this->appointment->room_id) && $this->appointment->room_id > 0) {
                     $room = $this->appointment->room;
                     if ($room->increase_type == 0) { // tl fiyat arttırma
                         $servicePrice = $this->total + $room->price;
@@ -118,7 +118,7 @@ class AppointmentServices extends Model
                     $servicePrice = $this->total;
                 }
             } else{
-                if (isset($this->appointment->room_id)) {
+                if (isset($this->appointment->room_id) && $this->appointment->room_id > 0) {
                     $room = $this->appointment->room;
                     if ($room->increase_type == 0) { // tl fiyat arttırma
                         $servicePrice = $service->price + $room->price;
