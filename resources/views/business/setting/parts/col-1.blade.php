@@ -1,4 +1,4 @@
-<div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
+<div class="d-flex flex-column gap-7 gap-lg-10 w-100 mb-7 me-lg-10">
     <!--begin::Thumbnail settings-->
     <div class="card card-flush py-4">
         <!--begin::Card header-->
@@ -150,10 +150,10 @@
             <label class="form-label">Kapalı Gün</label>
 
             <!--begin::Select2-->
-            <select class="form-select mb-2" name="off_day" data-control="select2" data-placeholder="İzin Günü Seçiniz">
+            <select class="form-select mb-2" name="off_day" data-control="select2" data-placeholder="İzin Günü Seçiniz" data-allow-clear="true">
                 <option></option>
                 @foreach($dayList as $day)
-                    <option value="{{$day->id}}" @selected($day->id == $business->off_day)>{{$day->name}}</option>
+                    <option value="{{$day->id}}" @selected(isset($business->off_day) ? $day->id == $business->off_day : false)>{{$day->name}}</option>
                 @endforeach
             </select>
             <!--end::Select2-->

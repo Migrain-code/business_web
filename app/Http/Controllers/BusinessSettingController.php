@@ -35,6 +35,7 @@ class BusinessSettingController extends Controller
 
     public function updateInfo(BusinessInfoUpdateRequest $request)
     {
+
         $business = $this->business;
         $business->category_id = $request->input('category_id');
         $business->personal_count = $request->input('team_size');

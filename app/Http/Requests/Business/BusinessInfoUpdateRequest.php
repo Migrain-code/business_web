@@ -27,7 +27,7 @@ class BusinessInfoUpdateRequest extends FormRequest
     {
         return [
             "approve_type" => 'required',
-            "off_day" => 'required',
+            //"off_day" => 'required',
             "start_time" => 'required',
             "end_time" => 'required',
             "name" => 'required',
@@ -48,7 +48,7 @@ class BusinessInfoUpdateRequest extends FormRequest
     {
         return [
             "approve_type" =>"Randevu Onay Türü",
-            "off_day" => "Kapalı Gün",
+            //"off_day" => "Kapalı Gün",
             "start_time" => "Mesai Başlangıç Saati",
             "end_time" => "Mesai Bitiş Saati",
             "name" => "İşletme Adı",
