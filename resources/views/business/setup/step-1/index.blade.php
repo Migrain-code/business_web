@@ -157,7 +157,7 @@
 
                 document.getElementById('latitude').value = latitude;
                 document.getElementById('longitude').value = longitude;
-                console.log('tıklanan lat '+ latitude +" tıklanan long : "+ longitude)
+
             });
 
             // Sayfa yüklendiğinde işletme konumu veya varsayılan konumu göster
@@ -201,8 +201,7 @@
 
                     document.getElementById('latitude').value = latitude;
                     document.getElementById('longitude').value = longitude;
-                    console.log('tıklanan lat '+ latitude +" tıklanan long : "+ longitude)
-
+                    addEmbed(latitude, longitude);
                     reverseGeocode(latitude, longitude);
                     marker = new google.maps.Marker({
                         map: map,
@@ -224,7 +223,7 @@
             var embedUrl = `https://www.google.com/maps/embed/v1/place?q=${latitude},${longitude}&key=AIzaSyBcMXrk2ldIslFsanG5wUm5EuuTjkLfl8U`;
             var embed = `<iframe width="350" height="350" frameborder="0" style="border:0;border-radius: 15px"
                     src="${embedUrl}" allowfullscreen></iframe>`
-            $('#embed').text(embed);
+            $('#embed').val(embed);
 
         }
         function reverseGeocode(latitude, longitude) {
