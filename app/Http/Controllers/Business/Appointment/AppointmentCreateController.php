@@ -413,27 +413,55 @@ class AppointmentCreateController extends Controller
 
     }
 
-    /**
-     *
-     * Randevu Özeti
-     * @param Request $request
-     * @return void
-     */
-    public function summary(AppointmentSummaryRequest $request)
+    public function checkClock(Request $request)
     {
-        $user = $request->user();
-        $business = $user->business;
-        $customer = $business->customers()->where('customer_id', $request->customer_id)->first();
-        $businessServices = $business->services()->whereIn('id', $request->services)->get();
+        $appointmentStartTime = Carbon::parse($request->appointment_time);
+        $appointmentId = rand(100000, 999999);
+        foreach ($request->services as $index => $serviceId) {
+            $findService = BusinessService::find($serviceId);
+            $appointmentService = new AppointmentServices();
+            $appointmentService->personel_id = $request->personels[$index];
+            $appointmentService->service_id = $serviceId;
+            $appointmentService->start_time = $appointmentStartTime;
+            $appointmentService->end_time = $appointmentStartTime->addMinutes($findService->time)->format('Y-m-d H:i:s');
+            $appointmentService->appointment_id = $appointmentId;
+            //$appointmentService->save();
 
+            /**------------------Saat Kontrolü------------------*/
+
+            if ($this->checkPersonelClock($request->personels[$index], $appointmentService->start_time, $appointmentService->end_time)){
+                return response()->json([
+                    'status' => "error",
+                    'message' => "Seçtiğiniz saate " . $findService->time . " dakikalık hizmet seçtiniz. Bu saate randevu alamazsınız. Başka bir saat seçmelisiniz."
+                ]);
+            }
+
+        }
         return response()->json([
-            'customer' => CustomerListResource::make($customer),
-            'appointmentDate' => $request->times[0],
-            'services' => BusinessServiceResource::collection($businessServices),
-            'total' => $businessServices->sum('price'),
+           'status' => "success",
+           'message' => "Saat seçim işleminiz onaylandı. Müşteri Seçebilirsiniz"
         ]);
-    }
+        /*if ($this->checkPersonelClock($request->personel_id, $appointmentService->start_time, $appointmentService->end_time, $appointment->id)) {
 
+        }*/
+    }
+    public function checkPersonelClock($personelId, $startTime, $endTime)
+    {
+        $findPersonel = Personel::find($personelId);
+        $disabledTimes = $this->findTimes($findPersonel, null);
+        $disableds = [];
+        $currentDateTime = $startTime->copy();
+        while ($currentDateTime < $endTime) {
+            $disableds[] = $currentDateTime->format('d.m.Y H:i');
+            $currentDateTime->addMinutes(intval($findPersonel->appointmentRange->time));
+        }
+        foreach ($disableds as $disabledTime){
+            if (in_array($disabledTime, $disabledTimes)){
+                return true;
+            }
+        }
+        return false;
+    }
     public function findTimes($personel, $room_id)
     {
         $disableds = [];
@@ -442,8 +470,8 @@ class AppointmentCreateController extends Controller
         $appointments = $personel->appointments()->whereNotIn('status', [3])->get();
 
         foreach ($appointments as $appointment) {
-            $startDateTime = Carbon::parse($appointment->start_time);
-            $endDateTime = Carbon::parse($appointment->end_time);
+            $startDateTime = $appointment->start_time;
+            $endDateTime = $appointment->end_time;
 
             $currentDateTime = $startDateTime->copy();
             while ($currentDateTime < $endDateTime) {
@@ -458,7 +486,7 @@ class AppointmentCreateController extends Controller
         $startTime = Carbon::parse($personel->start_time);
         $endTime = Carbon::parse($personel->end_time);
         for ($i=$startTime;  $i < $endTime; $i->addMinutes(intval($personel->appointmentRange->time))){
-            if ($i < now()->addMinutes(30)){
+            if ($i < now()->addMinutes(1)){
                 $disableds[] = $i->format('d.m.Y H:i');
             }
         }
