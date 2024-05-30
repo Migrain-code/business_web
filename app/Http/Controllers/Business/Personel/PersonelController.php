@@ -121,7 +121,7 @@ class PersonelController extends Controller
         }
         $personel->range = $request->range;
         $personel->description = $request->description;
-        $personel->rest_day = $request->restDay[0];
+        $personel->rest_day = 0;
         $dayList = DayList::all();
 
         if ($request->hasFile('avatar')) {
@@ -134,7 +134,7 @@ class PersonelController extends Controller
                 $restDay = new PersonelRestDay();
                 $restDay->personel_id = $personel->id;
                 $restDay->day_id = $day->id;
-                $restDay->status = in_array($day->id, $request->restDay) ? 1 : 0;
+                $restDay->status = isset($request->restDay) ? in_array($day->id, $request->restDay) ? 1 : 0 : 0;
                 $restDay->save();
             }
 
@@ -255,14 +255,19 @@ class PersonelController extends Controller
         }
         $personel->range = $request->range;
         $personel->description = $request->description;
-        $personel->rest_day = $request->restDay[0];
+        $personel->rest_day = 0;
         $personel->safe_gender = $request->input('is_case_gender');
         if ($request->hasFile('avatar')) {
             $response = UploadFile::uploadFile($request->file('avatar'), 'personel_images');
             $personel->image = $response["image"]["way"];
         }
         if ($personel->save()) {
-            $this->saveRestDay($personel, $request->restDay);
+            if (isset($request->restDay)){
+                $this->saveRestDay($personel, $request->restDay);
+            } else{
+                $this->saveRestDay($personel, []);
+            }
+
             return to_route('business.personel.setting', $personel->id)->with('response', [
                 'status' => "success",
                 'message' => "Personel Bilgileri Güncellendi",
@@ -291,6 +296,7 @@ class PersonelController extends Controller
     {
         $this->checkDayControl($personel);
         $personel->restDayAll()->update(['status' => 0]);
+
         foreach ($restDayId as $day_id) {
             $restDay = $personel->restDayAll()->where('day_id', $day_id)->first();
             if ($restDay) {

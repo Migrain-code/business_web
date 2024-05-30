@@ -71,14 +71,18 @@ class PersonelSettingController extends Controller
         $personel->gender = $request->gender_type;
         $personel->range = $request->range;
         $personel->description = $request->description;
-        $personel->rest_day = $request->restDay[0];
+        $personel->rest_day = 0;
 
         if ($request->hasFile('avatar')) {
             $response = UploadFile::uploadFile($request->file('avatar'), 'personel_images');
             $personel->image = $response["image"]["way"];
         }
         if ($personel->save()) {
-            $this->saveRestDay($personel, $request->restDay);
+            if (isset($request->restDay)){
+                $this->saveRestDay($personel, $request->restDay);
+            } else{
+                $this->saveRestDay($personel, []);
+            }
             $this->saveService($personel, $request->services);
             return to_route('personel.settings', $personel->id)->with('response', [
                 'status' => "success",
@@ -90,6 +94,7 @@ class PersonelSettingController extends Controller
 
     public function saveRestDay($personel, $restDayId):void
     {
+
         $this->checkDayControl($personel);
         $personel->restDayAll()->update(['status' => 0]);
         foreach ($restDayId as $day_id){
