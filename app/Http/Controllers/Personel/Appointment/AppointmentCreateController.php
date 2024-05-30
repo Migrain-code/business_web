@@ -426,7 +426,7 @@ class AppointmentCreateController extends Controller
             }
         }
         $business = $personel->business;
-        if (isset($room_id)){
+        if (isset($room_id) && $room_id > 0){
             // oda tipi seçilmşse o odadaki randevuları al ve disabled dizisine ata
             $appointmentsBusiness = $business->appointments()->where('room_id', $room_id)->whereNotIn('status', [3])->get();
             foreach ($appointmentsBusiness as $appointment) {

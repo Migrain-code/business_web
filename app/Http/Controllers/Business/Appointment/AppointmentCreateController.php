@@ -296,7 +296,7 @@ class AppointmentCreateController extends Controller
                         if ($personel->checkDateIsOff($getDate)) {
                             return response()->json([
                                 "status" => "error",
-                                "message" => 'Personel bu tarihte hizmet vermemektedir',
+                                "message" => "Personel bu tarihte hizmet vermemektedir"
                             ], 200);
                         } else {
                             //tüm koşullar sağlanmış ise personel saat takvimi
@@ -438,7 +438,7 @@ class AppointmentCreateController extends Controller
     {
         $disableds = [];
 
-            // personelin dolu randevu saatlerini al iptal edilmişleri de dahil et
+        // personelin dolu randevu saatlerini al iptal edilmişleri de dahil et
         $appointments = $personel->appointments()->whereNotIn('status', [3])->get();
 
         foreach ($appointments as $appointment) {
@@ -458,12 +458,12 @@ class AppointmentCreateController extends Controller
         $startTime = Carbon::parse($personel->start_time);
         $endTime = Carbon::parse($personel->end_time);
         for ($i=$startTime;  $i < $endTime; $i->addMinutes(intval($personel->appointmentRange->time))){
-            if ($i < now()->addMinutes(5)){
+            if ($i < now()->addMinutes(30)){
                 $disableds[] = $i->format('d.m.Y H:i');
             }
         }
         $business = $personel->business;
-        if (isset($room_id)){
+        if (isset($room_id) && $room_id > 0){
             // oda tipi seçilmşse o odadaki randevuları al ve disabled dizisine ata
             $appointmentsBusiness = $business->appointments()->where('room_id', $room_id)->whereNotIn('status', [3])->get();
             foreach ($appointmentsBusiness as $appointment) {

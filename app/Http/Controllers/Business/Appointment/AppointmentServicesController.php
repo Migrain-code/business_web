@@ -149,7 +149,7 @@ class AppointmentServicesController extends Controller
         // Get all appointments for the given date
         $appointments = $personel->appointments()
             ->whereDate('start_time', $getDate)
-            ->whereNotIn('status', [3])
+            //->whereNotIn('status', [3])
             ->orderBy('start_time')
             ->get();
 
