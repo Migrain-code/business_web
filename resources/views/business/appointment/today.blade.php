@@ -94,7 +94,7 @@
                                                 <div class="timeline-content d-flex align-items-center">
 
                                                     <div class="col-8 ms-2">
-                                                        <div class="fw-bold text-muted">{{$appointment->appointment->customer->name}}</div>
+                                                        <div class="fw-bold text-gray-700">{{$appointment->appointment->customer->name}}</div>
                                                         <div class="fw-bold">{{$appointment->service->subCategory->name}} </div>
 
                                                         @if(isset($appointment->appointment->room_id) && $appointment->appointment->room_id > 0)
