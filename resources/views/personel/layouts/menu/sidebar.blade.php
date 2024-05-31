@@ -3,7 +3,7 @@
     <!--begin::Logo-->
     <div class="app-sidebar-logo ps-3" id="kt_app_sidebar_logo">
         <a href="{{route('personel.home')}}">
-            <img alt="Logo" src="{{image(setting('business_logo_white'))}}" class="h-25px app-sidebar-logo-default" />
+            <img alt="Logo" src="{{image(setting('business_logo_white'))}}" class="h-20px app-sidebar-logo-default" />
             <img alt="Logo" src="/business/assets/media/logos/minimize-logo.svg" class="h-30px app-sidebar-logo-minimize" />
         </a>
         <!--end::Logo image-->
