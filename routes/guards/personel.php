@@ -31,6 +31,7 @@ Route::prefix('personel')->as('personel.')->group(function (){
             Route::post('get/personel', 'getPersonel');
             Route::get('get/date', 'getDate');
             Route::post('get/clock', 'getClock');
+            Route::post('check/clock', 'checkClock');
             Route::post('/store', 'appointmentCreate')->name('store');
             Route::post('/summary', 'summary');
         });

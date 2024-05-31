@@ -465,6 +465,7 @@ class AppointmentCreateController extends Controller
         }
         return $disabledTimes;
     }
+
     public function checkPersonelClock($personelId, $startTime, $endTime)
     {
 

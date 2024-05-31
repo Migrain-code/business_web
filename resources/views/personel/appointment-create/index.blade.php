@@ -434,10 +434,58 @@
                     icon: 'error',
                 });
                 stepper.currentStepIndex = 2;
+            } else{
+                checkClock(checkedInputs[0].value)
             }
 
         }
+        function checkClock(getDate){
+            var inputs = document.querySelectorAll('input[name="services[]"]');
+            var formData = new FormData();
+            formData.append("_token", csrf_token);
+            var selectedServiceCount = 0;
+            if (inputs.length > 0) {
+                inputs.forEach(function(input) {
+                    if (input.checked) {
+                        formData.append(input.name, input.value);
+                        selectedServiceCount++;
+                    }
+                });
+            }
+            var personelValues = [];
+            var personelInputs = document.querySelectorAll('input[name^="personel"]');
+            personelInputs.forEach(function(input) {
+                // Eğer input checked ise, değerini diziye ekle
+                if (input.checked) {
+                    var valueParts = input.value.split('_'); // value değerini ayır
+                    var personelValue = valueParts[0]; // İlk kısmı al
+                    personelValues.push(personelValue);
+                    formData.append('personels[]', personelValue);
+                }
+            });
 
+            formData.append('appointment_time', getDate);
+
+            $.ajax({
+                url: '/personel/appointment-create/check/clock',
+                type: "POST",
+                processData: false,
+                contentType: false,
+                dataType: "JSON",
+                data: formData,
+                success: function (res) {
+                    if(res.status === "error"){
+                        stepper.goPrevious();
+                        Swal.fire({
+                            title: "Hata.",
+                            text: res.message,
+                            icon: res.status,
+                            confirmButtonText: 'Tamam'
+                        });
+                    }
+                }
+            });
+        }
         var submitButton = document.querySelector('[data-kt-stepper-action="submit"]');
 
         submitButton.addEventListener('click', function(event) {
