@@ -468,9 +468,10 @@
             personelInputs.forEach(function(input) {
                 // Eğer input checked ise, değerini diziye ekle
                 if (input.checked) {
-                    personelValues.push(input.value);
-                    var personelId = input.name.match(/\d+/)[0];
-                    formData.append('personels[]', personelId);
+                    var valueParts = input.value.split('_'); // value değerini ayır
+                    var personelValue = valueParts[0]; // İlk kısmı al
+                    personelValues.push(personelValue);
+                    formData.append('personels[]', personelValue);
                 }
             });
 

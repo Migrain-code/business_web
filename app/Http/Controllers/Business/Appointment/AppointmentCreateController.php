@@ -426,10 +426,11 @@ class AppointmentCreateController extends Controller
             $appointmentService->end_time = $appointmentStartTime->addMinutes($findService->time)->format('Y-m-d H:i:s');
             $appointmentService->appointment_id = $appointmentId;
             //$appointmentService->save();
-
             /**------------------Saat Kontrolü------------------*/
+            $result = $this->checkPersonelClock($request->personels[$index], $appointmentService->start_time,$appointmentService->end_time);
 
-            if ($this->checkPersonelClock($request->personels[$index], $appointmentService->start_time, $appointmentService->end_time)){
+            if ($result){
+
                 return response()->json([
                     'status' => "error",
                     'message' => "Seçtiğiniz saate " . $findService->time . " dakikalık hizmet seçtiniz. Bu saate randevu alamazsınız. Başka bir saat seçmelisiniz."
@@ -445,21 +446,45 @@ class AppointmentCreateController extends Controller
 
         }*/
     }
+
+    public function findDisabledTimes($personel, $appointmentStartTime)
+    {
+        $appointments = $personel->appointments()->whereDate('start_time', $appointmentStartTime->toDateString())->whereNotIn('status', [3])->get();
+        $disabledTimes = [];
+        foreach ($appointments as $appointment) {
+            $startDateTime = $appointment->start_time;
+            $endDateTime = $appointment->end_time;
+
+            $currentDateTime = $startDateTime->copy();
+            while ($currentDateTime < $endDateTime) {
+
+                $disabledTimes[] = $currentDateTime->format('d.m.Y H:i');
+
+                $currentDateTime->addMinutes(intval($personel->appointmentRange->time));
+            }
+        }
+        return $disabledTimes;
+    }
     public function checkPersonelClock($personelId, $startTime, $endTime)
     {
+
         $findPersonel = Personel::find($personelId);
-        $disabledTimes = $this->findTimes($findPersonel, null);
+        $disabledTimes = $this->findDisabledTimes($findPersonel, $startTime);
+
         $disableds = [];
         $currentDateTime = $startTime->copy();
+
         while ($currentDateTime < $endTime) {
             $disableds[] = $currentDateTime->format('d.m.Y H:i');
             $currentDateTime->addMinutes(intval($findPersonel->appointmentRange->time));
         }
+
         foreach ($disableds as $disabledTime){
             if (in_array($disabledTime, $disabledTimes)){
                 return true;
             }
         }
+
         return false;
     }
     public function findTimes($personel, $room_id)
@@ -499,7 +524,7 @@ class AppointmentCreateController extends Controller
                 $businessEndDateTime = Carbon::parse($appointment->end_time);
 
                 $businessCurrenDateTime = $businessStartDateTime->copy();
-                while ($businessCurrenDateTime <= $businessEndDateTime) {
+                while ($businessCurrenDateTime < $businessEndDateTime) {
 
                     $disableds[] = $businessCurrenDateTime->format('d.m.Y H:i');
 
