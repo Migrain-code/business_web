@@ -147,7 +147,7 @@
             title: "{{$appointment->services->count() > 1 ? $appointment->services->first()->service->subCategory->name." +". $appointment->services->count(): $appointment->services->first()->service->subCategory->name}}",
             start: "{{$appointment->start_time->format('Y-m-d H:i')}}",
             end: "{{$appointment->end_time->format('Y-m-d H:i')}}",
-            description: "Toplam Tutar : "+ "{{formatPrice($appointment->calculateTotal())}}",
+            description: "Toplam Tutar : "+ "{{$appointment->calculateTotal()}}",
             className: "fc-event-danger fc-event-solid-warning",
             username: "{{$appointment->customer->name}}",
             status: "{{$appointment->status("text")}}"

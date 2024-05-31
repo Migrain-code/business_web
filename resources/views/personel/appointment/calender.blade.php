@@ -148,7 +148,7 @@
             title: "{{$appointment->service->subCategory->name}}",
             start: "{{$appointment->start_time->format('Y-m-d H:i')}}",
             end: "{{$appointment->end_time->format('Y-m-d H:i')}}",
-            description: "Toplam Tutar : "+ "{{formatPrice($appointment->appointment->calculateTotal())}}",
+            description: "Toplam Tutar : "+ "{{$appointment->appointment->calculateTotal()}}",
             className: "fc-event-danger fc-event-solid-warning",
             username: "{{$appointment->appointment->customer->name}}",
             status: "{{$appointment->status("text")}}"

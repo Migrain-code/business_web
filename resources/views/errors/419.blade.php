@@ -1,5 +1,10 @@
-@extends('errors::minimal')
+<html>
+    <body>
+    <script>
 
-@section('title', __('Page Expired'))
-@section('code', '419')
-@section('message', __('Page Expired'))
+        document.addEventListener("DOMContentLoaded", function() {
+            window.location.href = "{{ route('loginTypes') }}";
+        });
+    </script>
+    </body>
+</html>
