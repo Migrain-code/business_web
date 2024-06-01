@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $business_id
@@ -74,7 +74,35 @@ class BusinessService extends Model
     {
         return $this->hasMany(PersonelService::class, 'service_id', 'id');
     }
+    public function getPrice($room_id = null, $personelPrice = null)
+    {
+        $price = 0;
+        if (isset($room_id)){
+            $findRoom = $this->business->rooms()->where('id', $room_id)->first();
+            if ($findRoom){
+                if (isset($personelPrice)){
+                    $price = $personelPrice + (($personelPrice * $findRoom->price) / 100);
+                } else{
+                    $price = $this->price + (($this->price * $findRoom->price) / 100);
+                }
+            } else{
+                if (isset($personelPrice)){
+                    $price = $personelPrice;
+                } else{
+                    $price = $this->price;
+                }
 
+            }
+        } else{
+            if (isset($personelPrice)){
+                $price = $personelPrice;
+            } else{
+                $price = $this->price_type_id == 0 ? $this->price : $this->price . " - " . $this->max_price;
+            }
+        }
+
+        return $price;
+    }
     protected static function booted()
     {
         static::deleted(function ($businessService) {

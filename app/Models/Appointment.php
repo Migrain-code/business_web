@@ -211,7 +211,10 @@ class Appointment extends Model
 
     function totalServiceAndProduct()
     { // toplam ürün ve hizmet satışı
-        return $this->calculateTotal() + $this->sales->sum('total');
+        if (is_numeric($this->calculateTotal())){
+            return $this->calculateTotal() + $this->sales->sum('total');
+        }
+        return 0;
     }
 
     public function calculateCampaignDiscount()

@@ -63,8 +63,9 @@ class AppointmentController extends Controller
             }
         })->get();
         $personel = $this->personel;
-
-        return view('personel.appointment.index', compact('appoinments', 'personel'));
+        $personels = $this->business->personels()->where('status', 1)->get();
+        $rooms = $this->business->activeRooms;
+        return view('personel.appointment.index', compact('appoinments', 'personel', 'personels', 'rooms'));
     }
 
     /**
@@ -80,7 +81,7 @@ class AppointmentController extends Controller
         //Randevudaki personeller listeye eklenecek
         $personels = $this->business->personels;
         $services = $this->business->services()->whereNotIn('id', $appointmentServiceIds)->get();
-       
+
         return view('personel.appointment.edit.index', compact('appointment', 'personels', 'services'));
     }
 

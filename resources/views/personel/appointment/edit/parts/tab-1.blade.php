@@ -56,10 +56,13 @@
                                     {{$service->service->subCategory->name}}
                                 </td>
                                 <td class="text-end">
-                                    {{$service->service->time}} .DK
+                                    @php
+                                        $calculateTime = $service->start_time->diffInMinutes($service->end_time);
+                                    @endphp
+                                    {{$calculateTime}} .DK
                                 </td>
                                 <td class="text-end">
-                                    {{formatPrice($service->service->price)}}
+                                    {{$service->service->getPrice($appointment->room_id)}}
                                 </td>
                                 <td class="text-end">
                                     {{create_delete_button('AppointmentServices', $service->id,
@@ -75,7 +78,7 @@
                                 Ara Toplam
                             </td>
                             <td class="text-end">
-                                {{formatPrice($appointment->calculateTotal())}}
+                                {{$appointment->calculateTotal()}}
                             </td>
                         </tr>
                         <tr>
@@ -91,7 +94,12 @@
                                 Genel Toplam
                             </td>
                             <td class="text-dark fs-3 fw-bolder text-end">
-                                {{formatPrice($appointment->calculateTotal()-$appointment->calculateCampaignDiscount())}}
+                                @if(is_numeric($appointment->calculateTotal()))
+                                    {{$appointment->calculateTotal()-$appointment->calculateCampaignDiscount()}}
+                                @else
+                                    Hesaplanacak
+                                @endif
+
                             </td>
                         </tr>
                         </tbody>

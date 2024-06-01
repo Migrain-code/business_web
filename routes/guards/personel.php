@@ -37,6 +37,10 @@ Route::prefix('personel')->as('personel.')->group(function (){
         });
         Route::prefix('speed-appointment')->as('speedAppointment.')->controller(\App\Http\Controllers\SpeedAppointmentController::class)->group(function (){
             Route::get('customer', 'getCustomerList');
+            Route::get('personel/list', 'getPersonelList');
+            Route::get('personel/{personel}/services', 'getPersonelServiceList');
+            Route::get('personel/{personel}/clocks', 'getPersonelClocks');
+            Route::post('create', 'appointmentCreate');
         });
 
         /* -------------------- Personel İzin Günleri --------------------------*/
