@@ -544,6 +544,11 @@ class AppointmentCreateController extends Controller
      */
     public function appointmentCreate(Request $request)
     {
+        $request->validate([
+           'customer_id' => "required",
+        ], [], [
+            'customer_id' => "Müşteri Seçimi",
+        ]);
         $business = $this->business;
 
         $appointment = new Appointment();

@@ -35,6 +35,9 @@ Route::prefix('personel')->as('personel.')->group(function (){
             Route::post('/store', 'appointmentCreate')->name('store');
             Route::post('/summary', 'summary');
         });
+        Route::prefix('speed-appointment')->as('speedAppointment.')->controller(\App\Http\Controllers\SpeedAppointmentController::class)->group(function (){
+            Route::get('customer', 'getCustomerList');
+        });
 
         /* -------------------- Personel İzin Günleri --------------------------*/
         Route::resource('personel-stay-off-day', \App\Http\Controllers\Personel\StayOffDay\PersonelStayOffDayController::class);
