@@ -11,9 +11,11 @@
 <link href="/business/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 <link href="/business/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 <link href="/business/assets/css/custom.css" rel="stylesheet" type="text/css" />
+
 <style>
+
     ::-webkit-scrollbar{
-        width: 10px;
+        width: 5px;
     }
     ::-webkit-scrollbar-thumb{
         background: #0095e8;
@@ -22,11 +24,54 @@
     ::-webkit-scrollbar-track{
         background: #1e1e2d;
     }
+    .scroll-x{
+        overflow-y: hidden;
+    }
+    .scroll-x::-webkit-scrollbar {
+        width: 5px; /* Scrollbar genişliği */
+        height: 5px;
+    }
+    .hover-scroll-x::-webkit-scrollbar {
+        width: 5px; /* Scrollbar genişliği */
+        height: 5px;
+    }
+    .scroll-y::-webkit-scrollbar {
+        width: 5px; /* Scrollbar genişliği */
+        height: 5px;
+    }
+    .scroll-y::-webkit-scrollbar-track {
+        background: #1e1e2d;
+    }
     @media (max-width: 876px) {
-        .stepperDisplay {
+        .form-check-input.delete {
+            display: none;
+        }
+        table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control, table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control {
+            position: relative;
+            padding-left: 0px;
+            cursor: pointer;
+        }
+        table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before, table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before{
+            height: 1.70rem !important;
+            width: 1.70rem !important;
+        }
+        #goSalon{
+            display: none;
+        }
+        .customMenu{
+            display: none;
+        }
+        .btn.btn-primary{
+            padding: 5px 12px !important;
+        }
+        .btn.btn-danger{
+            padding: 5px 12px !important;
+        }
+        .stepperDisplay{
             display: none !important;
         }
     }
 </style>
+
 <!--end::Global Stylesheets Bundle-->
 @yield('styles')

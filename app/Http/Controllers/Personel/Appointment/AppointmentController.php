@@ -63,9 +63,8 @@ class AppointmentController extends Controller
             }
         })->get();
         $personel = $this->personel;
-        $personels = $this->business->personels()->where('status', 1)->get();
-        $rooms = $this->business->activeRooms;
-        return view('personel.appointment.index', compact('appoinments', 'personel', 'personels', 'rooms'));
+
+        return view('personel.appointment.index', compact('appoinments', 'personel'));
     }
 
     /**

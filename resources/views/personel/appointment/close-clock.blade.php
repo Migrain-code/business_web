@@ -1,6 +1,65 @@
 @extends('personel.layouts.master')
 @section('title', 'Personel Randevuları')
 @section('styles')
+
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
+    <style>
+        .ts-wrapper {
+            width: 100%;
+        }
+
+        .ts-dropdown [data-selectable] .highlight {
+            background: rgb(129 129 129);
+            border-radius: 14px;
+            padding: 10px;
+        }
+
+        .ts-wrapper.single .ts-control, .ts-wrapper.single .ts-control input {
+            background-color: #f5f8fa;
+            border: none;
+            padding: 13px;
+            cursor: pointer;
+            border-radius: 7px;
+            font-size: 14.3px;
+            font-family: 'Inter';
+        }
+
+        .ts-wrapper.single .ts-control, .ts-wrapper.single .ts-control input::placeholder {
+            color: var(--kt-input-solid-placeholder-color);
+            font-weight: 900;
+        }
+
+        .ts-control, .ts-wrapper.single.input-active .ts-control {
+            background: #f5f8fa;
+            cursor: text;
+        }
+
+        .header {
+            background: transparent;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            display: block;
+        }
+
+        .ts-dropdown.plugin-optgroup_columns .ts-dropdown-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 1360px) {
+            .container, .container-lg, .container-md, .container-sm, .container-xl {
+                max-width: 1200px;
+            }
+        }
+
+        .feather-arrow-right:before {
+            content: "\e912";
+            margin-right: 5px !important;
+        }
+    </style>
 @endsection
 @section('breadcrumbs')
     <!--begin::Item-->
@@ -58,7 +117,7 @@
                         <!--end::Filter-->
 
                         <!--begin::Add customer-->
-                        <a  href="{{route('personel.appointmentCreate.index')}}"
+                        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#kt_modal_add_customer"
                            class="btn btn-primary me-1">
                             Randevu Oluştur
                         </a>
@@ -159,7 +218,7 @@
             </div>
             <!--end::Card body-->
         </div>
-
+        @include('personel.appointment.modals.add-customer')
     </div>
 @endsection
 @section('scripts')
@@ -180,4 +239,124 @@
         var personelName = '{{$personel->name}}'
     </script>
     <script src="/business/assets/js/project/personel-account/appointment/listing.js"></script>
+    <script src="/business/assets/js/project/personel-account/appointment/add.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+
+    <script>
+        var mySelect = new TomSelect("#customer_select", {
+            remoteUrl: '/personel/speed-appointment/customer',
+            remoteSearch: true,
+            create: false,
+            highlight: false,
+            render: {
+                no_results: function (data, escape) {
+                    return '<div class="no-results">Sonuç bulunamadı.</div>';
+                }
+            },
+            load: function (query, callback) {
+                $.ajax({
+                    url: '/personel/speed-appointment/customer', // Sunucu tarafındaki arama API'sinin URL'si
+                    method: 'GET',
+                    data: {
+                        name: query,
+                    }, // Arama sorgusu
+                    dataType: 'json', // Beklenen veri tipi
+                    success: function (data) {
+                        var results = data.map(function (item) {
+                            return {
+                                value: item.id,
+                                text: item.name,
+                            };
+                        });
+                        callback(results);
+                    },
+                    error: function () {
+                        console.error("Arama sırasında bir hata oluştu.");
+                    }
+                });
+            }
+        });
+        var personelId = null;
+         $('#personel_select').on('change', function () {
+            personelId = $(this).val();
+            var serviceSelect = $('#service_select');
+            $.ajax({
+                url: '/personel/speed-appointment/personel/' + personelId + '/services', // Sunucu tarafındaki arama API'sinin URL'si
+                method: 'GET',
+                dataType: 'json', // Beklenen veri tipi
+                success: function (res) {
+                    serviceSelect.empty();
+                    $.each(res, function (index, item) {
+                        serviceSelect.append('<option value="' + item.id + '">' + item.name + '</option>');
+                    });
+                },
+                error: function () {
+                    console.error("Arama sırasında bir hata oluştu.");
+                }
+            });
+        });
+        $('.roomCheckBox').on('change', function (){
+            var room_id = $(this).val();
+            fetchPersonel(room_id);
+        })
+        function fetchPersonel(room_id = null){
+            var personelSelect = $('#personel_select');
+            $.ajax({
+                url: '/personel/speed-appointment/personel/list',
+                method: 'GET',
+                data: {
+                    'room_id' : room_id,
+                },
+                dataType: 'json', // Beklenen veri tipi
+                success: function (res) {
+                    personelSelect.empty();
+                    personelSelect.append('<option value="' + 0 + '">Personel Seçiniz</option>');
+
+                    $.each(res, function (index, item) {
+                        personelSelect.append('<option value="' + item.id + '">' + item.name + '</option>');
+                    });
+                },
+                error: function () {
+                    console.error("Arama sırasında bir hata oluştu.");
+                }
+            });
+        }
+        $(function (){
+            var roomCheckBox = $('.roomCheckBox');
+
+            if(roomCheckBox.length > 0){
+                var checkedRoom = $('.roomCheckBox:checked').val();
+                fetchPersonel(checkedRoom);
+            } else{
+                fetchPersonel();
+            }
+
+        })
+        $('#date_select').on('change', function (){
+           var selectedDate = $(this).val();
+           var start_time_select = $('#start_time_select');
+           var end_time_select = $('#end_time_select');
+            $.ajax({
+                url: '/personel/speed-appointment/personel/' + personelId + '/clocks', // Sunucu tarafındaki arama API'sinin URL'si
+                method: 'GET',
+                data: {
+                    appointment_date : selectedDate,
+                },
+                dataType: 'json', // Beklenen veri tipi
+                success: function (res) {
+                    start_time_select.empty();
+                    end_time_select.empty();
+                    $.each(res, function (index, item) {
+                       console.log(item);
+                        start_time_select.append('<option value="' + item.value + '">' + item.saat + '</option>');
+                        end_time_select.append('<option value="' + item.value + '">' + item.saat + '</option>');
+                    });
+                },
+                error: function () {
+                    console.error("Arama sırasında bir hata oluştu.");
+                }
+            });
+        });
+
+    </script>
 @endsection

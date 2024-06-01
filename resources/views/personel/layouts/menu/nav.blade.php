@@ -189,14 +189,8 @@
         </div>
 
         <div class="separator"></div>
-        <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
-            <!--begin::Nav item-->
-            <li class="nav-item">
-                <a class="nav-link text-active-primary py-5 me-6" data-bs-toggle="tab" href="#kt_ecommerce_personel_overview" role="tab">
-                    Önizleme
-                </a>
-            </li>
-            <!--end::Nav item-->
+        <div class="scroll-x h-50px overflow-y-hidden">
+            <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold" style="width: 800px">
             <!--begin::Nav item-->
             <li class="nav-item">
                 <a class="nav-link text-active-primary py-5 me-6 appointmentTab active" data-bs-toggle="tab" href="#kt_ecommerce_personel_appointment" role="tab">
@@ -204,8 +198,27 @@
                 </a>
             </li>
             <!--end::Nav item-->
-        </ul>
+            <!--begin::Nav item-->
+            <li class="nav-item">
+                <a class="nav-link text-active-primary py-5 me-6" href="{{route('personel.appointmentCreate.index')}}">
+                    Randevu Oluşturma
+                </a>
+            </li>
+            <!--begin::Nav item-->
+            <li class="nav-item">
+                <a class="nav-link text-active-primary py-5 me-6" href="{{route('personel.speedAppointment.index')}}">
+                   Saat Kapatma
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-active-primary py-5 me-6" data-bs-toggle="tab" href="#kt_ecommerce_personel_overview" role="tab">
+                    Önizleme
+                </a>
+            </li>
+            <!--end::Nav item-->
 
+        </ul>
+        </div>
     </div>
 </div>
 <!--end::Navbar-->
