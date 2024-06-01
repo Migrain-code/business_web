@@ -205,11 +205,13 @@
                 </a>
             </li>
             <!--begin::Nav item-->
-            <li class="nav-item">
+            {{--
+                <li class="nav-item">
                 <a class="nav-link text-active-primary py-5 me-6" data-bs-toggle="modal" href="#kt_modal_add_customer">
                    Saat Kapatma
                 </a>
             </li>
+            --}}
             <li class="nav-item">
                 <a class="nav-link text-active-primary py-5 me-6" data-bs-toggle="tab" href="#kt_ecommerce_personel_overview" role="tab">
                     Önizleme
