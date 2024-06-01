@@ -116,16 +116,23 @@ class AppointmentCreateController extends Controller
      */
     public function newCustomer(Request $request)
     {
-        if (strlen(clearPhone($request->input('phone'))) != 11){
+        $phone = clearPhone($request->input('phone'));
+        if (strlen($phone) != 11){
             return response()->json([
                 'status' => "error",
                 'message' => "Lütfen Telefon Numarasını 11 Haneli olarak giriş yapın"
             ]);
         }
+        if ($this->existPhone($phone)){
+            return response()->json([
+                'status' => "error",
+                'message' => "Bu telefon numarası ile kayıtlı müşteri bulunuyor lütfen başka bir numara giriniz"
+            ]);
+        }
         $generatePassword = rand(100000, 999999);
         $customer = new Customer();
         $customer->name = $request->input('name');
-        $customer->phone = clearPhone($request->input('phone'));
+        $customer->phone = $phone;
         $customer->password = Hash::make($generatePassword);
         $customer->status = 1;
         $customer->verify_phone = 1;
@@ -139,6 +146,16 @@ class AppointmentCreateController extends Controller
                 'message' => "Müşteri Başarılı Bir Şekilde Eklendi"
             ]);
         }
+    }
+    public function existPhone($phone)
+    {
+        $existPhone = Customer::where('phone', $phone)->first();
+        if ($existPhone != null) {
+            $result = true;
+        } else {
+            $result = false;
+        }
+        return $result;
     }
     public function addPermission($id)
     {

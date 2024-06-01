@@ -85,6 +85,12 @@ var KTModalCustomersAdd = function () {
                                         if (res.status == "success"){
                                             form.reset(); // Reset form
                                             modal.hide(); // Hide modal
+
+                                            var appointmentElement = document.querySelector('#kt_modal_add_appointment');
+                                            if (appointmentElement) {
+                                                var modalAppointment = new bootstrap.Modal(appointmentElement);
+                                                modalAppointment.show();
+                                            }
                                         }
                                     });
 

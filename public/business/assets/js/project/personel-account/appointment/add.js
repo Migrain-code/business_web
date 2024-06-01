@@ -1,7 +1,7 @@
 "use strict";
 
 // Class definition
-var KTModalCustomersAdd = function () {
+var KTModalAppointmentAdd = function () {
     var submitButton;
     var cancelButton;
     var closeButton;
@@ -240,12 +240,12 @@ var KTModalCustomersAdd = function () {
         // Public functions
         init: function () {
             // Elements
-            modal = new bootstrap.Modal(document.querySelector('#kt_modal_add_customer'));
+            modal = new bootstrap.Modal(document.querySelector('#kt_modal_add_appointment'));
 
-            form = document.querySelector('#kt_modal_add_customer_form');
-            submitButton = form.querySelector('#kt_modal_add_customer_submit');
-            cancelButton = form.querySelector('#kt_modal_add_customer_cancel');
-            closeButton = form.querySelector('#kt_modal_add_customer_close');
+            form = document.querySelector('#kt_modal_add_appointment_form');
+            submitButton = form.querySelector('#kt_modal_add_appointment_submit');
+            cancelButton = form.querySelector('#kt_modal_add_appointment_cancel');
+            closeButton = form.querySelector('#kt_modal_add_appointment_close');
 
             handleForm();
         }
@@ -254,5 +254,5 @@ var KTModalCustomersAdd = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTModalCustomersAdd.init();
+    KTModalAppointmentAdd.init();
 });

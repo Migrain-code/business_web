@@ -96,7 +96,8 @@
             </div>
         </div>
         <!--end::Row-->
-        @include('personel.appointment.modals.add-customer')
+        @include('personel.appointment.modals.add-appointment')
+        @include('personel.appointment-create.modal.add-customer')
     </div>
     <!--end::Content-->
     @php
@@ -329,7 +330,7 @@
             });
         }
     </script>
-
+    <script src="/business/assets/js/project/personel-account/appointment/add-customer.js"></script>
     <script src="/business/assets/js/project/personel-account/appointment/add.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 

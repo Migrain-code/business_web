@@ -1,18 +1,18 @@
 <!--begin::Modal - Customers - Add-->
-<div class="modal fade" id="kt_modal_add_customer" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="kt_modal_add_appointment" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Form-->
-            <form class="form" action="#" id="kt_modal_add_customer_form" data-kt-redirect="../../customers/list.html">
+            <form class="form" action="#" id="kt_modal_add_appointment_form" data-kt-redirect="../../customers/list.html">
                 <!--begin::Modal header-->
-                <div class="modal-header" id="kt_modal_add_customer_header">
+                <div class="modal-header" id="kt_modal_add_appointment_header">
                     <!--begin::Modal title-->
                     <h2 class="fw-bold">Randevu Oluştur</h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
-                    <div id="kt_modal_add_customer_close" class="btn btn-icon btn-sm btn-active-icon-primary">
+                    <div id="kt_modal_add_appointment_close" class="btn btn-icon btn-sm btn-active-icon-primary">
                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                         <span class="svg-icon svg-icon-1">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -97,7 +97,7 @@
                                 <select id="customer_select" placeholder="Müşteri Adı" style="" name="customer_id">
                                     <option value="">Müşteri Ara</option>
                                 </select>
-                                <button type="button" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" href="#kt_modal_add_customer"><i class="fa fa-plus-circle"></i></button>
                             </div>
                         </div>
                         <!--end::Input group-->
@@ -110,7 +110,7 @@
                             </label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <select name="personel_id" id="personel_select" aria-label="Personel Seçiniz" data-control="select2" data-placeholder="Personel Seçiniz..." data-dropdown-parent="#kt_modal_add_customer" class="form-select form-select-solid fw-bold">
+                            <select name="personel_id" id="personel_select" aria-label="Personel Seçiniz" data-control="select2" data-placeholder="Personel Seçiniz..." data-dropdown-parent="#kt_modal_add_appointment" class="form-select form-select-solid fw-bold">
                                 <option value="">Personel Seçiniz</option>
 
                             </select>
@@ -125,7 +125,7 @@
                             </label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <select name="service_id[]" id="service_select" multiple aria-label="Hizmet Seçiniz" data-control="select2" data-placeholder="Hizmet Seçiniz..." data-dropdown-parent="#kt_modal_add_customer" class="form-select form-select-solid fw-bold">
+                            <select name="service_id[]" id="service_select" multiple aria-label="Hizmet Seçiniz" data-control="select2" data-placeholder="Hizmet Seçiniz..." data-dropdown-parent="#kt_modal_add_appointment" class="form-select form-select-solid fw-bold">
                                 <option value="">Hizmet Seçiniz</option>
 
                             </select>
@@ -150,7 +150,7 @@
                                 </label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <select name="start_time" id="start_time_select" aria-label="Saat Seçiniz" data-control="select2" data-placeholder="Saat Seçiniz..." data-dropdown-parent="#kt_modal_add_customer" class="form-select form-select-solid fw-bold clockSelect">
+                                <select name="start_time" id="start_time_select" aria-label="Saat Seçiniz" data-control="select2" data-placeholder="Saat Seçiniz..." data-dropdown-parent="#kt_modal_add_appointment" class="form-select form-select-solid fw-bold clockSelect">
                                     <option value="">Saat Seçiniz</option>
 
                                 </select>
@@ -164,7 +164,7 @@
                                 </label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <select name="end_time" id="end_time_select" aria-label="Saat Seçiniz" data-control="select2" data-placeholder="Saat Seçiniz..." data-dropdown-parent="#kt_modal_add_customer" class="form-select form-select-solid fw-bold clockSelect">
+                                <select name="end_time" id="end_time_select" aria-label="Saat Seçiniz" data-control="select2" data-placeholder="Saat Seçiniz..." data-dropdown-parent="#kt_modal_add_appointment" class="form-select form-select-solid fw-bold clockSelect">
                                     <option value="">Saat Seçiniz</option>
 
                                 </select>
@@ -176,10 +176,10 @@
                 <!--begin::Modal footer-->
                 <div class="modal-footer flex-center">
                     <!--begin::Button-->
-                    <button type="reset" id="kt_modal_add_customer_cancel" class="btn btn-light me-3">İptal Et</button>
+                    <button type="reset" id="kt_modal_add_appointment_cancel" class="btn btn-light me-3">İptal Et</button>
                     <!--end::Button-->
                     <!--begin::Button-->
-                    <button type="submit" id="kt_modal_add_customer_submit" class="btn btn-primary">
+                    <button type="submit" id="kt_modal_add_appointment_submit" class="btn btn-primary">
                         <span class="indicator-label">Kaydet</span>
                         <span class="indicator-progress">Lütfen Bekleyin...
 															<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
