@@ -36,7 +36,7 @@ Route::prefix('personel')->as('personel.')->group(function (){
             Route::post('/summary', 'summary');
         });
         Route::prefix('speed-appointment')->as('speedAppointment.')->controller(\App\Http\Controllers\SpeedAppointmentController::class)->group(function (){
-            Route::get('/', 'index')->name('index');
+           // Route::get('/', 'index')->name('index');
             Route::get('customer', 'getCustomerList');
             Route::get('personel/list', 'getPersonelList');
             Route::get('personel/{personel}/services', 'getPersonelServiceList');

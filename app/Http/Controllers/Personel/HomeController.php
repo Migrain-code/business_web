@@ -37,7 +37,8 @@ class HomeController extends Controller
         $packageSales = $personel->packages()->whereDate('seller_date', now()->toDateString())->get();
         $productSales = $personel->sales()->whereDate('created_at', now()->toDateString())->get();
         $dates = $this->getDate();
-        return view('personel.dashboard.index', compact('personel', 'appointments', 'packageSales', 'productSales', 'dates'));
+        $rooms = $this->business->activeRooms;
+        return view('personel.dashboard.index', compact('personel', 'appointments', 'packageSales', 'productSales', 'dates', 'rooms'));
     }
 
     public function calendar()
