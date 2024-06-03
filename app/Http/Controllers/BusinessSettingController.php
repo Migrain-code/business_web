@@ -49,6 +49,7 @@ class BusinessSettingController extends Controller
         $business->slug = Str::slug($request->input('name'));
         $business->business_email = $request->input('email');
         $business->type_id = $request->input('type_id');
+        $business->instagram = $request->input('instagram');
         $business->phone = $request->input('phone');
         $business->city = $request->input('city_id');
         $business->district = $request->input('district_id');

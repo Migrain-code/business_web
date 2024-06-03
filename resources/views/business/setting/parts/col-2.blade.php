@@ -42,12 +42,25 @@
                 <!--begin::Input group-->
                 <div class="mb-4 fv-row">
                     <!--begin::Label-->
-                    <label class="required form-label">İnstagram Kullanıcı Adı</label>
+                    <label class="required form-label">İşletme Telefon Numarası</label>
                     <!--end::Label-->
 
                     <!--begin::Input-->
                     <input type="text" name="phone" class="form-control mb-2"
-                           placeholder="İnstagram Kullanıcı Adı" value="{{$business->phone}}">
+                           placeholder="İşletme Telefon Numarası" value="{{$business->phone}}">
+                    <!--end::Input-->
+
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="mb-4 fv-row">
+                    <!--begin::Label-->
+                    <label class="required form-label">Instagram Kullanıcı Adı</label>
+                    <!--end::Label-->
+
+                    <!--begin::Input-->
+                    <input type="text" name="instagram" class="form-control mb-2"
+                           placeholder="Örnek: (hizli_randevu)" value="{{$business->instagram}}">
                     <!--end::Input-->
 
                 </div>
