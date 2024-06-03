@@ -417,6 +417,7 @@ class AppointmentCreateController extends Controller
     {
         $appointmentStartTime = Carbon::parse($request->appointment_time);
         $appointmentId = rand(100000, 999999);
+
         foreach ($request->services as $index => $serviceId) {
             $findService = BusinessService::find($serviceId);
             $appointmentService = new AppointmentServices();
@@ -427,27 +428,23 @@ class AppointmentCreateController extends Controller
             $appointmentService->appointment_id = $appointmentId;
             //$appointmentService->save();
             /**------------------Saat Kontrolü------------------*/
-            $result = $this->checkPersonelClock($request->personels[$index], $appointmentService->start_time,$appointmentService->end_time);
+            $result = $this->checkPersonelClock($request->personels[$index], $appointmentService->start_time,$appointmentService->end_time, $request->room_id);
 
             if ($result){
-
                 return response()->json([
                     'status' => "error",
                     'message' => "Seçtiğiniz saate " . $findService->time . " dakikalık hizmet seçtiniz. Bu saate randevu alamazsınız. Başka bir saat seçmelisiniz."
                 ]);
             }
-
         }
         return response()->json([
            'status' => "success",
            'message' => "Saat seçim işleminiz onaylandı. Müşteri Seçebilirsiniz"
         ]);
-        /*if ($this->checkPersonelClock($request->personel_id, $appointmentService->start_time, $appointmentService->end_time, $appointment->id)) {
 
-        }*/
     }
 
-    public function findDisabledTimes($personel, $appointmentStartTime)
+    public function findDisabledTimes($personel, $appointmentStartTime, $roomId)
     {
         $appointments = $personel->appointments()->whereDate('start_time', $appointmentStartTime->toDateString())->whereNotIn('status', [3])->get();
         $disabledTimes = [];
@@ -463,14 +460,34 @@ class AppointmentCreateController extends Controller
                 $currentDateTime->addMinutes(intval($personel->appointmentRange->time));
             }
         }
+
+        $business = $this->business;
+        if (isset($roomId) && $roomId > 0){
+            // oda tipi seçilmşse o odadaki randevuları al ve disabled dizisine ata
+            $appointmentsBusiness = $business->appointments()->where('room_id', $roomId)
+                ->whereDate('start_time', $appointmentStartTime->toDateString())
+                ->whereNotIn('status', [3])->get();
+            foreach ($appointmentsBusiness as $appointment) {
+                $businessStartDateTime = Carbon::parse($appointment->start_time);
+                $businessEndDateTime = Carbon::parse($appointment->end_time);
+
+                $businessCurrenDateTime = $businessStartDateTime->copy();
+                while ($businessCurrenDateTime < $businessEndDateTime) {
+
+                    $disabledTimes[] = $businessCurrenDateTime->format('d.m.Y H:i');
+
+                    $businessCurrenDateTime->addMinutes(intval($business->range->time));
+                }
+            }
+        }
         return $disabledTimes;
     }
 
-    public function checkPersonelClock($personelId, $startTime, $endTime)
+    public function checkPersonelClock($personelId, $startTime, $endTime, $roomId)
     {
 
         $findPersonel = Personel::find($personelId);
-        $disabledTimes = $this->findDisabledTimes($findPersonel, $startTime);
+        $disabledTimes = $this->findDisabledTimes($findPersonel, $startTime, $roomId);
 
         $disableds = [];
         $currentDateTime = $startTime->copy();
@@ -479,14 +496,16 @@ class AppointmentCreateController extends Controller
             $disableds[] = $currentDateTime->format('d.m.Y H:i');
             $currentDateTime->addMinutes(intval($findPersonel->appointmentRange->time));
         }
-
+        $disabledConfig= [];
         foreach ($disableds as $disabledTime){
             if (in_array($disabledTime, $disabledTimes)){
-                return true;
+                $disabledConfig[] = 1;
+            } else{
+                $disabledConfig[] = 0;
             }
         }
 
-        return false;
+        return in_array(1, $disabledConfig);
     }
     public function findTimes($personel, $room_id)
     {

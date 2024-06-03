@@ -184,8 +184,6 @@ Route::prefix('isletme')->as('business.')->group(function (){
                 Route::post('/store', 'appointmentCreate')->name('store');
                 Route::post('/summary', 'summary');
             });
-
-
         });
 
         /* -------------------- Adisyonlar --------------------------*/

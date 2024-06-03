@@ -465,6 +465,15 @@
             }
             var personelValues = [];
             var personelInputs = document.querySelectorAll('input[name^="personel"]');
+            var rooms = $('input[name="room_id"]');
+            var selectedRoomId = null;
+
+            if (rooms.length > 0) {
+                let selectedInput = $('input[name="room_id"]:checked');
+                if(selectedInput.length > 0){
+                    selectedRoomId = selectedInput.val();
+                }
+            }
             personelInputs.forEach(function(input) {
                 // Eğer input checked ise, değerini diziye ekle
                 if (input.checked) {
@@ -476,7 +485,7 @@
             });
 
             formData.append('appointment_time', getDate);
-
+            formData.append('room_id', selectedRoomId);
             $.ajax({
                 url: '/isletme/appointment-create/check/clock',
                 type: "POST",

@@ -463,7 +463,16 @@
                     formData.append('personels[]', personelValue);
                 }
             });
+            var rooms = $('input[name="room_id"]');
+            var selectedRoomId = null;
 
+            if (rooms.length > 0) {
+                let selectedInput = $('input[name="room_id"]:checked');
+                if(selectedInput.length > 0){
+                    selectedRoomId = selectedInput.val();
+                }
+            }
+            formData.append('room_id', selectedRoomId);
             formData.append('appointment_time', getDate);
 
             $.ajax({

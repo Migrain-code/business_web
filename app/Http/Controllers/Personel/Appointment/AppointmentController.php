@@ -158,6 +158,8 @@ class AppointmentController extends Controller
             ->get();
 
         return DataTables::of($appointments)
+            //->setTotalRecords($appointments->count())
+
             ->addColumn('customerName', function ($q) use ($business) {
                 return $q->customer->name;
             })
