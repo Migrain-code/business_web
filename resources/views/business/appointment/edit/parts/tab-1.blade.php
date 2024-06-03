@@ -24,17 +24,16 @@
                     <!--begin::Table-->
                     <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
                         <thead>
-                        <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                            <th class="min-w-175px">Personel</th>
-                            <th class="min-w-100px text-end">Hizmet</th>
-                            <th class="min-w-70px text-end">Süre</th>
-                            <th class="min-w-100px text-end">Hizmet Fiyatı</th>
-                            <th class="min-w-100px text-end">İşlemler</th>
-                        </tr>
+                            <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                <th class="min-w-175px">Personel</th>
+                                <th class="min-w-100px text-end">Hizmet</th>
+                                <th class="min-w-70px text-end">Süre</th>
+                                <th class="min-w-100px text-end">Hizmet Fiyatı</th>
+                                <th class="min-w-100px text-end">İşlemler</th>
+                            </tr>
                         </thead>
                         <tbody class="fw-semibold text-gray-600">
                         @foreach($appointment->services as $service)
-
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
@@ -60,7 +59,10 @@
                                     {{$service->service->subCategory->name}}
                                 </td>
                                 <td class="text-end">
-                                    {{$service->service->time}} .DK
+                                    @php
+                                        $calculateTime = $service->start_time->diffInMinutes($service->end_time);
+                                    @endphp
+                                    {{$calculateTime}} .DK
                                 </td>
                                 <td class="d-flex flex-column flex-end">
 

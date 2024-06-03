@@ -185,7 +185,17 @@ Route::prefix('isletme')->as('business.')->group(function (){
                 Route::post('/summary', 'summary');
             });
         });
-
+        /* -------------------- Hızlı Randevu -------------------------------------- */
+        Route::prefix('speed-appointment')->as('speedAppointment.')
+            ->controller(\App\Http\Controllers\Business\Appointment\SpeedAppointmentController::class)
+            ->group(function (){
+            Route::get('/', 'index')->name('index');
+            Route::get('customer', 'getCustomerList');
+            Route::get('personel/list', 'getPersonelList');
+            Route::get('personel/{personel}/services', 'getPersonelServiceList');
+            Route::get('personel/{personel}/clocks', 'getPersonelClocks');
+            Route::post('create', 'appointmentCreate');
+        });
         /* -------------------- Adisyonlar --------------------------*/
         Route::resource('adission', AdissionController::class);
         Route::prefix('adission')->as('adission.')->group(function () {
