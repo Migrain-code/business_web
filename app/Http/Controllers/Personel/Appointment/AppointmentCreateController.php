@@ -562,6 +562,7 @@ class AppointmentCreateController extends Controller
         }
 
         $appointmentStartTime = Carbon::parse($request->clock);
+        $approve_types = [];
 
         foreach ($serviceIds as $index => $serviceId) {
             $findService = BusinessService::find($serviceId);
@@ -572,20 +573,26 @@ class AppointmentCreateController extends Controller
             $appointmentService->end_time = $appointmentStartTime->addMinutes($findService->time);
             $appointmentService->appointment_id = $appointment->id;
             $appointmentService->save();
+            $approve_types[] = $findService->approve_type;
+
         }
 
         $appointment->start_time = $appointment->services()->first()->start_time;
         $appointment->end_time = $appointment->services()->skip($appointment->services()->count() - 1)->first()->end_time;
         $calculateTotal = $appointment->calculateTotal();
         $appointment->total = $calculateTotal;
-        if ($business->approve_type == 0) {
-            $appointment->status = 1; // Otomatik onay
-            foreach ($appointment->services as $service){
-                $service->status = 1;
+        if (in_array(1, $approve_types)) { // hizmet maneul onay ise
+            $appointment->status = 0; // Otomatik onay
+            foreach ($appointment->services as $service) {
+                $service->status = 0;
                 $service->save();
             }
         } else {
-            $appointment->status = 0; // Onay bekliyor
+            $appointment->status = 1; // Otomatik onay ise
+            foreach ($appointment->services as $service) {
+                $service->status = 1;
+                $service->save();
+            }
         }
         if ($appointment->save()) {
             $message = $business->name. " İşletmesine ". $appointment->start_time->format('d.m.Y H:i'). " tarihine randevunuz oluşturuldu.";

@@ -32,6 +32,7 @@ class AppointmentCreateController extends Controller
 {
 
     private $business;
+
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
@@ -58,7 +59,7 @@ class AppointmentCreateController extends Controller
 
         $rooms = $business->activeRooms;
 
-        return view('business.appointment-create.index', compact('rooms','womanServices', 'manServices', 'unisexServices', 'business'));
+        return view('business.appointment-create.index', compact('rooms', 'womanServices', 'manServices', 'unisexServices', 'business'));
     }
 
     /**
@@ -78,20 +79,20 @@ class AppointmentCreateController extends Controller
             $service = BusinessService::find($id);
             $business = Business::find($service->business_id);
             $selectedRoomId = $request->input('selectedRoomId');
-            if ($request->has('selectedRoomId') && $selectedRoomId != "null"){
+            if ($request->has('selectedRoomId') && $selectedRoomId != "null") {
                 $roomPersonelIds = PersonelRoom::where('business_id', $business->id)->where('room_id', $request->input('selectedRoomId'))->pluck('personel_id')->toArray();
             }
             $servicePersonels = [];
             foreach ($service->personels as $item) {
                 if ($item->personel && $item->personel->status == 1) {
-                    if ($request->filled('selectedRoomId') && $selectedRoomId != "null"){
-                        if (in_array($item->personel->id, $roomPersonelIds)){
+                    if ($request->filled('selectedRoomId') && $selectedRoomId != "null") {
+                        if (in_array($item->personel->id, $roomPersonelIds)) {
                             $servicePersonels[] = [
                                 'id' => $item->personel?->id . "_" . $service->id,
                                 'name' => $item->personel?->name,
                             ];
                         }
-                    } else{
+                    } else {
                         $servicePersonels[] = [
                             'id' => $item->personel?->id . "_" . $service->id,
                             'name' => $item->personel?->name,
@@ -122,8 +123,8 @@ class AppointmentCreateController extends Controller
     {
         $user = $request->user();
         $business = $user->business;
-        $customers = $business->customers()->whereHas('customer', function ($q) use ($request){
-            $q->where('name', 'like', '%'. $request->input('searchedName'). '%');
+        $customers = $business->customers()->whereHas('customer', function ($q) use ($request) {
+            $q->where('name', 'like', '%' . $request->input('searchedName') . '%');
         })->take(20)->get();
         return response()->json(CustomerListResource::collection($customers));
     }
@@ -136,13 +137,13 @@ class AppointmentCreateController extends Controller
     public function newCustomer(Request $request)
     {
         $phone = clearPhone($request->input('phone'));
-        if (strlen($phone) != 11){
+        if (strlen($phone) != 11) {
             return response()->json([
                 'status' => "error",
                 'message' => "Lütfen Telefon Numarasını 11 Haneli olarak giriş yapın"
             ]);
         }
-        if ($this->existPhone($phone)){
+        if ($this->existPhone($phone)) {
             return response()->json([
                 'status' => "error",
                 'message' => "Bu telefon numarası ile kayıtlı müşteri bulunuyor lütfen başka bir numara giriniz"
@@ -156,7 +157,7 @@ class AppointmentCreateController extends Controller
         $customer->status = 1;
         $customer->verify_phone = 1;
         if ($customer->save()) {
-            $message = "Merhaba ".$customer->name.", Hızlı Randevu sistemimize hoş geldiniz! Randevularınızı yönetmek için: https://hizlirandevu.com.tr/customer/login adresinden giriş yapabilirsiniz. Telefon Numaranız: [".$customer->phone."] ve Şifreniz: [".$generatePassword."] ile giriş yapabilirsiniz. İyi günler dileriz, Hızlı Randevu Ekibi";
+            $message = "Merhaba " . $customer->name . ", Hızlı Randevu sistemimize hoş geldiniz! Randevularınızı yönetmek için: https://hizlirandevu.com.tr/customer/login adresinden giriş yapabilirsiniz. Telefon Numaranız: [" . $customer->phone . "] ve Şifreniz: [" . $generatePassword . "] ile giriş yapabilirsiniz. İyi günler dileriz, Hızlı Randevu Ekibi";
             Sms::send($customer->phone, $message);
             $this->addPermission($customer->id);
             $this->addBusinessCustomerList($customer->id);
@@ -166,6 +167,7 @@ class AppointmentCreateController extends Controller
             ]);
         }
     }
+
     public function existPhone($phone)
     {
         $existPhone = Customer::where('phone', $phone)->first();
@@ -176,6 +178,7 @@ class AppointmentCreateController extends Controller
         }
         return $result;
     }
+
     public function addPermission($id)
     {
         $permission = new CustomerNotificationPermission();
@@ -184,6 +187,7 @@ class AppointmentCreateController extends Controller
 
         return $permission;
     }
+
     public function addBusinessCustomerList($id)
     {
         $businessCustomer = new BusinessCustomer();
@@ -194,6 +198,7 @@ class AppointmentCreateController extends Controller
         $businessCustomer->save();
         return $businessCustomer;
     }
+
     /**
      *
      * Tarih Listesi
@@ -428,9 +433,9 @@ class AppointmentCreateController extends Controller
             $appointmentService->appointment_id = $appointmentId;
             //$appointmentService->save();
             /**------------------Saat Kontrolü------------------*/
-            $result = $this->checkPersonelClock($request->personels[$index], $appointmentService->start_time,$appointmentService->end_time, $request->room_id);
+            $result = $this->checkPersonelClock($request->personels[$index], $appointmentService->start_time, $appointmentService->end_time, $request->room_id);
 
-            if ($result){
+            if ($result) {
                 return response()->json([
                     'status' => "error",
                     'message' => "Seçtiğiniz saate " . $findService->time . " dakikalık hizmet seçtiniz. Bu saate randevu alamazsınız. Başka bir saat seçmelisiniz."
@@ -438,8 +443,8 @@ class AppointmentCreateController extends Controller
             }
         }
         return response()->json([
-           'status' => "success",
-           'message' => "Saat seçim işleminiz onaylandı. Müşteri Seçebilirsiniz"
+            'status' => "success",
+            'message' => "Saat seçim işleminiz onaylandı. Müşteri Seçebilirsiniz"
         ]);
 
     }
@@ -462,7 +467,7 @@ class AppointmentCreateController extends Controller
         }
 
         $business = $this->business;
-        if (isset($roomId) && $roomId > 0){
+        if (isset($roomId) && $roomId > 0) {
             // oda tipi seçilmşse o odadaki randevuları al ve disabled dizisine ata
             $appointmentsBusiness = $business->appointments()->where('room_id', $roomId)
                 ->whereDate('start_time', $appointmentStartTime->toDateString())
@@ -496,17 +501,18 @@ class AppointmentCreateController extends Controller
             $disableds[] = $currentDateTime->format('d.m.Y H:i');
             $currentDateTime->addMinutes(intval($findPersonel->appointmentRange->time));
         }
-        $disabledConfig= [];
-        foreach ($disableds as $disabledTime){
-            if (in_array($disabledTime, $disabledTimes)){
+        $disabledConfig = [];
+        foreach ($disableds as $disabledTime) {
+            if (in_array($disabledTime, $disabledTimes)) {
                 $disabledConfig[] = 1;
-            } else{
+            } else {
                 $disabledConfig[] = 0;
             }
         }
 
         return in_array(1, $disabledConfig);
     }
+
     public function findTimes($personel, $room_id)
     {
         $disableds = [];
@@ -530,13 +536,13 @@ class AppointmentCreateController extends Controller
         // randevu almaya 30 dk öncesine kadar izin ver
         $startTime = Carbon::parse($personel->start_time);
         $endTime = Carbon::parse($personel->end_time);
-        for ($i=$startTime;  $i < $endTime; $i->addMinutes(intval($personel->appointmentRange->time))){
-            if ($i < now()->addMinutes(5)){
+        for ($i = $startTime; $i < $endTime; $i->addMinutes(intval($personel->appointmentRange->time))) {
+            if ($i < now()->addMinutes(5)) {
                 $disableds[] = $i->format('d.m.Y H:i');
             }
         }
         $business = $personel->business;
-        if (isset($room_id) && $room_id > 0){
+        if (isset($room_id) && $room_id > 0) {
             // oda tipi seçilmşse o odadaki randevuları al ve disabled dizisine ata
             $appointmentsBusiness = $business->appointments()->where('room_id', $room_id)->whereNotIn('status', [3])->get();
             foreach ($appointmentsBusiness as $appointment) {
@@ -564,7 +570,7 @@ class AppointmentCreateController extends Controller
     public function appointmentCreate(Request $request)
     {
         $request->validate([
-           'customer_id' => "required",
+            'customer_id' => "required",
         ], [], [
             'customer_id' => "Müşteri Seçimi",
         ]);
@@ -584,7 +590,7 @@ class AppointmentCreateController extends Controller
         }
 
         $appointmentStartTime = Carbon::parse($request->clock);
-
+        $approve_types = [];
         foreach ($serviceIds as $index => $serviceId) {
             $findService = BusinessService::find($serviceId);
             $appointmentService = new AppointmentServices();
@@ -594,31 +600,38 @@ class AppointmentCreateController extends Controller
             $appointmentService->end_time = $appointmentStartTime->addMinutes($findService->time);
             $appointmentService->appointment_id = $appointment->id;
             $appointmentService->save();
+
+            $approve_types[] = $findService->approve_type;
+
         }
 
         $appointment->start_time = $appointment->services()->first()->start_time;
         $appointment->end_time = $appointment->services()->skip($appointment->services()->count() - 1)->first()->end_time;
         $calculateTotal = $appointment->calculateTotal();
         $appointment->total = $calculateTotal;
-        if ($business->approve_type == 0) {
-            $appointment->status = 1; // Otomatik onay
-            foreach ($appointment->services as $service){
-                $service->status = 1;
+        if (in_array(1, $approve_types)) { // hizmet maneul onay ise
+            $appointment->status = 0; // Otomatik onay
+            foreach ($appointment->services as $service) {
+                $service->status = 0;
                 $service->save();
             }
         } else {
-            $appointment->status = 0; // Onay bekliyor
+            $appointment->status = 1; // Otomatik onay ise
+            foreach ($appointment->services as $service) {
+                $service->status = 1;
+                $service->save();
+            }
         }
         if ($appointment->save()) {
-            $message = $business->name. " İşletmesine ". $appointment->start_time->format('d.m.Y H:i'). " tarihine randevunuz oluşturuldu.";
+            $message = $business->name . " İşletmesine " . $appointment->start_time->format('d.m.Y H:i') . " tarihine randevunuz oluşturuldu.";
             $appointment->customer->sendSms($message);
-            return to_route('business.appointment.index')->with('response',[
+            return to_route('business.appointment.index')->with('response', [
                 'status' => "success",
                 'message' => "Randevunuz başarılı bir şekilde oluşturuldu",
             ]);
         }
 
-        return to_route('business.appointment.index')->with('response',[
+        return to_route('business.appointment.index')->with('response', [
             'status' => "error",
             'message' => "Bir hata sebebiyle randevunuz oluşturulamadı lütfen tekrar deneyiniz",
         ]);
@@ -635,12 +648,12 @@ class AppointmentCreateController extends Controller
             foreach ($services as $service) {
                 if ($service->personels->count() > 0) { //hizmeti veren personel sayısı birden fazla ise listede göster
                     $isActive = false;
-                    foreach ($service->personels as $personelService){
-                        if ($personelService->personel->status == 1){
+                    foreach ($service->personels as $personelService) {
+                        if ($personelService->personel->status == 1) {
                             $isActive = true;
                         }
                     }
-                    if ($isActive){
+                    if ($isActive) {
                         $transformedServices[] = [
                             'id' => $service->id,
                             'name' => $service->subCategory->getName(),

@@ -202,6 +202,7 @@ class ServiceController extends Controller
                     $service->price = $request->input('price');
                 }
                 $service->price_type_id = $request->input('price_type_id');
+                $service->approve_type = $request->input('approve_type');
                 $service->save();
 
                 return response()->json([

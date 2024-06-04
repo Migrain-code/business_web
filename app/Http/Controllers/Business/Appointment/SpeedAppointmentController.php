@@ -120,13 +120,17 @@ class SpeedAppointmentController extends Controller
         $appointment->customer_id = $request->customer_id;
         $appointment->business_id = $business->id;
         $appointment->save();
+        $approve_types = [];
+
         foreach ($request->service_id as $serviceId) {
+            $findService = BusinessService::find($serviceId);
             $appointmentService = new AppointmentServices();
             $appointmentService->personel_id = $request->personel_id;
             $appointmentService->service_id = $serviceId;
             $appointmentService->start_time = Carbon::parse($request->start_time)->toDateTimeString();
             $appointmentService->end_time = Carbon::parse($request->end_time)->toDateTimeString();
             $appointmentService->appointment_id = $appointment->id;
+            $approve_types[] = $findService->approve_type;
 
             if ($appointmentService->start_time >= $appointmentService->end_time) {
                 $appointment->delete();
@@ -154,14 +158,18 @@ class SpeedAppointmentController extends Controller
         $appointment->end_time = $appointment->services()->skip($appointment->services()->count() - 1)->first()->end_time;
         $calculateTotal = $appointment->calculateTotal();
         $appointment->total = $calculateTotal;
-        if ($business->approve_type == 0) {
-            $appointment->status = 1; // Otomatik onay
+        if (in_array(1, $approve_types)) { // hizmet maneul onay ise
+            $appointment->status = 0; // Otomatik onay
+            foreach ($appointment->services as $service) {
+                $service->status = 0;
+                $service->save();
+            }
+        } else {
+            $appointment->status = 1; // Otomatik onay ise
             foreach ($appointment->services as $service) {
                 $service->status = 1;
                 $service->save();
             }
-        } else {
-            $appointment->status = 0; // Onay bekliyor
         }
         if ($appointment->save()) {
             $message = $business->name . " İşletmesine " . $appointment->start_time->format('d.m.Y H:i') . " tarihine randevunuz oluşturuldu.";
