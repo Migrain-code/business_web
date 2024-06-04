@@ -33,7 +33,14 @@ var KTModalCustomersAdd = function () {
                     'type_id': {
                         validators: {
                             notEmpty: {
-                                message: 'Cinsiye Seçimi Alanı Gereklidir'
+                                message: 'Cinsiyet Seçimi Alanı Gereklidir'
+                            }
+                        }
+                    },
+                    'approve_type': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Onay Türü Alanı Gereklidir'
                             }
                         }
                     },
@@ -120,9 +127,11 @@ var KTModalCustomersAdd = function () {
                         setTimeout(function() {
                             submitButton.removeAttribute('data-kt-indicator');
                             var selectedValue = $('input[name="type_id"]:checked').val();
+                            var selectedApproveType = $('input[name="approve_type"]:checked').val();
                             var formData = new FormData();
                             formData.append("_token", csrf_token);
                             formData.append("typeId", selectedValue);
+                            formData.append("approve_type", selectedApproveType);
                             formData.append("categoryId", $('[name="category_id"]').val());
                             formData.append("subCategoryId", $('[name="service_id"]').val());
                             formData.append("time", $('[name="time"]').val());

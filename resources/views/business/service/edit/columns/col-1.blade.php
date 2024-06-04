@@ -70,7 +70,30 @@
                     <!--end::Input-->
                 </div>
                 <!--end::Input group-->
-
+                <div class="fv-row mb-7">
+                    <!--begin::Label-->
+                    <label class="fs-6 fw-semibold mb-2">
+                        <span class="required">Onay Türü Seçiniz</span>
+                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Bu hizmet otomatik onaylansın mı"></i>
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <div class="d-flex">
+                        <div class="form-check form-check-custom form-check-solid form-check-lg me-2">
+                            <input class="form-check-input" name="approve_type" type="radio" value="0" @checked($service->approve_type == 0) id="flexCheckboxLg0"/>
+                            <label class="form-check-label" for="flexCheckboxLg0">
+                                Otomatik Onay
+                            </label>
+                        </div>
+                        <div class="form-check form-check-custom form-check-solid form-check-lg me-2">
+                            <input class="form-check-input" name="approve_type" type="radio" value="1" @checked($service->approve_type == 1) id="flexCheckboxLg0"/>
+                            <label class="form-check-label" for="flexCheckboxLg0">
+                                Manuel Onay
+                            </label>
+                        </div>
+                    </div>
+                    <!--end::Input-->
+                </div>
                 <div class="fv-row mb-7">
                     <!--begin::Label-->
                     <label class="fs-6 fw-semibold mb-2">

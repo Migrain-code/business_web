@@ -99,7 +99,7 @@
                                     </label>
                                 </div>
                                 <div class="form-check form-check-custom form-check-solid form-check-lg me-2">
-                                    <input class="form-check-input" checked name="approve_type" type="radio" value="1" id="flexCheckboxLg0"/>
+                                    <input class="form-check-input" name="approve_type" type="radio" value="1" id="flexCheckboxLg0"/>
                                     <label class="form-check-label" for="flexCheckboxLg0">
                                         Manuel Onay
                                     </label>
