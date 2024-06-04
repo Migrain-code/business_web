@@ -18,6 +18,7 @@ class CustomerListResource extends JsonResource
            'id' => $this->customer?->id,
            'name' => $this->customer?->name,
            'image' => image($this->customer?->image),
+           'phone' => formatPhone($this->customer?->phone),
         ];
     }
 }

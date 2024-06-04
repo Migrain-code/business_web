@@ -412,6 +412,7 @@
                                     <!--begin:Info-->
                                     <span class="d-flex flex-column">
                                         <span class="fw-bold fs-6">${item.name}</span>
+                                        <span class="fw-semibold fs-6">0${item.phone}</span>
                                     </span>
                                     <!--end:Info-->
                                 </span>
