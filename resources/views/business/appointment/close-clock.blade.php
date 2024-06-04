@@ -255,26 +255,29 @@
                 }
             },
             load: function (query, callback) {
-                $.ajax({
-                    url: '/isletme/speed-appointment/customer', // Sunucu tarafındaki arama API'sinin URL'si
-                    method: 'GET',
-                    data: {
-                        name: query,
-                    }, // Arama sorgusu
-                    dataType: 'json', // Beklenen veri tipi
-                    success: function (data) {
-                        var results = data.map(function (item) {
-                            return {
-                                value: item.id,
-                                text: item.name,
-                            };
-                        });
-                        callback(results);
-                    },
-                    error: function () {
-                        console.error("Arama sırasında bir hata oluştu.");
-                    }
-                });
+                if(query.length > 3){
+                    $.ajax({
+                        url: '/isletme/speed-appointment/customer', // Sunucu tarafındaki arama API'sinin URL'si
+                        method: 'GET',
+                        data: {
+                            name: query,
+                        }, // Arama sorgusu
+                        dataType: 'json', // Beklenen veri tipi
+                        success: function (data) {
+                            var results = data.map(function (item) {
+                                return {
+                                    value: item.id,
+                                    text: item.name+ " -> 0"+ item.phone,
+                                };
+                            });
+                            callback(results);
+                        },
+                        error: function () {
+                            console.error("Arama sırasında bir hata oluştu.");
+                        }
+                    });
+                }
+
             }
         });
         var personelId = null;

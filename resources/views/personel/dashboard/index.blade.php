@@ -357,7 +357,7 @@
                         var results = data.map(function (item) {
                             return {
                                 value: item.id,
-                                text: item.name,
+                                text: item.name+ " -> 0"+ item.phone,
                             };
                         });
                         callback(results);
