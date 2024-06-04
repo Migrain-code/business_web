@@ -25,7 +25,8 @@ class PdfController extends Controller
 
     public function testSms()
     {
-        Sms::send('05537021355', 'Hızlı randevu başlığı güncellendi');
+       $res = Sms::send('05537021355', 'Hızlı randevu başlığı güncellendi');
+       return response()->json($res);
     }
 
 }
