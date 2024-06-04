@@ -279,7 +279,7 @@ class AppointmentCreateController extends Controller
 
                 $disabledDays[] = $this->findTimes($personel, $request->room_id);
                 //işletme kapalı gün kontrolü
-                if (Carbon::parse($getDate->format('d.m.Y'))->dayOfWeek == $business->off_day) {
+                if (isset($business->off_day) && Carbon::parse($getDate->format('d.m.Y'))->dayOfWeek == $business->off_day) {
                     return response()->json([
                         "status" => "error",
                         "message" => "İşletme bu tarihte hizmet vermemektedir"
