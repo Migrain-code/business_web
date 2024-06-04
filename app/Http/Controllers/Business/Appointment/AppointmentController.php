@@ -128,6 +128,8 @@ class AppointmentController extends Controller
             $service->status = 1;
             $service->save();
         }
+        $message = $this->business->name. " İşletmesine ". $appointment->start_time->format('d.m.Y H:i'). " tarihindeki randevunuz işletme tarafından onaylanmıştır.";
+        $appointment->customer->sendSms($message);
         return to_route('business.appointment.show', $appointment->id)->with('response', [
             'status' => "success",
             'message' => "Randevuya Durumu Başarılı Bir Şekilde Onaylandı"
@@ -148,6 +150,10 @@ class AppointmentController extends Controller
             $service->status = 3;
             $service->save();
         }
+
+        $message = $this->business->name. " İşletmesine ". $appointment->start_time->format('d.m.Y H:i'). " tarihindeki randevunuz işletme tarafından iptal edilmiştir.";
+        $appointment->customer->sendSms($message);
+
         return to_route('business.appointment.show', $appointment->id)->with('response', [
             'status' => "success",
             'message' => "Randevu İptal Edildi"
