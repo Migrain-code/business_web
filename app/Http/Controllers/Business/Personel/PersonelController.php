@@ -615,7 +615,7 @@ class PersonelController extends Controller
                 return create_switch($q->id, $q->status == 1 ? true : false, 'Personel', 'status', 'Personel Randevu Alabilsin mi?');
             })
             ->addColumn('range', function ($q) {
-                return $q->range . " .DK";
+                return $q->appointmentRange->time . " .DK";
             })
             ->addColumn('action', function ($q) {
                 $html = "";
