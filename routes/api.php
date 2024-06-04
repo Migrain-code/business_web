@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('order/status', [\App\Http\Controllers\PdfController::class, 'getOrderStatus']);
-
+Route::get('test/sms', [\App\Http\Controllers\PdfController::class, 'testSms']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
