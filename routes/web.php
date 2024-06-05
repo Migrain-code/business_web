@@ -46,6 +46,7 @@ use App\Http\Controllers\PacketOrderController;
 use App\Http\Controllers\PaymentController;
 use \App\Http\Controllers\PersonelCustomerPriceListController;
 use \App\Http\Controllers\OfficialSettingController;
+use \App\Http\Controllers\BusinessCloseDateController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -275,7 +276,10 @@ Route::prefix('isletme')->as('business.')->group(function (){
         /* -------------------- Personel İzin Günleri --------------------------*/
         Route::resource('personel-stay-off-day', PersonelStayOffDayController::class);
 
-        /* -------------------- Fiyat Al Formu--------------------------*/
+        /* -------------------- İşletme Kapalı Günleri --------------------------*/
+        Route::resource('close-day', BusinessCloseDateController::class);
+
+        /* -------------------- Fiyat Al Formu --------------------------*/
         Route::resource('request-form', AppointmentRequestFormController::class);
         Route::post('/request-form/question/{requestForm}/update', [AppointmentRequestFormController::class, 'updateQuestion'])->name('requestForm.updateQuestion');
 

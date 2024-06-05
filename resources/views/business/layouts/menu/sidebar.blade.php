@@ -264,14 +264,9 @@
                     <!--begin:Menu link-->
                     <a class="menu-link" href="{{route('business.speedAppointment.index')}}">
                         <span class="menu-icon">
-                            <i class="ki-duotone ki-cheque fs-3">
-                                 <span class="path1"></span>
-                                 <span class="path2"></span>
-                                 <span class="path3"></span>
-                                 <span class="path4"></span>
-                                 <span class="path5"></span>
-                                 <span class="path6"></span>
-                                 <span class="path7"></span>
+                            <i class="ki-duotone ki-watch fs-3">
+                             <span class="path1"></span>
+                             <span class="path2"></span>
                             </i>
 
                         </span>
@@ -337,12 +332,14 @@
                 <div class="menu-item">
                     <!--begin:Menu link-->
                     <a class="menu-link" href="{{route('business.appointment.personelAppointment')}}">
-                        <span class="menu-icon">
-                            <span class="svg-icon svg-icon-muted svg-icon-1"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path opacity="0.3" d="M20.9 12.9C20.3 12.9 19.9 12.5 19.9 11.9C19.9 11.3 20.3 10.9 20.9 10.9H21.8C21.3 6.2 17.6 2.4 12.9 2V2.9C12.9 3.5 12.5 3.9 11.9 3.9C11.3 3.9 10.9 3.5 10.9 2.9V2C6.19999 2.5 2.4 6.2 2 10.9H2.89999C3.49999 10.9 3.89999 11.3 3.89999 11.9C3.89999 12.5 3.49999 12.9 2.89999 12.9H2C2.5 17.6 6.19999 21.4 10.9 21.8V20.9C10.9 20.3 11.3 19.9 11.9 19.9C12.5 19.9 12.9 20.3 12.9 20.9V21.8C17.6 21.3 21.4 17.6 21.8 12.9H20.9Z" fill="currentColor"/>
-                            <path d="M16.9 10.9H13.6C13.4 10.6 13.2 10.4 12.9 10.2V5.90002C12.9 5.30002 12.5 4.90002 11.9 4.90002C11.3 4.90002 10.9 5.30002 10.9 5.90002V10.2C10.6 10.4 10.4 10.6 10.2 10.9H9.89999C9.29999 10.9 8.89999 11.3 8.89999 11.9C8.89999 12.5 9.29999 12.9 9.89999 12.9H10.2C10.4 13.2 10.6 13.4 10.9 13.6V13.9C10.9 14.5 11.3 14.9 11.9 14.9C12.5 14.9 12.9 14.5 12.9 13.9V13.6C13.2 13.4 13.4 13.2 13.6 12.9H16.9C17.5 12.9 17.9 12.5 17.9 11.9C17.9 11.3 17.5 10.9 16.9 10.9Z" fill="currentColor"/>
-                            </svg>
-                        </span>
+                       <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="currentColor"></path>
+                                    <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="currentColor"></rect>
+                                </svg>
+                            </span>
+                           <!--end::Svg Icon-->
                         </span>
                         <!--end::Svg Icon-->
                         <span class="menu-title">Personel Randevular</span>
@@ -914,6 +911,18 @@
                     </a>
                     @endcan
                     <!--end:Menu link-->
+                    <a class="menu-link" href="{{route('business.close-day.index')}}">
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-setting-3 fs-3">
+                             <span class="path1"></span>
+                             <span class="path2"></span>
+                             <span class="path3"></span>
+                             <span class="path4"></span>
+                             <span class="path5"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Tatiller ve Kapalı Günler</span>
+                    </a>
                 </div>
                 <!--end:Menu item-->
                 <!--begin:Menu item-->

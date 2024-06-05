@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use PhpParser\Node\Expr\AssignOp\Mod;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -301,5 +302,30 @@ class Business extends Model
     public function branches()
     {
         return $this->hasMany(Business::class, 'company_id', 'company_id')->where('id','<>', $this->id);
+    }
+
+    public function closeDays()
+    {
+        return $this->hasMany(BusinessCloseDate::class, 'business_id', 'id');
+    }
+
+    public function activeCloseDays()
+    {
+        return $this->closeDays()->where('status', 1);
+    }
+
+    public function isClosed($date)
+    {
+        $closeDate = Carbon::parse($date);
+        $businessCloseDates = $this->activeCloseDays;
+
+        $isClosed = $businessCloseDates->contains(function ($closeDateRecord) use ($closeDate) {
+            $startTime = Carbon::parse($closeDateRecord->start_time);
+            $endTime = Carbon::parse($closeDateRecord->end_time);
+
+            return $closeDate->between($startTime, $endTime);
+        });
+
+        return $isClosed;
     }
 }

@@ -233,7 +233,7 @@ class AppointmentCreateController extends Controller
      *
      * Saat Listesi
      * @param Request $request
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
 
     public function getClock(Request $request)
@@ -258,6 +258,12 @@ class AppointmentCreateController extends Controller
             foreach ($personels as $personel) {
 
                 $disabledDays[] = $this->findTimes($personel, $request->room_id);
+                if ($business->isClosed($request->date)){
+                    return response()->json([
+                        'status' => "error",
+                        'message' => "İşletme bu tarihte hizmet vermemektedir"
+                    ]);
+                }
                 //işletme kapalı gün kontrolü
                 if (isset($business->off_day) && Carbon::parse($getDate->format('d.m.Y'))->dayOfWeek == $business->off_day) {
                     return response()->json([
@@ -300,7 +306,12 @@ class AppointmentCreateController extends Controller
             }
 
         } else { // birden fazla ve farklı personel seçilmişse
-
+            if ($business->isClosed($request->date)){
+                return response()->json([
+                    'status' => "error",
+                    'message' => "İşletme bu tarihte hizmet vermemektedir"
+                ]);
+            }
             if (Carbon::parse($getDate->format('d.m.Y'))->dayOfWeek == $business->off_day) {
                 $clocks[] = [
                     'id' => $getDate->format('d_m_Y_'),
