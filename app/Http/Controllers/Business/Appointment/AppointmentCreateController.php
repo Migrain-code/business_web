@@ -613,14 +613,14 @@ class AppointmentCreateController extends Controller
             $appointmentService->save();
             $result = $this->checkPersonelClock($personelIds[$index], $appointmentService->start_time, $appointmentService->end_time, $request->room_id);
 
-            if ($result) {
+            /*if ($result) {
                 $appointment->services()->delete();
                 $appointment->delete();
                 return response()->json([
                     'status' => "error",
                     'message' => "Seçtiğiniz saate " . $findService->time . " dakikalık hizmet seçtiniz. Bu saate randevu alamazsınız. Başka bir saat seçmelisiniz."
                 ]);
-            }
+            }*/
             $approve_types[] = $findService->approve_type;
 
         }
