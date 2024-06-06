@@ -874,6 +874,36 @@
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
+
+                <div class="menu-item pt-5">
+                    <!--begin:Menu content-->
+                    <div class="menu-content">
+                        <span class="menu-heading fw-bold text-uppercase fs-7">Tarih / Saat Ayarları</span>
+                    </div>
+                    <!--end:Menu content-->
+                    <a class="menu-link" href="{{route('business.close-day.index')}}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-setting-3 fs-3">
+                                 <span class="path1"></span>
+                                 <span class="path2"></span>
+                                 <span class="path3"></span>
+                                 <span class="path4"></span>
+                                 <span class="path5"></span>
+                                </i>
+                            </span>
+                        <span class="menu-title">Tatiller ve Kapalı Günler</span>
+                    </a>
+                    <a class="menu-link" href="{{route('business.personel-custom-work-time.index')}}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-timer fs-3">
+                                     <span class="path1"></span>
+                                     <span class="path2"></span>
+                                     <span class="path3"></span>
+                                    </i>
+                            </span>
+                        <span class="menu-title">Özel Çalışma Saatleri</span>
+                    </a>
+                </div>
                 <!--begin:Menu item-->
                 <div class="menu-item pt-5">
                     <!--begin:Menu content-->
@@ -911,18 +941,7 @@
                     </a>
                     @endcan
                     <!--end:Menu link-->
-                    <a class="menu-link" href="{{route('business.close-day.index')}}">
-                        <span class="menu-icon">
-                            <i class="ki-duotone ki-setting-3 fs-3">
-                             <span class="path1"></span>
-                             <span class="path2"></span>
-                             <span class="path3"></span>
-                             <span class="path4"></span>
-                             <span class="path5"></span>
-                            </i>
-                        </span>
-                        <span class="menu-title">Tatiller ve Kapalı Günler</span>
-                    </a>
+
                 </div>
                 <!--end:Menu item-->
                 <!--begin:Menu item-->

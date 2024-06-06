@@ -328,4 +328,9 @@ class Business extends Model
 
         return $isClosed;
     }
+
+    public function customWorkTimes()
+    {
+        return $this->hasMany(PersonelWorkTime::class, 'business_id', 'id');
+    }
 }

@@ -387,6 +387,30 @@ class Personel extends Authenticatable
         return $customerCount;
     }
 
+    public function workTimes()
+    {
+        return $this->hasMany(PersonelWorkTime::class, 'personel_id', 'id');
+    }
+
+    public function activeWorkTimes()
+    {
+        return $this->workTimes()->where('status', 1);
+    }
+
+    public function isCustomWorkTime($date)
+    {
+        $closeDate = Carbon::parse($date);
+        $personelWorkTimes = $this->activeWorkTimes;
+
+        $isClosed = $personelWorkTimes->first(function ($closeDateRecord) use ($closeDate) {
+            $startTime = Carbon::parse($closeDateRecord->start_date);
+            $endTime = Carbon::parse($closeDateRecord->end_date);
+
+            return $closeDate->between($startTime, $endTime);
+        });
+
+        return $isClosed;
+    }
     protected static function booted()
     {
         static::deleted(function ($personel) {

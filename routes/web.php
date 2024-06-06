@@ -47,6 +47,7 @@ use App\Http\Controllers\PaymentController;
 use \App\Http\Controllers\PersonelCustomerPriceListController;
 use \App\Http\Controllers\OfficialSettingController;
 use \App\Http\Controllers\BusinessCloseDateController;
+use App\Http\Controllers\PersonelWorkTimeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -278,6 +279,9 @@ Route::prefix('isletme')->as('business.')->group(function (){
 
         /* -------------------- İşletme Kapalı Günleri --------------------------*/
         Route::resource('close-day', BusinessCloseDateController::class);
+
+        /* -------------------- Personel Özel Çalışma Aralığı --------------------------*/
+        Route::resource('personel-custom-work-time', PersonelWorkTimeController::class);
 
         /* -------------------- Fiyat Al Formu --------------------------*/
         Route::resource('request-form', AppointmentRequestFormController::class);
