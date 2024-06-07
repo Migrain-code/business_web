@@ -48,6 +48,7 @@ use \App\Http\Controllers\PersonelCustomerPriceListController;
 use \App\Http\Controllers\OfficialSettingController;
 use \App\Http\Controllers\BusinessCloseDateController;
 use App\Http\Controllers\PersonelWorkTimeController;
+use App\Http\Controllers\Business\Auth\TwoFactorVerificationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -96,7 +97,12 @@ Route::prefix('isletme')->as('business.')->group(function (){
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     Route::post('/packet/{packet}/callback/{official}', [PaymentController::class, 'callback'])->name('packet.payment.callback');
     Route::get('generate/invoice/{invoice}/pdf', [\App\Http\Controllers\PdfController::class, 'generatePdf'])->name('generateInvoice');
-    Route::middleware(['auth:official', 'setup', /*checkRole*/])->group(function () {
+
+    Route::get('two-factor-verification', [TwoFactorVerificationController::class, 'show'])->name('twoFactorVerification.show');
+    Route::post('two-factor-verification/verify', [TwoFactorVerificationController::class, 'verify'])->name('twoFactorVerification.verify');
+    Route::post('two-factor-verification/resend', [TwoFactorVerificationController::class, 'resendCode'])->name('twoFactorVerification.resend');
+
+    Route::middleware(['auth:official', 'setup', 'twoFactor',/*checkRole*/])->group(function () {
         Route::get('/home', [\App\Http\Controllers\Business\HomeController::class, 'index'])->name('home');
 
         /*-----------------------  Setup  ------------------------*/

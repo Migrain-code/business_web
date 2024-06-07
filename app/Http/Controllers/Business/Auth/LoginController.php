@@ -70,4 +70,14 @@ class LoginController extends Controller
     {
         return 'phone';
     }
+
+    public function logout(Request $request)
+    {
+        $user = $request->user();
+        $user->is_verify = 0;
+        $user->save();
+
+        Auth::guard('official')->logout();
+        return to_route('loginTypes');
+    }
 }
