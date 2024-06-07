@@ -20,6 +20,7 @@ use App\Models\CustomerNotificationPermission;
 use App\Models\Personel;
 use App\Models\PersonelRoom;
 use App\Services\Sms;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -117,14 +118,15 @@ class AppointmentCreateController extends Controller
      *
      * Müşteri Listesi
      * @param Request $request
-     * @return void
+     * @return JsonResponse
      */
     public function getCustomer(Request $request)
     {
         $user = $request->user();
         $business = $user->business;
         $customers = $business->customers()->whereHas('customer', function ($q) use ($request) {
-            $q->where('name', 'like', '%' . $request->input('searchedName') . '%');
+            $name = strtolower($request->input('searchedName'));
+            $q->whereRaw('LOWER(name) like ?', ['%' . $name . '%']);
         })->take(20)->get();
         return response()->json(CustomerListResource::collection($customers));
     }

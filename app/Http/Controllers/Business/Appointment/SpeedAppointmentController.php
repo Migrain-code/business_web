@@ -39,8 +39,9 @@ class SpeedAppointmentController extends Controller
     {
         $customers = $this->business->customers()->has('customer')->with('customer')->select('id', 'customer_id', 'status', 'created_at')
             ->when($request->filled('name'), function ($q) use ($request) {
-                $q->whereHas('customer', function ($q) use ($request) {
-                    $q->where('name', 'like', '%' . $request->input('name') . '%');
+                $name = strtolower($request->input('name'));
+                $q->whereHas('customer', function ($q) use ($name) {
+                    $q->whereRaw('LOWER(name) like ?', ['%' . $name . '%']);
                 });
             })
             ->take(250)->get();
