@@ -286,7 +286,6 @@ class AppointmentCreateController extends Controller
                             ], 200);
                         } else {
                             //tüm koşullar sağlanmış ise personel saat takvimi
-                            //tüm koşullar sağlanmış ise personel saat takvimi
                             $checkCustomWorkTime = $personel->isCustomWorkTime($request->date);
 
                             if (isset($checkCustomWorkTime)){

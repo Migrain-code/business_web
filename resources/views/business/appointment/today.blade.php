@@ -1,7 +1,12 @@
 @extends('business.layouts.master')
-@section('title', 'İşletme Randevuları')
+@section('title', 'Bugünkü Randevuları')
 @section('styles')
+<style>
+    .draggableTodayAppointment {
+        cursor: move; /* Sürüklenebilir olduğunu belirtmek için */
+    }
 
+</style>
 @endsection
 @section('breadcrumbs')
     <!--begin::Item-->
@@ -42,7 +47,7 @@
             <div class="card-body" >
                 <div class="row">
                     @foreach($personels as $personel)
-                        <div class="col-12 col-lg-3 mb-3">
+                        <div class="col-12 col-lg-3 mb-3 draggableTodayAppointment">
                             <!--begin::Personel Widget 5-->
                             <div class="card  bg-gray-100">
                                 <!--begin::Header-->
@@ -129,4 +134,21 @@
 @endsection
 @section('scripts')
     <script src="/business/assets/js/project/appointment/today.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // SortableJS ile draggableTodayAppointment sınıfına sahip öğeleri sürüklenebilir hale getirin
+            const container = document.querySelectorAll('.draggableTodayAppointment');
+            container.forEach((col) => {
+                new Sortable(col.parentNode, {
+                    group: 'shared', // Aynı grup ismine sahip öğeler arasında sürükleyip bırakabilirsiniz
+                    animation: 150,
+                    onEnd: function (evt) {
+                        console.log(`Item ${evt.item.textContent.trim()} moved to position ${evt.newIndex + 1}`);
+                    }
+                });
+            });
+        });
+    </script>
+
 @endsection
