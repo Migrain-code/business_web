@@ -48,7 +48,7 @@
                 <div class="row">
                     @forelse($galleries as $gallery)
                         <!--begin::item-->
-                        <a class="d-block overlay col-3 mb-5" href="javascript:void(0)">
+                        <a class="d-block overlay col-lg-3 col-12 mb-5" href="javascript:void(0)">
                             <!--begin::Image-->
                             <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded h-300px object-fit-cover"
                                  style="background-image:url('{{image($gallery->way)}}')">
