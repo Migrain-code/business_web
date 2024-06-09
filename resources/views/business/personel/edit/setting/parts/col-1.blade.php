@@ -152,6 +152,7 @@
                 <label class="form-label required">Mesai Başlangıç Saati</label>
                 <!--end::Label-->
                 <!--begin::Input-->
+
                 <input name="start_time" class="form-control form-control-lg form-control-solid timeSelector" value="{{$personel->start_time}}" />
                 <!--end::Input-->
             </div>
@@ -160,7 +161,7 @@
                 <label class="form-label required">Mesai Bitiş Saati</label>
                 <!--end::Label-->
                 <!--begin::Input-->
-                <input name="end_time" class="form-control form-control-lg form-control-solid timeSelector" value="{{$personel->business->end_time}}" />
+                <input name="end_time" class="form-control form-control-lg form-control-solid timeSelector" value="{{$personel->end_time}}" />
                 <!--end::Input-->
             </div>
 

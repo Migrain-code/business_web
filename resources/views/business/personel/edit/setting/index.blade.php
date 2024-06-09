@@ -52,9 +52,9 @@
 
             <!--begin::Button-->
             <button type="submit" id="kt_ecommerce_add_product_submit" onclick="$('#kt_ecommerce_edit_personel_form').submit()" class="btn btn-primary w-100 mt-3">
-                        <span class="indicator-label">
-                            Kaydet
-                        </span>
+                <span class="indicator-label">
+                    Kaydet
+                </span>
             </button>
             <!--end::Button-->
         </div>

@@ -210,6 +210,7 @@ class PersonelController extends Controller
      */
     public function update(PersonalUpdateRequest $request, Personel $personel)
     {
+
         if ($personel->phone != clearPhone($request->phone)) {
             if ($this->existPhone(clearPhone($request->phone))) {
                 return response()->json([
@@ -262,6 +263,7 @@ class PersonelController extends Controller
             $personel->image = $response["image"]["way"];
         }
         if ($personel->save()) {
+
             if (isset($request->restDay)){
                 $this->saveRestDay($personel, $request->restDay);
             } else{
