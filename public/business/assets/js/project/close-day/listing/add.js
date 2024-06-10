@@ -78,7 +78,10 @@ var KTModalCustomersAdd = function () {
                                 contentType: false,
                                 dataType: "JSON",
                                 success: function (res) {
+                                    if (res.status == "success") {
+                                        modal.hide(); // Hide modal
 
+                                    }
                                     Swal.fire({
                                         text: res.message,
                                         icon: res.status,
@@ -143,65 +146,14 @@ var KTModalCustomersAdd = function () {
 
         cancelButton.addEventListener('click', function (e) {
             e.preventDefault();
-
-            Swal.fire({
-                text: "Müşteri Ekleme İşlemini İptal Etmek İstediğinize Eminmisiniz?",
-                icon: "warning",
-                showCancelButton: true,
-                buttonsStyling: false,
-                confirmButtonText: "Evet, İptal Et!",
-                cancelButtonText: "Hayır, Devam Et",
-                customClass: {
-                    confirmButton: "btn btn-danger",
-                    cancelButton: "btn btn-primary"
-                }
-            }).then(function (result) {
-                if (result.value) {
-                    form.reset(); // Reset form
-                    modal.hide(); // Hide modal
-                } else if (result.dismiss === 'cancel') {
-                    Swal.fire({
-                        text: "İşlem İptal Edilmedi!.",
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "Tamam, devam et!",
-                        customClass: {
-                            confirmButton: "btn btn-primary",
-                        }
-                    });
-                }
-            });
+            form.reset(); // Reset form
+            modal.hide(); // Hide modal
         });
 
         closeButton.addEventListener('click', function(e){
             e.preventDefault();
-            Swal.fire({
-                text: "Müşteri Ekleme İşlemini İptal Etmek İstediğinize Eminmisiniz?",
-                icon: "warning",
-                showCancelButton: true,
-                buttonsStyling: false,
-                confirmButtonText: "Evet, İptal Et!",
-                cancelButtonText: "Hayır, Devam Et",
-                customClass: {
-                    confirmButton: "btn btn-danger",
-                    cancelButton: "btn btn-primary"
-                }
-            }).then(function (result) {
-                if (result.value) {
-                    form.reset(); // Reset form
-                    modal.hide(); // Hide modal
-                } else if (result.dismiss === 'cancel') {
-                    Swal.fire({
-                        text: "İşlem İptal Edilmedi!.",
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "Tamam, devam et!",
-                        customClass: {
-                            confirmButton: "btn btn-primary",
-                        }
-                    });
-                }
-            });
+            form.reset(); // Reset form
+            modal.hide(); // Hide modal
 
         })
     }

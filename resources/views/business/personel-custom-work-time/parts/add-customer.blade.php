@@ -9,7 +9,7 @@
                 <!--begin::Modal header-->
                 <div class="modal-header" id="kt_modal_add_customer_header">
                     <!--begin::Modal title-->
-                    <h2 class="fw-bold">İzin Ekle</h2>
+                    <h2 class="fw-bold">Özel Çalışma Saati Ekle</h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
                     <div id="kt_modal_add_customer_close" class="btn btn-icon btn-sm btn-active-icon-primary">

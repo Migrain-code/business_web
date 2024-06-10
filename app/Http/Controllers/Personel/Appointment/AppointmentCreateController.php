@@ -300,7 +300,7 @@ class AppointmentCreateController extends Controller
                                         ];
                                     }
                                 } else {
-                                    $lastTime = "";
+
                                     for ($i = Carbon::parse($checkCustomWorkTime->start_time); $i < Carbon::parse($checkCustomWorkTime->end_time)->endOfDay(); $i->addMinute($personel->appointmentRange->time)) {
                                         $clocks[] = [
                                             'id' => $getDate->format('d_m_Y_' . $i->format('H_i')),
@@ -309,7 +309,7 @@ class AppointmentCreateController extends Controller
                                             'value' => $getDate->format('d.m.Y ' . $i->format('H:i')),
                                             'durum' => in_array($getDate->format('d.m.Y ') . $i->format('H:i'), $disabledDays[0]) ? false : true,
                                         ];
-                                        $lastTime = $i->format('H:i');
+
                                     }
 
                                     $newStartTime = $getDate->addDays(1);

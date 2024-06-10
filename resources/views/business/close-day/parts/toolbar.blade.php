@@ -13,7 +13,7 @@
         <!--begin::Add customer-->
         <button type="button" class="btn btn-primary me-1" data-bs-toggle="modal"
                 data-bs-target="#kt_modal_add_customer">
-            İzin Ekle
+            Kapalı Gün Ekle
         </button>
 
         <!--begin::Export-->

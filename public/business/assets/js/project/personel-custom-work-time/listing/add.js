@@ -65,7 +65,7 @@ var KTModalCustomersAdd = function () {
 
 
         // Revalidate country field. For more info, plase visit the official plugin site: https://select2.org/
-        $(form.querySelector('[name="city_id"]')).on('city_id', function() {
+        $(form.querySelector('[name="city_id"]')).on('city_id', function () {
             // Revalidate the field when an option is chosen
             validator.revalidateField('city_id');
         });
@@ -84,7 +84,7 @@ var KTModalCustomersAdd = function () {
                         // Disable submit button whilst loading
                         submitButton.disabled = true;
 
-                        setTimeout(function() {
+                        setTimeout(function () {
                             submitButton.removeAttribute('data-kt-indicator');
                             var formData = new FormData();
                             formData.append("_token", csrf_token);
@@ -93,7 +93,7 @@ var KTModalCustomersAdd = function () {
                             formData.append("start_date", $('[name="start_date"]').val());
                             formData.append("end_date", $('[name="end_date"]').val());
 
-                            $('#personel_id option:selected').each(function() {
+                            $('#personel_id option:selected').each(function () {
                                 formData.append("personels[]", $(this).val());
                             });
                             $.ajax({
@@ -104,7 +104,11 @@ var KTModalCustomersAdd = function () {
                                 contentType: false,
                                 dataType: "JSON",
                                 success: function (res) {
+                                    if (res.status == "success") {
+                                        modal.hide(); // Hide modal
+                                        $("#personel_id").prop("selectedIndex", -1).trigger("change");
 
+                                    }
                                     Swal.fire({
                                         text: res.message,
                                         icon: res.status,
@@ -115,9 +119,9 @@ var KTModalCustomersAdd = function () {
                                         }
                                     }).then(function (result) {
                                         submitButton.disabled = false;
-                                        if (res.status == "success"){
+                                        if (res.status == "success") {
                                             form.reset(); // Reset form
-                                            modal.hide(); // Hide modal
+
 
                                             if ($.fn.DataTable.isDataTable('#datatable')) {
                                                 $('#datatable').DataTable().ajax.reload();
@@ -169,65 +173,14 @@ var KTModalCustomersAdd = function () {
 
         cancelButton.addEventListener('click', function (e) {
             e.preventDefault();
-
-            Swal.fire({
-                text: "Müşteri Ekleme İşlemini İptal Etmek İstediğinize Eminmisiniz?",
-                icon: "warning",
-                showCancelButton: true,
-                buttonsStyling: false,
-                confirmButtonText: "Evet, İptal Et!",
-                cancelButtonText: "Hayır, Devam Et",
-                customClass: {
-                    confirmButton: "btn btn-danger",
-                    cancelButton: "btn btn-primary"
-                }
-            }).then(function (result) {
-                if (result.value) {
-                    form.reset(); // Reset form
-                    modal.hide(); // Hide modal
-                } else if (result.dismiss === 'cancel') {
-                    Swal.fire({
-                        text: "İşlem İptal Edilmedi!.",
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "Tamam, devam et!",
-                        customClass: {
-                            confirmButton: "btn btn-primary",
-                        }
-                    });
-                }
-            });
+            form.reset(); // Reset form
+            modal.hide(); // Hide modal
         });
 
-        closeButton.addEventListener('click', function(e){
+        closeButton.addEventListener('click', function (e) {
             e.preventDefault();
-            Swal.fire({
-                text: "Müşteri Ekleme İşlemini İptal Etmek İstediğinize Eminmisiniz?",
-                icon: "warning",
-                showCancelButton: true,
-                buttonsStyling: false,
-                confirmButtonText: "Evet, İptal Et!",
-                cancelButtonText: "Hayır, Devam Et",
-                customClass: {
-                    confirmButton: "btn btn-danger",
-                    cancelButton: "btn btn-primary"
-                }
-            }).then(function (result) {
-                if (result.value) {
-                    form.reset(); // Reset form
-                    modal.hide(); // Hide modal
-                } else if (result.dismiss === 'cancel') {
-                    Swal.fire({
-                        text: "İşlem İptal Edilmedi!.",
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "Tamam, devam et!",
-                        customClass: {
-                            confirmButton: "btn btn-primary",
-                        }
-                    });
-                }
-            });
+            form.reset(); // Reset form
+            modal.hide(); // Hide modal
 
         })
     }
