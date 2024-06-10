@@ -160,6 +160,7 @@ class AppointmentController extends Controller
             ->whereHas('services', function ($q) use ($personel){
                 $q->where('personel_id', $personel->id);
             })
+            ->latest()->take(20)
             ->get();
 
         return DataTables::of($appointments)
