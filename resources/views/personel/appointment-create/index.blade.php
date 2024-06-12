@@ -515,7 +515,7 @@
         });
     </script>
     <script>
-        $('.roomCheckBox').change(function(){
+        /*$('.roomCheckBox').change(function(){
             // Seçili olan checkbox'un discount değerini al ve göster
             const selectedCheckbox = $('.roomCheckBox:checked');
             const discount = parseInt(selectedCheckbox.attr('data-discount'));
@@ -535,6 +535,6 @@
                     $(this).text(price.toFixed(2)+ " ₺");
                 }
             });
-        });
+        });*/
     </script>
 @endsection
