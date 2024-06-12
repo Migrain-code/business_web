@@ -65,7 +65,6 @@
                                     {{$calculateTime}} .DK
                                 </td>
                                 <td class="d-flex flex-column flex-end">
-
                                     {{$service->servicePrice()}}
                                     @if($service->service->price_type_id == 1 && $service->total == 0)
                                         {{$calculateTotal = false}}
