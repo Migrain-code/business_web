@@ -17,11 +17,13 @@ function checkAppointments() {
     console.log('saat kontrolü çalıştırıldı');
 }
 
-// İlk kontrol
-//checkAppointments();
+
+if (setCloseClockStatus){
+    checkAppointments();
 
 // 5 dakikada bir kontrol et
-//setInterval(checkAppointments, 5 * 60 * 1000);
+    setInterval(checkAppointments, 5 * 60 * 1000);
+}
 function openFullScreen() {
     // appointmentCalendar div'inin içeriğini al
     var content = document.getElementById('appointmentCalendar').outerHTML;
