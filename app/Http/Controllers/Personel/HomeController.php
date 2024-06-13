@@ -80,21 +80,21 @@ class HomeController extends Controller
                     'date' => $date->translatedFormat('d'),
                     'day' => "Bugün",
                     'text' => "Bugün",
-                    'value' => $date,
+                    'value' => $date->toDateString(),
                 ];
             } else if ($dateStartOfDay->eq($tomorrow)) {
                 $dates[] = [
                     'date' => $date->translatedFormat('d'),
                     'day' => "Yarın",
                     'text' => "Yarın",
-                    'value' => $date,
+                    'value' => $date->toDateString(),
                 ];
             } else {
                 $dates[] = [
                     'date' => $date->translatedFormat('d'),
                     'day' => $date->translatedFormat('l'),
                     'text' => $date->translatedFormat('d F l'),
-                    'value' => $date,
+                    'value' => $date->toDateString(),
                 ];
             }
         }
