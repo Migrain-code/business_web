@@ -71,7 +71,10 @@ class AppointmentController extends Controller
 
     public function todayAppointment()
     {
-        $personels = $this->business->personels()->has('todayAppointments')->get()->sortBy('name');
+        $personels = $this->business->personels()
+            //->has('todayAppointments')
+            ->get()
+            ->sortBy('name');
         return view('business.appointment.today', compact('personels'));
     }
     /**
