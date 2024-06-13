@@ -297,7 +297,7 @@
                         });
                         document.getElementById('dateContainer').innerHTML= dates;
 
-                        getClock('{{now()}}');
+                        getClock('{{now()->toDateString()}}');
                     },
                 });
             }
