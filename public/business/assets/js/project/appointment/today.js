@@ -14,7 +14,7 @@ function checkAppointments() {
             }
         }
     });
-    console.log('saat kontrolü çalıştırıldı');
+
 }
 
 

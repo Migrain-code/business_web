@@ -69,9 +69,9 @@
 
             <!--begin::Card body-->
             <div class="card-body" >
-                <div class="scroll-x  overflow-y-hidden">
+                <div class="scroll-x  overflow-y-hidden" style="transform: rotateX(180deg);">
 
-                    <div class="row" style="width: {{$personels->count() * 250}}px">
+                    <div class="row" style="width: {{$personels->count() * 250}}px; transform: rotateX(-180deg);padding-top: 10px">
                         @foreach($personels as $personel)
                             <div class="w-250px draggableTodayAppointment">
                                 <!--begin::Personel Widget 5-->
@@ -173,6 +173,8 @@
         var setCloseClockStatus = false;
 
         @if(isset($selectedDate) && $selectedDate == now()->toDateString())
+            setCloseClockStatus = true;
+        @elseif(!isset($selectedDate))
             setCloseClockStatus = true;
         @else
             setCloseClockStatus = false;

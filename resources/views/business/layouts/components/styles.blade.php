@@ -63,9 +63,14 @@
         overflow-y: hidden;
     }
     .scroll-x::-webkit-scrollbar {
+
         width: 5px; /* Scrollbar genişliği */
         height: 5px;
     }
+    .scroll-x::-webkit-scrollbar-thumb {
+        background: #0095e8 !important;
+    }
+
     .hover-scroll-x::-webkit-scrollbar {
         width: 5px; /* Scrollbar genişliği */
         height: 5px;
