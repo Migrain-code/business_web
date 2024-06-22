@@ -118,7 +118,11 @@
             clearInterval(scrollInterval);
         });
         $('#personelSelectArea').on('change', function (){
-            fetchAppointment('{{now()->format('Y-m-d')}}')
+            var activeTab = $('.clickedDate.active');
+
+            // Get the data-date attribute of the active tab using attr()
+            var activeDate = activeTab.attr('data-date');
+            fetchAppointment(activeDate)
         });
         function fetchAppointment(date){
             var personelId = $('#personelSelectArea').val();
