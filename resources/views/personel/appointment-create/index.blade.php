@@ -36,7 +36,7 @@
 @section('breadcrumbs')
     <!--begin::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-        <a href="{{route('business.home')}}"> Gösterge Paneli </a>
+        <a href="{{route('personel.home')}}"> Gösterge Paneli </a>
     </li>
     <!--end::Item-->
     <li class="breadcrumb-item">
@@ -44,7 +44,7 @@
     <!--end::Item-->
     <!--begin::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-       Randevu Oluştur
+        Randevu Oluştur
     </li>
     <!--end::Item-->
 
@@ -57,7 +57,7 @@
             <div class="row">
                 <div class="col-lg-3 col-12">
                     <!--begin::Nav-->
-                    @include('personel.appointment-create.steps.nav')
+                    @include('business.appointment-create.steps.nav')
                     <!--end::Nav-->
                 </div>
                 <div class="col-lg-9 col-12">
@@ -111,10 +111,11 @@
 
     </div>
     @include('personel.appointment-create.modal.add-customer')
-
 @endsection
 @section('scripts')
     <script src="/business/assets/js/project/personel-account/appointment/add-customer.js"></script>
+
+
     <script>
         $('#searchCustomer').on('input keypress', function() {
             var searchValue = $(this).val().toLowerCase(); // Arama değerini küçük harfe çevir
@@ -153,7 +154,7 @@
                 getPersonel();
             }
             else if(stepper.currentStepIndex === 2){
-               getDate();
+                getDate();
             }
             else if(stepper.currentStepIndex === 3){
                 getCustomer()
@@ -171,8 +172,19 @@
 
 
         function getPersonel(){
+            var rooms = $('input[name="room_id"]');
+            var selectedRoomId = null;
+
+            if (rooms.length > 0) {
+                let selectedInput = $('input[name="room_id"]:checked');
+                if(selectedInput.length > 0){
+                    selectedRoomId = selectedInput.val();
+                }
+            }
+
             var formData = new FormData();
             formData.append("_token", csrf_token);
+            formData.append("selectedRoomId", selectedRoomId);
             var inputs = document.querySelectorAll('input[name="services[]"]');
             var selectedServiceCount = 0;
             if (inputs.length > 0) {
@@ -186,8 +198,9 @@
             if(selectedServiceCount === 0){
                 Swal.fire({
                     title: "Hizmet seçimi yapmadan personel seçimine geçemezsiniz.",
-                    text: "Lütfen Hizmet Seçiniz",
+                    text: "Eğer herhangi bir hizmet seçim alanı görmüyorsanız. Personellerinize hizmet listenizden hizmet atayınız.",
                     icon: 'error',
+                    confirmButtonText:'Tamam'
                 });
                 stepper.currentStepIndex = 0;
             }
@@ -285,14 +298,14 @@
                         $.each(res.dates, function(index, item) {
 
                             dates += `
-                            <li class="nav-item me-1">
-                                <a class="nav-link btn d-flex flex-column flex-center min-w-40px me-2 py-4 btn-active-primary ${counter === 0 ? 'active': ''}" onclick="getClock('${item.value}')" data-bs-toggle="tab" style="border-radius: 15px !important;">
-                                    <span class="opacity-75 fs-5 fw-semibold">${item.date}</span>
-                                    <span class="fs-6 fw-bolder">${item.day}</span>
-                                    <span class="fs-7">${item.month}</span>
-                                </a>
-                            </li>
-                        `;
+                                    <li class="nav-item me-1">
+                                        <a class="nav-link btn d-flex flex-column flex-center min-w-40px me-2 py-4 btn-active-primary ${counter === 0 ? 'active': ''}" onclick="getClock('${item.value}')" data-bs-toggle="tab" style="border-radius: 15px !important;">
+                                            <span class="opacity-75 fs-5 fw-semibold">${item.date}</span>
+                                            <span class="fs-6 fw-bolder">${item.day}</span>
+                                            <span class="fs-7">${item.month}</span>
+                                        </a>
+                                    </li>
+                                `;
                             counter++;
                         });
                         document.getElementById('dateContainer').innerHTML= dates;
@@ -455,15 +468,6 @@
             }
             var personelValues = [];
             var personelInputs = document.querySelectorAll('input[name^="personel"]');
-            personelInputs.forEach(function(input) {
-                // Eğer input checked ise, değerini diziye ekle
-                if (input.checked) {
-                    var valueParts = input.value.split('_'); // value değerini ayır
-                    var personelValue = valueParts[0]; // İlk kısmı al
-                    personelValues.push(personelValue);
-                    formData.append('personels[]', personelValue);
-                }
-            });
             var rooms = $('input[name="room_id"]');
             var selectedRoomId = null;
 
@@ -473,9 +477,18 @@
                     selectedRoomId = selectedInput.val();
                 }
             }
-            formData.append('room_id', selectedRoomId);
-            formData.append('appointment_time', getDate);
+            personelInputs.forEach(function(input) {
+                // Eğer input checked ise, değerini diziye ekle
+                if (input.checked) {
+                    var valueParts = input.value.split('_'); // value değerini ayır
+                    var personelValue = valueParts[0]; // İlk kısmı al
+                    personelValues.push(personelValue);
+                    formData.append('personels[]', personelValue);
+                }
+            });
 
+            formData.append('appointment_time', getDate);
+            formData.append('room_id', selectedRoomId);
             $.ajax({
                 url: '/personel/appointment-create/check/clock',
                 type: "POST",

@@ -617,7 +617,7 @@ class AppointmentCreateController extends Controller
         }
 
         // randevu almaya 30 dk öncesine kadar izin ver
-        $startTime = Carbon::parse($personel->start_time);
+       $startTime = Carbon::parse($personel->start_time);
         $endTime = Carbon::parse($personel->end_time);
         for ($i = $startTime; $i < $endTime; $i->addMinutes(intval($personel->appointmentRange->time))) {
             if ($i < now()->addMinutes(5)) {
