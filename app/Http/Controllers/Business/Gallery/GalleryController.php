@@ -88,7 +88,7 @@ class GalleryController extends Controller
             10,
             30
         );
-        $tempPath = 'temp/' . uniqid().".webp";
+        $tempPath = 'temp/' . uniqid().".jpg";
 
         $img->save(storage_path('app/' . $tempPath));
         $tempFile = new \Illuminate\Http\File(storage_path('app/' . $tempPath));
