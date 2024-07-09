@@ -7,7 +7,7 @@
             <div class="formBoxForm">
                 <div class="mb-0 mt-2">
                     <label class="registerLabel">
-                        <h3>Patron Girişi</h3>
+                        <h3>Yönetici Girişi</h3>
                     </label>
                     <label class="registerLabel">Randevularınızı Akıllıca Planlayın, İşinizi Büyütün.</label>
                 </div>
