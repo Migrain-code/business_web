@@ -1,6 +1,15 @@
 @extends('business.layouts.master')
 @section('title', 'Prim Takibi')
 @section('styles')
+    <style>
+        .primCard{
+            background: #eaeaea7d;
+            padding: 10px;
+            line-height: 25px;
+            border-radius: 15px;
+        }
+
+    </style>
 @endsection
 @section('breadcrumbs')
     <!--begin::Item-->
@@ -27,7 +36,9 @@
                 <!--begin::Card title-->
                 <div class="card-title">
                     <!--begin::Search-->
-
+                    <div class="d-flex">
+                        <h4>{{"Seçili Personel: ".$personel->name}}</h4>
+                    </div>
                     <!--end::Search-->
                 </div>
                 <!--begin::Card title-->
@@ -36,226 +47,82 @@
             </div>
             <!--end::Card header-->
 
-            <div class="row mx-5">
-                <div class="col-lg-6 col-12">
-                    <!--begin::Social widget 1-->
+            <div class="row">
+                <div class="col-lg-12 col-12">
                     <div class="card mb-5 mb-xl-8">
-                        <!--begin::Header-->
-                        <div class="card-header border-0 pt-5">
-                            <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fw-bold text-dark">Kasa</span>
-
-                                <span class="text-muted mt-1 fw-semibold fs-7">Seçtiğiniz Aralıkta türe göre sağlanan kazanç</span>
-                            </h3>
-
-                            <!--begin::Toolbar-->
-                            <div class="card-toolbar">
-                               <span class="fw-bold" style="font-size: 1.275rem"></span>
-                            </div>
-                            <!--end::Toolbar-->
-                        </div>
-                        <!--end::Header-->
-
                         <!--begin::Body-->
                         <div class="card-body pt-5">
-                            <!--begin::Item-->
-                            <div class="d-flex flex-stack">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-40px me-5">
-                                    <i class="ki-duotone ki-wallet fs-3x text-primary mb-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                    </i>
-                                </div>
-                                <!--end::Symbol-->
+                            <div class="d-flex justify-content-between flex-column flex-md-row">
+                                <!--begin::Content-->
+                                <div class="flex-grow-1 pt-8 mb-13">
+                                    <!--begin::Table-->
+                                    <div class="table-responsive border-bottom mb-14">
+                                        <table class="table">
+                                            <thead>
+                                            <tr class="border-bottom fs-6 fw-bold text-muted text-uppercase">
+                                                <th class="min-w-175px pb-9">Tür</th>
+                                                <th class="min-w-80px pb-9 text-end">Oran</th>
+                                                <th class="min-w-80px pb-9 text-end">Ciro</th>
+                                                <th class="min-w-100px pe-lg-6 pb-9 text-end">Kazanç</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <x-prim-card
+                                                title="Hizmet Cirosu"
+                                                icon="danger"
+                                                sub-title="{{ $case['appointmentTotal']['rate'] }}"
+                                                price-1="{{ $case['appointmentTotal']['appointmentCiro'] }}"
+                                                price-2="{{ $case['appointmentTotal']['appointmentRate'] }}">
+                                            </x-prim-card>
 
-                                <!--begin::Section-->
-                                <div class="d-flex align-items-center flex-row-fluid flex-wrap">
-                                    <!--begin:Author-->
-                                    <div class="flex-grow-1 me-2">
-                                        <a href="javascript:void(0)"
-                                           class="text-gray-800 text-hover-primary fs-6 fw-bold">
-                                            Hizmet Gideri
-                                        </a>
+                                            <x-prim-card
+                                                title="Ürün Satışı Cirosu"
+                                                icon="success"
+                                                sub-title="{{ $case['productSaleTotal']['rate'] }}"
+                                                price-1="{{ $case['productSaleTotal']['productSaleCiro'] }}"
+                                                price-2="{{ $case['productSaleTotal']['productSaleRate'] }}">
+                                            </x-prim-card>
+                                            <x-prim-card
+                                                title="Paket Satışı Cirosu"
+                                                icon="primary"
+                                                sub-title="{{ $case['packageSaleTotal']['rate'] }}"
+                                                price-1="{{ $case['packageSaleTotal']['packageSaleCiro'] }}"
+                                                price-2="{{ $case['packageSaleTotal']['packageSaleRate'] }}">
+                                            </x-prim-card>
 
-                                        <span class="text-muted fw-semibold d-block fs-7">Seçtiğiniz aralıktaki toplam hizmet gideri</span>
+
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <!--end:Author-->
-
-                                    <!--begin:Action-->
-                                    <span class="fs-4 fw-bold">{{formatPrice($case["servicePrice"])}}</span>
-                                    <!--end:Action-->
+                                    <!--end::Table-->
                                 </div>
-                                <!--end::Section-->
-                            </div>
-                            <!--end::Item-->
+                                <!--end::Content-->
+                                <div class="d-flex flex-column justify-content-center align-items-center border-left-1 p-3" style="border-left-style: groove;">
 
-                            <!--begin::Separator-->
-                            <div class="separator separator-dashed my-4"></div>
-                            <!--end::Separator-->
+                                    <!--begin::Content-->
+                                    <div class="text-center pt-5">
+                                        <!--begin::Total Amount-->
+                                        <div class="fs-3 fw-bold text-muted mb-3">Toplam Ciro</div>
+                                        <div class="fs-xl-2x fs-2 fw-bolder">{{formatPrice($case["generalTotal"]["totalCiro"])}}</div>
+                                        <div class="text-muted fw-semibold">Hasılat Yapıldı</div>
+                                        <!--end::Total Amount-->
+                                        <div class="border-bottom w-100 my-5"></div>
+                                        <!--begin::Invoice To-->
+                                        <!--begin::Total Amount-->
+                                        <div class="fs-3 fw-bold text-muted mb-3">Toplam Kazanç</div>
+                                        <div class="fs-xl-2x fs-2 fw-bolder">{{formatPrice($case["generalTotal"]["totalRate"])}}</div>
+                                        <div class="text-muted fw-semibold">Kazandı</div>
 
-                            <!--begin::Item-->
-                            <div class="d-flex flex-stack">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-40px me-5">
-                                    <i class="ki-duotone ki-tag fs-3x text-primary mb-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                    </i>
-                                </div>
-                                <!--end::Symbol-->
-
-                                <!--begin::Section-->
-                                <div class="d-flex align-items-center flex-row-fluid flex-wrap">
-                                    <!--begin:Author-->
-                                    <div class="flex-grow-1 me-2">
-                                        <a href="javascript:void(0)"
-                                           class="text-gray-800 text-hover-primary fs-6 fw-bold">
-                                            Ürün Gideri
-                                        </a>
-
-                                        <span class="text-muted fw-semibold d-block fs-7">Seçtiğiniz aralıktaki toplam ürün gideri</span>
-                                    </div>
-                                    <!--end:Author-->
-
-                                    <!--begin:Action-->
-                                    <span class="fs-4 fw-bold">{{formatPrice($case["productPrice"])}}</span>
-                                    <!--end:Action-->
-                                </div>
-                                <!--end::Section-->
-                            </div>
-                            <!--end::Item-->
-
-                            <!--begin::Separator-->
-                            <div class="separator separator-dashed my-4"></div>
-                            <!--end::Separator-->
-
-                            <!--begin::Item-->
-                            <div class="d-flex flex-stack">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-40px me-5">
-                                    <i class="ki-duotone ki-credit-cart fs-3x text-primary mb-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                    </i>
-                                </div>
-                                <!--end::Symbol-->
-
-                                <!--begin::Section-->
-                                <div class="d-flex align-items-center flex-row-fluid flex-wrap">
-                                    <!--begin:Author-->
-                                    <div class="flex-grow-1 me-2">
-                                        <a href="javascript:void(0)"
-                                           class="text-gray-800 text-hover-primary fs-6 fw-bold">
-                                            Toplam
-                                        </a>
-
-                                        <span class="text-muted fw-semibold d-block fs-7">Seçtiğiniz aralıktaki toplam gider</span>
-                                    </div>
-                                    <!--end:Author-->
-
-                                    <!--begin:Action-->
-                                    <span class="fs-4 fw-bold">{{formatPrice($case["total"])}}</span>
-                                    <!--end:Action-->
-                                </div>
-                                <!--end::Section-->
-                            </div>
-                            <!--end::Item-->
-                        </div>
-                        <!--end::Body-->
-                    </div>
-                    <!--end::Social widget 1-->
-                </div>
-                <div class="col-lg-6 col-12">
-                    <!--begin::Social widget 1-->
-                    <div class="card mb-5 mb-xl-8">
-                        <!--begin::Header-->
-                        <div class="card-header border-0 pt-5">
-                            <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fw-bold text-dark">Personeller</span>
-
-                                <span class="text-muted mt-1 fw-semibold fs-7">Personellere Göre Prim Takibi</span>
-                            </h3>
-
-                            <!--begin::Toolbar-->
-                            <div class="card-toolbar">
-                                <span class="fw-bold" style="font-size: 1.275rem"></span>
-                            </div>
-                            <!--end::Toolbar-->
-                        </div>
-                        <!--end::Header-->
-
-                        <!--begin::Body-->
-                        <div class="card-body pt-5">
-                            @foreach($prims as $prim)
-                                <!--begin::question-->
-                                <div class="m-0">
-                                    <!--begin::Heading-->
-                                    <div class="d-flex align-items-center collapsible py-3 toggle collapsed mb-0" data-bs-toggle="collapse"
-                                         data-bs-target="#qustion_{{$loop->index}}">
-                                        <!--begin::Icon-->
-                                        <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
-                                            <i class="ki-duotone ki-minus-square toggle-on text-primary fs-1">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                            <i class="ki-duotone ki-plus-square toggle-off fs-1">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                                <span class="path3"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Icon-->
-
-                                        <!--begin::Title-->
-                                        <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">
-                                            {{$prim["personelName"]}}
-                                        </h4>
-                                        <!--end::Title-->
-                                    </div>
-                                    <!--end::Heading-->
-
-                                    <!--begin::Body-->
-                                    <div id="qustion_{{$loop->index}}" class="collapse fs-6 ms-1">
-                                        <!--begin::Text-->
-                                        <div class="mb-4 text-gray-600 fw-semibold fs-6">
-                                           <div class="card p-5">
-                                               <div class="d-flex flex-stack p-2">
-                                                   <div class="fw-bold">Hizmet Gideri</div>
-                                                   <div class="fw-medium">{{formatPrice($prim["servicePrice"])}}</div>
-                                               </div>
-                                               <div class="separator separator-dashed"></div>
-                                               <div class="d-flex flex-stack p-2">
-                                                   <div class="fw-bold">Ürün Satış Gideri</div>
-                                                   <div class="fw-medium">{{formatPrice($prim["productPrice"])}}</div>
-                                               </div>
-                                               <div class="separator separator-dashed"></div>
-                                               <div class="d-flex flex-stack p-2">
-                                                   <div class="fw-bold">Toplam</div>
-                                                   <div class="fw-medium">{{formatPrice($prim["total"])}}</div>
-                                               </div>
-                                               <div class="separator separator-dashed"></div>
-                                           </div>
-                                        </div>
-                                        <!--end::Text-->
                                     </div>
                                     <!--end::Content-->
 
-
-                                    <!--begin::Separator-->
-                                    <div class="separator separator-dashed"></div>
-                                    <!--end::Separator-->
                                 </div>
-                                <!--end::question-->
-                            @endforeach
+                            </div>
 
                         </div>
                         <!--end::Body-->
                     </div>
-                    <!--end::Social widget 1-->
+
                 </div>
             </div>
         </div>
@@ -265,8 +132,72 @@
 @endsection
 @section('scripts')
     <script>
-        $('#listType').on('change', function (){
-           $('#listTypeForm').submit();
+        $('#kt_daterangepicker_4').on('change', function (){
+           $('#kt_daterangepicker_4').submit();
         });
     </script>
+
+    <script>
+        $(function() {
+
+            function cb(start, end) {
+                $('#kt_daterangepicker_4').html(start.format('MMMM D') + ' - ' + end.format('MMMM D'));
+            }
+            cb(moment().subtract(29, 'days'), moment());
+
+            $('#kt_daterangepicker_4').daterangepicker({
+                "timePicker24Hour": true,
+                "opens": "left",
+                ranges: {
+                    'Bugün': [moment(), moment()],
+                    'Dün': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Son 7 gün': [moment().subtract(6, 'days'), moment()],
+                    'Son 30 gün': [moment().subtract(29, 'days'), moment()],
+                    'Bu ay': [moment().startOf('month'), moment().endOf('month')],
+                    'Geçen ay': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                "locale": {
+                    "format": "DD.MM.YYYY",
+                    "separator": " - ",
+                    "applyLabel": "Uygula",
+                    "cancelLabel": "Vazgeç",
+                    "fromLabel": "Dan",
+                    "toLabel": "a",
+                    "customRangeLabel": "Özel",
+                    "daysOfWeek": [
+                        "Pt",
+                        "Sl",
+                        "Çr",
+                        "Pr",
+                        "Cm",
+                        "Ct",
+                        "Pz"
+                    ],
+                    "monthNames": [
+                        "Ocak",
+                        "Şubat",
+                        "Mart",
+                        "Nisan",
+                        "Mayıs",
+                        "Haziran",
+                        "Temmuz",
+                        "Ağustos",
+                        "Eylül",
+                        "Ekim",
+                        "Kasım",
+                        "Aralık"
+                    ],
+                    "firstDay": 1
+                }
+            }, cb);
+        });
+        $('#personelId').on('change', function (){
+            $('#listTypeForm').submit();
+            var selectedDate = $('#kt_daterangepicker_4').val();
+            if(selectedDate == ""){
+                alert('Lütfen Tarih Seçiniz');
+            }
+        });
+    </script>
+
 @endsection

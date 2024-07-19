@@ -228,6 +228,49 @@ class Personel extends Authenticatable
         return false;
     }
 
+    public function getCustomer()
+    {
+        $customer_ids = [];
+        foreach ($this->appointments as $appointment) {
+            $customer_ids[] = $appointment->appointment->customer_id;
+        }
+        $customerCount = count(array_unique($customer_ids));
+        return $customerCount;
+    }
+
+    public function workTimes()
+    {
+        return $this->hasMany(PersonelWorkTime::class, 'personel_id', 'id');
+    }
+
+    public function activeWorkTimes()
+    {
+        return $this->workTimes()->where('status', 1);
+    }
+
+    public function isCustomWorkTime($date)
+    {
+        $closeDate = Carbon::parse($date);
+        $personelWorkTimes = $this->activeWorkTimes;
+
+        $isClosed = $personelWorkTimes->first(function ($closeDateRecord) use ($closeDate) {
+            $startTime = Carbon::parse($closeDateRecord->start_date);
+            $endTime = Carbon::parse($closeDateRecord->end_date);
+
+            return $closeDate->between($startTime, $endTime);
+        });
+
+        return $isClosed;
+    }
+    protected static function booted()
+    {
+        static::deleted(function ($personel) {
+            $personel->notifications()->delete();
+            $personel->restDays()->delete();
+            $personel->services()->delete();
+        });
+    }
+
     public function totalCiro($request = null)
     {
         $productPrice = $this->sales()->when(filled($request), function ($q) use ($request) {
@@ -366,6 +409,147 @@ class Personel extends Authenticatable
         return $hizmetHakedis + $satisHakedis;
     }
 
+    public function case($listType = null, $startDate = null, $endDate = null )
+    {
+        return [
+            'appointmentTotal' => $this->calculateAppointmentsTotal($listType, $startDate, $endDate),
+            'productSaleTotal' => $this->calculateProductSaleTotal($listType,  $startDate, $endDate),
+            'packageSaleTotal' => $this->calculatePackageTotal($listType,  $startDate, $endDate),
+            'generalTotal' => $this->generalTotal($listType,  $startDate, $endDate)
+        ];
+    }
+
+    public function calculateAppointmentsTotal($listType = null, $startDate = null, $endDate = null)
+    {
+        $appointments = $this->appointments()
+            ->when(isset($startDate), function ($q) use ($startDate, $endDate) {
+                $startDate = Carbon::parse($startDate);
+                $endDate = Carbon::parse($endDate);
+                $q->whereBetween('start_time', [$startDate->toDateString(), $endDate->toDateString()]);
+            })
+            ->when($listType, function ($q) use ($listType) {
+                switch ($listType) {
+                    case 'thisWeek':
+                        $q->whereBetween('start_time', [now()->startOfWeek(), now()->endOfWeek()]);
+                        break;
+                    case 'thisMonth':
+                        $q->whereBetween('start_time', [now()->startOfMonth(), now()->endOfMonth()]);
+                        break;
+                    case 'thisYear':
+                        $q->whereBetween('start_time', [now()->startOfYear(), now()->endOfYear()]);
+                        break;
+                    case 'thisDay':
+                        $q->whereDate('start_time', now()->toDateString());
+                        break;
+                    default:
+                        $q->whereDate('start_time', now()->subDays(1)->toDateString());
+                        break;
+                }
+            })->get();
+
+        /*foreach ($appointments as $appointment){
+            $appointment->total = $appointment->servicePrice();
+            $appointment->save();
+        }*/
+        $servicePrice = $appointments->sum(function ($appointment) {
+            return $appointment->total;
+        });
+
+        $hizmetHakedis = ($servicePrice * $this->rate) / 100;
+        return [
+            'appointmentCiro' => $servicePrice,
+            'appointmentRate' => $hizmetHakedis,
+            'rate' => '%' . $this->rate,
+        ];
+    }
+
+    public function calculateProductSaleTotal($listType = null, $startDate = null, $endDate = null)
+    {
+        $productPrice = $this->sales()
+            ->when(isset($startDate), function ($q) use ($startDate, $endDate) {
+                $startDate = Carbon::parse($startDate);
+                $endDate = Carbon::parse($endDate);
+                $q->whereBetween('created_at', [$startDate->toDateString(), $endDate->toDateString()]);
+            })
+            ->when($listType, function ($q) use ($listType) {
+                switch ($listType) {
+                    case 'thisWeek':
+                        $q->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()]);
+                        break;
+                    case 'thisMonth':
+                        $q->whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()]);
+                        break;
+                    case 'thisYear':
+                        $q->whereBetween('created_at', [now()->startOfYear(), now()->endOfYear()]);
+                        break;
+                    case 'thisDay':
+                        $q->whereDate('created_at', now()->toDateString());
+                        break;
+                    default:
+                        $q->whereDate('created_at', now()->subDays(1)->toDateString());
+                        break;
+                }
+            })->sum('total');
+
+        $productHakedis = ($productPrice * $this->product_rate) / 100;
+        return [
+            'productSaleCiro' => $productPrice,
+            'productSaleRate' => $productHakedis,
+            'rate' => '%' . $this->product_rate,
+        ];
+    }
+
+    public function calculatePackageTotal($listType = null, $startDate = null, $endDate = null)
+    {
+        $packagePrice = $this->packages()
+            ->when(isset($startDate), function ($q) use ($startDate, $endDate) {
+                $startDate = Carbon::parse($startDate);
+                $endDate = Carbon::parse($endDate);
+                $q->whereBetween('seller_date', [$startDate->toDateString(), $endDate->toDateString()]);
+            })
+            ->when($listType, function ($q) use ($listType) {
+                switch ($listType) {
+                    case 'thisWeek':
+                        $q->whereBetween('seller_date', [now()->startOfWeek(), now()->endOfWeek()]);
+                        break;
+                    case 'thisMonth':
+                        $q->whereBetween('seller_date', [now()->startOfMonth(), now()->endOfMonth()]);
+                        break;
+                    case 'thisYear':
+                        $q->whereBetween('seller_date', [now()->startOfYear(), now()->endOfYear()]);
+                        break;
+                    case 'thisDay':
+                        $q->whereDate('seller_date', now()->toDateString());
+                        break;
+                    default:
+                        $q->whereDate('seller_date', now()->subDays(1)->toDateString());
+                        break;
+                }
+            })->sum('total');
+
+        $packageHakedis = ($packagePrice * $this->product_rate) / 100;
+        return [
+            'packageSaleCiro' => $packagePrice,
+            'packageSaleRate' => $packageHakedis,
+            'rate' => '%' . $this->product_rate,
+        ];
+    }
+
+    public function generalTotal($listType = null, $startDate = null, $endDate = null)
+    {
+        $appointmentTotal = $this->calculateAppointmentsTotal($listType, $startDate, $endDate);
+        $productSaleTotal = $this->calculateProductSaleTotal($listType, $startDate, $endDate);
+        $packageSaleTotal = $this->calculatePackageTotal($listType, $startDate, $endDate);
+
+        $totalCiro = $appointmentTotal['appointmentCiro'] + $productSaleTotal['productSaleCiro'] + $packageSaleTotal['packageSaleCiro'];
+        $totalHakedis = $appointmentTotal['appointmentRate'] + $productSaleTotal['productSaleRate'] + $packageSaleTotal['packageSaleRate'];
+
+        return [
+            'totalCiro' => $totalCiro,
+            'totalRate' => $totalHakedis,
+        ];
+    }
+
     public function calculatePayedBalance()
     {
         $costs = $this->costs()->where('cost_category_id', 1)->get();
@@ -375,48 +559,5 @@ class Personel extends Authenticatable
     public function insideBalance()
     {
         return number_format($this->totalBalance() - $this->calculatePayedBalance()->sum('price'), 2);
-    }
-
-    public function getCustomer()
-    {
-        $customer_ids = [];
-        foreach ($this->appointments as $appointment) {
-            $customer_ids[] = $appointment->appointment->customer_id;
-        }
-        $customerCount = count(array_unique($customer_ids));
-        return $customerCount;
-    }
-
-    public function workTimes()
-    {
-        return $this->hasMany(PersonelWorkTime::class, 'personel_id', 'id');
-    }
-
-    public function activeWorkTimes()
-    {
-        return $this->workTimes()->where('status', 1);
-    }
-
-    public function isCustomWorkTime($date)
-    {
-        $closeDate = Carbon::parse($date);
-        $personelWorkTimes = $this->activeWorkTimes;
-
-        $isClosed = $personelWorkTimes->first(function ($closeDateRecord) use ($closeDate) {
-            $startTime = Carbon::parse($closeDateRecord->start_date);
-            $endTime = Carbon::parse($closeDateRecord->end_date);
-
-            return $closeDate->between($startTime, $endTime);
-        });
-
-        return $isClosed;
-    }
-    protected static function booted()
-    {
-        static::deleted(function ($personel) {
-            $personel->notifications()->delete();
-            $personel->restDays()->delete();
-            $personel->services()->delete();
-        });
     }
 }

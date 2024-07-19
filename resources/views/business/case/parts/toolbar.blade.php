@@ -1,21 +1,27 @@
 <!--begin::Card toolbar-->
 <div class="card-toolbar">
+
     <!--begin::Toolbar-->
-    <div class="d-flex justify-content-end align-items-center w-100" data-kt-customer-table-toolbar="base">
+    <div class="d-flex justify-content-around align-items-center w-100" data-kt-customer-table-toolbar="base">
         <!--begin::Filter-->
-        <div class="d-flex w-400px">
+        <div class="d-flex w-600px">
+
             <form method="get" action="" id="listTypeForm" class="w-100">
             <!--begin::Select2-->
-            <select id="listType" class="form-select form-select-solid" data-control="select2"
-                    data-hide-search="true" data-placeholder="Tarih Aralığı Seçiniz"
-                    name="listType">
-                <option></option>
-                <option value="all">Tümü</option>
-                <option value="thisDay" @selected(request()->listType == "thisDay")>Bu Gün</option>
-                <option value="thisWeek" @selected(request()->listType == "thisWeek")>Bu Hafta</option>
-                <option value="thisMonth" @selected(request()->listType == "thisMonth")>Bu Ay</option>
-                <option value="thisYear" @selected(request()->listType == "thisYear")>Bu Yıl</option>
-            </select>
+                <div class="d-flex gap-2">
+                    @if(request()->routeIs('business.prim'))
+                        <select id="personelId" class="form-select form-select-solid" data-control="select2"
+                                data-hide-search="true" data-placeholder="Personel Seçiniz"
+                                name="personel_id">
+                            <option></option>
+                            @foreach($personels as $row)
+                                <option value="{{$row->id}}" @selected($row->id == $personel->id)>{{$row->name}}</option>
+                            @endforeach
+                        </select>
+                    @endif
+                    <input class="form-control form-control-solid" value="{{request()->date_range}}" name="date_range" placeholder="Pick date rage" id="kt_daterangepicker_4"/>
+
+                </div>
             <!--end::Select2-->
             </form>
         </div>

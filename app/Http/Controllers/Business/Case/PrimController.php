@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Business\Case;
 
 use App\Http\Controllers\Controller;
+use App\Models\Personel;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 /**
  * @group Prim
@@ -28,34 +31,27 @@ class PrimController extends Controller
         });
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $prims = [];
-        $personels = $this->business->personels;
-        foreach ($personels as $personel) {
-            $servicePrice = 0;
-            foreach ($personel->appointments->whereIn('status', [5, 6]) as $appointment) {
-                $servicePrice += $appointment->service->price;
-            }
-
-            $productPrice = $personel->sales->sum('total');
-
-            $serviceRate = (($servicePrice * $personel->rate) / 100);
-
-            $productRate = (($productPrice * $personel->product_rate) / 100);
-            $total = $serviceRate + $productRate;
-            $prims[] = [
-                'personelName' => $personel->name,
-                'servicePrice' => $serviceRate,
-                'productPrice' => $productRate,
-                'total' => $total,
-            ];
-            $this->case['servicePrice'] += $serviceRate;
-            $this->case['productPrice'] += $productRate;
-            $this->case['total'] += $total;
+        $startTime = now();
+        $endTime = now();
+        if ($request->filled('date_range')){
+            $timePartition = explode('-', $request->date_range);
+            $startTime = Carbon::parse(clearPhone($timePartition[0]))->toDateString();
+            $endTime = Carbon::parse(clearPhone($timePartition[1]))->toDateString();
         }
-        $case = $this->case;
 
-        return view('business.case.prim', compact('case', 'prims'));
+
+        $personels = $this->business->personels;
+        if ($request->filled('personel_id')){
+            $personel = Personel::find($request->personel_id);
+        } else{
+            $personel = $personels->first();
+        }
+
+        $case = $personel->case(null, $startTime, $endTime);
+        //dd($case);
+
+        return view('business.case.prim', compact('personel', 'case', 'personels'));
     }
 }
