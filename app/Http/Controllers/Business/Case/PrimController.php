@@ -31,7 +31,7 @@ class PrimController extends Controller
     public function index()
     {
         $prims = [];
-        $personels = $this->business->personels()->where('id', 2)->get();
+        $personels = $this->business->personels;
         foreach ($personels as $personel) {
             $servicePrice = 0;
             foreach ($personel->appointments->whereIn('status', [5, 6]) as $appointment) {
