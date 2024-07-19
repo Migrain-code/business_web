@@ -447,7 +447,12 @@ class HomeController extends Controller
     public function case(Request $request)
     {
         $personel = $this->personel;
-
+        if (!$personel->is_case){
+            return to_route('personel.home')->with('response', [
+               'status' => "warning",
+               'message' => "Kasa Erişim Yetkiniz Yok"
+            ]);
+        }
 
         $totalCiro = $personel->totalCiro($request);
         $progressPayment = $personel->totalBalance($request);
@@ -460,6 +465,12 @@ class HomeController extends Controller
     public function prim(Request $request)
     {
         $personel = $this->personel;
+        if (!$personel->is_case){
+            return to_route('personel.home')->with('response', [
+                'status' => "warning",
+                'message' => "Kasa Erişim Yetkiniz Yok"
+            ]);
+        }
         return view('personel.prim.index', compact('personel'));
 
     }

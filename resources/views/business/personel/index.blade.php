@@ -68,7 +68,7 @@
                         <th class="min-w-125px">Personel Adı</th>
                         <th class="min-w-125px">Telefon Numarası</th>
                         @if(authUser()->hasPermissionTo('case.view'))
-                        <th class="min-w-125px">Kasa Yetkisi</th>
+                        <th class="min-w-125px">Kasa Erişimi</th>
                         @endif
                         <th class="min-w-125px">Mesai Saatleri</th>
                         <th class="min-w-125px">Durum</th>
@@ -99,7 +99,7 @@
             {data: 'name'},
             {data: 'phone'},
             @if(authUser()->hasPermissionTo('case.view'))
-            {data: 'safe'},
+            {data: 'is_case'},
             @endif
 
             {data: 'start_time'},

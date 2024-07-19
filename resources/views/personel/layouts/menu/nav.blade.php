@@ -93,31 +93,33 @@
             <div class="scroll-x">
                 <div style="width: 1200px">
                     <div class="row g-5 g-xl-8 ">
-                        <div class="col-3">
+                        @if($personel->is_case)
+                            <div class="col-3">
 
-                            <!--begin::Statistics Widget 5-->
-                            <a href="#" class="card hoverable card-xl-stretch mb-xl-8 text-white" style="background-color: #132c3d;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
-                                <!--begin::Body-->
-                                <div class="card-body">
-                                    <i class="ki-duotone ki-chart-simple text-danger fs-2x ms-n1">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                    </i>
+                                <!--begin::Statistics Widget 5-->
+                                <a href="#" class="card hoverable card-xl-stretch mb-xl-8 text-white" style="background-color: #132c3d;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
+                                    <!--begin::Body-->
+                                    <div class="card-body">
+                                        <i class="ki-duotone ki-chart-simple text-danger fs-2x ms-n1">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
+                                        </i>
 
-                                    <div class="fw-bold fs-2 mb-2 mt-5">
-                                        {{formatPrice($personel->totalBalance())}}
+                                        <div class="fw-bold fs-2 mb-2 mt-5">
+                                            {{formatPrice($personel->totalBalance())}}
+                                        </div>
+
+                                        <div class="fw-semibold text-gray-400">
+                                            Toplam Yapılan Kazanç
+                                        </div>
                                     </div>
-
-                                    <div class="fw-semibold text-gray-400">
-                                        Toplam Yapılan Kazanç
-                                    </div>
-                                </div>
-                                <!--end::Body-->
-                            </a>
-                            <!--end::Statistics Widget 5-->
-                        </div>
+                                    <!--end::Body-->
+                                </a>
+                                <!--end::Statistics Widget 5-->
+                            </div>
+                        @endif
 
                         <div class="col-3">
 
@@ -160,27 +162,28 @@
                             </a>
                             <!--end::Statistics Widget 5-->
                         </div>
+                       @if($personel->is_case)
+                            <div class="col-3">
 
-                        <div class="col-3">
+                                <!--begin::Statistics Widget 5-->
+                                <a href="#" class="card hoverable card-xl-stretch mb-5 mb-xl-8" style="background-color: #484286;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
+                                    <!--begin::Body-->
+                                    <div class="card-body">
+                                        <i class="ki-duotone ki-chart-pie-simple text-white fs-2x ms-n1"><span class="path1"></span><span class="path2"></span></i>
 
-                            <!--begin::Statistics Widget 5-->
-                            <a href="#" class="card hoverable card-xl-stretch mb-5 mb-xl-8" style="background-color: #484286;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg')">
-                                <!--begin::Body-->
-                                <div class="card-body">
-                                    <i class="ki-duotone ki-chart-pie-simple text-white fs-2x ms-n1"><span class="path1"></span><span class="path2"></span></i>
+                                        <div class="text-white fw-bold fs-2 mb-2 mt-5">
+                                            {{formatPrice($personel->insideBalance())}}
+                                        </div>
 
-                                    <div class="text-white fw-bold fs-2 mb-2 mt-5">
-                                        {{formatPrice($personel->insideBalance())}}
+                                        <div class="fw-semibold text-white">
+                                            İçeride Kalan Bakiye
+                                        </div>
                                     </div>
-
-                                    <div class="fw-semibold text-white">
-                                        İçeride Kalan Bakiye
-                                    </div>
-                                </div>
-                                <!--end::Body-->
-                            </a>
-                            <!--end::Statistics Widget 5-->
-                        </div>
+                                    <!--end::Body-->
+                                </a>
+                                <!--end::Statistics Widget 5-->
+                            </div>
+                            @endif
                     </div>
 
                 </div>

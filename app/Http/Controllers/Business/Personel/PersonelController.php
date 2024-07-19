@@ -607,8 +607,8 @@ class PersonelController extends Controller
             ->editColumn('phone', function ($q) {
                 return createPhone($q->phone, formatPhone($q->phone));
             })
-            ->editColumn('safe', function ($q) {
-                return create_switch($q->id, $q->safe == 1 ? true : false, 'Personel', 'safe', 'Kasa Yetkisi Verilsin mi?');
+            ->editColumn('is_case', function ($q) {
+                return create_switch($q->id, $q->safe == 1 ? true : false, 'Personel', 'is_case', 'Kasa Yetkisi Verilsin mi?');
             })
             ->editColumn('start_time', function ($q) {
                 return $q->start_time . " - " . $q->end_time;
