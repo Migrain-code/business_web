@@ -118,11 +118,11 @@
                                                 <!--begin::Randevu Item-->
                                                 <div class="timeline-item">
                                                     <!--begin::Label-->
-                                                    <div class="timeline-label fw-bold text-gray-800 fs-6">
+                                                    <a class="timeline-label fw-bold text-gray-800 fs-6" href="{{route('business.appointment.show', $appointment->appointment_id)}}">
                                                         <span class="cursor-pointer" data-bs-toggle="tooltip" title="Başlangıç Saati"> {{$appointment->start_time->format('H:i')}}</span>
                                                         <span class="cursor-pointer text-gray-700 endTime" data-end-time="{{$appointment->end_time->format('H:i')}}" data-bs-toggle="tooltip" title="Bitiş Saati"> {{$appointment->end_time->format('H:i')}}</span>
 
-                                                    </div>
+                                                    </a>
                                                     <!--end::Label-->
                                                     <!--begin::Badge-->
                                                     <div class="timeline-badge cursor-pointer" data-bs-toggle="tooltip" title="{{$appointment->status("text")}}">

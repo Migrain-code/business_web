@@ -31,17 +31,18 @@ class PrimController extends Controller
     public function index()
     {
         $prims = [];
-        $personels = $this->business->personels;
+        $personels = $this->business->personels()->where('id', 2)->get();
         foreach ($personels as $personel) {
             $servicePrice = 0;
-            foreach ($personel->appointments as $appointment) {
+            foreach ($personel->appointments->whereIn('status', [5, 6]) as $appointment) {
                 $servicePrice += $appointment->service->price;
             }
 
             $productPrice = $personel->sales->sum('total');
 
-            $serviceRate = /*$servicePrice -*/ (($servicePrice * $personel->rate) / 100);
-            $productRate = /*$productPrice -*/ (($productPrice * $personel->product_rate) / 100);
+            $serviceRate = (($servicePrice * $personel->rate) / 100);
+
+            $productRate = (($productPrice * $personel->product_rate) / 100);
             $total = $serviceRate + $productRate;
             $prims[] = [
                 'personelName' => $personel->name,
@@ -55,7 +56,6 @@ class PrimController extends Controller
         }
         $case = $this->case;
 
-        //dd($prims);
         return view('business.case.prim', compact('case', 'prims'));
     }
 }

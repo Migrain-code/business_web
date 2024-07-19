@@ -72,7 +72,10 @@ class AdissionController extends Controller
     {
         $adission->status = 4;
         $adission->save();
-
+        foreach ($adission->services as $service){
+            $service->status = 4;
+            $service->save();
+        }
         return back()->with('response',[
             'status' => "success",
             'message' => "Adisyon durumu güncellendi"
@@ -101,7 +104,10 @@ class AdissionController extends Controller
     {
         $adission->status = 5;
         $adission->save();
-
+        foreach ($adission->services as $service){
+            $service->status = 5;
+            $service->save();
+        }
         return back()->with('response',[
             'status' => "success",
             'message' => "Adisyon durumu güncellendi"
@@ -118,6 +124,10 @@ class AdissionController extends Controller
     {
         $adission->status = 3;
         $adission->save();
+        foreach ($adission->services as $service){
+            $service->status = 3;
+            $service->save();
+        }
         return back()->with('response',[
             'status' => "success",
             'message' => "Adisyon durumu güncellendi"
