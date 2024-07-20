@@ -132,12 +132,6 @@
 @endsection
 @section('scripts')
     <script>
-        $('#kt_daterangepicker_4').on('change', function (){
-           $('#kt_daterangepicker_4').submit();
-        });
-    </script>
-
-    <script>
         $(function() {
 
             function cb(start, end) {

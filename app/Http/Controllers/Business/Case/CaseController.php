@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PackagePayment;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 /**
  * @group Kasa
@@ -58,11 +59,16 @@ class CaseController extends Controller
         $this->productSaleCalculator($business, $request);
         $this->paymentsCalculator($business, $request);
 
-        $this->case["closedTotal"] = $this->case["total"] - $this->payments["total"];
-
         $closingBalance = $this->case;
         $totalExpense = $this->payments;
-        return view('business.case.index', compact('closingBalance', 'totalExpense'));
+        $totals = [
+            'total' => $this->case["total"] - $this->payments["total"],
+            'cashTotal' => $this->case["cashTotal"] - $this->payments["cashTotal"],
+            'creditTotal' => $this->case["creditTotal"] - $this->payments["creditTotal"],
+            'eftTotal' => $this->case["eftTotal"] - $this->payments["eftTotal"],
+            'otherTotal' => $this->case["otherTotal"] - $this->payments["otherTotal"]
+        ];
+        return view('business.case.index', compact('closingBalance', 'totalExpense', 'totals'));
     }
 
     public function adissionCalculator($business, $request)
@@ -83,7 +89,17 @@ class CaseController extends Controller
             } else {
                 $q->whereDate('start_time', now()->toDateString());
             }
-        })->get();
+        })->when($request->filled('date_range'), function ($q) use ($request){
+            $startTime = now();
+            $endTime = now();
+            if ($request->filled('date_range')){
+                $timePartition = explode('-', $request->date_range);
+                $startTime = Carbon::parse(clearPhone($timePartition[0]))->toDateString();
+                $endTime = Carbon::parse(clearPhone($timePartition[1]))->toDateString();
+            }
+            $q->whereBetween('start_time', [$startTime, $endTime]);
+        })
+        ->get();
 
         foreach ($adissions as $adission) {
             foreach ($adission->payments as $payment) {
@@ -122,7 +138,18 @@ class CaseController extends Controller
                 } else {
                     $q->whereDate('created_at', now()->toDateString());
                 }
-            })->get();
+            })
+            ->when($request->filled('date_range'), function ($q) use ($request){
+                $startTime = now();
+                $endTime = now();
+                if ($request->filled('date_range')){
+                    $timePartition = explode('-', $request->date_range);
+                    $startTime = Carbon::parse(clearPhone($timePartition[0]))->toDateString();
+                    $endTime = Carbon::parse(clearPhone($timePartition[1]))->toDateString();
+                }
+                $q->whereBetween('created_at', [$startTime, $endTime]);
+            })
+            ->get();
 
         foreach ($sales as $sale) {
             if ($sale->payment_type == 0) {
@@ -159,7 +186,18 @@ class CaseController extends Controller
             } else {
                 $q->whereDate('created_at', now()->toDateString());
             }
-        })->sum('price');
+        })
+        ->when($request->filled('date_range'), function ($q) use ($request){
+                $startTime = now();
+                $endTime = now();
+                if ($request->filled('date_range')){
+                    $timePartition = explode('-', $request->date_range);
+                    $startTime = Carbon::parse(clearPhone($timePartition[0]))->toDateString();
+                    $endTime = Carbon::parse(clearPhone($timePartition[1]))->toDateString();
+                }
+                $q->whereBetween('created_at', [$startTime, $endTime]);
+        })
+        ->sum('price');
         $this->case["cashTotal"] += $packagePayments;
         $this->case["total"] += $this->case["cashTotal"];
         return $this->case;
@@ -184,7 +222,18 @@ class CaseController extends Controller
                 } else {
                     $q->whereDate('operation_date', now()->toDateString());
                 }
-            })->get();
+            })
+            ->when($request->filled('date_range'), function ($q) use ($request){
+                $startTime = now();
+                $endTime = now();
+                if ($request->filled('date_range')){
+                    $timePartition = explode('-', $request->date_range);
+                    $startTime = Carbon::parse(clearPhone($timePartition[0]))->toDateString();
+                    $endTime = Carbon::parse(clearPhone($timePartition[1]))->toDateString();
+                }
+                $q->whereBetween('operation_date', [$startTime, $endTime]);
+            })
+            ->get();
 
         foreach ($costs as $cost) {
             if ($cost->payment_type_id == 0) {

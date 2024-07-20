@@ -1,6 +1,31 @@
 @extends('business.layouts.master')
 @section('title', 'Kasa')
 @section('styles')
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .total-row {
+            font-weight: bold;
+            background-color: #f9f9f9;
+        }
+        .summary {
+            font-weight: bold;
+            text-align: right;
+        }
+    </style>
 @endsection
 @section('breadcrumbs')
     <!--begin::Item-->
@@ -23,11 +48,11 @@
         <!--begin::Card-->
         <div class="card">
             <!--begin::Card header-->
-            <div class="card-header border-0 pt-6">
+            <div class="card-header border-1 pt-6">
                 <!--begin::Card title-->
                 <div class="card-title">
                     <!--begin::Search-->
-
+                    <h1>Kasa Raporu</h1>
                     <!--end::Search-->
                 </div>
                 <!--begin::Card title-->
@@ -37,370 +62,103 @@
             <!--end::Card header-->
 
             <div class="row mx-5">
-                <div class="col-6">
-                    <!--begin::Social widget 1-->
-                    <div class="card mb-5 mb-xl-8">
-                        <!--begin::Header-->
-                        <div class="card-header border-0 pt-5">
-                            <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fw-bold text-dark">Toplam Gelir</span>
+                <div class="container mt-5">
+                    <h3>Kalan Tutar</h3>
+                    <table class="table-responsive">
+                        <thead>
+                        <tr>
+                            <th>Ödeme Yöntemi</th>
+                            <th>Tutar (TL)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Nakit</td>
+                            <td>{{formatPrice($totals["cashTotal"])}}</td>
+                        </tr>
+                        <tr>
+                            <td>Kredi Kartı</td>
+                            <td>{{formatPrice($totals["creditTotal"])}}</td>
+                        </tr>
+                        <tr>
+                            <td>Havale</td>
+                            <td>{{formatPrice($totals["eftTotal"])}}</td>
+                        </tr>
+                        <tr>
+                            <td>Diğer</td>
+                            <td>{{formatPrice($totals["otherTotal"])}}</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>Toplam</td>
+                            <td>{{formatPrice($totals["total"])}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-                                <span class="text-muted mt-1 fw-semibold fs-7">Seçtiğiniz Aralıkta Ne kadar gelir sağlanmış</span>
-                            </h3>
+                    <h3>Gelirler</h3>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Ödeme Yöntemi</th>
+                            <th>Tutar (TL)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Nakit</td>
+                            <td>{{formatPrice($closingBalance["cashTotal"])}}</td>
+                        </tr>
+                        <tr>
+                            <td>Kredi Kartı</td>
+                            <td>{{formatPrice($closingBalance["creditTotal"])}}</td>
+                        </tr>
+                        <tr>
+                            <td>Havale</td>
+                            <td>{{formatPrice($closingBalance["eftTotal"])}}</td>
+                        </tr>
+                        <tr>
+                            <td>Diğer</td>
+                            <td>{{formatPrice($closingBalance["otherTotal"])}}</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>Toplam Gelir</td>
+                            <td>{{formatPrice($closingBalance["total"])}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-                            <!--begin::Toolbar-->
-                            <div class="card-toolbar">
-                               <span class="fw-bold" style="font-size: 1.275rem">{{formatPrice($closingBalance["total"])}}</span>
-                            </div>
-                            <!--end::Toolbar-->
-                        </div>
-                        <!--end::Header-->
+                    <h3>Masraflar</h3>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Ödeme Yöntemi</th>
+                            <th>Tutar (TL)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Nakit</td>
+                            <td>{{formatPrice($totalExpense["cashTotal"])}}</td>
+                        </tr>
+                        <tr>
+                            <td>Kredi Kartı</td>
+                            <td>{{formatPrice($totalExpense["creditTotal"])}}</td>
+                        </tr>
+                        <tr>
+                            <td>Havale</td>
+                            <td>{{formatPrice($totalExpense["eftTotal"])}}</td>
+                        </tr>
+                        <tr>
+                            <td>Diğer</td>
+                            <td>{{formatPrice($totalExpense["otherTotal"])}}</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>Toplam Masraf</td>
+                            <td>{{formatPrice($totalExpense["total"])}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-                        <!--begin::Body-->
-                        <div class="card-body pt-5">
-
-                            <!--begin::Item-->
-                            <div class="d-flex flex-stack">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-40px me-5">
-                                    <i class="ki-duotone ki-tag fs-3x text-primary mb-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                    </i>
-                                </div>
-                                <!--end::Symbol-->
-
-                                <!--begin::Section-->
-                                <div class="d-flex align-items-center flex-row-fluid flex-wrap">
-                                    <!--begin:Author-->
-                                    <div class="flex-grow-1 me-2">
-                                        <a href="javascript:void(0)"
-                                           class="text-gray-800 text-hover-primary fs-6 fw-bold">
-                                            Nakit
-                                        </a>
-
-                                        <span class="text-muted fw-semibold d-block fs-7">Seçtiğiniz aralıktaki nakit gelir</span>
-                                    </div>
-                                    <!--end:Author-->
-
-                                    <!--begin:Action-->
-                                    <span class="fs-4 fw-bold">{{formatPrice($closingBalance["cashTotal"])}}</span>
-                                    <!--end:Action-->
-                                </div>
-                                <!--end::Section-->
-                            </div>
-                            <!--end::Item-->
-
-                            <!--begin::Separator-->
-                            <div class="separator separator-dashed my-4"></div>
-                            <!--end::Separator-->
-
-                            <!--begin::Item-->
-                            <div class="d-flex flex-stack">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-40px me-5">
-                                    <i class="ki-duotone ki-credit-cart fs-3x text-primary mb-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                    </i>
-                                </div>
-                                <!--end::Symbol-->
-
-                                <!--begin::Section-->
-                                <div class="d-flex align-items-center flex-row-fluid flex-wrap">
-                                    <!--begin:Author-->
-                                    <div class="flex-grow-1 me-2">
-                                        <a href="javascript:void(0)"
-                                           class="text-gray-800 text-hover-primary fs-6 fw-bold">
-                                            Kredi Kartı
-                                        </a>
-
-                                        <span class="text-muted fw-semibold d-block fs-7">Seçtiğiniz aralıktaki kredi kartı gelir</span>
-                                    </div>
-                                    <!--end:Author-->
-
-                                    <!--begin:Action-->
-                                    <span class="fs-4 fw-bold">{{formatPrice($closingBalance["creditTotal"])}}</span>
-                                    <!--end:Action-->
-                                </div>
-                                <!--end::Section-->
-                            </div>
-                            <!--end::Item-->
-
-                            <!--begin::Separator-->
-                            <div class="separator separator-dashed my-4"></div>
-                            <!--end::Separator-->
-
-                            <!--begin::Item-->
-                            <div class="d-flex flex-stack">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-40px me-5">
-                                    <i class="ki-duotone ki-send fs-3x text-primary mb-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                    </i>
-                                </div>
-                                <!--end::Symbol-->
-
-                                <!--begin::Section-->
-                                <div class="d-flex align-items-center flex-row-fluid flex-wrap">
-                                    <!--begin:Author-->
-                                    <div class="flex-grow-1 me-2">
-                                        <a href="javascript:void(0)"
-                                           class="text-gray-800 text-hover-primary fs-6 fw-bold">
-                                            Eft/Havale
-                                        </a>
-
-                                        <span class="text-muted fw-semibold d-block fs-7">Seçtiğiniz aralıktaki eft / havale gelir</span>
-                                    </div>
-                                    <!--end:Author-->
-
-                                    <!--begin:Action-->
-                                    <span class="fs-4 fw-bold">{{formatPrice($closingBalance["eftTotal"])}}</span>
-                                    <!--end:Action-->
-                                </div>
-                                <!--end::Section-->
-                            </div>
-                            <!--end::Item-->
-
-                            <!--begin::Separator-->
-                            <div class="separator separator-dashed my-4"></div>
-                            <!--end::Separator-->
-
-                            <!--begin::Item-->
-                            <div class="d-flex flex-stack">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-40px me-5">
-                                    <i class="ki-duotone ki-bill fs-3x text-primary mb-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                        <span class="path5"></span>
-                                        <span class="path6"></span>
-                                    </i>
-                                </div>
-                                <!--end::Symbol-->
-
-                                <!--begin::Section-->
-                                <div class="d-flex align-items-center flex-row-fluid flex-wrap">
-                                    <!--begin:Author-->
-                                    <div class="flex-grow-1 me-2">
-                                        <a href="javascript:void(0)"
-                                           class="text-gray-800 text-hover-primary fs-6 fw-bold">
-                                            Diğer
-                                        </a>
-
-                                        <span class="text-muted fw-semibold d-block fs-7">Seçtiğiniz aralıktaki diğer ödeme gelir</span>
-                                    </div>
-                                    <!--end:Author-->
-
-                                    <!--begin:Action-->
-                                    <span class="fs-4 fw-bold">{{formatPrice($closingBalance["otherTotal"])}}</span>
-                                    <!--end:Action-->
-                                </div>
-                                <!--end::Section-->
-                            </div>
-                            <!--end::Item-->
-                        </div>
-                        <!--end::Body-->
-                    </div>
-                    <!--end::Social widget 1-->
-                </div>
-                <div class="col-6">
-                    <!--begin::Social widget 1-->
-                    <div class="card mb-5 mb-xl-8">
-                        <!--begin::Header-->
-                        <div class="card-header border-0 pt-5">
-                            <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fw-bold text-dark">Toplam Gider</span>
-
-                                <span class="text-muted mt-1 fw-semibold fs-7">Seçtiğiniz Aralıkta Ne kadar gider yapılmış</span>
-                            </h3>
-
-                            <!--begin::Toolbar-->
-                            <div class="card-toolbar">
-                                <span class="fw-bold" style="font-size: 1.275rem">{{formatPrice($totalExpense["total"])}}</span>
-                            </div>
-                            <!--end::Toolbar-->
-                        </div>
-                        <!--end::Header-->
-
-                        <!--begin::Body-->
-                        <div class="card-body pt-5">
-
-                            <!--begin::Item-->
-                            <div class="d-flex flex-stack">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-40px me-5">
-                                    <i class="ki-duotone ki-tag fs-3x text-warning mb-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                    </i>
-                                </div>
-                                <!--end::Symbol-->
-
-                                <!--begin::Section-->
-                                <div class="d-flex align-items-center flex-row-fluid flex-wrap">
-                                    <!--begin:Author-->
-                                    <div class="flex-grow-1 me-2">
-                                        <a href="javascript:void(0)"
-                                           class="text-gray-800 text-hover-primary fs-6 fw-bold">
-                                            Nakit
-                                        </a>
-
-                                        <span class="text-muted fw-semibold d-block fs-7">Seçtiğiniz aralıktaki nakit gider</span>
-                                    </div>
-                                    <!--end:Author-->
-
-                                    <!--begin:Action-->
-                                    <span class="fs-4 fw-bold">{{formatPrice($totalExpense["cashTotal"])}}</span>
-                                    <!--end:Action-->
-                                </div>
-                                <!--end::Section-->
-                            </div>
-                            <!--end::Item-->
-
-                            <!--begin::Separator-->
-                            <div class="separator separator-dashed my-4"></div>
-                            <!--end::Separator-->
-
-                            <!--begin::Item-->
-                            <div class="d-flex flex-stack">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-40px me-5">
-                                    <i class="ki-duotone ki-credit-cart fs-3x text-warning mb-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                    </i>
-                                </div>
-                                <!--end::Symbol-->
-
-                                <!--begin::Section-->
-                                <div class="d-flex align-items-center flex-row-fluid flex-wrap">
-                                    <!--begin:Author-->
-                                    <div class="flex-grow-1 me-2">
-                                        <a href="javascript:void(0)"
-                                           class="text-gray-800 text-hover-primary fs-6 fw-bold">
-                                            Kredi Kartı
-                                        </a>
-
-                                        <span class="text-muted fw-semibold d-block fs-7">Seçtiğiniz aralıktaki kredi kartı gider</span>
-                                    </div>
-                                    <!--end:Author-->
-
-                                    <!--begin:Action-->
-                                    <span class="fs-4 fw-bold">{{formatPrice($totalExpense["creditTotal"])}}</span>
-                                    <!--end:Action-->
-                                </div>
-                                <!--end::Section-->
-                            </div>
-                            <!--end::Item-->
-
-                            <!--begin::Separator-->
-                            <div class="separator separator-dashed my-4"></div>
-                            <!--end::Separator-->
-
-                            <!--begin::Item-->
-                            <div class="d-flex flex-stack">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-40px me-5">
-                                    <i class="ki-duotone ki-send fs-3x text-warning mb-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                    </i>
-                                </div>
-                                <!--end::Symbol-->
-
-                                <!--begin::Section-->
-                                <div class="d-flex align-items-center flex-row-fluid flex-wrap">
-                                    <!--begin:Author-->
-                                    <div class="flex-grow-1 me-2">
-                                        <a href="javascript:void(0)"
-                                           class="text-gray-800 text-hover-primary fs-6 fw-bold">
-                                            Eft/Havale
-                                        </a>
-
-                                        <span class="text-muted fw-semibold d-block fs-7">Seçtiğiniz aralıktaki eft / havale gider</span>
-                                    </div>
-                                    <!--end:Author-->
-
-                                    <!--begin:Action-->
-                                    <span class="fs-4 fw-bold">{{formatPrice($totalExpense["eftTotal"])}}</span>
-                                    <!--end:Action-->
-                                </div>
-                                <!--end::Section-->
-                            </div>
-                            <!--end::Item-->
-
-                            <!--begin::Separator-->
-                            <div class="separator separator-dashed my-4"></div>
-                            <!--end::Separator-->
-
-                            <!--begin::Item-->
-                            <div class="d-flex flex-stack">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-40px me-5">
-                                    <i class="ki-duotone ki-bill fs-3x text-warning mb-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                        <span class="path5"></span>
-                                        <span class="path6"></span>
-                                    </i>
-                                </div>
-                                <!--end::Symbol-->
-
-                                <!--begin::Section-->
-                                <div class="d-flex align-items-center flex-row-fluid flex-wrap">
-                                    <!--begin:Author-->
-                                    <div class="flex-grow-1 me-2">
-                                        <a href="javascript:void(0)"
-                                           class="text-gray-800 text-hover-primary fs-6 fw-bold">
-                                            Diğer
-                                        </a>
-
-                                        <span class="text-muted fw-semibold d-block fs-7">Seçtiğiniz aralıktaki diğer ödeme gider</span>
-                                    </div>
-                                    <!--end:Author-->
-
-                                    <!--begin:Action-->
-                                    <span class="fs-4 fw-bold">{{formatPrice($totalExpense["otherTotal"])}}</span>
-                                    <!--end:Action-->
-                                </div>
-                                <!--end::Section-->
-                            </div>
-                            <!--end::Item-->
-                        </div>
-                        <!--end::Body-->
-                    </div>
-                    <!--end::Social widget 1-->
-                </div>
-                <div class="col-12">
-                    <div class="card mb-5 mb-xl-8">
-                        <!--begin::Header-->
-                        <div class="card-header border-0 pt-5">
-                            <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fw-bold text-dark">Kapanış Bakiyesi</span>
-
-                                <span class="text-muted mt-1 fw-semibold fs-7">Seçtiğiniz Aralıkta kasada kalan tutar</span>
-                            </h3>
-
-                            <!--begin::Toolbar-->
-                            <div class="card-toolbar">
-                                <span class="fw-bold" style="font-size: 1.275rem">{{formatPrice($closingBalance["closedTotal"])}}</span>
-                            </div>
-                            <!--end::Toolbar-->
-                        </div>
-                        <!--end::Header-->
-                    </div>
                 </div>
             </div>
         </div>
@@ -410,8 +168,62 @@
 @endsection
 @section('scripts')
     <script>
-        $('#listType').on('change', function (){
-           $('#listTypeForm').submit();
+        $(function() {
+
+            function cb(start, end) {
+                $('#kt_daterangepicker_4').html(start.format('MMMM D') + ' - ' + end.format('MMMM D'));
+            }
+            cb(moment().subtract(29, 'days'), moment());
+
+            $('#kt_daterangepicker_4').daterangepicker({
+                "timePicker24Hour": true,
+                "opens": "left",
+                ranges: {
+                    'Bugün': [moment(), moment()],
+                    'Dün': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Son 7 gün': [moment().subtract(6, 'days'), moment()],
+                    'Son 30 gün': [moment().subtract(29, 'days'), moment()],
+                    'Bu ay': [moment().startOf('month'), moment().endOf('month')],
+                    'Geçen ay': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                "locale": {
+                    "format": "DD.MM.YYYY",
+                    "separator": " - ",
+                    "applyLabel": "Uygula",
+                    "cancelLabel": "Vazgeç",
+                    "fromLabel": "Dan",
+                    "toLabel": "a",
+                    "customRangeLabel": "Özel",
+                    "daysOfWeek": [
+                        "Pt",
+                        "Sl",
+                        "Çr",
+                        "Pr",
+                        "Cm",
+                        "Ct",
+                        "Pz"
+                    ],
+                    "monthNames": [
+                        "Ocak",
+                        "Şubat",
+                        "Mart",
+                        "Nisan",
+                        "Mayıs",
+                        "Haziran",
+                        "Temmuz",
+                        "Ağustos",
+                        "Eylül",
+                        "Ekim",
+                        "Kasım",
+                        "Aralık"
+                    ],
+                    "firstDay": 1
+                }
+            }, cb).on('apply.daterangepicker', function(ev, picker) {
+                // Formu gönder
+                $('#listTypeForm').submit();
+            });
         });
+
     </script>
 @endsection

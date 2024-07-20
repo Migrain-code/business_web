@@ -4,7 +4,7 @@
     <!--begin::Toolbar-->
     <div class="d-flex justify-content-around align-items-center w-100" data-kt-customer-table-toolbar="base">
         <!--begin::Filter-->
-        <div class="d-flex w-600px">
+        <div class="d-flex">
 
             <form method="get" action="" id="listTypeForm" class="w-100">
             <!--begin::Select2-->
