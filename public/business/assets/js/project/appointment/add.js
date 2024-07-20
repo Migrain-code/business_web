@@ -52,13 +52,6 @@ var KTModalAppointmentAdd = function () {
                             }
                         }
                     },
-                    'end_time': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Randevu Bitiş Saati Gereklidir'
-                            }
-                        }
-                    },
 
                 },
                 plugins: {
@@ -93,19 +86,41 @@ var KTModalAppointmentAdd = function () {
                         submitButton.disabled = true;
 
                         setTimeout(function() {
+                            var personelId = $('[name="personel_id"]').val();
+                            var roomId;
+                            var start_time;
+
+                            if ($('[name="room_id"]').is(':radio')) {
+                                roomId = $('[name="room_id"]:checked').val();
+                            } else {
+                                roomId = $('[name="room_id"]').val();
+                            }
+                            if ($('[name="start_time"]').is(':radio')) {
+                                start_time = $('[name="start_time"]:checked').val();
+
+                            } else {
+                                start_time = $('[name="start_time"]').val();
+
+                            }
+
                             submitButton.removeAttribute('data-kt-indicator');
                             var formData = new FormData();
                             formData.append("_token", csrf_token);
                             formData.append("customer_id", $('[name="customer_id"]').val());
-                            formData.append("personel_id", $('[name="personel_id"]').val());
+                            formData.append("personel_id", personelId);
                             formData.append("appointment_date", $('[name="appointment_date"]').val());
-                            formData.append("start_time", $('[name="start_time"]').val());
+                            formData.append("start_time", start_time);
                             formData.append("end_time", $('[name="end_time"]').val());
+                            if (!isNaN(roomId)){
+                                formData.append("room_id", roomId);
+                            }
+
+                            formData.append("appointment_type", apppointmentType);
                             $('[name="service_id[]"] option:selected').each(function() {
                                 formData.append("service_id[]", $(this).val());
                             });
                             $.ajax({
-                                url: '/isletme/speed-appointment/create',
+                                url: '/isletme/speed-appointment/create/'+ personelId,
                                 type: "POST",
                                 data: formData,
                                 processData: false,
@@ -121,18 +136,20 @@ var KTModalAppointmentAdd = function () {
                                         customClass: {
                                             confirmButton: "btn btn-primary"
                                         }
-                                    }).then(function (result) {
-                                        submitButton.disabled = false;
-                                        if (res.status == "success"){
-                                            form.reset(); // Reset form
-                                            modal.hide(); // Hide modal
-
-                                            if ($.fn.DataTable.isDataTable('#datatable')) {
-                                                $('#datatable').DataTable().ajax.reload();
-                                            }
-                                        }
                                     });
+                                    submitButton.disabled = false;
+                                    if (res.status == "success"){
+                                        form.reset(); // Reset form
+                                        //modal.hide(); // Hide modal
 
+                                        $('#clockContainer').text("");
+                                        $('#service_select').empty();
+                                        $('#personel_select').val(null).trigger('change');
+                                        $('#customer_select').empty();
+                                        if ($.fn.DataTable.isDataTable('#datatable')) {
+                                            $('#datatable').DataTable().ajax.reload();
+                                        }
+                                    }
                                 },
                                 error: function (xhr) {
                                     submitButton.disabled = false;

@@ -202,7 +202,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
             Route::get('personel/list', 'getPersonelList');
             Route::get('personel/{personel}/services', 'getPersonelServiceList');
             Route::get('personel/{personel}/clocks', 'getPersonelClocks');
-            Route::post('create', 'appointmentCreate');
+            Route::post('create/{personel}', 'appointmentCreate');
         });
         /* -------------------- Adisyonlar --------------------------*/
         Route::resource('adission', AdissionController::class);

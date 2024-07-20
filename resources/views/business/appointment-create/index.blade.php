@@ -44,7 +44,7 @@
     <!--end::Item-->
     <!--begin::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-       Randevu Oluştur
+        Randevu Oluştur
     </li>
     <!--end::Item-->
 
@@ -152,7 +152,7 @@
                 getPersonel();
             }
             else if(stepper.currentStepIndex === 2){
-               getDate();
+                getDate();
             }
             else if(stepper.currentStepIndex === 3){
                 getCustomer()
@@ -332,24 +332,24 @@
             });
             var selectedRoomId  = $('input[name="room_id"]:checked').val();
 
-                var clocks = "";
-                $.ajax({
-                    url: '/isletme/appointment-create/get/clock',
-                    type: "POST",
-                    data: {
-                        '_token' : csrf_token,
-                        'personelIds' : personelValues,
-                        'date': clickedDate,
-                        'room_id': selectedRoomId,
-                    },
-                    dataType: "JSON",
-                    success: function (res) {
-                        if(res.status === "error"){
-                                Swal.fire({
-                                    title: res.message,
-                                    icon: res.status,
-                                });
-                            clocks += `
+            var clocks = "";
+            $.ajax({
+                url: '/isletme/appointment-create/get/clock',
+                type: "POST",
+                data: {
+                    '_token' : csrf_token,
+                    'personelIds' : personelValues,
+                    'date': clickedDate,
+                    'room_id': selectedRoomId,
+                },
+                dataType: "JSON",
+                success: function (res) {
+                    if(res.status === "error"){
+                        Swal.fire({
+                            title: res.message,
+                            icon: res.status,
+                        });
+                        clocks += `
                                 <div class="col-12">
                                     <input type="radio" class="btn-check" name="clock"  id="kt_radio_buttons_2_option_error" disabled />
                                     <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-4 d-flex align-items-center mb-5" style="border-radius: 15px !important;" for="kt_radio_buttons_2_option_error">
@@ -359,10 +359,10 @@
                                     </label>
                                 </div>
                             `
-                        } else{
-                            var counter = 0;
-                            $.each(res, function(index, item){
-                                clocks += `
+                    } else{
+                        var counter = 0;
+                        $.each(res, function(index, item){
+                            clocks += `
                             <div class="col-lg-2 col-4">
                                 <input type="radio" class="btn-check" name="clock" value="${item.value}"  id="kt_radio_buttons_2_option_${item.value}" ${item.durum === false ? 'disabled' : ""}/>
                                 <label class="btn btn-outline btn-outline-dashed ${item.durum === true ? 'btn-light-success' : "btn-active-light-primary"}  p-4 d-flex align-items-center mb-5" style="border-radius: 15px !important;${item.durum === true ? 'background: #50cd892e !important;' : ""}" for="kt_radio_buttons_2_option_${item.value}">
@@ -372,16 +372,16 @@
                                 </label>
                             </div>
                         `
-                            });
-                        }
-
-
+                        });
                     }
-                });
-                setTimeout(function() {
-                    document.getElementById('loader').style.display = 'none';
-                    document.getElementById('clockContainer').innerHTML = clocks;
-                }, 1000)
+
+
+                }
+            });
+            setTimeout(function() {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('clockContainer').innerHTML = clocks;
+            }, 1000)
         }
         $('#searchCustomer').on('keyup', function (){
             let searchedName = $(this).val();
@@ -391,7 +391,7 @@
                     type: "GET",
                     dataType: "JSON",
                     data: {
-                      'searchedName' : searchedName,
+                        'searchedName' : searchedName,
                     },
                     success: function (res) {
                         var customers = "";

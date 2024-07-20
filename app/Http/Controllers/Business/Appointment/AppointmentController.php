@@ -44,6 +44,7 @@ class AppointmentController extends Controller
         $business = $user->business;
         //$reqDate = Carbon::parse($request->date)->format('Y-m-d');
         //$appoinments = $business->appointments()->whereDate('start_time', $reqDate)->orderBy('start_time', 'asc')->get();
+        $personels = $this->business->personels;
         $appoinments = $business->appointments()->when($request->filled('listType'), function ($q) use ($request) {
             if ($request->listType == "thisWeek") {
                 $startOfWeek = now()->startOfWeek();
@@ -61,7 +62,7 @@ class AppointmentController extends Controller
                 $q->whereDate('start_time', now()->toDateString());
             }
         })->get();
-        return view('business.appointment.index', compact('appoinments'));
+        return view('business.appointment.index', compact('appoinments', 'personels'));
     }
     public function calendar()
     {

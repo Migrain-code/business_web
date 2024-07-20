@@ -20,7 +20,7 @@
         <!--end::Filter-->
 
         <!--begin::Add customer-->
-        <a href="{{route('business.appointmentCreate.index')}}" class="btn btn-primary me-1">
+        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#kt_modal_add_appointment" class="btn btn-primary me-1">
             Randevu Oluştur
         </a>
 

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Business\Appointment;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Appointment\AppointmentCreateRequest;
+use App\Http\Requests\SpeedAppointment\SpeedAppointmentCreateRequest;
 use App\Http\Resources\Customer\CustomerListResource;
 use App\Http\Resources\Personel\PersonelListResource;
-use App\Http\Resources\Personel\PersonelServiceResource;
+use App\Http\Resources\Rooms\RoomsListResource;
+use App\Http\Resources\SpeedAppointment\PersonelAppointmentServiceResource;
 use App\Models\Appointment;
 use App\Models\AppointmentServices;
 use App\Models\BusinessRoom;
@@ -41,17 +43,27 @@ class SpeedAppointmentController extends Controller
             ->when($request->filled('name'), function ($q) use ($request) {
                 $name = strtolower($request->input('name'));
                 $q->whereHas('customer', function ($q) use ($name) {
-                    $q->whereRaw('LOWER(name) like ?', ['%' . $name . '%']);
+                    $q->whereRaw('LOWER(name) like ?', ['%' . $name . '%'])->orWhere('phone', 'like', '%' . $name . '%');
                 });
             })
-            ->take(250)->get();
+            ->take(150)->get();
         return response()->json(CustomerListResource::collection($customers));
     }
 
     public function getPersonelServiceList(Personel $personel)
     {
         $services = $personel->services;
-        return response()->json(PersonelServiceResource::collection($services));
+        $roomCount = $personel->rooms->count();
+        if ($roomCount > 1){
+            $rooms = $personel->rooms;
+        } else{
+            $rooms = [];
+        }
+
+        return response()->json([
+            'services' => PersonelAppointmentServiceResource::collection($services),
+            'rooms' => RoomsListResource::collection($rooms),
+        ]);
     }
 
     public function getPersonelClocks(Personel $personel, Request $request)
@@ -113,46 +125,72 @@ class SpeedAppointmentController extends Controller
         return response()->json(PersonelListResource::collection($personels));
     }
 
-    public function appointmentCreate(AppointmentCreateRequest $request)
+    public function appointmentCreate(Personel $personel, SpeedAppointmentCreateRequest $request)
     {
         $business = $this->business;
+        $roomId = null;
+        if ($personel->rooms->count() > 0){
+            if ($personel->rooms->count() == 1){
+                $roomId = $personel->rooms->first()->room_id;
+            } else{
+                $roomId = $request->room_id;
+                if (!isset($roomId)){
+                    return response()->json([
+                        'status' => "error",
+                        'message' => "Oda Seçimi Alanı Gereklidir"
+                    ]);
+                }
+            }
+        }
 
+        if ($request->appointment_type != "closeClock") {
+            $result = $this->checkClock($personel, $request->start_time, $request->service_id, $roomId);
+            if ($result["status"] == "error"){
+                return response()->json($result);
+            }
+        }
         $appointment = new Appointment();
         $appointment->customer_id = $request->customer_id;
         $appointment->business_id = $business->id;
+        $appointment->room_id = $roomId;
         $appointment->save();
-        $approve_types = [];
 
+
+        $appointmentStartTime = Carbon::parse($request->start_time);
         foreach ($request->service_id as $serviceId) {
             $findService = BusinessService::find($serviceId);
             $appointmentService = new AppointmentServices();
-            $appointmentService->personel_id = $request->personel_id;
+            $appointmentService->personel_id = $personel->id;
             $appointmentService->service_id = $serviceId;
-            $appointmentService->start_time = Carbon::parse($request->start_time)->toDateTimeString();
-            $appointmentService->end_time = Carbon::parse($request->end_time)->toDateTimeString();
+            $appointmentService->start_time = $appointmentStartTime->toDateTimeString();
             $appointmentService->appointment_id = $appointment->id;
-            $approve_types[] = $findService->approve_type;
+            if ($request->appointment_type == "closeClock") { // saat kapatma ise
+                $appointmentService->end_time = Carbon::parse($request->end_time)->toDateTimeString();
+                if ($appointmentService->start_time >= $appointmentService->end_time) {
+                    $appointment->delete();
+                    $appointment->services()->delete();
+                    return response()->json([
+                        'status' => "error",
+                        'message' => "Başlangıç saati bitiş saatinden küçük olmalıdır",
+                    ]);
+                }
+                $result = $this->checkPersonelClock($personel->id, $appointmentService->start_time, $appointmentService->end_time);
 
-            if ($appointmentService->start_time >= $appointmentService->end_time) {
-                $appointment->delete();
-                $appointment->services()->delete();
-                return response()->json([
-                    'status' => "error",
-                    'message' => "Başlangıç saati bitiş saatinden küçük olmalıdır",
-                ]);
-            }
-            $result = $this->checkPersonelClock($request->personel_id, $appointmentService->start_time, $appointmentService->end_time);
-
-            if ($result) {
-                $appointment->services()->delete();
-                $appointment->delete();
-                return response()->json([
-                    'status' => "error",
-                    'message' => "Seçmiş olduğunuz saat aralığında randevu bulunmaktadır."
-                ]);
+                if ($result) {
+                    $appointment->services()->delete();
+                    $appointment->delete();
+                    return response()->json([
+                        'status' => "error",
+                        'message' => "Seçmiş olduğunuz saat aralığında randevu bulunmaktadır."
+                    ]);
+                } else {
+                    $appointmentService->save();
+                }
             } else {
+                $appointmentService->end_time = $appointmentStartTime->addMinutes($findService->time)->toDateTimeString();
                 $appointmentService->save();
             }
+
         }
 
         $appointment->start_time = $appointment->services()->first()->start_time;
@@ -160,20 +198,62 @@ class SpeedAppointmentController extends Controller
         $calculateTotal = $appointment->calculateTotal();
         $appointment->total = $calculateTotal;
 
-        $appointment->status = 1; // Otomatik onay ise
-        foreach ($appointment->services as $service) {
-            $service->status = 1;
-            $service->save();
+        if ($business->approve_type == 1 && $request->appointment_type == "closeClock") {// Manuel onay ve saat kapatma ise
+            $appointment->status = 0; // Onay bekliyor durumu
+        } else {
+            $appointment->status = 1; // onaylandı durumu
+
+            foreach ($appointment->services as $service) {
+                $service->status = 1;
+                $service->save();
+            }
         }
 
+
+
         if ($appointment->save()) {
+            $title = "Randevunuz başarılı bir şekilde oluşturuldu";
             $message = $business->name . " İşletmesine " . $appointment->start_time->format('d.m.Y H:i') . " tarihine randevunuz oluşturuldu.";
-            $appointment->customer->sendSms($message);
+            //$appointment->customer->sendSms($message);
+
+            $appointment->customer->sendNotification($title, $message);
+            $appointment->scheduleReminder();
             return response()->json([
                 'status' => "success",
                 'message' => "Randevunuz başarılı bir şekilde oluşturuldu",
             ]);
         }
+    }
+    public function checkClock($personel, $startTime, $serviceIds, $roomId = 0)
+    {
+        $appointmentStartTime = Carbon::parse($startTime);
+
+        $appointmentId = rand(100000, 999999);
+
+        foreach ($serviceIds as $serviceId) {
+            $findService = BusinessService::find($serviceId);
+            $appointmentService = new AppointmentServices();
+            $appointmentService->personel_id = $personel->id;
+            $appointmentService->service_id = $serviceId;
+            $appointmentService->start_time = $appointmentStartTime;
+            $appointmentService->end_time = $appointmentStartTime->addMinutes($findService->time)->toDateTimeString();
+            $appointmentService->appointment_id = $appointmentId;
+            //$appointmentService->save();
+            /**------------------Saat Kontrolü------------------*/
+            $result = $this->checkPersonelClock($personel->id, $appointmentService->start_time, $appointmentService->end_time, $roomId);
+
+            if ($result) {
+                return [
+                    'status' => "error",
+                    'message' => "Seçtiğiniz saate " . $findService->time . " dakikalık hizmet seçtiniz. Bu saate randevu alamazsınız. Başka bir saat seçmelisiniz."
+                ];
+            }
+        }
+        return [
+            'status' => "success",
+            'message' => "Saat seçim işleminiz onaylandı. Randevu Oluşturabilirsiniz"
+        ];
+
     }
 
     public function checkPersonelClock($personelId, $startTime, $endTime)
