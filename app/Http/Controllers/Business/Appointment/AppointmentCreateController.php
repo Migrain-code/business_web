@@ -744,7 +744,7 @@ class AppointmentCreateController extends Controller
                 if ($service->personels->count() > 0) { //hizmeti veren personel sayısı birden fazla ise listede göster
                     $isActive = false;
                     foreach ($service->personels as $personelService) {
-                        if ($personelService->personel->status == 1) {
+                        if (isset($personelService->personel) && $personelService->personel->status == 1) {
                             $isActive = true;
                         }
                     }
