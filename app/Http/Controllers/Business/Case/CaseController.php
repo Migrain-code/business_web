@@ -54,6 +54,9 @@ class CaseController extends Controller
     public function index(Request $request)
     {
         $business = $this->business;
+        if (!$request->filled('date_range')){
+            $request->merge(['date_range' => now()->format('d.m.Y') . ' - ' . now()->format('d.m.Y')]);
+        }
 
         $this->adissionCalculator($business, $request);
         $this->productSaleCalculator($business, $request);
@@ -94,6 +97,7 @@ class CaseController extends Controller
             $endTime = now();
             if ($request->filled('date_range')){
                 $timePartition = explode('-', $request->date_range);
+
                 $startTime = Carbon::parse(clearPhone($timePartition[0]))->toDateString();
                 $endTime = Carbon::parse(clearPhone($timePartition[1]))->toDateString();
             }
