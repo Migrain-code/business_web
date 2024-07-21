@@ -34,8 +34,8 @@ class SpeedAppointmentController extends Controller
 
     public function index()
     {
-        $rooms = $this->business->activeRooms;
-        return view('business.appointment.close-clock', compact('rooms'));
+        $personels = $this->business->personels;
+        return view('business.appointment.close-clock', compact('personels'));
     }
     public function getCustomerList(Request $request)
     {

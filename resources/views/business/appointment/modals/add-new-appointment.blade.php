@@ -12,7 +12,7 @@
                     <h2 class="fw-bold">Randevu Oluştur</h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
-                    <div id="kt_modal_add_appointment_close" class="btn btn-icon btn-sm btn-active-icon-primary">
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-icon btn-sm btn-active-icon-primary">
                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                         <span class="svg-icon svg-icon-1">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,7 +21,7 @@
                             </svg>
                         </span>
                         <!--end::Svg Icon-->
-                    </div>
+                    </button>
                     <!--end::Close-->
                 </div>
                 <!--end::Modal header-->
@@ -97,7 +97,7 @@
                 <!--begin::Modal footer-->
                 <div class="modal-footer flex-center">
                     <!--begin::Button-->
-                    <button type="reset" id="kt_modal_add_appointment_cancel" class="btn btn-light me-3">İptal Et</button>
+                    <button type="button" id="kt_modal_add_appointment_cancel" data-bs-dismiss="modal" class="btn btn-light me-3">İptal Et</button>
                     <!--end::Button-->
                     <!--begin::Button-->
                     <button type="submit" id="kt_modal_add_appointment_submit" class="btn btn-primary">

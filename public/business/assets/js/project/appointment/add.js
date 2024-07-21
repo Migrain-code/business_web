@@ -188,69 +188,6 @@ var KTModalAppointmentAdd = function () {
             }
         });
 
-        cancelButton.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            Swal.fire({
-                text: "Randevu Oluştuma İşlemini İptal Etmek İstediğinize Eminmisiniz?",
-                icon: "warning",
-                showCancelButton: true,
-                buttonsStyling: false,
-                confirmButtonText: "Evet, İptal Et!",
-                cancelButtonText: "Hayır, Devam Et",
-                customClass: {
-                    confirmButton: "btn btn-danger",
-                    cancelButton: "btn btn-primary"
-                }
-            }).then(function (result) {
-                if (result.value) {
-                    form.reset(); // Reset form
-                    modal.hide(); // Hide modal
-                } else if (result.dismiss === 'cancel') {
-                    Swal.fire({
-                        text: "İşlem İptal Edilmedi!.",
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "Tamam, devam et!",
-                        customClass: {
-                            confirmButton: "btn btn-primary",
-                        }
-                    });
-                }
-            });
-        });
-
-        closeButton.addEventListener('click', function(e){
-            e.preventDefault();
-            Swal.fire({
-                text: "Randevu Oluştuma İşlemini İptal Etmek İstediğinize Eminmisiniz?",
-                icon: "warning",
-                showCancelButton: true,
-                buttonsStyling: false,
-                confirmButtonText: "Evet, İptal Et!",
-                cancelButtonText: "Hayır, Devam Et",
-                customClass: {
-                    confirmButton: "btn btn-danger",
-                    cancelButton: "btn btn-primary"
-                }
-            }).then(function (result) {
-                if (result.value) {
-                    form.reset(); // Reset form
-                    modal.hide(); // Hide modal
-                } else if (result.dismiss === 'cancel') {
-                    Swal.fire({
-                        text: "İşlem İptal Edilmedi!.",
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "Tamam, devam et!",
-                        customClass: {
-                            confirmButton: "btn btn-primary",
-                        }
-                    });
-                }
-            });
-
-        })
     }
 
     return {

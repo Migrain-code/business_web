@@ -218,7 +218,7 @@
             </div>
             <!--end::Card body-->
         </div>
-        @include('business.appointment.modals.add-appointment')
+        @include('business.appointment.modals.add-close-clock')
         @include('business.appointment-create.modal.add-customer')
 
     </div>
@@ -237,12 +237,14 @@
             {data: 'action'}
         ];
     </script>
+    <script>
+        var apppointmentType = "closeClock";
+    </script>
     <script src="/business/assets/js/project/appointment/add-customer.js"></script>
     <script src="/business/assets/js/project/appointment/listing.js"></script>
     <script src="/business/assets/js/project/appointment/add.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
-
     <script>
         var mySelect = new TomSelect("#customer_select", {
             remoteUrl: '/isletme/speed-appointment/customer',
@@ -255,44 +257,75 @@
                 }
             },
             load: function (query, callback) {
-                if(query.length > 3){
+                if (query.length > 3) {
                     $.ajax({
-                        url: '/isletme/speed-appointment/customer', // Sunucu tarafındaki arama API'sinin URL'si
+                        url: this.settings.remoteUrl,
                         method: 'GET',
-                        data: {
-                            name: query,
-                        }, // Arama sorgusu
-                        dataType: 'json', // Beklenen veri tipi
+                        data: { name: query },
+                        dataType: 'json',
                         success: function (data) {
                             var results = data.map(function (item) {
                                 return {
                                     value: item.id,
-                                    text: item.name+ " -> 0"+ item.phone,
+                                    text: item.name + " -> 0" + item.phone,
                                 };
                             });
                             callback(results);
                         },
                         error: function () {
                             console.error("Arama sırasında bir hata oluştu.");
+                            callback([]); // Hata durumunda boş bir dizi gönder
                         }
                     });
+                } else {
+                    callback([]); // Sorgu uzunluğu yeterli değilse boş bir dizi gönder
                 }
-
             }
         });
+
+
         var personelId = null;
-         $('#personel_select').on('change', function () {
+        $('#personel_select').on('change', function () {
             personelId = $(this).val();
             var serviceSelect = $('#service_select');
+            var room_select_area = $('#roomSelectArea');
             $.ajax({
-                url: '/isletme/speed-appointment/personel/' + personelId + '/services', // Sunucu tarafındaki arama API'sinin URL'si
+                url: '/isletme/speed-appointment/personel/' + personelId + '/services',
                 method: 'GET',
                 dataType: 'json', // Beklenen veri tipi
                 success: function (res) {
                     serviceSelect.empty();
-                    $.each(res, function (index, item) {
+                    room_select_area.empty();
+                    $.each(res.services, function (index, item) {
                         serviceSelect.append('<option value="' + item.id + '">' + item.name + '</option>');
                     });
+                    var rooms = "";
+                    $.each(res.rooms, function (index, item) {
+                        rooms+=`<div class="col-lg-6 col-12">
+                                        <!--begin::Radio button-->
+                                        <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex flex-stack text-start p-6 mb-5" style="min-width: 200px">
+                                            <!--end::Description-->
+                                            <div class="d-flex align-items-center me-2">
+                                                <!--begin::Radio-->
+                                                <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
+                                                    <input class="form-check-input roomCheckBox" type="radio" name="room_id" value="${item.id}"/>
+                                                </div>
+                                                <!--end::Radio-->
+
+                                                <!--begin::Info-->
+                                                <div class="flex-grow-1">
+                                                    <h2 class="d-flex align-items-center fs-4 fw-bold flex-wrap">
+                                                        ${item.name}
+                                                   </h2>
+                                               </div>
+                                               <!--end::Info-->
+                                           </div>
+                                           <!--end::Description-->
+                                       </label>
+                                       <!--end::Radio button-->
+                                   </div>`
+                    });
+                    document.getElementById('roomSelectArea').innerHTML = rooms;
                 },
                 error: function () {
                     console.error("Arama sırasında bir hata oluştu.");
@@ -325,36 +358,33 @@
                 }
             });
         }
-        $(function (){
-            var roomCheckBox = $('.roomCheckBox');
 
-            if(roomCheckBox.length > 0){
-                var checkedRoom = $('.roomCheckBox:checked').val();
-                fetchPersonel(checkedRoom);
-            } else{
-                fetchPersonel();
-            }
-
-        })
         $('#date_select').on('change', function (){
-           var selectedDate = $(this).val();
-           var start_time_select = $('#start_time_select');
-           var end_time_select = $('#end_time_select');
+            var selectedDate = $(this).val();
             $.ajax({
-                url: '/isletme/speed-appointment/personel/' + personelId + '/clocks', // Sunucu tarafındaki arama API'sinin URL'si
+                url: '/isletme/speed-appointment/personel/' + personelId + '/clocks',
                 method: 'GET',
                 data: {
                     appointment_date : selectedDate,
                 },
                 dataType: 'json', // Beklenen veri tipi
                 success: function (res) {
+                    var start_time_select = $('#start_time_select');
+                    var end_time_select = $('#end_time_select');
                     start_time_select.empty();
                     end_time_select.empty();
-                    $.each(res, function (index, item) {
-                       console.log(item);
-                        start_time_select.append('<option value="' + item.value + '">' + item.saat + '</option>');
-                        end_time_select.append('<option value="' + item.value + '">' + item.saat + '</option>');
-                    });
+                    if(res.status == "error"){
+                        Toast.fire({
+                            icon: res.status,
+                            title: res.message,
+
+                        })
+                    } else{
+                        $.each(res, function(index, item){
+                            start_time_select.append('<option value="' + item.value + '">' + item.saat + '</option>');
+                            end_time_select.append('<option value="' + item.value + '">' + item.saat + '</option>');
+                        });
+                    }
                 },
                 error: function () {
                     console.error("Arama sırasında bir hata oluştu.");
@@ -363,4 +393,5 @@
         });
 
     </script>
+
 @endsection
