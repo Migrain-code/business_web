@@ -32,6 +32,9 @@ var mySelectClose = new TomSelect("#customer_select_close", {
         } else {
             callback([]); // Sorgu uzunluğu yeterli değilse boş bir dizi gönder
         }
+    },score: function() {
+        // Her zaman 1 döner, böylece Tom Select kendi içinde arama yapmaz
+        return function() { return 1; };
     }
 });
 
