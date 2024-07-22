@@ -74,23 +74,11 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link @if(request()->routeIs('business.appointmentCreate.index')) active @endif" href="{{route('business.appointmentCreate.index')}}">
+                            <a class="menu-link @if(request()->routeIs('business.appointment.index')) active @endif" href="{{route('business.appointment.index')}}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">Randevu Oluştur</span>
-                            </a>
-                            <!--end:Menu link-->
-                        </div>
-                        <!--end:Menu item-->
-                        <!--begin:Menu item-->
-                        <div class="menu-item">
-                            <!--begin:Menu link-->
-                            <a class="menu-link @if(request()->routeIs('business.speedAppointment.index')) active @endif" href="{{route('business.speedAppointment.index')}}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Saat Kapatma</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -241,7 +229,7 @@
                 <!--begin:Menu item-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('business.appointmentCreate.index')}}">
+                    <a class="menu-link" href="{{route('business.appointment.index')}}">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-cheque fs-3">
                                  <span class="path1"></span>
