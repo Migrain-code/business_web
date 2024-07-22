@@ -171,6 +171,9 @@ class AppointmentController extends Controller
             ->latest();
 
         return DataTables::of($appointments)
+            ->editColumn('id', function ($q) {
+                return '#'. $q->id;
+            })
             ->addColumn('customerName', function ($q) use ($business) {
                 return createName(route('business.customer.edit', $q->customer->id), $q->customer->name);
             })

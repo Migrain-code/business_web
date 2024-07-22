@@ -1,18 +1,18 @@
 <!--begin::Modal - Customers - Add-->
-<div class="modal fade" id="kt_modal_add_appointment" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="kt_modal_add_appointment_close" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Form-->
-            <form class="form" action="#" id="kt_modal_add_appointment_form" data-kt-redirect="../../customers/list.html">
+            <form class="form" action="#" id="kt_modal_add_appointment_form_close">
                 <!--begin::Modal header-->
                 <div class="modal-header" id="kt_modal_add_appointment_header">
                     <!--begin::Modal title-->
-                    <h2 class="fw-bold">Randevu Oluştur</h2>
+                    <h2 class="fw-bold">Saat Kapatma</h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
-                    <button type="button" data-bs-dismiss="modal" class="btn btn-icon btn-sm btn-active-icon-primary">
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-icon btn-sm btn-active-icon-primary" id="kt_modal_add_appointment_close_app">
                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                         <span class="svg-icon svg-icon-1">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -37,7 +37,7 @@
                         <!--end::Label-->
                         <div class="d-flex gap-2 align-items-center">
                             <!--begin::Input-->
-                            <select id="customer_select" placeholder="Müşteri Adı" style="" name="customer_id">
+                            <select id="customer_select_close" placeholder="Müşteri Adı" style="" name="customer_id_close">
                                 <option value="">Müşteri Ara</option>
                             </select>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" href="#kt_modal_add_customer"><i class="fa fa-plus-circle"></i></button>
@@ -53,7 +53,7 @@
                         </label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <select name="personel_id" id="personel_select" aria-label="Personel Seçiniz" data-control="select2" data-placeholder="Personel Seçiniz..." data-dropdown-parent="#kt_modal_add_appointment" class="form-select form-select-solid fw-bold">
+                        <select name="personel_id_close" id="personel_select_close" aria-label="Personel Seçiniz" data-control="select2" data-placeholder="Personel Seçiniz..." data-dropdown-parent="#kt_modal_add_appointment_close" class="form-select form-select-solid fw-bold">
                             <option value="">Personel Seçiniz</option>
                             @foreach($personels as $personel)
                                 <option value="{{$personel->id}}">{{$personel->name}}</option>
@@ -61,7 +61,7 @@
                         </select>
                     </div>
                     <!--end::Input group-->
-                    <div class="row" id="roomSelectArea">
+                    <div class="row" id="roomSelectAreaClose">
 
                     </div>
                     <div class="d-flex flex-column mb-7 fv-row">
@@ -72,7 +72,7 @@
                         </label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <select name="service_id[]" id="service_select" multiple aria-label="Hizmet Seçiniz" data-control="select2" data-placeholder="Hizmet Seçiniz..." data-dropdown-parent="#kt_modal_add_appointment" class="form-select form-select-solid fw-bold">
+                        <select name="service_id_close[]" id="service_select_close" multiple aria-label="Hizmet Seçiniz" data-control="select2" data-placeholder="Hizmet Seçiniz..." data-dropdown-parent="#kt_modal_add_appointment_close" class="form-select form-select-solid fw-bold">
                             <option value="">Hizmet Seçiniz</option>
 
                         </select>
@@ -83,7 +83,7 @@
                         <label class="required fs-6 fw-semibold mb-2">Tarih Seçiniz</label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <input type="date" class="form-control form-control-solid datePickerSelect" id="date_select" placeholder="" name="appointment_date" min="{{now()->toDateString()}}" value="" />
+                        <input type="date" class="form-control form-control-solid datePickerSelect" id="date_select_close" placeholder="" name="appointment_date_close" min="{{now()->toDateString()}}" value="" />
                         <!--end::Input-->
                     </div>
 
@@ -97,7 +97,7 @@
                             </label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <select name="start_time" id="start_time_select" aria-label="Saat Seçiniz" data-control="select2" data-placeholder="Saat Seçiniz..." data-dropdown-parent="#kt_modal_add_appointment" class="form-select form-select-solid fw-bold clockSelect">
+                            <select name="start_time_close" id="start_time_select_close" aria-label="Saat Seçiniz" data-control="select2" data-placeholder="Saat Seçiniz..." data-dropdown-parent="#kt_modal_add_appointment_close" class="form-select form-select-solid fw-bold clockSelect">
                                 <option value="">Saat Seçiniz</option>
 
                             </select>
@@ -111,7 +111,7 @@
                             </label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <select name="end_time" id="end_time_select" aria-label="Saat Seçiniz" data-control="select2" data-placeholder="Saat Seçiniz..." data-dropdown-parent="#kt_modal_add_appointment" class="form-select form-select-solid fw-bold clockSelect">
+                            <select name="end_time" id="end_time_select_close" aria-label="Saat Seçiniz" data-control="select2" data-placeholder="Saat Seçiniz..." data-dropdown-parent="#kt_modal_add_appointment_close" class="form-select form-select-solid fw-bold clockSelect">
                                 <option value="">Saat Seçiniz</option>
 
                             </select>
@@ -122,9 +122,7 @@
                 <!--end::Modal body-->
                 <!--begin::Modal footer-->
                 <div class="modal-footer flex-center">
-                    <!--begin::Button-->
-                    <button type="button" id="kt_modal_add_appointment_cancel" data-bs-dismiss="modal" class="btn btn-light me-3">İptal Et</button>
-                    <!--end::Button-->
+
                     <!--begin::Button-->
                     <button type="submit" id="kt_modal_add_appointment_submit" class="btn btn-primary">
                         <span class="indicator-label">Kaydet</span>

@@ -3,11 +3,10 @@
 // Class definition
 var KTModalAppointmentAdd = function () {
     var submitButton;
-    var cancelButton;
-    var closeButton;
     var validator;
     var form;
     var modal;
+    var appointmentTypeId;
 
     // Init form inputs
     var handleForm = function () {
@@ -65,11 +64,6 @@ var KTModalAppointmentAdd = function () {
             }
         );
 
-        // Revalidate country field. For more info, plase visit the official plugin site: https://select2.org/
-        $(form.querySelector('[name="city_id"]')).on('city_id', function() {
-            // Revalidate the field when an option is chosen
-            validator.revalidateField('city_id');
-        });
 
         // Action buttons
         submitButton.addEventListener('click', function (e) {
@@ -86,39 +80,76 @@ var KTModalAppointmentAdd = function () {
                         submitButton.disabled = true;
 
                         setTimeout(function() {
-                            var personelId = $('[name="personel_id"]').val();
-                            var roomId;
-                            var start_time;
+                            if (appointmentTypeId == "closeClock"){
+                                var personelId = $('[name="personel_id_close"]').val();
+                                var roomId;
+                                var start_time;
 
-                            if ($('[name="room_id"]').is(':radio')) {
-                                roomId = $('[name="room_id"]:checked').val();
-                            } else {
-                                roomId = $('[name="room_id"]').val();
+                                if ($('[name="room_id_close"]').is(':radio')) {
+                                    roomId = $('[name="room_id_close"]:checked').val();
+                                } else {
+                                    roomId = $('[name="room_id_close"]').val();
+                                }
+                                if ($('[name="start_time_close"]').is(':radio')) {
+                                    start_time = $('[name="start_time_close"]:checked').val();
+
+                                } else {
+                                    start_time = $('[name="start_time_close"]').val();
+
+                                }
+
+                                submitButton.removeAttribute('data-kt-indicator');
+                                var formData = new FormData();
+                                formData.append("_token", csrf_token);
+                                formData.append("customer_id", $('[name="customer_id_close"]').val());
+                                formData.append("personel_id", personelId);
+                                formData.append("appointment_date", $('[name="appointment_date_close"]').val());
+                                formData.append("start_time", start_time);
+                                formData.append("end_time", $('[name="end_time"]').val());
+                                if (!isNaN(roomId)){
+                                    formData.append("room_id", roomId);
+                                }
+
+                                formData.append("appointment_type", appointmentTypeId);
+                                $('[name="service_id_close[]"] option:selected').each(function() {
+                                    formData.append("service_id[]", $(this).val());
+                                });
+                            } else
+                            {
+                                var personelId = $('[name="personel_id"]').val();
+                                var roomId;
+                                var start_time;
+
+                                if ($('[name="room_id"]').is(':radio')) {
+                                    roomId = $('[name="room_id"]:checked').val();
+                                } else {
+                                    roomId = $('[name="room_id"]').val();
+                                }
+                                if ($('[name="start_time"]').is(':radio')) {
+                                    start_time = $('[name="start_time"]:checked').val();
+
+                                } else {
+                                    start_time = $('[name="start_time"]').val();
+
+                                }
+
+                                submitButton.removeAttribute('data-kt-indicator');
+                                var formData = new FormData();
+                                formData.append("_token", csrf_token);
+                                formData.append("customer_id", $('[name="customer_id"]').val());
+                                formData.append("personel_id", personelId);
+                                formData.append("appointment_date", $('[name="appointment_date"]').val());
+                                formData.append("start_time", start_time);
+                                formData.append("end_time", $('[name="end_time"]').val());
+                                if (!isNaN(roomId)){
+                                    formData.append("room_id", roomId);
+                                }
+
+                                formData.append("appointment_type", appointmentTypeId);
+                                $('[name="service_id[]"] option:selected').each(function() {
+                                    formData.append("service_id[]", $(this).val());
+                                });
                             }
-                            if ($('[name="start_time"]').is(':radio')) {
-                                start_time = $('[name="start_time"]:checked').val();
-
-                            } else {
-                                start_time = $('[name="start_time"]').val();
-
-                            }
-
-                            submitButton.removeAttribute('data-kt-indicator');
-                            var formData = new FormData();
-                            formData.append("_token", csrf_token);
-                            formData.append("customer_id", $('[name="customer_id"]').val());
-                            formData.append("personel_id", personelId);
-                            formData.append("appointment_date", $('[name="appointment_date"]').val());
-                            formData.append("start_time", start_time);
-                            formData.append("end_time", $('[name="end_time"]').val());
-                            if (!isNaN(roomId)){
-                                formData.append("room_id", roomId);
-                            }
-
-                            formData.append("appointment_type", apppointmentType);
-                            $('[name="service_id[]"] option:selected').each(function() {
-                                formData.append("service_id[]", $(this).val());
-                            });
                             $.ajax({
                                 url: '/isletme/speed-appointment/create/'+ personelId,
                                 type: "POST",
@@ -141,11 +172,18 @@ var KTModalAppointmentAdd = function () {
                                     if (res.status == "success"){
                                         form.reset(); // Reset form
                                         //modal.hide(); // Hide modal
+                                        if (appointmentTypeId == "closeClock"){
+                                            $('#clockContainerClose').text("");
+                                            $('#service_select_close').empty();
+                                            $('#personel_select_close').val(null).trigger('change');
+                                            $('#customer_select_close').empty();
+                                        } else{
+                                            $('#clockContainer').text("");
+                                            $('#service_select').empty();
+                                            $('#personel_select').val(null).trigger('change');
+                                            $('#customer_select').empty();
+                                        }
 
-                                        $('#clockContainer').text("");
-                                        $('#service_select').empty();
-                                        $('#personel_select').val(null).trigger('change');
-                                        $('#customer_select').empty();
                                         if ($.fn.DataTable.isDataTable('#datatable')) {
                                             $('#datatable').DataTable().ajax.reload();
                                         }
@@ -188,19 +226,17 @@ var KTModalAppointmentAdd = function () {
             }
         });
 
+
     }
 
     return {
         // Public functions
         init: function () {
             // Elements
-            modal = new bootstrap.Modal(document.querySelector('#kt_modal_add_appointment'));
-
-            form = document.querySelector('#kt_modal_add_appointment_form');
+            modal = documentModal;
+            form = documentForm;
             submitButton = form.querySelector('#kt_modal_add_appointment_submit');
-            cancelButton = form.querySelector('#kt_modal_add_appointment_cancel');
-            closeButton = form.querySelector('#kt_modal_add_appointment_close');
-
+            appointmentTypeId = apppointmentType;
             handleForm();
         }
     };

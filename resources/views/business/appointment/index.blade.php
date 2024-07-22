@@ -69,6 +69,23 @@
             border-color: #28A745 !important;
             background-color: #28A745 !important;
         }
+        .nav-line-tabs .nav-item .nav-link.active, .nav-line-tabs .nav-item.show .nav-link, .nav-line-tabs .nav-item .nav-link:hover:not(.disabled) {
+            background-color: transparent;
+            border: 0;
+            border-bottom: 1px solid var(--kt-primary);
+            transition: color 0.2s ease;
+            color: black;
+        }
+        .nav-line-tabs {
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            border-bottom-color: var(--kt-border-color);
+            padding: 0px 20px !important;
+            padding-top: 20px !important;
+            font-size: 1.2rem !important;
+            font-weight: bold;
+            color: black;
+        }
     </style>
 @endsection
 @section('breadcrumbs')
@@ -127,11 +144,14 @@
                         <!--end::Filter-->
 
                         <!--begin::Add customer-->
-                        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#kt_modal_add_appointment"
+                        <a href="javascript:void(0)" id="btnAppointment" data-bs-toggle="modal" data-bs-target="#kt_modal_add_appointment"
                            class="btn btn-primary me-1">
                             Randevu Oluştur
                         </a>
-
+                        <a href="javascript:void(0)" id="btnCloseClock" data-bs-toggle="modal" data-bs-target="#kt_modal_add_appointment_close"
+                           class="btn btn-dark text-white me-1">
+                            Saat Kapat
+                        </a>
                         <!--begin::Export-->
                         <!--begin::Export dropdown-->
                         <button type="button" class="btn btn-light-primary" data-kt-menu-trigger="click"
@@ -206,6 +226,7 @@
                     <table class="table align-middle table-row-dashed fs-6 gy-5" id="datatable">
                         <thead>
                         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                            <th>#</th>
                             <th class="min-w-125px">Müşteri</th>
                             <th class="min-w-125px">Salon</th>
                             <th class="min-w-125px">Hizmetler</th>
@@ -230,6 +251,7 @@
         </div>
         @include('business.appointment.modals.add-new-appointment')
         @include('business.appointment-create.modal.add-customer')
+        @include('business.appointment.modals.add-close-clock')
 
     </div>
 @endsection
@@ -237,6 +259,7 @@
     <script>
         let DATA_URL = "{{route('business.appointment.datatable')}}";
         let DATA_COLUMNS = [
+            {data: 'id'},
             {data: 'customerName'},
             {data: 'room_id'},
             {data: 'services'},
@@ -248,7 +271,7 @@
         ];
     </script>
     <script>
-        var apppointmentType = "appointmentCreate";
+
     </script>
     <script src="/business/assets/js/project/appointment/add-customer.js"></script>
     <script src="/business/assets/js/project/appointment/listing.js"></script>
@@ -261,162 +284,37 @@
             time_24hr: true, // 24 saat formatını kullan
             locale: 'tr',
         });
-        var mySelect = new TomSelect("#customer_select", {
-            remoteUrl: '/isletme/speed-appointment/customer',
-            remoteSearch: true,
-            create: false,
-            highlight: false,
-            render: {
-                no_results: function (data, escape) {
-                    return '<div class="no-results">Sonuç bulunamadı.</div>';
-                }
-            },
-            load: function (query, callback) {
-                if (query.length > 3) {
-                    $.ajax({
-                        url: this.settings.remoteUrl,
-                        method: 'GET',
-                        data: { name: query },
-                        dataType: 'json',
-                        success: function (data) {
-                            var results = data.map(function (item) {
-                                return {
-                                    value: item.id,
-                                    text: item.name + " -> 0" + item.phone,
-                                };
-                            });
-                            callback(results);
-                        },
-                        error: function () {
-                            console.error("Arama sırasında bir hata oluştu.");
-                            callback([]); // Hata durumunda boş bir dizi gönder
-                        }
-                    });
-                } else {
-                    callback([]); // Sorgu uzunluğu yeterli değilse boş bir dizi gönder
-                }
-            },
-            score: function() {
-                // Her zaman 1 döner, böylece Tom Select kendi içinde arama yapmaz
-                return function() { return 1; };
-            }
+    </script>
+    <script>
+        var apppointmentType = "appointmentCreate";
+        var documentModal, documentForm;
+        $('#btnAppointment').on('click', function (){
+            documentModal = new bootstrap.Modal(document.querySelector('#kt_modal_add_appointment'));
+            documentForm = document.querySelector('#kt_modal_add_appointment_form');
+            apppointmentType = "appointmentCreate";
+            KTModalAppointmentAdd.init();
         });
+        $('#btnCloseClock').on('click', function (){
+            documentModal = new bootstrap.Modal(document.querySelector('#kt_modal_add_appointment_close'));
+            documentForm = document.querySelector('#kt_modal_add_appointment_form_close');
+            apppointmentType = "closeClock";
 
-        var personelId = null;
-        $('#personel_select').on('change', function () {
-            personelId = $(this).val();
-            var serviceSelect = $('#service_select');
-            var room_select_area = $('#roomSelectArea');
-            $.ajax({
-                url: '/isletme/speed-appointment/personel/' + personelId + '/services',
-                method: 'GET',
-                dataType: 'json', // Beklenen veri tipi
-                success: function (res) {
-                    serviceSelect.empty();
-                    room_select_area.empty();
-                    $.each(res.services, function (index, item) {
-                        serviceSelect.append('<option value="' + item.id + '">' + item.name + '</option>');
-                    });
-                    var rooms = "";
-                    $.each(res.rooms, function (index, item) {
-                       rooms+=`<div class="col-lg-6 col-12">
-                                        <!--begin::Radio button-->
-                                        <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex flex-stack text-start p-6 mb-5" style="min-width: 200px">
-                                            <!--end::Description-->
-                                            <div class="d-flex align-items-center me-2">
-                                                <!--begin::Radio-->
-                                                <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
-                                                    <input class="form-check-input roomCheckBox" type="radio" name="room_id" value="${item.id}"/>
-                                                </div>
-                                                <!--end::Radio-->
+            KTModalAppointmentAdd.init();
 
-                                                <!--begin::Info-->
-                                                <div class="flex-grow-1">
-                                                    <h2 class="d-flex align-items-center fs-4 fw-bold flex-wrap">
-                                                        ${item.name}
-                                                   </h2>
-                                               </div>
-                                               <!--end::Info-->
-                                           </div>
-                                           <!--end::Description-->
-                                       </label>
-                                       <!--end::Radio button-->
-                                   </div>`
-                    });
-                    document.getElementById('roomSelectArea').innerHTML = rooms;
-                },
-                error: function () {
-                    console.error("Arama sırasında bir hata oluştu.");
-                }
-            });
         });
-        $('.roomCheckBox').on('change', function (){
-            var room_id = $(this).val();
-            fetchPersonel(room_id);
-        })
-        function fetchPersonel(room_id = null){
-            var personelSelect = $('#personel_select');
-            $.ajax({
-                url: '/isletme/speed-appointment/personel/list',
-                method: 'GET',
-                data: {
-                    'room_id' : room_id,
-                },
-                dataType: 'json', // Beklenen veri tipi
-                success: function (res) {
-                    personelSelect.empty();
-                    personelSelect.append('<option value="' + 0 + '">Personel Seçiniz</option>');
-
-                    $.each(res, function (index, item) {
-                        personelSelect.append('<option value="' + item.id + '">' + item.name + '</option>');
-                    });
-                },
-                error: function () {
-                    console.error("Arama sırasında bir hata oluştu.");
-                }
-            });
-        }
-
-        $('#date_select').on('change', function (){
-            var selectedDate = $(this).val();
-            $.ajax({
-                url: '/isletme/speed-appointment/personel/' + personelId + '/clocks',
-                method: 'GET',
-                data: {
-                    appointment_date : selectedDate,
-                },
-                dataType: 'json', // Beklenen veri tipi
-                success: function (res) {
-                    var clocks = "";
-                    if(res.status == "error"){
-                        Toast.fire({
-                            icon: res.status,
-                            title: res.message,
-
-                        })
-                    } else{
-                        $.each(res, function(index, item){
-                            clocks += `
-                            <div class="col-lg-2 col-4">
-                                <input type="radio" class="btn-check" name="start_time" value="${item.value}"  id="kt_radio_buttons_2_option_${item.value}"/>
-                                <label class="btn btn-outline btn-light-success p-4 d-flex align-items-center mb-5" style="border-radius: 15px" for="kt_radio_buttons_2_option_${item.value}">
-                                <span class="d-block fw-semibold text-start">
-                                    <span class="text-white fw-bold d-block fs-3">${item.saat}</span>
-                                 </span>
-                                </label>
-                            </div>
-                        `
-                        });
-                    }
-
-                    document.getElementById('clockContainer').innerHTML = clocks;
-                },
-                error: function () {
-                    console.error("Arama sırasında bir hata oluştu.");
-                }
-            });
+    </script>
+    <script src="/business/assets/js/project/speed-appointment/listing.js"></script>
+    <script src="/business/assets/js/project/speed-appointment/close-clock.js"></script>
+    <script>
+        $(document).on('click', '#kt_modal_add_appointment_close_app', function (){
+          $('#kt_modal_add_appointment_close').hide();
+          $('#kt_modal_add_appointment_close').removeClass('show');
+          $('.modal-backdrop').hide();
         });
-
-
+        $(document).on('click', '#kt_modal_add_appointment_close_app_2', function (){
+            $('#kt_modal_add_appointment').hide();
+            $('#kt_modal_add_appointment').removeClass('show');
+            $('.modal-backdrop').hide();
+        });
     </script>
 @endsection
