@@ -34,7 +34,7 @@
                             <!--end::Name-->
                             <!--begin::Info-->
                             <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
-                                <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
+                                <a href="tel:{{$appointment->customer->phone}}" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                                     <!--begin::Svg Icon | path: icons/duotune/communication/com006.svg-->
                                     <span class="svg-icon svg-icon-4 me-1">
                                         <i class="fa fa-phone"></i>
@@ -50,7 +50,7 @@
                                                 <path d="M12.0624 13.0453C13.7193 13.0453 15.0624 11.7022 15.0624 10.0453C15.0624 8.38849 13.7193 7.04535 12.0624 7.04535C10.4056 7.04535 9.06241 8.38849 9.06241 10.0453C9.06241 11.7022 10.4056 13.0453 12.0624 13.0453Z" fill="currentColor" />
                                             </svg>
                                         </span>
-                                        <!--end::Svg Icon-->{{$appointment->customer->city ?? ""}}
+                                        <!--end::Svg Icon-->{{$appointment->customer->city->name ?? ""}}
                                     </a>
                                 @endif
 
