@@ -250,22 +250,6 @@
                 <!--begin:Menu item-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('business.speedAppointment.index')}}">
-                        <span class="menu-icon">
-                            <i class="ki-duotone ki-watch fs-3">
-                             <span class="path1"></span>
-                             <span class="path2"></span>
-                            </i>
-
-                        </span>
-                        <span class="menu-title">Saat Kapatma</span>
-                    </a>
-                    <!--end:Menu link-->
-                </div>
-                <!--end:Menu item-->
-                <!--begin:Menu item-->
-                <div class="menu-item">
-                    <!--begin:Menu link-->
                     <a class="menu-link" href="{{route('business.appointment.index')}}">
                         <span class="menu-icon">
 												<!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm002.svg-->
