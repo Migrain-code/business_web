@@ -16,7 +16,7 @@
                     <!--begin::Table-->
                     <table class="table align-middle table-row-dashed fs-6 gy-5" id="datatable">
                         <thead>
-                        <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                        <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
                             <th class="">Satış Tarihi</th>
                             <th class="">Ürün</th>
                             <th class="">Satıcı</th>
@@ -25,7 +25,7 @@
                             <th class="">İşlemler</th>
                         </tr>
                         </thead>
-                        <tbody class="fw-semibold text-gray-600">
+                        <tbody class="fw-semibold ">
 
                         </tbody>
                         <!--end::Table body-->

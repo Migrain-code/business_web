@@ -27,7 +27,7 @@
                     <!--begin::Table-->
                     <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
                         <thead>
-                        <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                        <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
                             <th class="min-w-175px">Personel</th>
                             <th class="min-w-100px text-end">Hizmet</th>
                             <th class="min-w-70px text-end">Süre</th>
@@ -35,7 +35,7 @@
                             <th class="min-w-100px text-end">İşlemler</th>
                         </tr>
                         </thead>
-                        <tbody class="fw-semibold text-gray-600">
+                        <tbody class="fw-semibold ">
                         @foreach($appointment->services as $service)
                             <tr>
                                 <td>
@@ -51,8 +51,8 @@
                                         <!--begin::Title-->
                                         <div class="ms-5">
                                             <a href="{{route('business.personel.edit', $service->personel_id)}}"
-                                               class="fw-bold text-gray-600 text-hover-primary">{{$service->personel->name}}</a>
-                                            <div class="fs-7 text-muted">İşlem
+                                               class="fw-bold text-hover-primary">{{$service->personel->name}}</a>
+                                            <div class="fs-7">İşlem
                                                 Saati: {{\Illuminate\Support\Carbon::parse($service->start_time)->format('H:i')}}</div>
                                         </div>
                                         <!--end::Title-->

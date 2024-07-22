@@ -24,6 +24,7 @@ var KTCustomersList = function () {
             processing : true,
             columns: DATA_COLUMNS,
             responsive: true,
+            paginate:false,
             "info": false,
             'order': [],
             dom: 'Bfrtip',//B eklersek başına doma ekler

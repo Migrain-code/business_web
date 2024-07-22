@@ -24,7 +24,7 @@
             <!--begin::Table-->
             <table class="table align-middle table-row-dashed fs-6 gy-5" id="paymentDataTable">
                 <thead>
-                <tr>
+                <tr class="fw-bold">
                     <td class="">Tarih</td>
                     <td>Ödeme Tipi</td>
                     <td class="">Tutar</td>
@@ -32,7 +32,7 @@
                 </tr>
                 </thead>
                 <!--begin::Table body-->
-                <tbody class="fs-6 fw-semibold text-gray-600" id="paymentTable">
+                <tbody class="fs-6 fw-semibold" id="paymentTable">
                 @foreach($appointment->payments as $payed)
                     <tr>
                         <td class="">{{$payed->created_at->format('d.m.Y')}}</td>
@@ -70,34 +70,34 @@
     <div class="card-footer">
         <table class="table">
             <tr class="border-bottom border-dashed">
-                <td colspan="4">
+                <td colspan="4" class="fw-bold">
                    Hizmet ve Ürünler Toplamı
                 </td>
-                <td class="text-end">
+                <td class="text-end fw-bold">
                     {{formatPrice($appointment->totalServiceAndProduct())}}
                 </td>
             </tr>
             <tr>
-                <td colspan="4">
+                <td colspan="4" class="fw-bold">
                     Kampanya İndirimi ({{$appointment->discount}}%)
                 </td>
-                <td class="text-end">
+                <td class="text-end fw-bold">
                     {{formatPrice($appointment->calculateCampaignDiscount())}}
                 </td>
             </tr>
             <tr>
-                <td colspan="4" class="fs-3 text-dark">
+                <td colspan="4" class="fs-5 text-dark fw-bold">
                     Genel Toplam
                 </td>
-                <td class="text-dark fs-3 fw-bolder text-end">
+                <td class="text-dark fs-5 fw-bolder text-end ">
                     {{formatPrice($appointment->totalServiceAndProduct()-$appointment->calculateCampaignDiscount())}}
                 </td>
             </tr>
             <tr>
-                <td colspan="4" class="fs-3 text-dark">
+                <td colspan="4" class="fs-5 text-dark fw-bolder">
                     Kalan Borç
                 </td>
-                <td class="text-dark fs-3 fw-bolder text-end">
+                <td class="text-dark fs-5 fw-bolder text-end">
                     {{formatPrice($appointment->remainingTotal())}}
                 </td>
             </tr>
@@ -123,8 +123,8 @@
     <div class="card-body pt-0 d-flex flex-stack">
         <div class="fw-bold fs-2 col-8">
             <b id="remainingAmount"></b>
-            <span class="text-muted fs-4 fw-semibold">Yüklenecek Parapuan {{$appointment->earned_point}} TL</span>
-            <div class="fs-7 fw-normal text-muted">Eğer müşteriye bu adisyondan parapuan yüklenmesini istiyorsanız.</div>
+            <span class="fw-bold fs-4">Yüklenecek Parapuan {{$appointment->earned_point}} TL</span>
+            <div class="fs-7 fw-normal">Eğer müşteriye bu adisyondan parapuan yüklenmesini istiyorsanız.</div>
         </div>
         <div class="col">
             <button type="button" class="btn btn-primary addCashPoint">Parapuan Yükle</button>
