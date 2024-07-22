@@ -50,12 +50,8 @@ class AdissionController extends Controller
         $appointment = $adission;
         //Adisyondaki hizmetler bu listede bulunmayacaktır
         $appointmentServiceIds = $appointment->services()->pluck('service_id')->toArray();
-        //Adisyondaki personeller listeye eklenecek
-        $appointmentPersonelIds = $appointment->services()->pluck('personel_id')->toArray();
-        // aynı olan id leri ele
-        $personelIds = array_unique($appointmentPersonelIds);
-        // collection olarak personelleri al
-        $personels = Personel::whereIn('id', $personelIds)->get();
+
+        $personels = $this->business->personels;
         // collection olarak hizmetleri al
         $services = $this->business->services()->whereNotIn('id', $appointmentServiceIds)->get();
 
