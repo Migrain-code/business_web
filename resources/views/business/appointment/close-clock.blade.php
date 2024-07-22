@@ -245,7 +245,13 @@
     <script src="/business/assets/js/project/appointment/add.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/tr.js"></script>
+
     <script>
+        $(".datePickerSelect").flatpickr({
+            time_24hr: true, // 24 saat formatını kullan
+            locale: 'tr',
+        });
         var mySelect = new TomSelect("#customer_select", {
             remoteUrl: '/isletme/speed-appointment/customer',
             remoteSearch: true,
