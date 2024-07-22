@@ -59,6 +59,17 @@
             content: "\e912";
             margin-right: 5px !important;
         }
+
+        .btn-check:checked + .btn.btn-light-success, .btn-check:active + .btn.btn-light-success, .btn.btn-light-success:focus:not(.btn-active), .btn.btn-light-success:hover:not(.btn-active), .btn.btn-light-success:active:not(.btn-active), .btn.btn-light-success.active, .btn.btn-light-success.show, .show > .btn.btn-light-success {
+            color: white;
+            border-color: #6E6E6E !important;
+            background-color: #6E6E6E !important;
+        }
+        .btn.btn-outline:not(.btn-outline-dashed) {
+            border: 1px solid var(--kt-input-border-color);
+            border-color: #28A745 !important;
+            background-color: #28A745 !important;
+        }
     </style>
 @endsection
 @section('breadcrumbs')

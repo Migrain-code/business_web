@@ -59,6 +59,16 @@
             content: "\e912";
             margin-right: 5px !important;
         }
+        .btn-check:checked + .btn.btn-light-success, .btn-check:active + .btn.btn-light-success, .btn.btn-light-success:focus:not(.btn-active), .btn.btn-light-success:hover:not(.btn-active), .btn.btn-light-success:active:not(.btn-active), .btn.btn-light-success.active, .btn.btn-light-success.show, .show > .btn.btn-light-success {
+            color: white;
+            border-color: #6E6E6E !important;
+            background-color: #6E6E6E !important;
+        }
+        .btn.btn-outline:not(.btn-outline-dashed) {
+            border: 1px solid var(--kt-input-border-color);
+            border-color: #28A745 !important;
+            background-color: #28A745 !important;
+        }
     </style>
 @endsection
 @section('breadcrumbs')
@@ -389,9 +399,9 @@
                             clocks += `
                             <div class="col-lg-2 col-4">
                                 <input type="radio" class="btn-check" name="start_time" value="${item.value}"  id="kt_radio_buttons_2_option_${item.value}"/>
-                                <label class="btn btn-outline btn-outline-dashed btn-light-success p-4 d-flex align-items-center mb-5" style="border-radius: 15px" for="kt_radio_buttons_2_option_${item.value}">
+                                <label class="btn btn-outline btn-light-success p-4 d-flex align-items-center mb-5" style="border-radius: 15px" for="kt_radio_buttons_2_option_${item.value}">
                                 <span class="d-block fw-semibold text-start">
-                                    <span class="text-gray-900 fw-bold d-block fs-3">${item.saat}</span>
+                                    <span class="text-white fw-bold d-block fs-3">${item.saat}</span>
                                  </span>
                                 </label>
                             </div>
