@@ -83,7 +83,7 @@
                             <label class="required fs-6 fw-semibold mb-2">Tarih Seçiniz</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="date" class="form-control form-control-solid" id="date_select" placeholder="" name="appointment_date" min="{{now()->toDateString()}}" value="" />
+                            <input type="date" class="form-control form-control-solid datePickerSelect" id="date_select" placeholder="" name="appointment_date" min="{{now()->toDateString()}}" value="" />
                             <!--end::Input-->
                         </div>
 
