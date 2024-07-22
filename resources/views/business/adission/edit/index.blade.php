@@ -32,17 +32,6 @@
         <!--begin::Order details page-->
         <div class="d-flex flex-column gap-7 gap-lg-10">
             <div class="d-flex flex-wrap flex-stack gap-5 gap-lg-10">
-                <!--begin:::Tabs-->
-                <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-lg-n2 me-auto">
-                    <!--begin:::Tab item-->
-                    <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
-                           href="#kt_ecommerce_sales_order_summary">Adisyon Bilgileri</a>
-                    </li>
-                    <!--end:::Tab item-->
-                </ul>
-                <!--end:::Tabs-->
-                <!--begin::Button-->
 
                 <!--end::Button-->
                 <div class="d-flex gap-3">
