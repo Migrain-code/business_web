@@ -34,7 +34,7 @@
                             <!--end::Name-->
                             <!--begin::Info-->
                             <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
-                                <a href="tel:{{$appointment->customer->phone}}" class="d-flex align-items-center text-hover-primary me-5 mb-2">
+                                <a href="tel:{{$appointment->customer->phone}}" class="d-flex align-items-center text-dark text-hover-primary me-5 mb-2">
                                     <!--begin::Svg Icon | path: icons/duotune/communication/com006.svg-->
                                     <span class="svg-icon svg-icon-4 me-1">
                                         <i class="fa fa-phone"></i>
@@ -42,7 +42,7 @@
                                     <!--end::Svg Icon-->{{formatPhone($appointment->customer->phone)}}
                                 </a>
                                 @if($appointment->customer->city)
-                                    <a href="#" class="d-flex align-items-center text-hover-primary me-5 mb-2">
+                                    <a href="#" class="d-flex align-items-center text-dark text-hover-primary me-5 mb-2">
                                         <!--begin::Svg Icon | path: icons/duotune/general/gen018.svg-->
                                         <span class="svg-icon svg-icon-4 me-1">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,7 +55,7 @@
                                 @endif
 
                                 @if($appointment->customer->email)
-                                    <a href="#" class="d-flex align-items-center text-hover-primary mb-2">
+                                    <a href="#" class="d-flex align-items-center text-dark text-hover-primary mb-2">
                                         <!--begin::Svg Icon | path: icons/duotune/communication/com011.svg-->
                                         <span class="svg-icon svg-icon-4 me-1">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
