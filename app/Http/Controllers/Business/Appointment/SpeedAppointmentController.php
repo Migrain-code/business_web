@@ -143,7 +143,7 @@ class SpeedAppointmentController extends Controller
             }
         }
 
-        if ($request->appointment_type != "closeClock") {
+        if ($request->appointment_type == "appointmentCreate") {
             $result = $this->checkClock($personel, $request->start_time, $request->service_id, $roomId);
             if ($result["status"] == "error"){
                 return response()->json($result);
@@ -156,7 +156,11 @@ class SpeedAppointmentController extends Controller
         $appointment->save();
 
 
-        $appointmentStartTime = Carbon::parse($request->start_time);
+        if ($request->appointment_type == "addissionCreate"){
+            $appointmentStartTime = Carbon::parse($request->appointment_date." ".$request->start_time);
+        } else{
+            $appointmentStartTime = Carbon::parse($request->start_time);
+        }
         foreach ($request->service_id as $serviceId) {
             $findService = BusinessService::find($serviceId);
             $appointmentService = new AppointmentServices();
@@ -198,18 +202,25 @@ class SpeedAppointmentController extends Controller
         $calculateTotal = $appointment->calculateTotal();
         $appointment->total = $calculateTotal;
 
-        if ($business->approve_type == 1 && $request->appointment_type == "closeClock") {// Manuel onay ve saat kapatma ise
-            $appointment->status = 0; // Onay bekliyor durumu
-        } else {
-            $appointment->status = 1; // onaylandı durumu
-
+        if ($request->appointment_type == "addissionCreate"){
+            $appointment->status = 5;
+            $appointment->save();
             foreach ($appointment->services as $service) {
-                $service->status = 1;
+                $service->status = 5;
                 $service->save();
             }
+        } else{
+            if ($business->approve_type == 1 && $request->appointment_type == "closeClock") {// Manuel onay ve saat kapatma ise
+                $appointment->status = 0; // Onay bekliyor durumu
+            } else {
+                $appointment->status = 1; // onaylandı durumu
+
+                foreach ($appointment->services as $service) {
+                    $service->status = 1;
+                    $service->save();
+                }
+            }
         }
-
-
 
         if ($appointment->save()) {
             $title = "Randevunuz başarılı bir şekilde oluşturuldu";

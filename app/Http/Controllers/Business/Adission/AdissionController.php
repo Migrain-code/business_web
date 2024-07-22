@@ -35,7 +35,8 @@ class AdissionController extends Controller
      */
     public function index(Request $request)
     {
-        return view('business.adission.index');
+        $personels = $this->business->personels;
+        return view('business.adission.index', compact('personels'));
     }
 
     /**
@@ -148,7 +149,7 @@ class AdissionController extends Controller
                     } else {
                         $q->whereNotIn('status', [0,1]);
                     }
-                });
+                })->latest();
 
         return DataTables::of($appointments)
             ->addColumn('customerName', function ($q) use ($business) {

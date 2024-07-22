@@ -13,6 +13,7 @@ function initPaymentTable() {
             responsive: true,
             "info": false,
             'order': [0],
+            paginate: false,
             dom: 'Bfrtip',
             buttons: [
                 {extend: "copyHtml5", title: reportTitle},

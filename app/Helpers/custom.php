@@ -156,8 +156,8 @@ function create_info_button($link,$text, $additional_class = null)
 
 function create_delete_button($model, $id, $title, $content, $isReload = "false", $route = '/isletme/ajax/delete/object', $deleteType = true)
 {
-    return html()->a('#', html()->i('')->class('fa fa-trash'))
-        ->class('btn btn-danger btn-sm me-1 delete-btn')
+    return html()->a('#', '<i class="ki-duotone ki-trash fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>')
+        ->class('btn btn-clean btn-sm btn-icon btn-icon-danger btn-active-light-danger ms-auto delete-btn')
         ->attribute('data-toggle', 'popover')
         ->attribute('data-object-id', $id)
         ->attribute('data-route', $route)

@@ -19,7 +19,7 @@
         <!--end::Filter-->
 
         <!--begin::Add customer-->
-        <a href="{{route('business.appointmentCreate.index')}}?type=addissionCreate" class="btn btn-primary me-1">
+        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#kt_modal_add_appointment" id="btnAppointment" class="btn btn-primary me-1">
             Adisyon Oluştur
         </a>
 

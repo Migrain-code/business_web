@@ -7,6 +7,7 @@ use App\Http\Requests\Adission\ProductSaleAddRequest;
 use App\Http\Resources\Personel\PersonelListResource;
 use App\Http\Resources\Product\ProductResource;
 use App\Models\Appointment;
+use App\Models\AppointmentCollectionEntry;
 use App\Models\Product;
 use App\Models\ProductSales;
 use Yajra\DataTables\DataTables;
@@ -68,7 +69,7 @@ class AdissionProductSaleController extends Controller
      */
     public function create()
     {
-        $paymentTypes = ProductSales::PAYMENT_TYPES;
+        $paymentTypes = AppointmentCollectionEntry::PAYMENT_TYPES;
 
         return response()->json([
             'products' => ProductResource::collection($this->business->products),

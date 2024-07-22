@@ -203,7 +203,7 @@ class AppointmentController extends Controller
             })
 
             ->addColumn('action', function ($q) {
-                return create_show_button(route('business.appointment.show', $q->id), 'text-white');
+                return create_show_button(route('business.adission.show', $q->id), 'text-white');
             })
             ->rawColumns(['id', 'action', 'customerName', 'room_id', 'status'])
             ->make(true);

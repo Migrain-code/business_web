@@ -1,6 +1,4 @@
-<!--begin::Tab pane-->
-<div class="tab-pane fade show active" id="kt_ecommerce_sales_order_summary" role="tab-panel">
-    <!--begin::Orders-->
+
     <div class="d-flex flex-column gap-7 gap-lg-10">
 
         <!--begin::Product List-->
@@ -78,30 +76,6 @@
                             </tr>
                         @endforeach
 
-                        <tr>
-                            <td colspan="4" class="text-end">
-                                Ara Toplam
-                            </td>
-                            <td class="text-end">
-                                {{formatPrice($appointment->calculateTotal())}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="text-end">
-                                Kampanya İndirimi ({{$appointment->discount}}%)
-                            </td>
-                            <td class="text-end">
-                                {{formatPrice($appointment->calculateCampaignDiscount())}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="fs-3 text-dark text-end">
-                                Genel Toplam
-                            </td>
-                            <td class="text-dark fs-3 fw-bolder text-end">
-                                {{formatPrice($appointment->calculateTotal()-$appointment->calculateCampaignDiscount())}}
-                            </td>
-                        </tr>
                         </tbody>
                     </table>
                     <!--end::Table-->
@@ -112,5 +86,4 @@
         <!--end::Product List-->
     </div>
     <!--end::Orders-->
-</div>
-<!--end::Tab pane-->
+

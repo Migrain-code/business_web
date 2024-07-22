@@ -9,7 +9,7 @@
                 <!--begin::Modal header-->
                 <div class="modal-header" id="kt_modal_add_appointment_header">
                     <!--begin::Modal title-->
-                    <h2 class="fw-bold">Randevu Oluştur</h2>
+                    <h2 class="fw-bold">@if(request()->routeIs('business.adission.index')) Adisyon @else Randevu @endif Oluştur</h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
                     <button type="button" data-bs-dismiss="modal" class="btn btn-icon btn-sm btn-active-icon-primary" id="kt_modal_add_appointment_close_app_2">
@@ -77,20 +77,31 @@
 
                             </select>
                         </div>
-                        <!--end::Input group-->
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="required fs-6 fw-semibold mb-2">Tarih Seçiniz</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="date" class="form-control form-control-solid datePickerSelect" id="date_select" placeholder="" name="appointment_date" min="{{now()->toDateString()}}" value="" />
-                            <!--end::Input-->
-                        </div>
 
-                        <div class="d-flex">
-                            <div class="row scroll-y" id="clockContainer" style="max-height: 300px">
 
+                        <div class="d-flex gap-2 @if(request()->routeIs('business.adission.index')) flex-row @else flex-column @endif"><!--end::Input group-->
+                            <div class="fv-row mb-7 col">
+                                <!--begin::Label-->
+                                <label class="required fs-6 fw-semibold mb-2">Tarih Seçiniz</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="date" class="form-control form-control-solid datePickerSelect" id="date_select" placeholder="" name="appointment_date" min="{{now()->toDateString()}}" value="" />
+                                <!--end::Input-->
                             </div>
+                            @if(request()->routeIs('business.adission.index'))
+                                <div class="fv-row mb-7 col">
+                                    <!--begin::Label-->
+                                    <label class="required fs-6 fw-semibold mb-2">Başlangıç Saati Seçiniz</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="date" class="form-control form-control-solid w-100" id="time_select" placeholder="" name="start_time" value="" />
+                                    <!--end::Input-->
+                                </div>
+                            @else
+                                <div class="row scroll-y" id="clockContainer" style="max-height: 300px">
+
+                                </div>
+                            @endif
                         </div>
                 </div>
                 <!--end::Modal body-->
