@@ -87,11 +87,11 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="{{route('business.personel.create')}}">
+                            <a class="menu-link" href="{{route('business.adission.index')}}">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-                                <span class="menu-title">Personel Oluştur</span>
+                                <span class="menu-title">Adisyon Oluştur</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -100,11 +100,11 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="{{route('business.service.index')}}">
+                            <a class="menu-link" href="{{route('business.package-sale.index')}}">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-                                <span class="menu-title">Hizmetler</span>
+                                <span class="menu-title">Paket Satışı</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -117,7 +117,7 @@
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-                                    <span class="menu-title">Ürünler</span>
+                                    <span class="menu-title">Ürün Ekle</span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>
@@ -126,27 +126,38 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="{{route('business.customer.index')}}">
+                            <a class="menu-link" href="{{route('business.personel-stay-off-day.index')}}">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-                                <span class="menu-title">Müşteriler</span>
+                                <span class="menu-title">İzin Ekle</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
                         <!--end:Menu item-->
                         <!--begin:Menu item-->
-                        <div class="menu-item">
-                            <!--begin:Menu link-->
-                            <a class="menu-link" href="{{route('business.gallery.index')}}">
+
+                        @can('case.view')
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link" href="{{route('business.case')}}">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-                                <span class="menu-title">Galeri</span>
-                            </a>
-                            <!--end:Menu link-->
-                        </div>
-                        @can('case.view')
+                                    <span class="menu-title">Kasa</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link" href="{{route('business.case')}}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                                    <span class="menu-title">Prim</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
                             <div class="menu-inner flex-column collapse" id="kt_app_sidebar_menu_dashboards_collapse">
                                 <!--begin:Menu item-->
                                 <div class="menu-item">
