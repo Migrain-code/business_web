@@ -43,13 +43,15 @@
                 </ul>
                 <!--end:::Tabs-->
                 <!--begin::Button-->
-                <a href="{{route('business.adission.index')}}"
-                   class="btn btn-icon btn-light btn-active-secondary btn-sm ms-auto me-lg-n7">
-                    <i class="ki-duotone ki-left fs-2"></i> </a>
+
                 <!--end::Button-->
                 <div class="d-flex gap-3">
                     <!--begin::Button-->
-                    <button data-bs-toggle="modal" onclick="fetchProductCreateInfos()"
+                    {{--
+                     <a href="{{route('business.adission.index')}}"
+                   class="btn btn-icon btn-light btn-active-secondary btn-sm ms-auto me-lg-n7">
+                    <i class="ki-duotone ki-left fs-2"></i> </a>
+                         <button data-bs-toggle="modal" onclick="fetchProductCreateInfos()"
                             data-bs-target="#adission_add_product_sale_modal" class="btn btn-light-warning btn-sm">Ürün
                         Satışı Ekle
                     </button>
@@ -58,6 +60,7 @@
                     <button data-bs-toggle="modal" data-bs-target="#kt_modal_add_service"
                             class="btn btn-light-primary btn-sm">Hizmet Ekle
                     </button>
+                     --}}
                     <!--end::Button-->
                     {{--
                         <button type="button" data-bs-toggle="modal" onclick="createCollection()"

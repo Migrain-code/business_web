@@ -91,6 +91,12 @@ class AdissionPaymentController extends Controller
             $appointmentCollection->payment_type_id = $request->paymentType;
             $appointmentCollection->price = $request->price;
             $appointmentCollection->save();
+            $adission->status = 5;
+            $adission->save();
+            foreach ($adission->services as $service){
+                $service->status = 5;
+                $service->save();
+            }
             return response()->json([
                 'status' => "success",
                 'message' => "Tahsilat Başarılı Bir Şekilde Eklendi"
