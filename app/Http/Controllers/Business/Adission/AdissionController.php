@@ -79,7 +79,7 @@ class AdissionController extends Controller
         }
         return back()->with('response',[
             'status' => "success",
-            'message' => "Adisyon durumu güncellendi"
+            'message' => "Adisyon durumu GELMEDİ olarak güncellendi"
         ]);
     }
 
@@ -111,7 +111,7 @@ class AdissionController extends Controller
         }
         return back()->with('response',[
             'status' => "success",
-            'message' => "Adisyon durumu güncellendi"
+            'message' => "Adisyon durumu GELDİ güncellendi"
         ]);
     }
 
@@ -131,7 +131,7 @@ class AdissionController extends Controller
         }
         return back()->with('response',[
             'status' => "success",
-            'message' => "Adisyon durumu güncellendi"
+            'message' => "Adisyon İPTAL EDİLDİ"
         ]);
     }
 
