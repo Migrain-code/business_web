@@ -36,6 +36,9 @@ var KTCustomersList = function () {
             ],
             ajax: {
                 url: DATA_URL,
+                data: function (d) {
+                    d.name = $('#searchArea').val();
+                }
             },
         });
 
@@ -51,14 +54,10 @@ var KTCustomersList = function () {
             }, 1);
         });
     }
+    $('#searchArea').on('keyup', function () {
 
-    // Search Datatable --- official docs reference: https://datatables.net/reference/api/search()
-    var handleSearchDatatable = () => {
-        const filterSearch = document.querySelector('[data-kt-customer-table-filter="search"]');
-        filterSearch.addEventListener('keyup', function (e) {
-            datatable.search(e.target.value).draw();
-        });
-    }
+        datatable.ajax.reload();
+    });
 
     // Delete customer
     var handleDeleteRows = () => {

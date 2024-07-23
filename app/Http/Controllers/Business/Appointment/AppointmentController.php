@@ -167,7 +167,18 @@ class AppointmentController extends Controller
     public function datatable(Request $request)
     {
         $business = $this->business;
-        $appointments = $business->appointments()->has('customer')->limit(100)->whereNotIn('status', [4,5,6])
+
+        $appointments = $business->appointments()
+            ->has('customer')
+            ->whereNotIn('status', [4,5,6])
+            ->when($request->filled('name'), function ($q) use ($request) {
+                $name = strtolower($request->input('name'));
+                $q->whereHas('customer', function ($q) use ($name) {
+                    $q->whereRaw('LOWER(name) like ?', ['%' . $name . '%']);
+                       // ->orWhere('phone', 'like', '%' . $name . '%');
+                })->orWhere('id' ,$name);;
+            })
+            ->limit(100)
             ->latest();
 
         return DataTables::of($appointments)

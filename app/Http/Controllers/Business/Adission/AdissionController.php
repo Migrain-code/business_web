@@ -145,8 +145,17 @@ class AdissionController extends Controller
                     } else {
                         $q->whereNotIn('status', [0,1]);
                     }
-                })->latest();
-
+                })
+            ->has('customer')
+            ->when($request->filled('name'), function ($q) use ($request) {
+                $name = strtolower($request->input('name'));
+                $q->whereHas('customer', function ($q) use ($name) {
+                    $q->whereRaw('LOWER(name) like ?', ['%' . $name . '%']);
+                    // ->orWhere('phone', 'like', '%' . $name . '%');
+                })->orWhere('id' ,$name);;
+            })
+            ->limit(100)
+            ->latest();
         return DataTables::of($appointments)
             ->addColumn('customerName', function ($q) use ($business) {
                 return createName(route('business.customer.edit', $q->customer->id), $q->customer->name);
