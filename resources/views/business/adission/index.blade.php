@@ -173,6 +173,9 @@
             enableTime: true,
             noCalendar: true,
             dateFormat: "H:i",
+            onOpen: function() {
+                document.activeElement.blur(); // Klavyeyi gizle
+            }
         });
     </script>
     <script>
@@ -190,7 +193,7 @@
         ];
     </script>
     <script src="/business/assets/js/project/appointment/add-customer.js"></script>
-    <script src="/business/assets/js/project/appointment/add.js"></script>
+    <script src="/business/assets/js/project/appointment/addission.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/tr.js"></script>
@@ -198,22 +201,11 @@
         $(".datePickerSelect").flatpickr({
             time_24hr: true, // 24 saat formatını kullan
             locale: 'tr',
+            onOpen: function() {
+                document.activeElement.blur(); // Klavyeyi gizle
+            }
         });
-    </script>
-    <script>
-        var apppointmentType = "addissionCreate";
-        var documentModal, documentForm;
-
-        documentModal = new bootstrap.Modal(document.querySelector('#kt_modal_add_appointment'));
-        documentForm = document.querySelector('#kt_modal_add_appointment_form');
-
     </script>
     <script src="/business/assets/js/project/speed-appointment/listing.js"></script>
-    <script>
-        $(document).on('click', '#kt_modal_add_appointment_close_app_2', function (){
-            $('#kt_modal_add_appointment').hide();
-            $('#kt_modal_add_appointment').removeClass('show');
-            $('.modal-backdrop').hide();
-        });
-    </script>
+
 @endsection

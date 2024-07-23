@@ -116,11 +116,17 @@ function fetchPersonel(room_id = null){
 
 $('#date_select').on('change', function (){
     var selectedDate = $(this).val();
+    if ($('[name="room_id"]').is(':radio')) {
+        roomId = $('[name="room_id"]:checked').val();
+    } else {
+        roomId = $('[name="room_id"]').val();
+    }
     $.ajax({
         url: '/isletme/speed-appointment/personel/' + personelId + '/clocks',
         method: 'GET',
         data: {
             appointment_date : selectedDate,
+            room_id : roomId,
         },
         dataType: 'json', // Beklenen veri tipi
         success: function (res) {
@@ -132,8 +138,9 @@ $('#date_select').on('change', function (){
 
                 })
             } else{
-                $.each(res, function(index, item){
-                    clocks += `
+                if (res.length > 0){
+                    $.each(res, function(index, item){
+                        clocks += `
                             <div class="col-lg-2 col-4">
                                 <input type="radio" class="btn-check" name="start_time" value="${item.value}"  id="kt_radio_buttons_2_option_${item.value}"/>
                                 <label class="btn btn-outline btn-light-success p-4 d-flex align-items-center mb-5" style="border-radius: 15px" for="kt_radio_buttons_2_option_${item.value}">
@@ -143,7 +150,19 @@ $('#date_select').on('change', function (){
                                 </label>
                             </div>
                         `
-                });
+                    });
+                } else{
+                    Swal.fire({
+                        text: "Seçilen Tarihte Boş Saat Bulunamadı. Oda Seçimini değiştirip tekrar kontrol edebilirsiniz",
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "Tamam",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
+                }
+
             }
 
             document.getElementById('clockContainer').innerHTML = clocks;

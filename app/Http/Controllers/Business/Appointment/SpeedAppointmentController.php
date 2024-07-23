@@ -70,7 +70,8 @@ class SpeedAppointmentController extends Controller
     {
         $getDate = Carbon::parse($request->appointment_date);
 
-        $disabledDays[] = $this->findTimes($personel, $getDate);
+        $disabledDays[] = $this->findTimes($personel, $getDate, $request->room_id);
+
         $business = $this->business;
         $clocks = [];
         if (Carbon::parse($getDate->format('d.m.Y'))->dayOfWeek == $business->off_day) {
@@ -289,7 +290,7 @@ class SpeedAppointmentController extends Controller
         return false;
     }
 
-    public function findTimes($personel, $appointment_date)
+    public function findTimes($personel, $appointment_date, $room_id = null)
     {
         $disableds = [];
 
@@ -320,9 +321,11 @@ class SpeedAppointmentController extends Controller
             }
         }
         $business = $personel->business;
+
         if (isset($room_id) && $room_id > 0) {
             // oda tipi seçilmşse o odadaki randevuları al ve disabled dizisine ata
             $appointmentsBusiness = $business->appointments()->where('room_id', $room_id)->whereNotIn('status', [3])->get();
+
             foreach ($appointmentsBusiness as $appointment) {
                 $businessStartDateTime = Carbon::parse($appointment->start_time);
                 $businessEndDateTime = Carbon::parse($appointment->end_time);

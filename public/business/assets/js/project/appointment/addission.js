@@ -193,7 +193,7 @@ var KTModalAppointmentAdd = function () {
             modalAppointment = new bootstrap.Modal(document.querySelector('#kt_modal_add_appointment'));
             formAppointment = document.querySelector('#kt_modal_add_appointment_form');
             submitButtonAppointment = formAppointment.querySelector('#kt_modal_add_appointment_submit');
-            appointmentTypeId = "appointmentCreate";
+            appointmentTypeId = "addissionCreate";
             handleForm();
         }
     };

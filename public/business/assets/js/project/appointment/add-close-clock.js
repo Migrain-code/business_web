@@ -1,18 +1,18 @@
 "use strict";
 
 // Class definition
-var KTModalAppointmentAdd = function () {
-    var submitButtonAppointment;
+var KTModalAppointmentCloseAdd = function () {
+    var submitButton;
     var validator;
-    var formAppointment;
-    var modalAppointment;
+    var form;
+    var modal;
     var appointmentTypeId;
 
     // Init form inputs
     var handleForm = function () {
         // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
         validator = FormValidation.formValidation(
-            formAppointment,
+            form,
             {
                 fields: {
                     'customer_id': {
@@ -66,7 +66,7 @@ var KTModalAppointmentAdd = function () {
 
 
         // Action buttons
-        submitButtonAppointment.addEventListener('click', function (e) {
+        submitButton.addEventListener('click', function (e) {
             e.preventDefault();
 
             // Validate form before submit
@@ -74,35 +74,35 @@ var KTModalAppointmentAdd = function () {
                 validator.validate().then(function (status) {
 
                     if (status == 'Valid') {
-                        submitButtonAppointment.setAttribute('data-kt-indicator', 'on');
+                        submitButton.setAttribute('data-kt-indicator', 'on');
 
                         // Disable submit button whilst loading
-                        submitButtonAppointment.disabled = true;
+                        submitButton.disabled = true;
 
                         setTimeout(function() {
-                                var personelId = $('[name="personel_id"]').val();
+                                var personelId = $('[name="personel_id_close"]').val();
                                 var roomId;
                                 var start_time;
 
-                                if ($('[name="room_id"]').is(':radio')) {
-                                    roomId = $('[name="room_id"]:checked').val();
+                                if ($('[name="room_id_close"]').is(':radio')) {
+                                    roomId = $('[name="room_id_close"]:checked').val();
                                 } else {
-                                    roomId = $('[name="room_id"]').val();
+                                    roomId = $('[name="room_id_close"]').val();
                                 }
-                                if ($('[name="start_time"]').is(':radio')) {
-                                    start_time = $('[name="start_time"]:checked').val();
+                                if ($('[name="start_time_close"]').is(':radio')) {
+                                    start_time = $('[name="start_time_close"]:checked').val();
 
                                 } else {
-                                    start_time = $('[name="start_time"]').val();
+                                    start_time = $('[name="start_time_close"]').val();
 
                                 }
 
-                            submitButtonAppointment.removeAttribute('data-kt-indicator');
+                                submitButton.removeAttribute('data-kt-indicator');
                                 var formData = new FormData();
                                 formData.append("_token", csrf_token);
-                                formData.append("customer_id", $('[name="customer_id"]').val());
+                                formData.append("customer_id", $('[name="customer_id_close"]').val());
                                 formData.append("personel_id", personelId);
-                                formData.append("appointment_date", $('[name="appointment_date"]').val());
+                                formData.append("appointment_date", $('[name="appointment_date_close"]').val());
                                 formData.append("start_time", start_time);
                                 formData.append("end_time", $('[name="end_time"]').val());
                                 if (!isNaN(roomId)){
@@ -110,7 +110,7 @@ var KTModalAppointmentAdd = function () {
                                 }
 
                                 formData.append("appointment_type", appointmentTypeId);
-                                $('[name="service_id[]"] option:selected').each(function() {
+                                $('[name="service_id_close[]"] option:selected').each(function() {
                                     formData.append("service_id[]", $(this).val());
                                 });
                             $.ajax({
@@ -121,7 +121,7 @@ var KTModalAppointmentAdd = function () {
                                 contentType: false,
                                 dataType: "JSON",
                                 success: function (res) {
-                                    submitButtonAppointment.disabled = false;
+                                    submitButton.disabled = false;
 
                                     Swal.fire({
                                         text: res.message,
@@ -133,9 +133,11 @@ var KTModalAppointmentAdd = function () {
                                         }
                                     });
 
+                                    submitButton.disabled = false;
                                     if (res.status == "success"){
-                                        formAppointment.reset(); // Reset form
-                                        modalAppointment.hide(); // Hide modal
+                                        form.reset(); // Reset form
+                                        modal.hide(); // Hide modal
+
                                         $('#clockContainer').text("");
                                         $('#service_select').empty();
                                         $('#personel_select').val(null).trigger('change');
@@ -190,10 +192,10 @@ var KTModalAppointmentAdd = function () {
         // Public functions
         init: function () {
             // Elements
-            modalAppointment = new bootstrap.Modal(document.querySelector('#kt_modal_add_appointment'));
-            formAppointment = document.querySelector('#kt_modal_add_appointment_form');
-            submitButtonAppointment = formAppointment.querySelector('#kt_modal_add_appointment_submit');
-            appointmentTypeId = "appointmentCreate";
+            modal = new bootstrap.Modal(document.querySelector('#kt_modal_add_appointment_close'));
+            form = document.querySelector('#kt_modal_add_appointment_form_close');
+            submitButton = form.querySelector('#kt_modal_add_appointment_submit_close');
+            appointmentTypeId = "closeClock";
             handleForm();
         }
     };
@@ -201,5 +203,5 @@ var KTModalAppointmentAdd = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTModalAppointmentAdd.init();
+    KTModalAppointmentCloseAdd.init();
 });

@@ -125,7 +125,7 @@
                 <!--begin::Card toolbar-->
                 <div class="card-toolbar">
                     <!--begin::Toolbar-->
-                    <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
+                    <div class="d-flex justify-content-end flex-lg-row flex-column gap-6" data-kt-customer-table-toolbar="base">
                         <!--begin::Filter-->
                         <div class="w-150px me-3">
                             <!--begin::Select2-->
@@ -143,61 +143,62 @@
                         </div>
                         <!--end::Filter-->
 
-                        <!--begin::Add customer-->
-                        <a href="javascript:void(0)" id="btnAppointment" data-bs-toggle="modal" data-bs-target="#kt_modal_add_appointment"
-                           class="btn btn-primary me-1">
-                            Randevu Oluştur
-                        </a>
-                        <a href="javascript:void(0)" id="btnCloseClock" data-bs-toggle="modal" data-bs-target="#kt_modal_add_appointment_close"
-                           class="btn btn-dark text-white me-1">
-                            Saat Kapat
-                        </a>
-                        <!--begin::Export-->
-                        <!--begin::Export dropdown-->
-                        <button type="button" class="btn btn-light-primary" data-kt-menu-trigger="click"
-                                data-kt-menu-placement="bottom-end">
-                            <i class="ki-duotone ki-exit-up fs-2"><span class="path1"></span><span class="path2"></span></i>
-                        </button>
-                        <!--begin::Menu-->
-                        <div id="kt_ecommerce_report_customer_orders_export_menu"
-                             class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4"
-                             data-kt-menu="true">
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3" data-kt-ecommerce-export="copy">
-                                    Panoya Kopyala
-                                </a>
-                            </div>
-                            <!--end::Menu item-->
 
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3" data-kt-ecommerce-export="excel">
-                                    Excel
-                                </a>
-                            </div>
-                            <!--end::Menu item-->
+                        <div class="d-flex flex-lg-row">
+                            <!--begin::Add customer-->
+                            <a href="javascript:void(0)" id="btnAppointment" data-bs-toggle="modal" data-bs-target="#kt_modal_add_appointment"
+                               class="btn btn-primary me-1">
+                                Randevu Oluştur
+                            </a>
+                            <a href="javascript:void(0)" id="btnCloseClock" data-bs-toggle="modal" data-bs-target="#kt_modal_add_appointment_close"
+                               class="btn btn-dark text-white me-1">
+                                Saat Kapat
+                            </a>
+                            <!--begin::Export-->
+                            <!--begin::Export dropdown-->
+                            <button type="button" class="btn btn-light-primary" data-kt-menu-trigger="click"
+                                    data-kt-menu-placement="bottom-end">
+                                <i class="ki-duotone ki-exit-up fs-2"><span class="path1"></span><span class="path2"></span></i>
+                            </button>
+                            <!--begin::Menu-->
+                            <div id="kt_ecommerce_report_customer_orders_export_menu"
+                                 class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4"
+                                 data-kt-menu="true">
+                                <!--begin::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3" data-kt-ecommerce-export="copy">
+                                        Panoya Kopyala
+                                    </a>
+                                </div>
+                                <!--end::Menu item-->
 
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3" data-kt-ecommerce-export="csv">
-                                    CSV
-                                </a>
-                            </div>
-                            <!--end::Menu item-->
+                                <!--begin::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3" data-kt-ecommerce-export="excel">
+                                        Excel
+                                    </a>
+                                </div>
+                                <!--end::Menu item-->
 
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3" data-kt-ecommerce-export="pdf">
-                                    PDF
-                                </a>
-                            </div>
-                            <!--end::Menu item-->
+                                <!--begin::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3" data-kt-ecommerce-export="csv">
+                                        CSV
+                                    </a>
+                                </div>
+                                <!--end::Menu item-->
 
+                                <!--begin::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3" data-kt-ecommerce-export="pdf">
+                                        PDF
+                                    </a>
+                                </div>
+                                <!--end::Menu item-->
+
+                            </div>
+                            <!--end::Menu-->
                         </div>
-                        <!--end::Menu-->
-                        <!--end::Export-->
-                        <!--end::Add customer-->
                     </div>
                     <!--end::Toolbar-->
 
@@ -214,7 +215,8 @@
                             Delete Selected
                         </button>
                     </div>
-                    <!--end::Group actions-->        </div>
+                    <!--end::Group actions-->
+                </div>
                 <!--end::Card toolbar-->
             </div>
             <!--end::Card header-->
@@ -276,45 +278,18 @@
     <script src="/business/assets/js/project/appointment/add-customer.js"></script>
     <script src="/business/assets/js/project/appointment/listing.js"></script>
     <script src="/business/assets/js/project/appointment/add.js"></script>
+    <script src="/business/assets/js/project/appointment/add-close-clock.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/tr.js"></script>
     <script>
-        $(".datePickerSelect").flatpickr({
+        /*$(".datePickerSelect").flatpickr({
             time_24hr: true, // 24 saat formatını kullan
             locale: 'tr',
-        });
+        });*/
     </script>
-    <script>
-        var apppointmentType = "appointmentCreate";
-        var documentModal, documentForm;
-        $('#btnAppointment').on('click', function (){
-            documentModal = new bootstrap.Modal(document.querySelector('#kt_modal_add_appointment'));
-            documentForm = document.querySelector('#kt_modal_add_appointment_form');
-            apppointmentType = "appointmentCreate";
-            KTModalAppointmentAdd.init();
-        });
-        $('#btnCloseClock').on('click', function (){
-            documentModal = new bootstrap.Modal(document.querySelector('#kt_modal_add_appointment_close'));
-            documentForm = document.querySelector('#kt_modal_add_appointment_form_close');
-            apppointmentType = "closeClock";
 
-            KTModalAppointmentAdd.init();
-
-        });
-    </script>
     <script src="/business/assets/js/project/speed-appointment/listing.js"></script>
     <script src="/business/assets/js/project/speed-appointment/close-clock.js"></script>
-    <script>
-        $(document).on('click', '#kt_modal_add_appointment_close_app', function (){
-          $('#kt_modal_add_appointment_close').hide();
-          $('#kt_modal_add_appointment_close').removeClass('show');
-          $('.modal-backdrop').hide();
-        });
-        $(document).on('click', '#kt_modal_add_appointment_close_app_2', function (){
-            $('#kt_modal_add_appointment').hide();
-            $('#kt_modal_add_appointment').removeClass('show');
-            $('.modal-backdrop').hide();
-        });
-    </script>
+
 @endsection

@@ -124,7 +124,7 @@
                 <div class="modal-footer flex-center">
 
                     <!--begin::Button-->
-                    <button type="submit" id="kt_modal_add_appointment_submit" class="btn btn-primary">
+                    <button type="submit" id="kt_modal_add_appointment_submit_close" class="btn btn-primary">
                         <span class="indicator-label">Kaydet</span>
                         <span class="indicator-progress">Lütfen Bekleyin...
 															<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>

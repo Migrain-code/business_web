@@ -5,7 +5,7 @@
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Form-->
-            <form class="form" action="#" id="kt_modal_add_appointment_form" data-kt-redirect="../../customers/list.html">
+            <form class="form" action="#" id="kt_modal_add_appointment_form">
                 <!--begin::Modal header-->
                 <div class="modal-header" id="kt_modal_add_appointment_header">
                     <!--begin::Modal title-->
