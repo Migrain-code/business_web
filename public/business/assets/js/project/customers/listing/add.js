@@ -23,7 +23,7 @@ var KTModalCustomersAdd = function () {
                             }
                         }
                     },
-                    'email': {
+                   /* 'email': {
                         validators: {
                             notEmpty: {
                                 message: 'E-posta Adresi Alanı Gereklidir'
@@ -44,7 +44,7 @@ var KTModalCustomersAdd = function () {
                                 message: 'İlçe Alanı Gereklidir'
                             }
                         }
-                    },
+                    },*/
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
