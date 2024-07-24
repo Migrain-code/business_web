@@ -84,7 +84,7 @@
                                 </td>
                                 @else
                                    <td class="text-end">
-                                       {{$service->servicePrice()}}
+                                       <input type="number" class="form-control form-control-solid" value="{{$service->servicePrice()}}" placeholder="Net Fiyatını Giriniz" style="max-width: 150px" name="prices[{{$service->id}}]">
                                    </td>
                                 @endif
                                 <td class="text-end">
@@ -102,6 +102,10 @@
                     @if(!$calculateTotal)
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn btn-success">Net Fiyatları Kaydet</button>
+                        </div>
+                    @else
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success">Fiyatları Güncelle</button>
                         </div>
                     @endif
                 </form>
