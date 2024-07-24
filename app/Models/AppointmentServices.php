@@ -102,7 +102,7 @@ class AppointmentServices extends Model
 
 
         if ($service->price_type_id == 1 && $this->total == 0){ // aralıklı fiyatsa
-            return formatPrice($service->price). " - ". formatPrice($service->max_price);
+            return $service->price. " - ". $service->max_price;
         } else{
 
             if ($this->total > 0){

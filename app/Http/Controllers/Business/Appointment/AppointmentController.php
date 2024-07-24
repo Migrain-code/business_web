@@ -91,8 +91,8 @@ class AppointmentController extends Controller
         //Randevudaki personeller listeye eklenecek
         $personels = $this->business->personels;
         $services = $this->business->services()->whereNotIn('id', $appointmentServiceIds)->get();
-
-        return view('business.appointment.edit.index', compact('appointment', 'personels', 'services'));
+        return to_route('business.adission.show', $appointment->id);
+        //return view('business.appointment.edit.index', compact('appointment', 'personels', 'services'));
     }
 
     /**
