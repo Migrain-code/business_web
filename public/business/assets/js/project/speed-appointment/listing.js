@@ -1,6 +1,28 @@
 var mySelect = new TomSelect("#customer_select", {
-    remoteUrl: '/isletme/speed-appointment/customer',
-    remoteSearch: true,
+    load: function (query, callback) {
+        if (!query.length) return callback(); // Boş sorgular için istek atma
+        this.clearOptions();
+
+        $.ajax({
+            url: '/isletme/speed-appointment/customer',
+            method: 'GET',
+            data: { name: query },
+            dataType: 'json',
+            success: function (data) {
+                var results = data.map(function (item) {
+                    return {
+                        value: item.id,
+                        text: item.name + " -> 0" + item.phone,
+                    };
+                });
+                callback(results);
+            },
+            error: function () {
+                console.error("Arama sırasında bir hata oluştu.");
+                callback(); // Hata durumunda boş bir dizi gönder
+            }
+        });
+    },
     create: false,
     highlight: false,
     render: {
@@ -8,36 +30,12 @@ var mySelect = new TomSelect("#customer_select", {
             return '<div class="no-results">Sonuç bulunamadı.</div>';
         }
     },
-    load: function (query, callback) {
-        if (query.length > 3) {
-            $.ajax({
-                url: this.settings.remoteUrl,
-                method: 'GET',
-                data: { name: query },
-                dataType: 'json',
-                success: function (data) {
-                    var results = data.map(function (item) {
-                        return {
-                            value: item.id,
-                            text: item.name + " -> 0" + item.phone,
-                        };
-                    });
-                    callback(results);
-                },
-                error: function () {
-                    console.error("Arama sırasında bir hata oluştu.");
-                    callback([]); // Hata durumunda boş bir dizi gönder
-                }
-            });
-        } else {
-            callback([]); // Sorgu uzunluğu yeterli değilse boş bir dizi gönder
-        }
-    },
     score: function() {
         // Her zaman 1 döner, böylece Tom Select kendi içinde arama yapmaz
         return function() { return 1; };
     }
 });
+
 
 var personelId = null;
 $('#personel_select').on('change', function () {
