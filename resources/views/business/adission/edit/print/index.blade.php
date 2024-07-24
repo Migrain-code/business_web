@@ -727,7 +727,7 @@
                 @foreach($adission->services as $service)
                     <div class="row ng-scope" style="margin-top: 5px">
                         <div class="food ng-binding">{{$service->service->subCategory->getName()}} </div>
-                        <div class="total ng-binding">{{formatPrice($service->service->price)}}</div>
+                        <div class="total ng-binding">{{formatPrice($service->servicePrice())}}</div>
                     </div>
                 @endforeach
 

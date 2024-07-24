@@ -87,6 +87,14 @@ class AdissionController extends Controller
      */
     public function printAdission(Appointment $adission)
     {
+        foreach ($adission->services as $service){
+            if($service->service->price_type_id == 1 && $service->total == 0){
+                return back()->with('response', [
+                   'status' => "error",
+                   'message' => "Adisyona net tutarı girmeden yazdıramazsınız"
+                ]);
+            }
+        }
         return view('business.adission.edit.print.index', compact('adission'));
     }
 

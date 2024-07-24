@@ -1,6 +1,8 @@
 
-    <div class="d-flex flex-column gap-7 gap-lg-10">
-
+    <div class="d-flex flex-column gap-7 gap-lg-10 mb-5">
+        @php
+            $adissionPrint = [];
+        @endphp
         <!--begin::Product List-->
         <div class="card card-flush py-4 flex-row-fluid overflow-hidden">
             <!--begin::Card header-->
@@ -13,17 +15,25 @@
                         <i class="fa fa-plus-circle"></i>
                         Hizmet Ekle
                     </a>
+
                     <a href="{{route('business.adission.printAdission', $appointment->id)}}" target="_blank" class="btn btn-warning">
                         <i class="fa fa-print"></i>
                         Yazdır
                     </a>
+
+
                 </div>
             </div>
             <!--end::Card header-->
 
             <!--begin::Card body-->
             <div class="card-body pt-0">
-                <div class="table-responsive">
+                <form class="table-responsive" method="post" id="sendForm" action="{{route('business.appointment.service.save', $appointment->id)}}">
+                    @csrf
+                    @php
+                        $calculateTotal = true;
+
+                    @endphp
                     <!--begin::Table-->
                     <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
                         <thead>
@@ -64,9 +74,19 @@
                                 <td class="text-end">
                                     {{$service->service->time}} .DK
                                 </td>
-                                <td class="text-end">
+                                @if($service->service->price_type_id == 1 && $service->total == 0)
+                                <td class="d-flex flex-column align-items-center justify-content-center">
                                     {{$service->servicePrice()}}
+
+                                        {{$calculateTotal = false}}
+                                        <input type="number" class="form-control form-control-solid" placeholder="Net Fiyatını Giriniz" style="max-width: 150px" name="prices[{{$service->id}}]">
+
                                 </td>
+                                @else
+                                   <td class="text-end">
+                                       {{$service->servicePrice()}}
+                                   </td>
+                                @endif
                                 <td class="text-end">
                                     {{create_delete_button('AppointmentServices', $service->id,
                                         'Hizmeti', 'Hizmeti Silmek İstediğinize Emin misiniz?',"true",
@@ -79,7 +99,12 @@
                         </tbody>
                     </table>
                     <!--end::Table-->
-                </div>
+                    @if(!$calculateTotal)
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success">Net Fiyatları Kaydet</button>
+                        </div>
+                    @endif
+                </form>
             </div>
             <!--end::Card body-->
         </div>
