@@ -11,7 +11,7 @@
                     <label class="registerLabel">
                         <h3>Yeni salon kaydı</h3>
                     </label>
-                    <label class="registerLabel">30 gün ücretsiz deneme sürenizi başlatın</label>
+                    <label class="registerLabel">Ömür Boyu ücretsiz deneme sürenizi başlatın</label>
                 </div>
 
                 <div class="row">

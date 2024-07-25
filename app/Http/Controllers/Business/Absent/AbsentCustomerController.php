@@ -30,7 +30,7 @@ class AbsentCustomerController extends Controller
      *
      * <ul>
      * <li>15 Gün Gelmeyenler listType = 15 </li>
-     * <li>30 Gün Gelmeyenler listType = 30 </li>
+     * <li>Ömür Boyu Gelmeyenler listType = 30 </li>
      * <li>60 Gün Gelmeyenler listType = 60 </li>
      * </ul>
      * @return JsonResponse

@@ -10,7 +10,7 @@
                     data-kt-ecommerce-order-filter="status">
                 <option></option>
                 <option value="15">15 Gün</option>
-                <option value="30">30 Gün</option>
+                <option value="30">Ömür Boyu</option>
                 <option value="45">45 Gün</option>
                 <option value="60">60 Gün</option>
             </select>

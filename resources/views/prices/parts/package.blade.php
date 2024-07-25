@@ -15,7 +15,7 @@
                 @endforeach
             </ul>
 
-            <a href="{{route('business.register')}}">30 Gün Ücretsiz Deneyin</a>
+            <a href="{{route('business.register')}}">Ömür Boyu Ücretsiz Deneyin</a>
         </div>
     </div>
 @endforeach

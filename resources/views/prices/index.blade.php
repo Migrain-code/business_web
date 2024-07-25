@@ -57,7 +57,7 @@
                             <div class="col-lg-12">
                                 <div class="references-hero" style="padding: 0px !important;">
                                     <h2>
-                                          <span>30 gün boyunca
+                                          <span>Ömür Boyu boyunca
                                             <img src="/front/assets/images/business/title-line.svg" alt="" />
                                           </span>
                                         ÜCRETSİZ deneyin!
@@ -142,7 +142,7 @@
                                         @endforeach
                                     </ul>
 
-                                    <a href="{{route('business.register')}}">30 Gün Ücretsiz Deneyin</a>
+                                    <a href="{{route('business.register')}}">Ömür Boyu Ücretsiz Deneyin</a>
                                 </div>
                             </div>
                         @endforeach
