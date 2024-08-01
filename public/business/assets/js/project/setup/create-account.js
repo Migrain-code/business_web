@@ -49,7 +49,7 @@ var KTCreateAccount = function() {
     function updateStep1(){
         var formData = new FormData();
         formData.append("_token", csrf_token);
-        formData.append("category_id", $('[name= "category_id"]').val());
+        formData.append("category_id", $('[name= "category_id"]:checked').val());
         $.ajax({
             url: '/isletme/setup/step-1',
             type: "POST",
