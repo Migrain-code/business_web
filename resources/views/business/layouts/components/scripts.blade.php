@@ -42,17 +42,18 @@
     var csrf_token = "{{csrf_token()}}";
 </script>
 <script>
+    const isMobile = window.innerWidth <= 768; // Ekran genişliğine göre mobil kontrolü
     const Toast = Swal.mixin({
         toast: true,
-        position: 'top-end',
+        position: isMobile ? 'bottom-end' : 'top-end', // Mobilde 'bottom-end', webde 'top-end'
         showConfirmButton: false,
-        timer: 3000,//3sn
+        timer: 3000, // 3sn
         timerProgressBar: true,
         didOpen: (toast) => {
             toast.addEventListener('mouseenter', Swal.stopTimer)
             toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
-    })
+    });
 </script>
 @if(session('response'))
     <script>

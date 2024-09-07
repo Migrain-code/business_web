@@ -99,7 +99,14 @@
             <!--end::Select2-->
 
             <!--begin::Description-->
-            <div class="text-muted fs-7">Randevularınız otomatik onaylansın mı?</div>
+            <div class="text-muted fs-7 d-flex justify-content-center align-items-center mt-3">
+                Bugünkü Randevu Listesinde Geçmiş Saatler Gösterilsin mi?
+                <div class="form-check form-switch" title="">
+                    <input class="form-check-input ajax-switch" type="checkbox" name="is_past_appointment"
+                           id="is_past_appointment" value="{{$business->id}}" @checked($business->is_past_appointment == 1) data-model="App\Models\Business"
+                           data-column="is_past_appointment">
+                </div>
+            </div>
             <!--end::Description-->
 
         </div>

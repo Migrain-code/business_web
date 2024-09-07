@@ -42,6 +42,7 @@ $('#personel_select').on('change', function () {
     personelId = $(this).val();
     var serviceSelect = $('#service_select');
     var room_select_area = $('#roomSelectArea');
+    var date_select = $('#date_select');
     $.ajax({
         url: '/isletme/speed-appointment/personel/' + personelId + '/services',
         method: 'GET',
@@ -49,6 +50,8 @@ $('#personel_select').on('change', function () {
         success: function (res) {
             serviceSelect.empty();
             room_select_area.empty();
+            date_select.val("");
+            $('#clockContainer').empty();
             $.each(res.services, function (index, item) {
                 serviceSelect.append('<option value="' + item.id + '">' + item.name + '</option>');
             });

@@ -76,7 +76,8 @@ class AppointmentController extends Controller
             //->has('todayAppointments')
             ->get()
             ->sortBy('name');
-        return view('business.appointment.today', compact('personels'));
+        $business = $this->business;
+        return view('business.appointment.today', compact('personels', 'business'));
     }
     /**
      * Randevu Detayı

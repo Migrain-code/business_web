@@ -171,14 +171,21 @@
 @section('scripts')
     <script>
         var setCloseClockStatus = false;
-
-        @if(isset($selectedDate) && $selectedDate == now()->toDateString())
-            setCloseClockStatus = true;
-        @elseif(!isset($selectedDate))
-            setCloseClockStatus = true;
+        @if($business->is_past_appointment == 0)
+            setCloseClockStatus = true; //geçmiş saattekileri göster kapalı ise saatleri kapat
         @else
-            setCloseClockStatus = false;
+            // geçmiş saatleri göster açık ise saatleri göster
+            @if(isset($selectedDate) && $selectedDate == now()->toDateString())
+                setCloseClockStatus = true;
+        {{--
+            @elseif(!isset($selectedDate))
+                setCloseClockStatus = true;
+        --}}
+            @else
+                setCloseClockStatus = false;
+            @endif
         @endif
+
     </script>
     <script src="/business/assets/js/project/appointment/today.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
