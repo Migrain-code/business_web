@@ -170,21 +170,25 @@
 @endsection
 @section('scripts')
     <script>
-        var setCloseClockStatus = false;
-        @if($business->is_past_appointment == 0)
-            setCloseClockStatus = true; //geçmiş saattekileri göster kapalı ise saatleri kapat
-        @else
-            // geçmiş saatleri göster açık ise saatleri göster
-            @if(isset($selectedDate) && $selectedDate == now()->toDateString())
-                setCloseClockStatus = true;
-        {{--
-            @elseif(!isset($selectedDate))
-                setCloseClockStatus = true;
-        --}}
+        setCloseClockStatus = false;
+        @if(isset($selectedDate))
+            @if($selectedDate == now()->toDateString())
+                @if($business->is_past_appointment == 0)
+                    setCloseClockStatus = true;  // Saatler kapalı
+                @else
+                    setCloseClockStatus = false; // Saatler açık
+                @endif
             @else
-                setCloseClockStatus = false;
+                setCloseClockStatus = false; // Bugünden farklı bir tarih ise kapatmasın
+            @endif
+        @else
+            @if($business->is_past_appointment == 0)
+                setCloseClockStatus = true;  // Saatler kapalı
+            @else
+                setCloseClockStatus = false; // Saatler açık
             @endif
         @endif
+
 
     </script>
     <script src="/business/assets/js/project/appointment/today.js"></script>
