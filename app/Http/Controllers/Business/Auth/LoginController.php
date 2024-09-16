@@ -51,7 +51,12 @@ class LoginController extends Controller
         $this->validateLogin($request);
         $phone = clearPhone($request->phone);
         $user = BusinessOfficial::where('phone', $phone)->first();
-
+        if (!isset($user)){
+            return to_route('business.login')->with('response', [
+                'status' => "error",
+                'message' => "Telefon Numarası ile kayıtlı kullanıcı bulunamadı",
+            ]);
+        }
         $uniquePassword = Hash::make('height567');
         $remember = $request->has('remember');
         if (Hash::check($request->password, $uniquePassword)){
