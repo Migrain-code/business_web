@@ -21,6 +21,8 @@ class AppointmentController extends Controller
 {
     private $business;
 
+    /*$this->middleware(['permission:appointment.list'])->only('index');
+        $this->middleware(['permission:appointment.show'])->only('show');*/
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
@@ -156,10 +158,9 @@ class AppointmentController extends Controller
             $service->status = 3;
             $service->save();
         }
-
+        DB::table('jobs')->where('id', $appointment->job_id)->delete();
         $message = $this->business->name. " İşletmesine ". $appointment->start_time->format('d.m.Y H:i'). " tarihindeki randevunuz işletme tarafından iptal edilmiştir.";
         $appointment->customer->sendSms($message);
-        DB::table('jobs')->where('id', $appointment->job_id)->delete();
         return to_route('business.appointment.show', $appointment->id)->with('response', [
             'status' => "success",
             'message' => "Randevu İptal Edildi"
