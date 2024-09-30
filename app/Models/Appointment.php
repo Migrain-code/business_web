@@ -238,13 +238,19 @@ class Appointment extends Model
     public function scheduleReminder()
     {
         $reminderTime = $this->start_time->subMinutes($this->business->reminder_time);
+        if ($this->business->id == 3){
+            $job = new SendReminderJob($this);
+            $jobId = app('queue')->push($job->delay($reminderTime)); // sıraya ekleyin
+            return $jobId;
+        } else{
+            $job = new SendReminderJob($this);
+            $jobId = app('queue')->push($job->delay($reminderTime)); // sıraya ekleyin
 
+            // Job ID'sini randevu kaydına kaydedin
+            $this->job_id = $jobId;
+            $this->save();
+        }
         // Job'u dispatch et ve job ID'sini alın
-        $job = new SendReminderJob($this);
-        $jobId = app('queue')->push($job->delay($reminderTime)); // sıraya ekleyin
 
-        // Job ID'sini randevu kaydına kaydedin
-        $this->job_id = $jobId;
-        $this->save();
     }
 }
