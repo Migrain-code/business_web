@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Business\Appointment;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Appointment\AppointmentCreateRequest;
 use App\Http\Requests\SpeedAppointment\SpeedAppointmentCreateRequest;
 use App\Http\Resources\Customer\CustomerListResource;
 use App\Http\Resources\Personel\PersonelListResource;
@@ -10,6 +11,7 @@ use App\Http\Resources\Rooms\RoomsListResource;
 use App\Http\Resources\SpeedAppointment\PersonelAppointmentServiceResource;
 use App\Models\Appointment;
 use App\Models\AppointmentServices;
+use App\Models\BusinessRoom;
 use App\Models\BusinessService;
 use App\Models\Personel;
 use App\Models\PersonelRoom;
@@ -35,7 +37,6 @@ class SpeedAppointmentController extends Controller
         $personels = $this->business->personels;
         return view('business.appointment.close-clock', compact('personels'));
     }
-
     public function getCustomerList(Request $request)
     {
         $customers = $this->business->customers()->has('customer')->with('customer')->select('id', 'customer_id', 'status', 'created_at')
@@ -53,9 +54,9 @@ class SpeedAppointmentController extends Controller
     {
         $services = $personel->services;
         $roomCount = $personel->rooms->count();
-        if ($roomCount > 1) {
+        if ($roomCount > 1){
             $rooms = $personel->rooms;
-        } else {
+        } else{
             $rooms = [];
         }
 
@@ -129,12 +130,12 @@ class SpeedAppointmentController extends Controller
     {
         $business = $this->business;
         $roomId = null;
-        if ($personel->rooms->count() > 0) {
-            if ($personel->rooms->count() == 1) {
+        if ($personel->rooms->count() > 0){
+            if ($personel->rooms->count() == 1){
                 $roomId = $personel->rooms->first()->room_id;
-            } else {
+            } else{
                 $roomId = $request->room_id;
-                if (!isset($roomId)) {
+                if (!isset($roomId)){
                     return response()->json([
                         'status' => "error",
                         'message' => "Oda Seçimi Alanı Gereklidir"
@@ -145,7 +146,7 @@ class SpeedAppointmentController extends Controller
 
         if ($request->appointment_type == "appointmentCreate") {
             $result = $this->checkClock($personel, $request->start_time, $request->service_id, $roomId);
-            if ($result["status"] == "error") {
+            if ($result["status"] == "error"){
                 return response()->json($result);
             }
         }
@@ -156,9 +157,9 @@ class SpeedAppointmentController extends Controller
         $appointment->save();
 
 
-        if ($request->appointment_type == "addissionCreate") {
-            $appointmentStartTime = Carbon::parse($request->appointment_date . " " . $request->start_time);
-        } else {
+        if ($request->appointment_type == "addissionCreate"){
+            $appointmentStartTime = Carbon::parse($request->appointment_date." ".$request->start_time);
+        } else{
             $appointmentStartTime = Carbon::parse($request->start_time);
         }
         foreach ($request->service_id as $serviceId) {
@@ -202,14 +203,14 @@ class SpeedAppointmentController extends Controller
         $calculateTotal = $appointment->calculateTotal();
         $appointment->total = $calculateTotal;
 
-        if ($request->appointment_type == "addissionCreate") {
+        if ($request->appointment_type == "addissionCreate"){
             $appointment->status = 5;
             $appointment->save();
             foreach ($appointment->services as $service) {
                 $service->status = 5;
                 $service->save();
             }
-        } else {
+        } else{
             if ($business->approve_type == 1 && $request->appointment_type == "closeClock") {// Manuel onay ve saat kapatma ise
                 $appointment->status = 0; // Onay bekliyor durumu
             } else {
@@ -228,19 +229,13 @@ class SpeedAppointmentController extends Controller
             //$appointment->customer->sendSms($message);
 
             $appointment->customer->sendNotification($title, $message);
-            if ($business->id == 3) {
-               $jobId = $appointment->scheduleReminder();
-                dd($jobId);
-            } else {
-                $appointment->scheduleReminder();
-            }
+            $appointment->scheduleReminder();
             return response()->json([
                 'status' => "success",
                 'message' => "Randevunuz başarılı bir şekilde oluşturuldu",
             ]);
         }
     }
-
     public function checkClock($personel, $startTime, $serviceIds, $roomId = 0)
     {
         $appointmentStartTime = Carbon::parse($startTime);
