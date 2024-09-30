@@ -9,6 +9,7 @@ use App\Models\Appointment;
 use App\Models\Personel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use mysql_xdevapi\Exception;
 use Yajra\DataTables\DataTables;
 
@@ -146,6 +147,8 @@ class AppointmentController extends Controller
 
         $message = $this->business->name. " İşletmesine ". $appointment->start_time->format('d.m.Y H:i'). " tarihindeki randevunuz işletme tarafından iptal edilmiştir.";
         $appointment->customer->sendSms($message);
+        DB::table('jobs')->where('id', $appointment->job_id)->delete();
+
         return to_route('personel.appointment.show', $appointment->id)->with('response', [
             'status' => "success",
             'message' => "Randevu İptal Edildi"
