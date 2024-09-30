@@ -230,6 +230,19 @@ class Appointment extends Model
         return $total;
     }
 
+    public function scheduleReminder()
+    {
+        $reminderTime = $this->start_time->subMinutes($this->business->reminder_time);
+
+        // Job'u dispatch et ve job ID'sini alın
+        $job = new SendReminderJob($this);
+        $jobId = app('queue')->push($job->delay($reminderTime)); // sıraya ekleyin
+
+        // Job ID'sini randevu kaydına kaydedin
+        $this->job_id = $jobId;
+        $this->save();
+    }
+
     public function remainingTotal() //kalan  tutar
     {
         return ($this->calculateCollectedTotal() - $this->payments->sum("price")) - $this->receivables()->whereStatus(1)->sum('price');
