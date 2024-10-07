@@ -21,7 +21,7 @@
                         <input class="form-check-input serviceChecks" @checked(old('services') != null ? in_array($service->id, old('services')) : "") name="services[]" type="checkbox"
                                value="{{$service->id}}">
                     </div>
-                    <span>{{$service->subCategory->name}} {{ " (". $service->gender->nam .")" }}</span>
+                    <span>{{$service->subCategory->name}} {{ " (". $service->gender->name .")" }}</span>
                 </div>
             @endforeach
 
