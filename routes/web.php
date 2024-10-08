@@ -62,6 +62,9 @@ use App\Http\Controllers\Business\Auth\TwoFactorVerificationController;
 
 include "guards/personel.php";
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
+Route::get('/test', function (){
+    return view('test');
+});
 Route::get('/ozellikler', [HomeController::class, 'proparties'])->name('proparties');
 Route::get('/biz-kimiz', [HomeController::class, 'about'])->name('about');
 Route::get('/iletisim', [HomeController::class, 'contact'])->name('contact');
@@ -102,7 +105,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
     Route::post('two-factor-verification/verify', [TwoFactorVerificationController::class, 'verify'])->name('twoFactorVerification.verify');
     Route::post('two-factor-verification/resend', [TwoFactorVerificationController::class, 'resendCode'])->name('twoFactorVerification.resend');
 
-    Route::middleware(['auth:official', 'setup', 'twoFactor',/*checkRole*/])->group(function () {
+    Route::middleware(['auth:official', 'setup', 'twoFactor'])->group(function () {
         Route::get('/home', [\App\Http\Controllers\Business\HomeController::class, 'index'])->name('home');
 
         /*-----------------------  Setup  ------------------------*/
@@ -151,7 +154,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
         Route::delete('package-sale/{packageUsage}/delete-usage', [PackageSaleOperationController::class, 'deleteUsage']);
 
         /* -------------------- Personeller --------------------------*/
-        Route::resource('personel', PersonelController::class)->middleware('personelLimit');
+        Route::resource('personel', PersonelController::class);
         Route::prefix('personel/{personel}')->as('personel.')->group(function (){
            Route::get('case', [PersonelController::class, 'case'])->name('case');//kasa
            Route::get('payments', [PersonelController::class, 'payments'])->name('payments');//ödemeler
@@ -179,20 +182,20 @@ Route::prefix('isletme')->as('business.')->group(function (){
         Route::get('/personel/{personel}/appointment', [AppointmentServicesController::class, 'getClock']);
         Route::get('/personel-randevular', [AppointmentServicesController::class, 'personelAppointment'])->name('appointment.personelAppointment');
         /* -------------------- Randevu Oluşturma --------------------------*/
-        Route::middleware('appointmentLimit')->group(function (){
-            Route::prefix('appointment-create')->as('appointmentCreate.')->controller(AppointmentCreateController::class)->group(function () {
-                Route::get('/', 'index')->name('index');
-                Route::get('get/services', 'getService');
-                Route::get('get/customers', 'getCustomer');
-                Route::post('new/customer', 'newCustomer');
-                Route::post('get/personel', 'getPersonel');
-                Route::get('get/date', 'getDate');
-                Route::post('get/clock', 'getClock');
-                Route::post('check/clock', 'checkClock');
-                Route::post('/store', 'appointmentCreate')->name('store');
-                Route::post('/summary', 'summary');
-            });
+
+        Route::prefix('appointment-create')->as('appointmentCreate.')->controller(AppointmentCreateController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('get/services', 'getService');
+            Route::get('get/customers', 'getCustomer');
+            Route::post('new/customer', 'newCustomer');
+            Route::post('get/personel', 'getPersonel');
+            Route::get('get/date', 'getDate');
+            Route::post('get/clock', 'getClock');
+            Route::post('check/clock', 'checkClock');
+            Route::post('/store', 'appointmentCreate')->name('store');
+            Route::post('/summary', 'summary');
         });
+
         /* -------------------- Hızlı Randevu -------------------------------------- */
         Route::prefix('speed-appointment')->as('speedAppointment.')
             ->controller(\App\Http\Controllers\Business\Appointment\SpeedAppointmentController::class)
@@ -255,6 +258,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
         Route::resource('business-official', BusinessOfficialController::class);
         Route::get('official/setting', [OfficialSettingController::class, 'index'])->name('official.setting');
         Route::put('official/setting/{official}/update', [OfficialSettingController::class, 'update'])->name('official.setting.update');
+        Route::post('official/permission/{official}/update', [BusinessOfficialController::class, 'updatePermission'])->name('official.permission.update');
 
         /* -------------------- Promosyonlar --------------------------*/
         Route::resource('promossion', BusinessPromossionController::class);

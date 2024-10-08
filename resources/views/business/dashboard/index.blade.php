@@ -25,7 +25,7 @@
             <div class="col-xl-3 col-xxl-4 col-lg-4 col-sm-6 mb-2 align-items-center">
                 <a href="{{route('business.customer.index')}}">
                     <div class="widget-stat card">
-                        <div class="card-body rounded p-15" style="background-color: #f22969 ">
+                        <div class="card-body rounded p-15" style="background-color: #56467d ">
                             <h1 class="text-white"><i class="fa fa-user-circle"
                                                       style="color:white;font-size: 30px"></i>
                                 Müşteriler</h1>
@@ -47,7 +47,7 @@
             <div class="col-xl-3 col-xxl-4 col-lg-4 col-sm-6 mb-2 align-items-center">
                 <a href="{{route('business.service.index')}}">
                     <div class="widget-stat card">
-                        <div class="card-body rounded p-15" style="background-color: #f22969 ">
+                        <div class="card-body rounded p-15" style="background-color: #56467d ">
                             <h1 class="text-white"><i class="fa fa-gear"
                                                       style="color:white;font-size: 30px"></i> Hizmetler
                             </h1>
@@ -69,7 +69,7 @@
             <div class="col-xl-3 col-xxl-4 col-lg-4 col-sm-6 mb-2 align-items-center">
                 <a href="{{route('business.gallery.index')}}">
                     <div class="widget-stat card">
-                        <div class="card-body rounded p-15" style="background-color: #f22969 ">
+                        <div class="card-body rounded p-15" style="background-color: #56467d ">
                             <h1 class="text-white"><i class="fa fa-image"
                                                       style="color:white;font-size: 30px"></i> Galeri
                             </h1>
@@ -85,8 +85,8 @@
 @endsection
 @section('scripts')
     <script>
-        var monthlySaleTotal = @json($monthlySaleTotal);
-        var monthlyPackageSaleTotal =@json($monthlyPackageSaleTotal);
+        var monthlySaleTotal = @json($monthlyAppointmentTotal);
+        var monthlyPackageSaleTotal =@json($monthlySaleTotal);
         var e = document.getElementById("kt_charts_widget_1_chart_new");
         if (e) {
             var t = {self: null, rendered: !1}, a = function () {
@@ -94,11 +94,11 @@
                     r = KTUtil.getCssVariableValue("--bs-gray-200"), s = {
                         series: [
                             {
-                                name: "Paket Satışı",
+                                name: "Ürün Satışı",
                                 data: monthlyPackageSaleTotal
                             },
                             {
-                                name: "Ürün Satış",
+                                name: "Randevu",
                                 data: monthlySaleTotal
                             }],
                         chart: {fontFamily: "inherit", type: "bar", height: a, toolbar: {show: !1}},
@@ -122,7 +122,7 @@
                         tooltip: {
                             style: {fontSize: "12px"}, y: {
                                 formatter: function (e) {
-                                    return "₺" + e + " "
+                                    return "" + e + ""
                                 }
                             }
                         },

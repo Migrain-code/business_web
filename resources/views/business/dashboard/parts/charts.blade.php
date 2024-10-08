@@ -122,9 +122,9 @@
     <div class="card-header border-0 pt-5">
         <!--begin::Title-->
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bold fs-3 mb-1">Satış Grafiği</span>
+            <span class="card-label fw-bold fs-3 mb-1">Randevu ve Satış Grafiği</span>
 
-            <span class="text-muted fw-semibold fs-7">Aylara Göre Satış Grafiğiniz</span>
+            <span class="text-muted fw-semibold fs-7">Aylara Göre Randevu ve Satış Grafiğiniz</span>
         </h3>
         <!--end::Title-->
 

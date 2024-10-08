@@ -71,9 +71,10 @@
         <!--end::Card-->
 
         <!--begin::Modals-->
+        @can('appointmentRequestForm.create')
         <!--begin::Modal - Customers - Add-->
         @include('business.appointment-request-form.parts.add-customer')
-
+        @endcan
     </div>
 
 @endsection

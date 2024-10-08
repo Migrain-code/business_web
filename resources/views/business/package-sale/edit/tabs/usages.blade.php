@@ -2,6 +2,7 @@
 <div class="tab-pane fade" id="kt_ecommerce_customer_usages" role="tabpanel">
     <!--begin::Card-->
     <div class="card pt-4 mb-6 mb-xl-9 border-0">
+        @can('packageSale.usage.list')
         <!--begin::Card header-->
         <div class="card-header border-0">
             <!--begin::Card title-->
@@ -126,6 +127,11 @@
             <!--end::Table wrapper-->
         </div>
         <!--end::Card body-->
+        @else
+            <div class="card-body">
+                <x-forbidden-component title="Yetkisiz Erişim" message="Pakete Kullanım Eklemek, Listelemek ve silmek için yetkiniz bulunmamaktadır"></x-forbidden-component>
+            </div>
+        @endcan
     </div>
 </div>
 <!--end:::Tab pane-->

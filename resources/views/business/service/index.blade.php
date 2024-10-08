@@ -65,8 +65,9 @@
                 <!--end::Table-->    </div>
             <!--end::Card body-->
         </div>
-        <!--end::Card-->
-        @include('business.service.parts.add-service')
+        @can('service.create')
+            @include('business.service.parts.add-service')
+        @endcan
     </div>
 @endsection
 @section('scripts')

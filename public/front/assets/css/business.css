@@ -154,7 +154,7 @@ footer .footerTop::before {
 }
 
 .home-hero .text-content label {
-  color: #f22969;
+  color: #df2e67;
   font-weight: 600;
   position: relative;
 }
@@ -207,9 +207,9 @@ footer .footerTop::before {
   width: 100%;
   padding: 20px 0;
   border-radius: 15px;
-  background: #f22969;
+  background: #56467d;
   color: #fff;
-  box-shadow: 24px 31px 82px 0px rgba(242, 41, 105, 0.18);
+  box-shadow: 24px 31px 82px 0px #56467d61;
 }
 
 .home-hero .hero-form .hero {
@@ -222,7 +222,7 @@ footer .footerTop::before {
 }
 
 .home-hero .hero-form .hero h3 {
-  color: #f22969;
+  color: #56467d;
   font-size: 34px;
   font-style: normal;
   font-weight: 600;
@@ -312,7 +312,7 @@ section .hero p {
 }
 
 .home-services .services-item:hover {
-  background: #f22969;
+  background: #56467d;
   color: #fff;
 }
 
@@ -339,7 +339,7 @@ section .hero p {
 }
 
 .home-properties .properties-item .image .shape-1 {
-  background: #f22969;
+  background: #56467d;
   width: 140px;
   height: 140px;
   border-radius: 50%;
@@ -351,7 +351,7 @@ section .hero p {
 }
 
 .home-properties .properties-item .image .shape-2 {
-  background: #f22969;
+  background: #56467d;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -411,7 +411,7 @@ section .hero p {
 }
 
 .home-properties .properties-item .image .shape-7 {
-  background: #f22969;
+  background: #56467d;
   width: 244px;
   height: 244px;
   border-radius: 50%;
@@ -423,7 +423,7 @@ section .hero p {
 }
 
 .home-properties .properties-item .image .shape-8 {
-  background: #f22969;
+  background: #56467d;
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -533,7 +533,7 @@ section .hero p {
   text-decoration: none;
   line-height: normal;
   border-radius: 84px;
-  background: #f22969;
+  background: #56467d;
   padding: 20px 40px;
   transition: all 0.3s ease-in-out;
 }
@@ -769,7 +769,7 @@ section .hero p {
 }
 
 .footer-promo .promo-area .content .buttons a:hover {
-  background: #f22969;
+  background: #56467d;
 }
 
 .home-page {
@@ -803,7 +803,7 @@ section .hero p {
 }
 
 .home-page .home-items .item.active {
-  background: #f22969;
+  background: #56467d;
   color: #fff;
 }
 
@@ -816,7 +816,7 @@ section .hero p {
 }
 
 .home-page .home-items .item:hover {
-  background: #f22969;
+  background: #56467d;
   color: #fff;
 }
 
@@ -930,7 +930,7 @@ body.references {
   position: fixed;
   left: 40px;
   bottom: 40px;
-  background: #f22969;
+  background: #56467d;
   width: 60px;
   height: 60px;
   display: none;
@@ -952,7 +952,7 @@ body.references {
   position: fixed;
   left: 20px;
   bottom: 20px;
-  background: #f22969;
+  background: #56467d;
   box-shadow: 33px 97px 200px 0px rgba(0, 0, 0, 0.07);
   border-radius: 20px;
   padding: 20px 40px;
@@ -986,7 +986,7 @@ body.references {
   position: absolute;
   top: -10px;
   right: -10px;
-  background: #f22969;
+  background: #56467d;
   border-radius: 20px;
   border: 3px solid #fff;
   cursor: pointer;
@@ -1335,7 +1335,7 @@ footer .footerBottom .center .footerItem .collapse-icon {
 }
 
 .modal-content {
-  border: 4px solid #f22969;
+  border: 4px solid #56467d;
 }
 
 .home-packages .container {
@@ -1358,7 +1358,7 @@ footer .footerBottom .center .footerItem .collapse-icon {
   border: 1px solid rgba(242, 41, 105, 0.1);
   padding: 40px 20px;
   min-height: 740px;
-  border-top: 6px solid #f22969;
+  border-top: 6px solid #56467d;
 }
 
 .packages-list .package-item .icon {
@@ -1403,7 +1403,7 @@ footer .footerBottom .center .footerItem .collapse-icon {
   text-align: center;
   padding: 20px 0;
   text-decoration: none;
-  color: #f22969;
+  color: #56467d;
   font-size: 16px;
   transition: all 0.3s ease-in-out;
   font-style: normal;
@@ -1413,7 +1413,7 @@ footer .footerBottom .center .footerItem .collapse-icon {
 }
 
 .packages-list .package-item a:hover {
-  background: #f22969;
+  background: #56467d;
   color: #fff;
 }
 
@@ -1439,7 +1439,7 @@ footer .footerBottom .center .footerItem .collapse-icon {
   background-position: center;
   width: 74px;
   height: 74px;
-  border: 1px dashed #f22969;
+  border: 1px dashed #56467d;
 }
 
 .btn-container .package-promo span {
@@ -1485,7 +1485,7 @@ footer .footerBottom .center .footerItem .collapse-icon {
   content: attr(data-off);
   width: 140px;
   height: 54px;
-  background: #f22969;
+  background: #56467d;
   border-radius: 26px;
   position: absolute;
   font-size: 20px;
@@ -1572,8 +1572,8 @@ footer .footerBottom .center .footerItem .collapse-icon {
 
 .aut-verification .aut-number input:focus,
 .aut-verification .aut-number input:focus-visible {
-  border: 1px solid #f22969;
-  outline: 1px solid #f22969;
+  border: 1px solid #56467d;
+  outline: 1px solid #56467d;
 }
 
 .aut-verification .aut-info p {
@@ -1614,7 +1614,7 @@ footer .footerBottom .center .footerItem .collapse-icon {
 }
 
 .aut-resend p a {
-  color: #f22969;
+  color: #56467d;
   font-weight: 600;
   margin-left: 10px;
 }

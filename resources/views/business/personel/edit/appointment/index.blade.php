@@ -43,6 +43,7 @@
 @section('content')
     @include('business.personel.edit.nav')
     <div class="card pt-4 mb-6 mb-xl-9 ">
+        @can('appointment.list')
         <!--begin::Card header-->
         <div class="card-header border-0">
             <!--begin::Card title-->
@@ -137,7 +138,7 @@
                     </thead>
                     <!--begin::Table body-->
                     <tbody class="fs-6 fw-semibold text-gray-600" id="receivableTable">
-                    @forelse($personel->appointments as $appointment)
+                    @forelse($personel->appointments()->take(30)->get() as $appointment)
                         <tr>
                             <!--begin::Date=-->
                             <td>{{\Illuminate\Support\Carbon::parse($appointment->appointment->services()->where('personel_id', $personel->id)->first()->start_time)->translatedFormat('d.m.Y, H:i')}}</td>
@@ -177,7 +178,12 @@
             </div>
             <!--end::Table wrapper-->
         </div>
+        @else
+            <div class="card-body">
+                <x-forbidden-component title="Yetkisiz Erişim" message="Randevuları görüntülemek için yetkiniz bulunmamaktadır"></x-forbidden-component>
+            </div>
         <!--end::Card body-->
+        @endcan
     </div>
 @endsection
 @section('scripts')

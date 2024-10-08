@@ -85,7 +85,14 @@
                             <tr>
                                 <td>#</td>
                                 <td>{{createName(route('business.customer.edit', $customer->id), $customer->name)}}</td>
-                                <td>{{formatPhone($customer->phone)}}</td>
+                                <td>
+                                    @if (authUser()->hasPermissionTo('customer.phone.show'))
+                                        {{createPhone($customer->phone, formatPhone($customer->phone))}}
+                                    @else
+                                        {{maskPhone($customer->phone)}}
+                                    @endif
+
+                                </td>
                                 <td>{{$customer->appointments()->latest()->first()->start_time->format('d.m.Y H:i')}}</td>
                                 <td>{{$customer->appointments->count()}}</td>
                                 <td>{{$customer->created_at}}</td>

@@ -116,9 +116,22 @@ function initEcommerceSalesSaveOrder() {
                         },
                         error: function (xhr) {
                             var errorMessage = "<ul>";
-                            xhr.responseJSON.errors.forEach(function (error) {
-                                errorMessage += "<li>" + error + "</li>";
-                            });
+                            submitButton.disabled = false;
+
+                            // Check if there's a responseJSON and a message in it
+                            if (xhr.status === 403) {
+                                errorMessage += "<li>Bu özelliğe erişmek için yetkiniz bulunmamaktadır.</li>";
+                            } else if (xhr.responseJSON && xhr.responseJSON.message) {
+                                errorMessage += "<li>" + xhr.responseJSON.message + "</li>";
+                            } else if (xhr.responseJSON && xhr.responseJSON.errors) {
+                                // If errors array exists, loop through it
+                                xhr.responseJSON.errors.forEach(function (error) {
+                                    errorMessage += "<li>" + error + "</li>";
+                                });
+                            } else {
+                                // Default message in case response structure is different
+                                errorMessage += "<li>Bilinmeyen bir hata oluştu.</li>";
+                            }
                             errorMessage += "</ul>";
 
                             Swal.fire({
@@ -133,6 +146,8 @@ function initEcommerceSalesSaveOrder() {
                             });
                             submitButton.disabled = false;
                         }
+
+
                     });
 
                 }, 2000);

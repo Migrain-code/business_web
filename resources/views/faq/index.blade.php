@@ -44,7 +44,7 @@
         }
 
         .sss-page .sss-categories .categories-hero {
-            color: #f22969;
+            color: #56467d;
             font-size: 20px;
             font-weight: 500;
             margin-bottom: 20px;
@@ -72,7 +72,7 @@
         }
 
         .sss-page .sss-categories ul li:hover {
-            background-color: #f22969;
+            background-color: #56467d;
             color: #fff;
         }
 

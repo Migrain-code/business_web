@@ -66,8 +66,10 @@
                 <!--end::Table-->    </div>
             <!--end::Card body-->
         </div>
+        @can('product.create')
         <!--end::Card-->
         @include('business.product.parts.add-product')
+        @endcan
     </div>
 
 @endsection

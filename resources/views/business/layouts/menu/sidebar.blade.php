@@ -83,7 +83,7 @@
                             <!--end:Menu link-->
                         </div>
                         <!--end:Menu item-->
-
+                        @can('adission.list')
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
@@ -95,8 +95,9 @@
                             </a>
                             <!--end:Menu link-->
                         </div>
+                        @endcan
                         <!--end:Menu item-->
-
+                        @can('packageSale.list')
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
@@ -109,6 +110,7 @@
                             <!--end:Menu link-->
                         </div>
                         <!--end:Menu item-->
+                        @endcan
                         @can('product.view')
                             <!--begin:Menu item-->
                             <div class="menu-item">
@@ -124,6 +126,7 @@
                             <!--end:Menu item-->
                         @endcan
                         <!--begin:Menu item-->
+                        @can('personel.addStayOffDay')
                         <div class="menu-item">
                             <!--begin:Menu link-->
                             <a class="menu-link" href="{{route('business.personel-stay-off-day.index')}}">
@@ -136,7 +139,7 @@
                         </div>
                         <!--end:Menu item-->
                         <!--begin:Menu item-->
-
+                        @endcan
                         @can('case.view')
                             <div class="menu-item">
                                 <!--begin:Menu link-->
@@ -277,6 +280,7 @@
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
+                @if(authUser()->hasPermissionTo('appointment.calendar.show'))
                 <!--begin:Menu item-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
@@ -295,23 +299,27 @@
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
+                @endif
                 <!--begin:Menu item-->
-                <div class="menu-item">
-                    <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('business.appointment.today')}}">
-                        <span class="menu-icon">
-                            <span class="svg-icon svg-icon-muted svg-icon-1"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path opacity="0.3" d="M20.9 12.9C20.3 12.9 19.9 12.5 19.9 11.9C19.9 11.3 20.3 10.9 20.9 10.9H21.8C21.3 6.2 17.6 2.4 12.9 2V2.9C12.9 3.5 12.5 3.9 11.9 3.9C11.3 3.9 10.9 3.5 10.9 2.9V2C6.19999 2.5 2.4 6.2 2 10.9H2.89999C3.49999 10.9 3.89999 11.3 3.89999 11.9C3.89999 12.5 3.49999 12.9 2.89999 12.9H2C2.5 17.6 6.19999 21.4 10.9 21.8V20.9C10.9 20.3 11.3 19.9 11.9 19.9C12.5 19.9 12.9 20.3 12.9 20.9V21.8C17.6 21.3 21.4 17.6 21.8 12.9H20.9Z" fill="currentColor"/>
-                            <path d="M16.9 10.9H13.6C13.4 10.6 13.2 10.4 12.9 10.2V5.90002C12.9 5.30002 12.5 4.90002 11.9 4.90002C11.3 4.90002 10.9 5.30002 10.9 5.90002V10.2C10.6 10.4 10.4 10.6 10.2 10.9H9.89999C9.29999 10.9 8.89999 11.3 8.89999 11.9C8.89999 12.5 9.29999 12.9 9.89999 12.9H10.2C10.4 13.2 10.6 13.4 10.9 13.6V13.9C10.9 14.5 11.3 14.9 11.9 14.9C12.5 14.9 12.9 14.5 12.9 13.9V13.6C13.2 13.4 13.4 13.2 13.6 12.9H16.9C17.5 12.9 17.9 12.5 17.9 11.9C17.9 11.3 17.5 10.9 16.9 10.9Z" fill="currentColor"/>
-                            </svg>
-                        </span>
-                        </span>
-                        <!--end::Svg Icon-->
-                        <span class="menu-title">Bugünkü Randevular</span>
-                    </a>
-                    <!--end:Menu link-->
-                </div>
-                <!--begin:Menu item-->
+                @if(authUser()->hasPermissionTo('appointment.calendar.today'))
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link" href="{{route('business.appointment.today')}}">
+                            <span class="menu-icon">
+                                <span class="svg-icon svg-icon-muted svg-icon-1"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path opacity="0.3" d="M20.9 12.9C20.3 12.9 19.9 12.5 19.9 11.9C19.9 11.3 20.3 10.9 20.9 10.9H21.8C21.3 6.2 17.6 2.4 12.9 2V2.9C12.9 3.5 12.5 3.9 11.9 3.9C11.3 3.9 10.9 3.5 10.9 2.9V2C6.19999 2.5 2.4 6.2 2 10.9H2.89999C3.49999 10.9 3.89999 11.3 3.89999 11.9C3.89999 12.5 3.49999 12.9 2.89999 12.9H2C2.5 17.6 6.19999 21.4 10.9 21.8V20.9C10.9 20.3 11.3 19.9 11.9 19.9C12.5 19.9 12.9 20.3 12.9 20.9V21.8C17.6 21.3 21.4 17.6 21.8 12.9H20.9Z" fill="currentColor"/>
+                                <path d="M16.9 10.9H13.6C13.4 10.6 13.2 10.4 12.9 10.2V5.90002C12.9 5.30002 12.5 4.90002 11.9 4.90002C11.3 4.90002 10.9 5.30002 10.9 5.90002V10.2C10.6 10.4 10.4 10.6 10.2 10.9H9.89999C9.29999 10.9 8.89999 11.3 8.89999 11.9C8.89999 12.5 9.29999 12.9 9.89999 12.9H10.2C10.4 13.2 10.6 13.4 10.9 13.6V13.9C10.9 14.5 11.3 14.9 11.9 14.9C12.5 14.9 12.9 14.5 12.9 13.9V13.6C13.2 13.4 13.4 13.2 13.6 12.9H16.9C17.5 12.9 17.9 12.5 17.9 11.9C17.9 11.3 17.5 10.9 16.9 10.9Z" fill="currentColor"/>
+                                </svg>
+                            </span>
+                            </span>
+                            <!--end::Svg Icon-->
+                            <span class="menu-title">Bugünkü Randevular</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--begin:Menu item-->
+                @endif
+                @if(authUser()->hasPermissionTo('appointment.calendar.today'))
                 <div class="menu-item">
                     <!--begin:Menu link-->
                     <a class="menu-link" href="{{route('business.appointment.personelAppointment')}}">
@@ -329,20 +337,20 @@
                     </a>
                     <!--end:Menu link-->
                 </div>
-                @if(authUser()->can('adission.view') || authUser()->can('adission.view') || authUser()->can('productSale.view') || authUser()->can('packageSale.view') || authUser()->can('product.view'))
+                @endif
+                @if(authUser()->hasAnyPermission(['adission.list', 'productSale.list', 'packageSale.list', 'product.list']))
                     <!--begin:Menu item-->
-                    <div class="menu-item pt-5">
+                <div class="menu-item pt-5">
                         <!--begin:Menu content-->
                         <div class="menu-content">
                             <span class="menu-heading fw-bold text-uppercase fs-7">Satış İşlemleri</span>
                         </div>
                         <!--end:Menu content-->
-                    </div>
+                </div>
                     <!--end:Menu item-->
                 @endif
-
                 <!--begin:Menu item-->
-                @can('adission.view')
+                @can('adission.list')
                     <div class="menu-item">
                         <!--begin:Menu link-->
                         <a class="menu-link" href="{{route('business.adission.index')}}">
@@ -363,7 +371,8 @@
                         <!--end:Menu link-->
                     </div>
                 @endcan
-                @can('productSale.view')
+
+                @can('productSale.list')
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
@@ -387,7 +396,7 @@
                     <!--end:Menu item-->
                 @endcan
                 <!--end:Menu item-->
-                @can('packageSale.view')
+                @can('packageSale.list')
 
                     <!--begin:Menu item-->
                     <div class="menu-item">
@@ -410,7 +419,7 @@
                 @endcan
 
                 <!--end:Menu item-->
-                @can('product.view')
+                @can('product.list')
                 <!--begin:Menu item-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
@@ -440,6 +449,7 @@
                 </div>
                 <!--begin:Menu item-->
                 @endcan
+
                 <div class="menu-item pt-5">
                     <!--begin:Menu content-->
                     <div class="menu-content">
@@ -522,9 +532,11 @@
                     <!--end:Menu sub-->
                 </div>
                 <!--end:Menu item-->
+                @if(authUser()->hasAnyPermission(['customer.list', 'customer.absent.list', 'customer.comment.list']))
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <!--begin:Menu link-->
+
                     <span class="menu-link">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
@@ -539,9 +551,11 @@
                         <span class="menu-arrow"></span>
                     </span>
                     <!--end:Menu link-->
+
                     <!--begin:Menu sub-->
                     <div class="menu-sub menu-sub-accordion">
                         <!--begin:Menu item-->
+                        @can('customer.list')
                         <div class="menu-item">
                             <!--begin:Menu link-->
                             <a class="menu-link" href="{{route('business.customer.index')}}">
@@ -552,7 +566,9 @@
                             </a>
                             <!--end:Menu link-->
                         </div>
+                        @endcan
                         <!--end:Menu item-->
+                        @can('customer.absent.list')
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
@@ -564,7 +580,9 @@
                             </a>
                             <!--end:Menu link-->
                         </div>
+                        @endcan
                         <!--end:Menu item-->
+                        @can('customer.comment.list')
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
@@ -576,11 +594,15 @@
                             </a>
                             <!--end:Menu link-->
                         </div>
+                        @endcan
                         <!--end:Menu item-->
                     </div>
                     <!--end:Menu sub-->
                 </div>
                 <!--end:Menu item-->
+                @endif
+                @if(authUser()->hasAnyPermission(['personel.list', 'personel.addStayOffDay']))
+
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <!--begin:Menu link-->
@@ -600,6 +622,7 @@
                     <!--end:Menu link-->
                     <!--begin:Menu sub-->
                     <div class="menu-sub menu-sub-accordion">
+                        @can('personel.list')
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
@@ -612,6 +635,8 @@
                             <!--end:Menu link-->
                         </div>
                         <!--end:Menu item-->
+                        @endcan
+                        @can('personel.addStayOffDay')
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
@@ -624,11 +649,13 @@
                             <!--end:Menu link-->
                         </div>
                         <!--end:Menu item-->
+                        @endcan
                     </div>
                     <!--end:Menu sub-->
                 </div>
+                @endif
                 <!--end:Menu item-->
-                @can('official.view')
+                @can('official.list')
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
@@ -770,6 +797,8 @@
                 <!--end:Menu item-->
                 @endcan
                 <!--begin:Menu item-->
+                @if(authUser()->hasAnyPermission(['business.gallery.index', 'business.customer-gallery.index']))
+
                 <div class="menu-item pt-5">
                     <!--begin:Menu content-->
                     <div class="menu-content">
@@ -777,116 +806,126 @@
                     </div>
                     <!--end:Menu content-->
                 </div>
-                <!--end:Menu item-->
-                <!--begin:Menu item-->
-                <div class="menu-item">
-                    <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('business.gallery.index')}}">
+                    <div class="menu-item">
+                        @can('business.gallery.list')
+                            <a class="menu-link" href="{{route('business.gallery.index')}}">
                         <span class="menu-icon">
                            <i class="ki-duotone ki-picture fs-3">
                              <span class="path1"></span>
                              <span class="path2"></span>
                            </i>
                         </span>
-                        <span class="menu-title">İşletme Galerisi</span>
-                    </a>
-                    <!--end:Menu link-->
+                                <span class="menu-title">İşletme Galerisi</span>
+                            </a>
+                        @endcan
 
-                    <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('business.customer-gallery.index')}}">
-                        <span class="menu-icon">
-                            <i class="ki-duotone ki-faceid fs-3">
-                                 <span class="path1"></span>
-                                 <span class="path2"></span>
-                                 <span class="path3"></span>
-                                 <span class="path4"></span>
-                                 <span class="path5"></span>
-                                 <span class="path6"></span>
-                                </i>
-                            <!--end::Svg Icon-->
-                        </span>
-                        <span class="menu-title">Müşteri Galerisi</span>
-                    </a>
-                    <!--end:Menu link-->
-                </div>
-                <!--end:Menu item-->
-
-                <!--begin:Menu item-->
-                <div class="menu-item pt-5">
-                    <!--begin:Menu content-->
-                    <div class="menu-content">
-                        <span class="menu-heading fw-bold text-uppercase fs-7">Talepler</span>
-                    </div>
-                    <!--end:Menu content-->
-                </div>
-                <!--end:Menu item-->
-                <!--begin:Menu item-->
-                <div class="menu-item">
-                    <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('business.appointment-request.index')}}">
-                        <span class="menu-icon">
-                           <i class="ki-duotone ki-flash-circle fs-3">
+                        @can('business.customerGallery.list')
+                            <a class="menu-link" href="{{route('business.customer-gallery.index')}}">
+                    <span class="menu-icon">
+                        <i class="ki-duotone ki-faceid fs-3">
                              <span class="path1"></span>
                              <span class="path2"></span>
-                           </i>
-
-                        </span>
-                        <span class="menu-title">Randevu Talepleri
-                            <span class="badge badge-danger w-25px h-25px text-center ms-2 rounded-circle d-flex justify-content-center">
-                                {{authUser()->business->newRequests->count()}}
-                            </span>
-                        </span>
-                    </a>
-                    <!--end:Menu link-->
-
-                    <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('business.request-form.index')}}">
-                        <span class="menu-icon">
-                            <i class="ki-duotone ki-subtitle fs-3">
-                                 <span class="path1"></span>
-                                 <span class="path2"></span>
-                                 <span class="path3"></span>
-                                 <span class="path4"></span>
-                                 <span class="path5"></span>
-                                 <span class="path6"></span>
-                                </i>
-                            <!--end::Svg Icon-->
-                        </span>
-                        <span class="menu-title">Talep Formu</span>
-                    </a>
-                    <!--end:Menu link-->
-                </div>
-                <!--end:Menu item-->
-
-                <div class="menu-item pt-5">
-                    <!--begin:Menu content-->
-                    <div class="menu-content">
-                        <span class="menu-heading fw-bold text-uppercase fs-7">Tarih / Saat Ayarları</span>
+                             <span class="path3"></span>
+                             <span class="path4"></span>
+                             <span class="path5"></span>
+                             <span class="path6"></span>
+                            </i>
+                        <!--end::Svg Icon-->
+                    </span>
+                                <span class="menu-title">Müşteri Galerisi</span>
+                            </a>
+                        @endcan
                     </div>
-                    <!--end:Menu content-->
-                    <a class="menu-link" href="{{route('business.close-day.index')}}">
+                @endif
+
+                <!--end:Menu item-->
+                @if(authUser()->hasAnyPermission(['business.appointment-request.index', 'business.request-form.index']))
+                    <!--begin:Menu item-->
+                    <div class="menu-item pt-5">
+                        <!--begin:Menu content-->
+                        <div class="menu-content">
+                            <span class="menu-heading fw-bold text-uppercase fs-7">Talepler</span>
+                        </div>
+                        <!--end:Menu content-->
+                    </div>
+                    <!--end:Menu item-->
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        @can('appointmentRequest.list')
+                        <!--begin:Menu link-->
+                        <a class="menu-link" href="{{route('business.appointment-request.index')}}">
                             <span class="menu-icon">
-                                <i class="ki-duotone ki-setting-3 fs-3">
+                               <i class="ki-duotone ki-flash-circle fs-3">
                                  <span class="path1"></span>
                                  <span class="path2"></span>
-                                 <span class="path3"></span>
-                                 <span class="path4"></span>
-                                 <span class="path5"></span>
-                                </i>
+                               </i>
+
                             </span>
-                        <span class="menu-title">Tatiller ve Kapalı Günler</span>
-                    </a>
-                    <a class="menu-link" href="{{route('business.personel-custom-work-time.index')}}">
+                            <span class="menu-title">Randevu Talepleri
+                                <span class="badge badge-danger w-25px h-25px text-center ms-2 rounded-circle d-flex justify-content-center">
+                                    {{authUser()->business->newRequests->count()}}
+                                </span>
+                            </span>
+                        </a>
+                        <!--end:Menu link-->
+                        @endcan
+                        @can('appointmentRequestForm.list')
+                        <!--begin:Menu link-->
+                        <a class="menu-link" href="{{route('business.request-form.index')}}">
                             <span class="menu-icon">
-                                <i class="ki-duotone ki-timer fs-3">
+                                <i class="ki-duotone ki-subtitle fs-3">
                                      <span class="path1"></span>
                                      <span class="path2"></span>
                                      <span class="path3"></span>
+                                     <span class="path4"></span>
+                                     <span class="path5"></span>
+                                     <span class="path6"></span>
                                     </i>
+                                <!--end::Svg Icon-->
                             </span>
-                        <span class="menu-title">Özel Çalışma Saatleri</span>
-                    </a>
-                </div>
+                            <span class="menu-title">Talep Formu</span>
+                        </a>
+                        <!--end:Menu link-->
+                        @endcan
+                    </div>
+                    <!--end:Menu item-->
+                @endif
+                @if(authUser()->hasAnyPermission(['business.close-day.index', 'business.personel-custom-work-time.index']))
+                    <div class="menu-item pt-5">
+                        <!--begin:Menu content-->
+                        <div class="menu-content">
+                            <span class="menu-heading fw-bold text-uppercase fs-7">Tarih / Saat Ayarları</span>
+                        </div>
+                        <!--end:Menu content-->
+                        @can('closeDay.list')
+                            <a class="menu-link" href="{{route('business.close-day.index')}}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-setting-3 fs-3">
+                                     <span class="path1"></span>
+                                     <span class="path2"></span>
+                                     <span class="path3"></span>
+                                     <span class="path4"></span>
+                                     <span class="path5"></span>
+                                    </i>
+                                </span>
+                            <span class="menu-title">Tatiller ve Kapalı Günler</span>
+                        </a>
+                        @endcan
+                        @can('customWorkTime.list')
+                            <a class="menu-link" href="{{route('business.personel-custom-work-time.index')}}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-timer fs-3">
+                                         <span class="path1"></span>
+                                         <span class="path2"></span>
+                                         <span class="path3"></span>
+                                        </i>
+                                </span>
+                            <span class="menu-title">Özel Çalışma Saatleri</span>
+                        </a>
+                        @endcan
+                    </div>
+                @endif
+                @can('businessSettings.list')
                 <!--begin:Menu item-->
                 <div class="menu-item pt-5">
                     <!--begin:Menu content-->
@@ -927,6 +966,7 @@
 
                 </div>
                 <!--end:Menu item-->
+                @endcan
                 <!--begin:Menu item-->
                 <div class="menu-item pt-5">
                     <!--begin:Menu content-->
@@ -982,6 +1022,8 @@
                 </div>
                 <!--end:Menu item-->
                 <!--begin:Menu item-->
+                @if(authUser()->hasAnyPermission(['businessSettings.list', 'personel.list', 'service.list', 'customer.list','product.list','business.gallery.list']))
+
                 <div class="menu-item pt-5">
                     <!--begin:Menu content-->
                     <div class="menu-content">
@@ -992,6 +1034,7 @@
                 <!--end:Menu item-->
                 <!--begin:Menu item-->
                 <div class="menu-item">
+                    @can('businessSettings.list')
                     <!--begin:Menu link-->
                     <a class="menu-link" href="{{route('business.settings')}}">
                         <span class="menu-icon">
@@ -1002,8 +1045,9 @@
                         </span>
                         <span class="menu-title">İşletme Bilgileri</span>
                     </a>
+                    @endcan
                     <!--end:Menu link-->
-
+                    @can('personel.list')
                     <!--begin:Menu link-->
                     <a class="menu-link" href="{{route('business.personel.index')}}">
                         <span class="menu-icon">
@@ -1017,8 +1061,10 @@
                         </span>
                         <span class="menu-title">Personeller</span>
                     </a>
+                    @endcan
                     <!--end:Menu link-->
                     <!--begin:Menu link-->
+                    @can('service.list')
                     <a class="menu-link" href="{{route('business.service.index')}}">
                         <span class="menu-icon">
                            <span class="svg-icon svg-icon-2">
@@ -1030,8 +1076,9 @@
                         </span>
                         <span class="menu-title">Hizmetler</span>
                     </a>
+                    @endcan
                     <!--end:Menu link-->
-                    @can('promossion.view')
+                    @if(authUser()->is_admin == 1)
                     <!--begin:Menu link-->
                     <a class="menu-link" href="{{route('business.promossion.index')}}">
                         <span class="menu-icon">
@@ -1044,7 +1091,8 @@
                         <span class="menu-title">Promosyonlar</span>
                     </a>
                     <!--end:Menu link-->
-                    @endcan
+                    @endif
+                    @can('customer.list')
                     <!--begin:Menu link-->
                     <a class="menu-link" href="{{route('business.customer.index')}}">
                         <span class="menu-icon">
@@ -1057,8 +1105,9 @@
                         </span>
                         <span class="menu-title">Müşteriler</span>
                     </a>
+                    @endcan
                     <!--end:Menu link-->
-                    @can('product.view')
+                    @can('product.list')
                     <!--begin:Menu link-->
                     <a class="menu-link" href="{{route('business.product.index')}}">
                         <span class="menu-icon">
@@ -1078,7 +1127,7 @@
                     <!--end:Menu link-->
                     @endcan
                     <!--begin:Menu item-->
-
+                    @can('business.gallery.list')
                     <!--begin:Menu link-->
                     <a class="menu-link" href="{{route('business.gallery.index')}}">
                         <span class="menu-icon">
@@ -1089,9 +1138,12 @@
                         </span>
                         <span class="menu-title">İşletme Galerisi</span>
                     </a>
+                    @endcan
                     <!--end:Menu link-->
+
                 </div>
                 <!--end:Menu item-->
+                @endif
             </div>
             <!--end::Menu-->
         </div>

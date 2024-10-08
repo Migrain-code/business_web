@@ -18,10 +18,12 @@
             @foreach($services as $service)
                 <div class="d-flex flex-stack flex-column flex-md-row">
                     <div class="d-flex border-0 border-secondary p-2 mb-2" data-bs-toggle="tooltip" title="Bu hizmeti eklemek için seçiniz" style="font-size: 15px">
+                        @can('personel.service.update')
                         <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                             <input class="form-check-input serviceChecks" @checked(in_array($service->id, $personel->services()->pluck('service_id')->toArray())) name="services[]" type="checkbox"
                                    value="{{$service->id}}">
                         </div>
+                        @endcan
                         <span>{{$service->subCategory->name}}</span>
 
                     </div>
@@ -41,10 +43,12 @@
 
                             <span class="input-group-text">
                                 TL
+                                 @can('personel.service.update')
                                 <button type="button" class="btn btn-sm btn-primary me-2 ms-2" onclick="addPersonelCustomPrice('{{$service->id}}')"><i class="fa fa-check-circle"></i></button>
                                 <button type="button" class="btn btn-sm btn-danger" onclick="deletePersonelCustomPrice('{{$service->id}}')"><i class="fa fa-xmark"></i></button>
-
+                                @endcan
                             </span>
+
                         </div>
                     </div>
                 </div>

@@ -59,7 +59,9 @@
                         <th class="min-w-125px">Saat Aralığı</th>
                         <th class="min-w-125px">Durum</th>
                         <th class="min-w-125px">İşlem Tarihi</th>
-                        <th class="min-w-70px">İşlemler</th>
+                        @can('customWorkTime.delete')
+                            <th class="min-w-70px">İşlemler</th>
+                        @endcan
                     </tr>
                     </thead>
                     <tbody class="fw-semibold text-gray-600">
@@ -73,9 +75,10 @@
         <!--end::Card-->
 
         <!--begin::Modals-->
+        @can('customWorkTime.create')
         <!--begin::Modal - Customers - Add-->
-       @include('business.personel-custom-work-time.parts.add-customer')
-
+            @include('business.personel-custom-work-time.parts.add-customer')
+        @endcan
     </div>
 
 @endsection
@@ -94,7 +97,9 @@
             {data: 'time_range'},
             {data: 'status'},
             {data: 'created_at'},
+            @can('customWorkTime.delete')
             {data: 'action'}
+            @endcan
         ];
     </script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/tr.js"></script>

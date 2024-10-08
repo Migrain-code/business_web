@@ -21,12 +21,13 @@
             <!--end::Select2-->
         </div>
         <!--end::Filter-->
-
+        @can('packageSale.create')
         <!--begin::Add customer-->
         <a href="#" type="button" class="btn btn-primary me-1" data-bs-toggle="modal"
            data-bs-target="#kt_modal_add_customer">
             Yeni Paket Satışı
         </a>
+        @endcan
 
         <!--begin::Export-->
         <!--begin::Export dropdown-->

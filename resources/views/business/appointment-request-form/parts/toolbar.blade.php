@@ -3,12 +3,13 @@
     <!--begin::Toolbar-->
     <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
 
+        @can('appointmentRequestForm.create')
         <!--begin::Add customer-->
         <button type="button" class="btn btn-primary me-1" data-bs-toggle="modal"
                 data-bs-target="#kt_modal_add_customer">
             Form Ekle
         </button>
-
+        @endcan
         <!--begin::Export-->
         <!--begin::Export dropdown-->
         <button type="button" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">

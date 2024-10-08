@@ -67,9 +67,9 @@
                         </th>
                         <th class="min-w-125px">Personel Adı</th>
                         <th class="min-w-125px">Telefon Numarası</th>
-                        @if(authUser()->hasPermissionTo('case.view'))
+
                         <th class="min-w-125px">Kasa Erişimi</th>
-                        @endif
+
                         <th class="min-w-125px">Mesai Saatleri</th>
                         <th class="min-w-125px">Durum</th>
                         <th class="min-w-125px">Randevu Aralığı</th>
@@ -80,7 +80,8 @@
                     </tbody>
                     <!--end::Table body-->
                 </table>
-                <!--end::Table-->    </div>
+                <!--end::Table-->
+            </div>
             <!--end::Card body-->
         </div>
         <!--end::Card-->
@@ -98,10 +99,7 @@
             {data: 'id'},
             {data: 'name'},
             {data: 'phone'},
-            @if(authUser()->hasPermissionTo('case.view'))
             {data: 'is_case'},
-            @endif
-
             {data: 'start_time'},
             {data: 'status'},
             {data: 'range'},

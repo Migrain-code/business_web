@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Business;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Carbon;
 
 class HomeController extends Controller
 {
@@ -22,10 +23,12 @@ class HomeController extends Controller
     public function index()
     {
         //$saleTotal = $this->calculateSale()["saleTotal"];
+        $monthlyAppointmentTotal = $this->calculateAppointment()["appointmentMonthly"];
         $monthlySaleTotal = $this->calculateSale()["monthlySaleTotal"];
         $monthlyPackageSaleTotal = $this->calculateSale()["monthlyPackageSales"];
         $serviceTotal = $this->calculateService();
         $customerTotal = $this->business->customers->count();
+
         $todayCiro = $this->calculateToday();
         $todayCosts = $this->business->costs()->whereDate('operation_date', now()->toDateString())->sum('price');
         $todayAppointments = $this->business->appointments()->whereDate('start_time', now()->toDateString())->count();
@@ -34,7 +37,8 @@ class HomeController extends Controller
         $todaySaleCount = $this->business->sales()->whereDate('created_at',now()->toDateString())->count();
         $todayPackageSaleCount = $this->business->packages()->whereDate('seller_date',now()->toDateString())->count();
         $todayAppointmentRequestCount = $this->business->requests()->whereStatus(0)->whereDate('created_at', now()->toDateString())->count();
-        return view('business.dashboard.index', compact('todayAppointments','newCustomerCount','totalCustomerCount', 'todaySaleCount','todayPackageSaleCount','todayAppointmentRequestCount', 'monthlySaleTotal', 'serviceTotal', 'customerTotal', 'monthlyPackageSaleTotal', 'todayCiro', 'todayCosts'));
+
+        return view('business.dashboard.index', compact('todayAppointments','newCustomerCount','totalCustomerCount', 'todaySaleCount','todayPackageSaleCount','todayAppointmentRequestCount', 'monthlySaleTotal', 'serviceTotal', 'customerTotal', 'monthlyPackageSaleTotal', 'todayCiro', 'todayCosts', 'monthlyAppointmentTotal'));
     }
 
     public function calculateSale()
@@ -58,7 +62,28 @@ class HomeController extends Controller
             'monthlyPackageSales' => $monthlyPackageSales,
         ];
     }
+    public function calculateAppointment()
+    {
+        $business = $this->business;
 
+        // Toplam randevu sayısı
+        $saleTotal = $business->appointments->count();
+
+        // Aylık randevu sayısı
+        $monthlySales = $business->appointments()->whereNot('status', 3)
+            ->selectRaw('MONTH(start_time) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->pluck('count', 'month')
+            ->toArray();
+
+        // Bütün ayları içermezse eksikleri 0 ile tamamla
+        $monthlySales = array_replace(array_fill(1, 12, 0), $monthlySales);
+
+        return [
+            'appointmentMonthly' => array_values($monthlySales),
+            'appointmentTotal' => $saleTotal,
+        ];
+    }
     public function calculateToday() // bugünkü toplam ürün + paket + adisyon tahsilatı
     {
         $business = $this->business;

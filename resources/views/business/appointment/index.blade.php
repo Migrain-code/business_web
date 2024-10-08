@@ -145,15 +145,18 @@
 
 
                         <div class="d-flex flex-lg-row">
-                            <!--begin::Add customer-->
-                            <a href="javascript:void(0)" id="btnAppointment" data-bs-toggle="modal" data-bs-target="#kt_modal_add_appointment"
-                               class="btn btn-primary me-1">
-                                Randevu Oluştur
-                            </a>
-                            <a href="javascript:void(0)" id="btnCloseClock" data-bs-toggle="modal" data-bs-target="#kt_modal_add_appointment_close"
-                               class="btn btn-dark text-white me-1">
-                                Saat Kapat
-                            </a>
+                            @if(auth('official')->user()->hasPermissionTo("appointment.create"))
+                                <!--begin::Add customer-->
+                                <a href="javascript:void(0)" id="btnAppointment" data-bs-toggle="modal" data-bs-target="#kt_modal_add_appointment"
+                                   class="btn btn-primary me-1">
+                                    Randevu Oluştur
+                                </a>
+                                <a href="javascript:void(0)" id="btnCloseClock" data-bs-toggle="modal" data-bs-target="#kt_modal_add_appointment_close"
+                                   class="btn btn-dark text-white me-1">
+                                    Saat Kapat
+                                </a>
+                            @endif
+
                             <!--begin::Export-->
                             <!--begin::Export dropdown-->
                             <button type="button" class="btn btn-light-primary" data-kt-menu-trigger="click"
@@ -251,7 +254,10 @@
             </div>
             <!--end::Card body-->
         </div>
-        @include('business.appointment.modals.add-new-appointment')
+        @if(auth('official')->user()->hasPermissionTo("appointment.create"))
+            @include('business.appointment.modals.add-new-appointment')
+
+        @endif
         @include('business.appointment-create.modal.add-customer')
         @include('business.appointment.modals.add-close-clock')
 

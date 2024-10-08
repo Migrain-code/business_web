@@ -22,6 +22,9 @@ class CustomerController extends Controller
 
     public function __construct()
     {
+        $this->middleware(['permission:customer.list'])->only('index');
+        $this->middleware(['permission:customer.show'])->only('edit');
+        $this->middleware(['permission:customer.info.update'])->only('update');
         $this->middleware(function ($request, $next) {
             $this->user = auth('official')->user();
             $this->business = $this->user->business;
@@ -64,7 +67,11 @@ class CustomerController extends Controller
             $customer->image = $response["image"]["way"];
         }
         if ($customer->save()) {
-            $message = "Merhaba ".$customer->name.", Hızlı Randevu sistemimize hoş geldiniz! Randevularınızı yönetmek için: https://hizlirandevu.com.tr/customer/login adresinden giriş yapabilirsiniz. Telefon Numaranız: [".$customer->phone."] ve Şifreniz: [".$generatePassword."] ile giriş yapabilirsiniz. İyi günler dileriz, Hızlı Randevu Ekibi";
+            $message = "Merhaba ".$customer->name.", Hızlı Randevu'ya Hoşgeldiniz.
+                        Giriş Bilgileriniz: Tel: ".$customer->phone." Şifre: ".$generatePassword."
+                        İyi günler dileriz
+                        ".$this->business->name."
+                        (Hızlı Randevu)";
             Sms::send($customer->phone, $message);
             $this->addPermission($customer->id);
             $this->addBusinessCustomerList($customer->id);
@@ -178,10 +185,18 @@ class CustomerController extends Controller
                 return createName(route('business.customer.edit', $q->customer->id), $q->customer->name);
             })
             ->editColumn('phone', function ($q) {
-                return createPhone($q->customer->phone, formatPhone($q->customer->phone));
+                if (authUser()->hasPermissionTo('customer.phone.show')){
+                    return createPhone($q->customer->phone, formatPhone($q->customer->phone));
+                } else{
+                    return maskPhone($q->customer->phone);
+                }
             })
             ->editColumn('status', function ($q) {
-                return create_switch($q->id, $q->status == 1 ? true : false, 'BusinessCustomer', 'status');
+                if (authUser()->hasPermissionTo('customer.banned')){
+                    return create_switch($q->id, $q->status == 1 ? true : false, 'BusinessCustomer', 'status');
+                } else{
+                    return $q->status == 1 ? "Randevu Alabilir" : "Randevu Alamaz";
+                }
             })
             ->addColumn('appointmentCount', function ($q) use ($business) {
                 return $q->customer->appointments()->where('business_id', $business->id)->count();
@@ -192,8 +207,9 @@ class CustomerController extends Controller
             ->addColumn('action', function ($q) {
                 $html = "";
                 $html .= create_edit_button(route('business.customer.edit', $q->customer->id));
-                $html .= create_delete_button('BusinessCustomer', $q->id, 'Müşteri', 'Müşteri Kaydını Silmek İstediğinize Eminmisiniz? Kayıt Sadece İşletmenizden Silinecektir');
-
+                if (authUser()->hasPermissionTo('customer.delete')){
+                    $html .= create_delete_button('BusinessCustomer', $q->id, 'Müşteri', 'Müşteri Kaydını Silmek İstediğinize Eminmisiniz? Kayıt Sadece İşletmenizden Silinecektir');
+                }
                 return $html;
             })
             ->rawColumns(['id', 'action', 'name'])

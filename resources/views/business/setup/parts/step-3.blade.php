@@ -27,6 +27,8 @@
                             <span class="path3"></span>
                         </i>
                 </span>
+                <input type="search" name="searchInput" class="form-control" id="searchInput" placeholder="Adresinizi yazarak arayabilirsiniz">
+
             </label>
             <!--end::Label-->
             <input type="hidden" name="latitude" id="latitude" value="{{$business->lat}}">
@@ -34,7 +36,6 @@
 
             <!-- Harita Seçimi Alanı -->
             <div id="map-container" style="position: relative;">
-                <input type="search" name="searchInput" id="searchInput" placeholder="Adresinizi yazarak arayabilirsiniz">
                 <div id="map" style="height: 400px;"></div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-<div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10 me-lg-10">
+<div class="d-flex flex-column flex-row-fluid col-12 col-lg-8">
     <div class="">
 
         <!--begin::General options-->

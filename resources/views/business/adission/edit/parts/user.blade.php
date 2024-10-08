@@ -71,6 +71,7 @@
                         </div>
                         <!--end::User-->
                         <!--begin::Actions-->
+                        @can('adission.updateStatus')
                         <div class="d-flex my-4">
                             <a href="{{route('business.adission.edit', $appointment->id)}}" class="btn btn-sm btn-light me-2" id="kt_user_follow_button">
                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr012.svg-->
@@ -110,6 +111,7 @@
 
                         </div>
                         <!--end::Actions-->
+                        @endcan
                     </div>
                     <!--end::Title-->
 

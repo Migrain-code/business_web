@@ -247,7 +247,7 @@ class Business extends Model
 
     public function customers()
     {
-        return $this->hasMany(BusinessCustomer::class, 'business_id', 'id');
+        return $this->hasMany(BusinessCustomer::class, 'business_id', 'id')->take(10);
     }
 
     public function appointments()

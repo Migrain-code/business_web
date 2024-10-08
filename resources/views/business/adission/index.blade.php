@@ -160,10 +160,10 @@
 
     </div>
 
-
-    @include('business.appointment.modals.add-new-appointment')
-    @include('business.appointment-create.modal.add-customer')
-
+    @can('adission.create')
+        @include('business.appointment.modals.add-new-appointment')
+        @include('business.appointment-create.modal.add-customer')
+    @endcan
 @endsection
 @section('scripts')
     <!-- DataTables Buttons JS -->

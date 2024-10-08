@@ -2,6 +2,7 @@
 <div class="tab-pane fade" id="kt_ecommerce_customer_gallery" role="tabpanel">
     <!--begin::Card-->
     <div class="card pt-4 mb-6 mb-xl-9">
+        @can('customer.gallery.show')
         <!--begin::Card header-->
         <div class="card-header border-0">
             <!--begin::Card title-->
@@ -10,6 +11,7 @@
             </div>
             <!--end::Card title-->
             <div class="card-toolbar">
+                @can('customer.gallery.create')
                 <a href="#" class="btn btn-sm btn-flex btn-light-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_gallery">
                     <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
                     <span class="svg-icon svg-icon-3">
@@ -22,6 +24,7 @@
                     <!--end::Svg Icon-->
                     Yeni Görsel
                 </a>
+                @endcan
             </div>
         </div>
         <!--end::Card header-->
@@ -33,6 +36,11 @@
 
         </div>
         <!--end::Card body-->
+        @else
+            <div class="card-body">
+                <x-forbidden-component title="Yetkisiz Erişim" message="Müşteri Görsellerini Görüntülemek için yetkiniz bulunmamaktadır"></x-forbidden-component>
+            </div>
+        @endcan
     </div>
     <!--end::Card-->
 
@@ -48,6 +56,7 @@
                 <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
                     <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
                 </div>
+
                 <!--end::Close-->
             </div>
 

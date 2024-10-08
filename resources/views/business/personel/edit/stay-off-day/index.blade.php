@@ -71,8 +71,10 @@
                 <div id="kt_ecommerce_report_customer_receivable_export">
 
                 </div>
+                @can('personel.addStayOffDay')
                 <a href="" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#stay_off_day_add_modal">İzin Ekle</a>
                 <!--begin::Export dropdown-->
+                @endcan
                 <button type="button" style="padding: 10px 20px !important;" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                     <i class="ki-duotone ki-exit-up fs-2"><span class="path1"></span><span class="path2"></span></i>
                     Rapor

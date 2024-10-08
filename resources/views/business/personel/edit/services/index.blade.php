@@ -37,6 +37,7 @@
     <div id="kt_app_content" class="app-content ">
         @include('business.personel.edit.nav')
     <!--begin::Form-->
+        @can('personel.service.show')
         <form id="kt_ecommerce_edit_personel_form" method="post" action="{{route('business.personel.services.update', $personel->id)}}" class="form d-flex flex-column flex-lg-row">
             @csrf
 
@@ -44,17 +45,27 @@
             @include('business.personel.edit.services.parts.col-3')
             <!--end::Service column-->
         </form>
-        <div class="d-flex justify-content-end flex-row">
+        @can('personel.service.update')
+             <div class="d-flex justify-content-end flex-row">
 
-            <!--begin::Button-->
-            <button type="submit" id="kt_ecommerce_add_product_submit" onclick="$('#kt_ecommerce_edit_personel_form').submit()" class="btn btn-primary w-100 mt-3">
+                    <!--begin::Button-->
+                    <button type="submit" id="kt_ecommerce_add_product_submit" onclick="$('#kt_ecommerce_edit_personel_form').submit()" class="btn btn-primary w-100 mt-3">
                         <span class="indicator-label">
                             Kaydet
                         </span>
-            </button>
-            <!--end::Button-->
-        </div>
+                    </button>
+                    <!--end::Button-->
+                </div>
+        @endcan
     <!--end::Form-->
+        @else
+            <div class="card w-100">
+                <div class="card-body">
+                    <x-forbidden-component title="Yetkisiz Erişim" message="Personel Hizmetlerini Görüntülemek için yetkiniz bulunmamaktadır"></x-forbidden-component>
+                </div>
+            </div>
+
+        @endcan
     </div>
 @endsection
 @section('scripts')

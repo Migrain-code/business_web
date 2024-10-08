@@ -18,7 +18,9 @@ class ProductSaleController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['permission:productSale.view']);
+        $this->middleware(['permission:productSale.list'])->only('index');
+        $this->middleware(['permission:productSale.edit'])->only('edit');
+        $this->middleware(['permission:productSale.create'])->only('create');
         $this->middleware(function ($request, $next) {
             $this->business = auth('official')->user()->business;
             return $next($request);
@@ -210,8 +212,9 @@ class ProductSaleController extends Controller
             ->addColumn('action', function ($q) {
                 $html = "";
                 $html .= create_edit_button(route('business.sale.edit', $q->id));
-                $html .= create_delete_button('ProductSales', $q->id, 'Ürün Satışı', 'Ürün Satışı Kaydınız Silmek İstediğinize Eminmisiniz?', '/isletme/sale/' . $q->id);
-
+                if(authUser()->hasPermissionTo('productSale.delete')){
+                    $html .= create_delete_button('ProductSales', $q->id, 'Ürün Satışı', 'Ürün Satışı Kaydınız Silmek İstediğinize Eminmisiniz?', '/isletme/sale/' . $q->id);
+                }
                 return $html;
             })
             ->rawColumns(['id', 'action', 'name'])

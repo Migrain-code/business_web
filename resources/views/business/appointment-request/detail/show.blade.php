@@ -1,5 +1,5 @@
 @extends('business.layouts.master')
-@section('title', 'Form Detayı')
+@section('title', 'Talep Detayı')
 @section('styles')
     <style>
         table.dataTable>tbody>tr.child span.dtr-data {
@@ -20,14 +20,14 @@
     <!--end::Item-->
     <!--begin::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-        <a href="{{route('business.appointment-request.index')}}"> Formlar </a>
+        <a href="{{route('business.appointment-request.index')}}"> Talepler </a>
     </li>
     <!--end::Item-->
     <li class="breadcrumb-item">
         <i class="ki-duotone ki-right fs-3 text-gray-500 mx-n1"></i></li>
     <!--end::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-       Form Detayı
+       Talep Detayı
     </li>
     <!--end::Item-->
 @endsection

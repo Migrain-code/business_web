@@ -34,24 +34,20 @@
     <!--begin::Form-->
         <form id="kt_ecommerce_edit_personel_form" method="post" enctype="multipart/form-data" action="{{route('business.settings.update')}}" class="form d-flex flex-column flex-lg-row">
             @csrf
-
-            <!--begin::Aside column-->
-            @include('business.setting.parts.col-1')
-            <!--end::Aside column-->
-            <!--begin::Main column-->
-            @include('business.setting.parts.col-2')
-            <!--end::Main column-->
-            <!--begin::Service column-->
-            <!--end::Service column-->
+            <div class="row">
+                @include('business.setting.parts.col-1')
+                @include('business.setting.parts.col-2')
+            </div>
         </form>
         <div class="d-flex justify-content-end flex-row">
-
+            @can('businessSettings.update')
             <!--begin::Button-->
             <button type="submit" id="kt_ecommerce_add_product_submit" onclick="sendForm()" class="btn btn-primary w-100 mt-3">
-                        <span class="indicator-label">
-                            Kaydet
-                        </span>
+                <span class="indicator-label">
+                    Kaydet
+                </span>
             </button>
+            @endcan
             <!--end::Button-->
         </div>
     <!--end::Form-->

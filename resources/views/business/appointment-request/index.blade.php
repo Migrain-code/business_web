@@ -1,5 +1,5 @@
 @extends('business.layouts.master')
-@section('title', 'Talep Formlarınız')
+@section('title', 'Randevu Talepleri')
 @section('styles')
 
 @endsection
@@ -14,7 +14,7 @@
     <!--end::Item-->
     <!--begin::Item-->
     <li class="breadcrumb-item text-gray-600 fw-bold lh-1">
-        <a href="{{route('business.appointment-request.index')}}"> Talep Formlarınız </a>
+        <a href="{{route('business.appointment-request.index')}}"> Randevu Talepleri </a>
     </li>
     <!--end::Item-->
 @endsection
@@ -33,7 +33,7 @@
                                 class="path1"></span><span class="path2"></span></i> <input
                             type="text" data-kt-customer-table-filter="search"
                             class="form-control form-control-solid w-250px ps-13"
-                            placeholder="Formlarda Ara">
+                            placeholder="Taleplerde Ara">
                     </div>
                     <!--end::Search-->
                 </div>

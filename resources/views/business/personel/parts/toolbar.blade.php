@@ -16,12 +16,12 @@
             <!--end::Select2-->
         </div>
         <!--end::Filter-->
-
+        @can('personel.create')
         <!--begin::Add customer-->
         <a href="{{route('business.personel.create')}}" class="btn btn-primary me-1">
             Yeni Personel
         </a>
-
+        @endcan
         <!--begin::Export-->
         <!--begin::Export dropdown-->
         <button type="button" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
@@ -76,11 +76,14 @@
                                                 <span class="me-2"
                                                       data-kt-customer-table-select="selected_count"></span> Seçildi
         </div>
-
+        @can('personel.delete')
         <button type="button" class="btn btn-danger"
                 data-kt-customer-table-select="delete_selected">
             Personelleri Sil
         </button>
+        @endcan
     </div>
-    <!--end::Group actions-->        </div>
+    <!--end::Group actions-->
+
+</div>
 <!--end::Card toolbar-->

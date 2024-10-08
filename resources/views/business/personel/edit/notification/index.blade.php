@@ -58,11 +58,13 @@
                     </h3>
                     <div class="card-toolbar">
                         <ul class="nav" role="tablist">
+                            @can('personel.add.notification')
                             <li class="nav-item" id="printButton">
                                 <a href="javascript:void(0)" class="btn btn-sm btn-color-muted btn-active btn-active-light-success fw-bold px-4 active me-2" id="sendNotify" data-bs-toggle="modal" title="Bildirim Gönder" data-bs-target="#kt_modal_add_notification">
                                     <i class="fa fa-plus me-2"></i> Bildirim Gönder
                                 </a>
                             </li>
+                            @endcan
                             <li class="nav-item" id="printButton">
                                 <a href="javascript:void(0)" onclick="printCase()" class="btn btn-sm btn-color-muted btn-active btn-active-light-success fw-bold px-4 active me-2" data-bs-toggle="tooltip" title="Geçerli Sekmeyi Yazdır">
                                     <i class="fa fa-print"></i>

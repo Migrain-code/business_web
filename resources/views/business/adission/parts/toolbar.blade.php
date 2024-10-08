@@ -17,12 +17,12 @@
             <!--end::Select2-->
         </div>
         <!--end::Filter-->
-
+        @can('adission.create')
         <!--begin::Add customer-->
         <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#kt_modal_add_appointment" id="btnAppointment" class="btn btn-primary me-1">
             Adisyon Oluştur
         </a>
-
+        @endcan
         <!--begin::Export-->
         <!--begin::Export dropdown-->
         <button type="button" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">

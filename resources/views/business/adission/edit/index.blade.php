@@ -36,28 +36,6 @@
                 <!--end::Button-->
                 <div class="d-flex gap-3">
                     <!--begin::Button-->
-                    {{--
-                     <a href="{{route('business.adission.index')}}"
-                   class="btn btn-icon btn-light btn-active-secondary btn-sm ms-auto me-lg-n7">
-                    <i class="ki-duotone ki-left fs-2"></i> </a>
-                         <button data-bs-toggle="modal" onclick="fetchProductCreateInfos()"
-                            data-bs-target="#adission_add_product_sale_modal" class="btn btn-light-warning btn-sm">Ürün
-                        Satışı Ekle
-                    </button>
-                    <!--end::Button-->
-                    <!--begin::Button-->
-                    <button data-bs-toggle="modal" data-bs-target="#kt_modal_add_service"
-                            class="btn btn-light-primary btn-sm">Hizmet Ekle
-                    </button>
-                     --}}
-                    <!--end::Button-->
-                    {{--
-                        <button type="button" data-bs-toggle="modal" onclick="createCollection()"
-                            data-bs-target="#kt_modal_add_payment" style="padding: 10px 20px !important;" class="btn btn-light-info me-2  btn-sm">
-                        <i class="ki-duotone ki-exit-up fs-2"><span class="path1"></span><span class="path2"></span></i>
-                        Tahsilat Ekle
-                    </button>
-                    --}}
                 </div>
             </div>
 
@@ -71,20 +49,29 @@
                     @include('business.adission.edit.parts.tab-2')
                 </div>
                 <div class="col-5">
+
                     @include('business.adission.edit.parts.tab-4')
+                    @can('adission.addCashPoint')
+                     @include('business.adission.edit.parts.cash-point')
+                    @endcan
                 </div>
-
-
 
             </div>
             <!--end::Tab content-->
         </div>
         <!--end::Order details page-->
     </div>
-    @include('business.adission.edit.modals.add-service')
+
+    @can('adission.add.service')
+     @include('business.adission.edit.modals.add-service')
+    @endcan
+    @can('adission.add.productSale')
     @include('business.adission.edit.modals.add-sale')
+    @endcan
     @include('business.adission.edit.modals.add-cash-point')
-    @include('business.adission.edit.modals.add-collection')
+    @can('adission.addPayment')
+        @include('business.adission.edit.modals.add-collection')
+    @endcan
     @include('business.adission.edit.modals.add-receivable')
 
 @endsection

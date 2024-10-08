@@ -18,6 +18,7 @@ class CustomerGalleryController extends Controller
     private $business;
     public function __construct()
     {
+        $this->middleware('permission:business.customerGallery.list');
         $this->middleware(function ($request, $next) {
             $this->business = auth()->user()->business;
             return $next($request);

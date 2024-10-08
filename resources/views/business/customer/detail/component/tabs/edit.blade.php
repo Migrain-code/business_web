@@ -2,6 +2,7 @@
 <div class="tab-pane fade" id="kt_ecommerce_customer_general" role="tabpanel">
     <!--begin::Card-->
     <div class="card pt-4 mb-6 mb-xl-9">
+        @can('customer.info.show')
         <!--begin::Card header-->
         <div class="card-header border-0">
             <!--begin::Card title-->
@@ -210,6 +211,11 @@
             <!--end::Form-->
         </div>
         <!--end::Card body-->
+        @else
+            <div class="card-body">
+                <x-forbidden-component title="Yetkisiz Erişim" message="Müşteri Bilgilerini Görüntülemek için yetkiniz bulunmamaktadır"></x-forbidden-component>
+            </div>
+        @endcan
     </div>
     <!--end::Card-->
 

@@ -37,8 +37,8 @@ class PersonelController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['permission:case.view'])->only(['case']);
-        $this->middleware(['permission:cost.view'])->only(['payments']);
+        $this->middleware(['permission:personel.list'])->only(['index']);
+        $this->middleware(['permission:personel.show'])->only(['edit']);
 
         $this->middleware(function ($request, $next) {
             $this->business = auth('official')->user()->business;
@@ -622,8 +622,9 @@ class PersonelController extends Controller
             ->addColumn('action', function ($q) {
                 $html = "";
                 $html .= create_edit_button(route('business.personel.edit', $q->id));
-                $html .= create_delete_button('Personel', $q->id, 'Personel', 'Personel Kaydını Silmek İstediğinize Eminmisiniz? Personelin sadece kişisel kayıtları silinecektir.', 'false', '/isletme/ajax/delete/object', false);
-
+                if(authUser()->hasPermissionTo('personel.delete')){
+                    $html .= create_delete_button('Personel', $q->id, 'Personel', 'Personel Kaydını Silmek İstediğinize Eminmisiniz? Personelin sadece kişisel kayıtları silinecektir.', 'false', '/isletme/ajax/delete/object', false);
+                }
                 return $html;
             })
             ->rawColumns(['id', 'action', 'name'])

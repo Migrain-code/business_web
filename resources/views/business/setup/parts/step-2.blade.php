@@ -15,64 +15,6 @@
             <!--end::Notice-->
         </div>
         <!--end::Heading-->
-
-        <!--begin::Input group-->
-        <div class="mb-10 fv-row">
-            <!--begin::Label-->
-            <label class="d-flex align-items-center form-label mb-3">
-               Personel Sayınız
-
-                <span class="ms-1" data-bs-toggle="tooltip" title="Seçtiğiniz personel saysına göre size paket önerisinde bulunabiliriz">
-	                    <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                            <span class="path3"></span>
-                        </i>
-                </span>
-            </label>
-            <!--end::Label-->
-
-            <!--begin::Row-->
-            <div class="row mb-2" data-kt-buttons="true">
-                <!--begin::Col-->
-                <div class="col">
-                    <!--begin::Option-->
-                    <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4">
-                        <input type="radio" class="btn-check" name="team_size" @checked($business->personal_count == "1-1") value="1-1">
-                        <span class="fw-bold fs-3">1-1</span>
-                    </label>
-                    <!--end::Option-->
-                </div>
-                <!--end::Col-->
-
-                <!--begin::Col-->
-                <div class="col">
-                    <!--begin::Option-->
-                    <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4 active">
-                        <input type="radio" class="btn-check" name="team_size" @checked($business->personal_count == "2-10") value="2-10">
-                        <span class="fw-bold fs-3">2-10</span>
-                    </label>
-                    <!--end::Option-->
-                </div>
-                <!--end::Col-->
-
-                <!--begin::Col-->
-                <div class="col">
-                    <!--begin::Option-->
-                    <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4">
-                        <input type="radio" class="btn-check" name="team_size" @checked($business->personal_count == "10-50") value="10-50">
-                        <span class="fw-bold fs-3">10-50</span>
-                    </label>
-                    <!--end::Option-->
-                </div>
-                <!--end::Col-->
-
-            </div>
-            <!--end::Row-->
-
-        </div>
-        <!--end::Input group-->
-
         <!--begin::Input group-->
         <div class="fv-row row">
             <div class="col-12 col-lg-6 mb-10">
@@ -184,7 +126,7 @@
 
                 <!--begin::Input-->
                 <select name="close_day" class="form-select form-select-lg form-select-solid" data-control="select2"
-                        data-placeholder="Kapalı Güni Seçiniz..." data-allow-clear="true" data-hide-search="true">
+                        data-placeholder="Kapalı Günü Seçiniz..." data-allow-clear="true" data-hide-search="true">
                     <option></option>
                     @foreach($dayList as $day)
                         <option value="{{$day->id}}" @selected($day->id == $business->off_day)>{{$day->name}}</option>

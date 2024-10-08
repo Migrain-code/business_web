@@ -21,7 +21,7 @@
             text-align: center;
             padding: 20px 0;
             text-decoration: none;
-            color: #f22969;
+            color: #56467d;
             font-size: 16px;
             transition: all 0.3s ease-in-out;
             font-style: normal;
@@ -100,7 +100,7 @@
 
                         </div>
                         <div class="d-flex justify-content-center mt-0 mb-3 py-2">
-                            Yıllık Ödemelerde <span style="font-weight: bold; margin-left: 5px;color: #f22969"> %20 Kazanın</span>
+                            Yıllık Ödemelerde <span style="font-weight: bold; margin-left: 5px;color: #56467d"> %20 Kazanın</span>
 
                         </div>
                     </div>

@@ -531,7 +531,7 @@ header .logo img {
 }
 
 .sss-page .sss-categories .categories-hero {
-  color: #f22969;
+  color: #56467d;
   font-size: 20px;
   font-weight: 500;
   margin-bottom: 20px;
@@ -559,7 +559,7 @@ header .logo img {
 }
 
 .sss-page .sss-categories ul li:hover {
-  background-color: #f22969;
+  background-color: #56467d;
   color: #fff;
 }
 
@@ -744,7 +744,7 @@ header .logo img {
 }
 
 .contact-page .contact-form .form .field button {
-  background-color: #f22969;
+  background-color: #56467d;
   padding: 20px 80px;
   color: #fff;
   font-family: Euclid Circular A;
@@ -772,7 +772,7 @@ header .logo img {
 }
 
 .sss-page .sss-categories ul li.tab.active {
-  background: #f22969;
+  background: #56467d;
   color: #fff;
 }
 

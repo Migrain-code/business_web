@@ -18,6 +18,8 @@ class BusinessSettingController extends Controller
 
     public function __construct()
     {
+        $this->middleware('permission:businessSettings.list')->only('index');
+        $this->middleware('permission:businessSettings.update')->only('updateInfo');
         $this->middleware(function ($request, $next) {
             $this->business = auth()->user()->business;
             return $next($request);

@@ -18,11 +18,24 @@ function setting($key)
     return config('settings.' . $key);
 }
 function maskPhone($phone){
-    if (strlen($phone) > 10){
-        $maskedPhone = substr_replace(clearPhone($phone), str_repeat('*', strlen($phone) - 2), 0, -2);
+    // Telefon numarasının başındaki 0'ı kaldır
+    $phone = ltrim($phone, '0');
+
+    // Düzenlenen numaranın uzunluğunu kontrol edin (başındaki 0 kaldırıldıktan sonra 9 hane kalacak)
+    if (strlen($phone) == 10){
+        // Son 3 haneyi görünür olacak şekilde maskeyle
+        $maskedPhone = substr_replace($phone, str_repeat('*', 7), 0, 7);
         return $maskedPhone;
     }
     return $phone;
+}
+function clearNumber($phone){
+    $phone = ltrim($phone, '0');
+    return str_replace([' ', '(', ')', '-', '_'], '', $phone);
+}
+function formatPhone($phone)
+{
+    return preg_replace('~.*(\d{3})[^\d]{0,7}(\d{3})[^\d]{0,7}(\d{4}).*~', '($1) $2-$3', clearNumber($phone));
 }
 function authUser()
 {
@@ -59,13 +72,7 @@ function clearPhone($phoneNumber)
 
 
 }
-function clearNumber($number){
-    return str_replace([' ', '(', ')', '-', '_'], '', $number);
-}
-function formatPhone($phone)
-{
-    return preg_replace('~.*(\d{3})[^\d]{0,7}(\d{3})[^\d]{0,7}(\d{4}).*~', '($1) $2-$3', $phone);
-}
+
 
 function createCheckbox($id, $model, $title, $additional_class = null, $isDelete = true)
 {

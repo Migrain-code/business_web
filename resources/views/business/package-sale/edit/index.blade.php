@@ -32,8 +32,9 @@
 
 @section('content')
     <div id="kt_app_content" class="app-content ">
-        @include('business.package-sale.edit.columns.carts')
-
+        @can('packageSale.summary.show')
+         @include('business.package-sale.edit.columns.carts')
+        @endcan
         <!--begin::Form-->
         <form id="kt_ecommerce_edit_order_form" class="form d-flex flex-column flex-lg-row" data-kt-redirect="{{route('business.sale.index')}}">
             @include('business.package-sale.edit.columns.col-1')

@@ -8,9 +8,11 @@ use App\Http\Requests\BusinessOfficial\BusinessOfficialPasswordUpdateRequest;
 use App\Http\Requests\BusinessOfficial\BusinessOfficialUpdateRequest;
 use App\Models\Business;
 use App\Models\BusinessOfficial;
+use App\Models\PermissionGroup;
 use App\Services\UploadFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 use Yajra\DataTables\DataTables;
 
 /**
@@ -24,7 +26,8 @@ class BusinessOfficialController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['permission:official.view']);
+        $this->middleware(['permission:official.list'])->only('index');
+        $this->middleware(['permission:official.update'])->only('edit');
         $this->middleware(function ($request, $next) {
             $this->user = auth()->user();
             $this->business = $this->user->business;
@@ -89,11 +92,35 @@ class BusinessOfficialController extends Controller
      */
     public function edit(BusinessOfficial $businessOfficial)
     {
+        $business = $this->business;
         $official = $businessOfficial;
-        $branches = Business::where("company_id", $this->business->company_id)->get();
-        return view('business.official.detail.show', compact('official', 'branches'));
-    }
+        $admin = BusinessOfficial::whereBusinessId($business->id)->whereIsAdmin(true)->first();
 
+        $branches = Business::where("company_id", $this->business->company_id)->get();
+        $permissionGroups = PermissionGroup::all();
+        if ($official->id == auth()->user()->id) {
+            return to_route('business.official.setting');
+        }
+        return view('business.official.detail.show', compact('official', 'branches', 'permissionGroups', 'admin'));
+    }
+    public function updatePermission(Request $request, BusinessOfficial $official)
+    {
+        $directPermissions = $official->getDirectPermissions(); // Kullanıcının doğrudan izinlerini alın
+        foreach ($directPermissions as $permission){
+            $official->revokePermissionTo($permission);
+        }
+        if (isset($request->permissions) && count($request->permissions)){
+            foreach ($request->permissions as $permissionId){
+                $permission = Permission::find($permissionId);
+                $official->givePermissionTo($permission);
+            }
+        }
+
+        return back()->with('response', [
+            'status' => "success",
+            'message' => "Yetkiler Güncellendi"
+        ]);
+    }
     /**
      * Yetkili Güncelle
      *
@@ -198,7 +225,7 @@ class BusinessOfficialController extends Controller
                 return createCheckbox($q->id, 'BusinessOfficial', 'Seçtiğiniz yetlili ile ilgili tüm kayıtlar silinecektir. Bu işlem geri alınamayacaktır. Yetkilileri');
             })
             ->editColumn('business', function ($q) {
-                return $q->business->branh_name ?? $q->business->name;
+                return isset($q->business) ? ($q->business->branh_name ?? $q->business->name) : "Şubeye Atanmadı";
             })
             ->editColumn('status', function ($q) {
                 return create_switch($q->id, $q->status == 1 ? true : false, 'BusinessOfficial', 'status');
@@ -212,7 +239,9 @@ class BusinessOfficialController extends Controller
             ->addColumn('action', function ($q) {
                 $html = "";
                 $html .= create_edit_button(route('business.business-official.edit', $q->id));
-                $html .= create_delete_button('BusinessOfficial', $q->id, 'Yetkili', 'Yekili Kaydını Silmek İstediğinize Eminmisiniz? Kayıt Sadece İşletmenizden Silinecektir', 'false');
+                if (authUser()->hasPermissionTo('official.delete')){
+                    $html .= create_delete_button('BusinessOfficial', $q->id, 'Yetkili', 'Yekili Kaydını Silmek İstediğinize Eminmisiniz? Kayıt Sadece İşletmenizden Silinecektir', 'false');
+                }
 
                 return $html;
             })

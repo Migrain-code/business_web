@@ -11,11 +11,12 @@
                     <h2>Hizmetler</h2>
                 </div>
                 <div class="d-flex gap-2">
+                    @can('adission.add.service')
                     <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_service">
                         <i class="fa fa-plus-circle"></i>
                         Hizmet Ekle
                     </a>
-
+                    @endcan
                     <a href="{{route('business.adission.printAdission', $appointment->id)}}" target="_blank" class="btn btn-warning">
                         <i class="fa fa-print"></i>
                         Yazdır
@@ -28,7 +29,7 @@
 
             <!--begin::Card body-->
             <div class="card-body pt-0">
-                <form class="table-responsive" method="post" id="sendForm" action="{{route('business.appointment.service.save', $appointment->id)}}">
+                <form class="table-responsive" method="post" @if(authUser()->hasPermissionTo('adission.update.servicePrice'))  id="sendForm" action="{{route('business.appointment.service.save', $appointment->id)}}" @endif>
                     @csrf
                     @php
                         $calculateTotal = true;
@@ -42,7 +43,9 @@
                             <th class="min-w-100px text-end">Hizmet</th>
                             <th class="min-w-70px text-end">Süre</th>
                             <th class="min-w-100px text-end">Hizmet Fiyatı</th>
-                            <th class="min-w-100px text-end">İşlemler</th>
+                            @can('adission.add.service')
+                                <th class="min-w-100px text-end">İşlemler</th>
+                            @endcan
                         </tr>
                         </thead>
                         <tbody class="fw-semibold ">
@@ -87,27 +90,31 @@
                                        <input type="number" class="form-control form-control-solid" value="{{$service->servicePrice()}}" placeholder="Net Fiyatını Giriniz" style="max-width: 150px" name="prices[{{$service->id}}]">
                                    </td>
                                 @endif
+                                @can('adission.add.service')
                                 <td class="text-end">
                                     {{create_delete_button('AppointmentServices', $service->id,
                                         'Hizmeti', 'Hizmeti Silmek İstediğinize Emin misiniz?',"true",
                                         route('business.appointment.service.destroy', $service->id)), "true"
                                         }}
                                 </td>
+                                @endcan
                             </tr>
                         @endforeach
 
                         </tbody>
                     </table>
                     <!--end::Table-->
-                    @if(!$calculateTotal)
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-success">Net Fiyatları Kaydet</button>
-                        </div>
-                    @else
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-success">Fiyatları Güncelle</button>
-                        </div>
-                    @endif
+                    @can('adission.update.servicePrice')
+                        @if(!$calculateTotal)
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-success">Net Fiyatları Kaydet</button>
+                            </div>
+                        @else
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-success">Fiyatları Güncelle</button>
+                            </div>
+                        @endif
+                    @endcan
                 </form>
             </div>
             <!--end::Card body-->

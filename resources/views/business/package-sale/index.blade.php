@@ -32,7 +32,7 @@
                                 class="path1"></span><span class="path2"></span></i> <input
                             type="text" data-kt-sale-table-filter="search"
                             class="form-control form-control-solid w-250px ps-13"
-                            placeholder="Ürün Satışlarında Ara">
+                            placeholder="Paket Satışlarında Ara">
                     </div>
                     <!--end::Search-->
                 </div>
@@ -66,8 +66,10 @@
                 <!--end::Table-->    </div>
             <!--end::Card body-->
         </div>
+        @can('packageSale.create')
         <!--end::Card-->
-        @include('business.package-sale.parts.add-package')
+            @include('business.package-sale.parts.add-package')
+        @endcan
     </div>
 @endsection
 @section('scripts')

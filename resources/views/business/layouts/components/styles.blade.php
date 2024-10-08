@@ -125,8 +125,8 @@
     }
     .btn.btn-warning {
         color: var(--kt-warning-inverse);
-        border-color: #F22969 !important;
-        background-color: #F22969 !important;
+        border-color: #56467d !important;
+        background-color: #56467d !important;
     }
     .btn-check:checked + .btn.btn-primary, .btn-check:active + .btn.btn-primary, .btn.btn-primary:focus:not(.btn-active), .btn.btn-primary:hover:not(.btn-active), .btn.btn-primary:active:not(.btn-active), .btn.btn-primary.active, .btn.btn-primary.show, .show > .btn.btn-primary {
         color: var(--kt-primary-inverse);
@@ -135,8 +135,8 @@
     }
     .btn-check:checked + .btn.btn-warning, .btn-check:active + .btn.btn-warning, .btn.btn-warning:focus:not(.btn-active), .btn.btn-warning:hover:not(.btn-active), .btn.btn-warning:active:not(.btn-active), .btn.btn-warning.active, .btn.btn-warning.show, .show > .btn.btn-warning {
         color: var(--kt-warning-inverse);
-        border-color: #F22969 !important;
-        background-color: #F22969 !important;
+        border-color: #56467d !important;
+        background-color: #56467d !important;
     }
 
     .btn.btn-light-primary {
@@ -154,13 +154,13 @@
     }
     .btn.btn-light-warning {
         color: var(--kt-warning-inverse);
-        border-color: #F22969 !important;
-        background-color: #F22969 !important;
+        border-color: #56467d !important;
+        background-color: #56467d !important;
     }
     .btn-check:checked + .btn.btn-light-warning, .btn-check:active + .btn.btn-light-warning, .btn.btn-light-warning:focus:not(.btn-active), .btn.btn-light-warning:hover:not(.btn-active), .btn.btn-light-warning:active:not(.btn-active), .btn.btn-light-warning.active, .btn.btn-light-warning.show, .show > .btn.btn-light-warning {
         color: var(--kt-warning-inverse);
-        border-color: #F22969 !important;
-        background-color: #F22969 !important;
+        border-color: #56467d !important;
+        background-color: #56467d !important;
     }
     .btn-check:checked + .btn.btn-active-primary, .btn-check:active + .btn.btn-active-primary, .btn.btn-active-primary:focus:not(.btn-active), .btn.btn-active-primary:hover:not(.btn-active), .btn.btn-active-primary:active:not(.btn-active), .btn.btn-active-primary.active, .btn.btn-active-primary.show, .show > .btn.btn-active-primary {
         color: var(--kt-primary-inverse);

@@ -1,3 +1,4 @@
+@include('business.layouts.components.context-menu')
 </div>
 </div>
 </div>

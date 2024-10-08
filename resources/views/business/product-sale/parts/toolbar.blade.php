@@ -21,12 +21,12 @@
             <!--end::Select2-->
         </div>
         <!--end::Filter-->
-
+        @can('productSale.create')
         <!--begin::Add customer-->
         <a href="{{route('business.sale.create')}}" type="button" class="btn btn-primary me-1" >
             Yeni Ürün Satışı
         </a>
-
+        @endcan
         <!--begin::Export-->
         <!--begin::Export dropdown-->
         <button type="button" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">

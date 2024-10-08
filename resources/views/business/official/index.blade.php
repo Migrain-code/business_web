@@ -70,11 +70,9 @@
             <!--end::Card body-->
         </div>
         <!--end::Card-->
-
-        <!--begin::Modals-->
-        <!--begin::Modal - Customers - Add-->
-        @include('business.official.parts.add-customer')
-
+        @can('official.create')
+            @include('business.official.parts.add-customer')
+        @endcan
     </div>
 
 @endsection

@@ -22,7 +22,9 @@ class ProductController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['permission:product.view']);
+        $this->middleware(['permission:product.list'])->only('index');
+        $this->middleware(['permission:product.edit'])->only('edit');
+        //$this->middleware(['permission:product.update'])->only('update');
 
         $this->middleware(function ($request, $next) {
             $this->business = auth('official')->user()->business;
@@ -209,7 +211,9 @@ class ProductController extends Controller
             ->addColumn('action', function ($q) {
                 $html = "";
                 $html .= create_edit_button(route('business.product.edit', $q->id));
-                $html .= create_delete_button('Product', $q->id, 'Ürünü', 'Ürün Kaydını Silmek İstediğinize Eminmisiniz?');
+                if (authUser()->hasPermissionTo('product.delete')){
+                    $html .= create_delete_button('Product', $q->id, 'Ürünü', 'Ürün Kaydını Silmek İstediğinize Eminmisiniz?');
+                }
 
                 return $html;
             })

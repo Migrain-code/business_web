@@ -16,6 +16,7 @@
             <div class="card-header border-0">
                 <!--begin::Card title-->
                 <div class="card-title">
+                    @can('business.gallery.list')
                     <div class="d-flex align-items-center flex-column mt-3 w-300px">
                         <div class="d-flex justify-content-between fw-bold fs-6 opacity-75 w-100 mt-auto mb-2">
                             <span>{{$galleries->count()}} Görsel Yüklendi {{number_format($usedMegabytes, 2). " mb."}}</span>
@@ -26,9 +27,11 @@
                             <div class="bg-danger rounded h-8px" role="progressbar" style="width: {{$percentageUsed}}%;" aria-valuenow="{{$percentageUsed}}" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
+                    @endcan
                 </div>
                 <!--end::Card title-->
                 <div class="card-toolbar d-flex">
+                    @can('business.gallery.create')
                     <a href="#" class="btn btn-sm btn-flex btn-light-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_gallery">
                         <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
                         <span class="svg-icon svg-icon-3">
@@ -41,37 +44,46 @@
                         <!--end::Svg Icon-->
                         Yeni Görsel
                     </a>
+                    @endcan
 
                 </div>
             </div>
             <div class="card-body">
-                <div class="row">
-                    @forelse($galleries as $gallery)
-                        <!--begin::item-->
-                        <a class="d-block overlay col-lg-3 col-12 mb-5" href="javascript:void(0)">
-                            <!--begin::Image-->
-                            <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded h-300px object-fit-cover"
-                                 style="background-image:url('{{image($gallery->way)}}')">
-                            </div>
-                            <!--end::Image-->
+               @can('business.gallery.list')
+                    <div class="row">
+                        @forelse($galleries as $gallery)
+                            <!--begin::item-->
+                            <a class="d-block overlay col-lg-3 col-12 mb-5" href="javascript:void(0)">
+                                <!--begin::Image-->
+                                <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded h-300px object-fit-cover"
+                                     style="background-image:url('{{image($gallery->way)}}')">
+                                </div>
+                                <!--end::Image-->
 
-                            <!--begin::Action-->
-                            <div class="overlay-layer card-rounded bg-dark bg-opacity-25 shadow">
-                                <i class="bi bi-eye-fill text-white fs-3x"></i>
-                            </div>
-                            <!--end::Action-->
-                            <button class="btn btn-danger position-absolute w-50px h-50px delete-gallery" data-id="{{$gallery->id}}" style="top: 10px;right: 20px"><i class="fa fa-trash"></i></button>
-
-                        </a>
-                        <!--end::item-->
-                    @empty
-                        @include('business.layouts.components.alerts.empty-alert')
-                    @endforelse
-                </div>
+                                <!--begin::Action-->
+                                <div class="overlay-layer card-rounded bg-dark bg-opacity-25 shadow">
+                                    <i class="bi bi-eye-fill text-white fs-3x"></i>
+                                </div>
+                                @can('business.gallery.delete')
+                                <!--end::Action-->
+                                <button class="btn btn-danger position-absolute w-50px h-50px delete-gallery" data-id="{{$gallery->id}}" style="top: 10px;right: 20px"><i class="fa fa-trash"></i></button>
+                                @endcan
+                            </a>
+                            <!--end::item-->
+                        @empty
+                            @include('business.layouts.components.alerts.empty-alert')
+                        @endforelse
+                    </div>
+                @else
+                    <div class="card-body">
+                        <x-forbidden-component title="Yetkisiz Erişim" message="İşletme Galerisini Görüntülemek için yetkiniz bulunmamaktadır"></x-forbidden-component>
+                    </div>
+               @endcan
             </div>
         </div>
+        @can('business.gallery.create')
         @include('business.gallery.modals.add-photo')
-
+        @endcan
 
     </div>
 @endsection

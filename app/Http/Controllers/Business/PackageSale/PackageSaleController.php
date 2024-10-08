@@ -26,7 +26,9 @@ class PackageSaleController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['permission:packageSale.view']);
+        $this->middleware(['permission:packageSale.list'])->only('index');
+        $this->middleware(['permission:packageSale.show'])->only('edit');
+        $this->middleware(['permission:packageSale.update'])->only('update');
         $this->middleware(function ($request, $next) {
             $this->business = auth('official')->user()->business;
             return $next($request);
@@ -154,8 +156,9 @@ class PackageSaleController extends Controller
             ->addColumn('action', function ($q) {
                 $html = "";
                 $html .= create_edit_button(route('business.package-sale.edit', $q->id));
-                $html .= create_delete_button('PackageSale', $q->id, 'Paket Satışı', 'Paket Satışı Kaydınız Silmek İstediğinize Eminmisiniz? Bu paketle ilgili tüm tahsilat ve kullanım kayıtları silinecektir');
-
+                if (authUser()->hasPermissionTo('packageSale.delete')){
+                    $html .= create_delete_button('PackageSale', $q->id, 'Paket Satışı', 'Paket Satışı Kaydınız Silmek İstediğinize Eminmisiniz? Bu paketle ilgili tüm tahsilat ve kullanım kayıtları silinecektir');
+                }
                 return $html;
             })
             ->rawColumns(['id', 'action', 'name'])

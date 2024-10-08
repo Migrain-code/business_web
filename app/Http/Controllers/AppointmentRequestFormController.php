@@ -17,6 +17,9 @@ class AppointmentRequestFormController extends Controller
 
     public function __construct()
     {
+        $this->middleware('permission:appointmentRequestForm.list')->only('index');
+        $this->middleware('permission:appointmentRequestForm.update')->only('edit');
+
         $this->middleware(function ($request, $next) {
             $this->business = auth('official')->user()->business;
             return $next($request);
@@ -173,7 +176,9 @@ class AppointmentRequestFormController extends Controller
             ->addColumn('action', function ($q) {
                 $html = "";
                 $html .= create_edit_button(route('business.request-form.edit', $q->id));
-                $html .= create_delete_button('AppointmentRequestForm', $q->id, 'Form', 'Form Kaydını Silmek İstediğinize Eminmisiniz? Kayıt Sadece İşletmenizden Silinecektir', 'false');
+                if (authUser()->hasPermissionTo('appointmentRequestForm.delete')){
+                    $html .= create_delete_button('AppointmentRequestForm', $q->id, 'Form', 'Form Kaydını Silmek İstediğinize Eminmisiniz? Kayıt Sadece İşletmenizden Silinecektir', 'false');
+                }
 
                 return $html;
             })

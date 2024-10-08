@@ -25,6 +25,9 @@ class ServiceController extends Controller
 
     public function __construct()
     {
+        $this->middleware('permission:service.list')->only('index');
+        $this->middleware('permission:service.show')->only('edit');
+        $this->middleware('permission:service.update')->only('update');
         $this->middleware(function ($request, $next) {
             $this->business = auth()->user()->business;
             return $next($request);
@@ -291,7 +294,9 @@ class ServiceController extends Controller
                 $html = '';
 
                 $html .= create_edit_button(route('business.service.edit', $q->id), 'text-white');
-                $html .= create_delete_button('BusinessService', $q->id, 'Hizmeti', 'Hizmeti Silmek istediğinize eminmisiniz?', 'false', '/isletme/service/' . $q->id, 'false');
+                if (authUser()->hasPermissionTo('service.delete')){
+                    $html .= create_delete_button('BusinessService', $q->id, 'Hizmeti', 'Hizmeti Silmek istediğinize eminmisiniz?', 'false', '/isletme/service/' . $q->id, 'false');
+                }
                 return $html;
             })
             ->rawColumns(['id', 'action'])

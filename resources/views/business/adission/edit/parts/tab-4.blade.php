@@ -7,13 +7,13 @@
             <h2 style="margin-bottom: 10px;margin-top: 5px;">Tahsilatlar</h2>
         </div>
         <div class="d-flex align-items-center">
-
+            @can('adission.addPayment')
             <button type="button" data-bs-toggle="modal" onclick="createCollection()"
                     data-bs-target="#kt_modal_add_payment" style="padding: 10px 20px !important;" class="btn btn-primary me-2">
                 <i class="ki-duotone ki-exit-up fs-2"><span class="path1"></span><span class="path2"></span></i>
                 Tahsilat Ekle
             </button>
-
+            @endcan
         </div>
     </div>
     <!--end::Card header-->
@@ -28,17 +28,20 @@
                     <td class="">Tarih</td>
                     <td>Ödeme Tipi</td>
                     <td class="">Tutar</td>
+                    @can('adission.adission.deletePayment')
                     <td class="">Sil</td>
+                    @endcan
                 </tr>
                 </thead>
                 <!--begin::Table body-->
                 <tbody class="fs-6 fw-semibold" id="paymentTable">
-                @foreach($appointment->payments as $payed)
+                @can('adission.payment.show')
+                    @foreach($appointment->payments as $payed)
                     <tr>
                         <td class="">{{$payed->created_at->format('d.m.Y')}}</td>
                         <td class="">{{$payed->type("name")}}</td>
                         <td class="">{{$payed->price}}₺</td>
-
+                        @can('adission.adission.deletePayment')
                         <td>
 
                             <a class="btn btn-clean btn-sm btn-icon btn-icon-danger btn-active-light-danger ms-auto delete-btn" href="#" data-toggle="popover"
@@ -58,8 +61,18 @@
                                 </i>
                             </a>
                         </td>
+                        @endcan
                     </tr>
                 @endforeach
+                @else
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            <div class="alert alert-warning text-dark">
+                                Tahsilat Görüntüleme Yetkiniz Bulunmamaktadır
+                            </div>
+                        </td>
+                    </tr>
+                @endcan
                 </tbody>
                 <!--end::Table body-->
             </table>
@@ -67,6 +80,7 @@
         </div>
         <!--end::Table wrapper-->
     </div>
+    @can('adission.payment.show')
     <div class="card-footer">
         <table class="table">
             <tr class="border-bottom border-dashed">
@@ -104,31 +118,9 @@
         </table>
 
     </div>
+    @endcan
     <!--end::Card body-->
 </div>
 <!--end::Row-->
 
-<div class="card pt-4 mb-6 mb-xl-9">
-    <!--begin::Card header-->
-    <div class="card-header border-0">
-        <!--begin::Card title-->
-        <div class="card-title">
-            <h2 class="fw-bold">Parapuan Yükle</h2>
-        </div>
-        <!--end::Card title-->
-    </div>
-    <!--end::Card header-->
 
-    <!--begin::Card body-->
-    <div class="card-body pt-0 d-flex flex-stack">
-        <div class="fw-bold fs-2 col-8">
-            <b id="remainingAmount"></b>
-            <span class="fw-bold fs-4">Yüklenecek Parapuan {{$appointment->earned_point}} TL</span>
-            <div class="fs-7 fw-normal">Eğer müşteriye bu adisyondan parapuan yüklenmesini istiyorsanız.</div>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-primary addCashPoint">Parapuan Yükle</button>
-        </div>
-    </div>
-    <!--end::Card body-->
-</div>

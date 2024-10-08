@@ -50,12 +50,14 @@
             </a>
         </div>
         <!--end::Menu item-->
+        @can('businessSettings.list')
         <!--begin::Menu item-->
         <div class="menu-item px-5">
             <a href="{{route('business.settings')}}" class="menu-link px-5">
                 İşletme Bilgileri
             </a>
         </div>
+        @endcan
         <!--end::Menu item-->
         <!--begin::Menu item-->
         <div class="menu-item px-5">
@@ -72,7 +74,7 @@
         </div>
         <!--end::Menu item-->
         @if(authUser()->is_admin == 1)
-            @can('branche.view')
+            @can('branche.list')
             <div class="menu-item px-5">
                 <a href="{{route('business.branche.index')}}" class="menu-link px-5">
                     <span class="menu-text">Şubeler</span>
@@ -84,7 +86,7 @@
             @endcan
         @endif
         <!--begin::Menu item-->
-
+        @if(authUser()->is_admin == 1)
         <!--begin::Menu item-->
         <div class="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
              data-kt-menu-placement="left-start" data-kt-menu-offset="-15px, 0">
@@ -119,7 +121,7 @@
             <!--end::Menu sub-->
         </div>
         <!--end::Menu item-->
-
+        @endif
         <!--begin::Menu item-->
         <div class="menu-item px-5">
             <a href="{{route('business.notification-permission.index')}}" class="menu-link px-5">
@@ -136,7 +138,7 @@
         {{--
             @include('business.layouts.menu.parts.language')
         --}}
-        
+
 
         <!--begin::Menu item-->
         <div class="menu-item px-5">

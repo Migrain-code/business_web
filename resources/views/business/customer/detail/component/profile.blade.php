@@ -15,7 +15,11 @@
                 <a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bold mb-1">{{$customer->name}}</a>
                 <!--end::Name-->
                 <!--begin::Email-->
-                <a href="tel:{{$customer->phone}}" class="fs-5 fw-semibold text-muted text-hover-primary mb-6">{{formatPhone($customer->phone)}}</a>
+                @if (authUser()->hasPermissionTo('customer.phone.show'))
+                    <a href="tel:{{$customer->phone}}" class="fs-5 fw-semibold text-muted text-hover-primary mb-6">{{createPhone($customer->phone, formatPhone($customer->phone))}}</a>
+                @else
+                    {{maskPhone($customer->phone)}}
+                @endif
                 <!--end::Email-->
             </div>
             <!--end::Summary-->

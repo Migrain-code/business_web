@@ -2,7 +2,21 @@
 <div class="tab-pane fade" id="kt_ecommerce_customer_policy" role="tabpanel">
     <!--begin::Card-->
     <div class="card pt-4 mb-6 mb-xl-9 border-0">
+        @can('packageSale.terms.list')
+        <div class="card-header border-0">
+            <!--begin::Card title-->
+            <div class="card-title" style="display: block;">
+                <h2 style="margin-bottom: 10px;margin-top: 5px;">Paket Sözleşmeleri</h2>
+            </div>
+            <div class="d-flex align-items-center">
+                <button type="button" data-bs-toggle="modal"
+                        data-bs-target="#kt_modal_add_policy" style="padding: 10px 20px !important;" class="btn btn-light-primary me-2">
+                    <i class="ki-duotone ki-exit-up fs-2"><span class="path1"></span><span class="path2"></span></i>
+                    Sözleşme Ekle
+                </button>
 
+            </div>
+        </div>
         <div class="card-body pt-0 pb-5">
             <!--begin::Table wrapper-->
             @forelse($packageSale->policies as $policy)
@@ -79,6 +93,11 @@
             @endforelse
 
         </div>
+        @else
+            <div class="card-body">
+                <x-forbidden-component title="Yetkisiz Erişim" message="Pakete Sözleşme Eklemek, Listelemek ve silmek için yetkiniz bulunmamaktadır"></x-forbidden-component>
+            </div>
+        @endcan
         <!--end::Card body-->
     </div>
 </div>

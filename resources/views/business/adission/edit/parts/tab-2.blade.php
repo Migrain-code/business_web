@@ -6,7 +6,9 @@
                 <div class="card-title">
                     <h2>Ürün Satış Listesi</h2>
                 </div>
+                @can('adission.add.productSale')
                 <button type="button" class="btn btn-light-primary" onclick="fetchProductCreateInfos()" data-bs-toggle="modal" data-bs-target="#adission_add_product_sale_modal"><i class="fa fa-plus-circle me-2"></i> Yeni Ürün Satışı</button>
+                @endcan
             </div>
             <!--end::Card header-->
 

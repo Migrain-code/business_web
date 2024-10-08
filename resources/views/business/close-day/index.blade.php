@@ -55,9 +55,11 @@
                         </th>
                         <th class="min-w-125px">Başlangıç Tarihi</th>
                         <th class="min-w-125px">Bitiş Tarihi</th>
-                        <th class="min-w-125px">İşlem Tarihi</th>
                         <th class="min-w-125px">Durum</th>
+                        <th class="min-w-125px">İşlem Tarihi</th>
+                        @can('closeDay.delete')
                         <th class="min-w-70px">İşlemler</th>
+                        @endcan
                     </tr>
                     </thead>
                     <tbody class="fw-semibold text-gray-600">
@@ -69,10 +71,9 @@
             <!--end::Card body-->
         </div>
         <!--end::Card-->
-
-        <!--begin::Modals-->
-        <!--begin::Modal - Customers - Add-->
-        @include('business.close-day.parts.add-customer')
+        @can('closeDay.create')
+            @include('business.close-day.parts.add-customer')
+        @endcan
 
     </div>
 
@@ -90,7 +91,9 @@
             {data: 'end_time'},
             {data: 'status'},
             {data: 'created_at'},
+            @can('closeDay.delete')
             {data: 'action'}
+            @endcan
         ];
     </script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/tr.js"></script>

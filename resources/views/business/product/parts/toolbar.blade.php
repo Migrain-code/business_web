@@ -30,13 +30,12 @@
         </div>
 
         <!--end::Filter-->
-
-        <!--begin::Add customer-->
-        <a href="#" type="button" class="btn btn-primary me-1" data-bs-toggle="modal"
-           data-bs-target="#kt_modal_add_customer">
-            Ürün Ekle
-        </a>
-
+        @can('product.create')
+            <a href="#" type="button" class="btn btn-primary me-1" data-bs-toggle="modal"
+               data-bs-target="#kt_modal_add_customer">
+                Ürün Ekle
+            </a>
+        @endcan
         <!--begin::Export-->
         <!--begin::Export dropdown-->
         <button type="button" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">

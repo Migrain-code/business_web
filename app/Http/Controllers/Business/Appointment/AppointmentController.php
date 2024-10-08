@@ -21,10 +21,13 @@ class AppointmentController extends Controller
 {
     private $business;
 
-    /*$this->middleware(['permission:appointment.list'])->only('index');
-        $this->middleware(['permission:appointment.show'])->only('show');*/
+
     public function __construct()
     {
+        $this->middleware(['permission:appointment.list'])->only('index');
+        $this->middleware(['permission:appointment.show'])->only('show');
+        $this->middleware(['permission:appointment.calendar.show'])->only('calendar');
+
         $this->middleware(function ($request, $next) {
             $this->business = auth()->user()->business;
             return $next($request);
@@ -43,6 +46,7 @@ class AppointmentController extends Controller
      */
     public function index(Request $request)
     {
+
         $user = $request->user();
         $business = $user->business;
         //$reqDate = Carbon::parse($request->date)->format('Y-m-d');
@@ -95,8 +99,8 @@ class AppointmentController extends Controller
         //Randevudaki personeller listeye eklenecek
         $personels = $this->business->personels;
         $services = $this->business->services()->whereNotIn('id', $appointmentServiceIds)->get();
-        return to_route('business.adission.show', $appointment->id);
-        //return view('business.appointment.edit.index', compact('appointment', 'personels', 'services'));
+       // return to_route('business.adission.show', $appointment->id);
+        return view('business.appointment.edit.index', compact('appointment', 'personels', 'services'));
     }
 
     /**
@@ -217,7 +221,7 @@ class AppointmentController extends Controller
             })
 
             ->addColumn('action', function ($q) {
-                return create_show_button(route('business.adission.show', $q->id), 'text-white');
+                return create_show_button(route('business.appointment.show', $q->id), 'text-white');
             })
             ->rawColumns(['id', 'action', 'customerName', 'room_id', 'status'])
             ->make(true);

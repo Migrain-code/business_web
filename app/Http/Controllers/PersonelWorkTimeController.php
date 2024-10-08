@@ -13,6 +13,7 @@ class PersonelWorkTimeController extends Controller
 
     public function __construct()
     {
+        $this->middleware('permission:customWorkTime.list')->only('index');
         $this->middleware(function ($request, $next) {
             $this->business = auth()->user()->business;
             return $next($request);

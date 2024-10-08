@@ -3,10 +3,12 @@
     <!--begin::Toolbar-->
     <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
         <!--begin::Add customer-->
-        <button type="button" class="btn btn-primary me-1" data-bs-toggle="modal"
-                data-bs-target="#kt_modal_add_customer">
-            Özel Saat Ekle
-        </button>
+        @can('customWorkTime.create')
+            <button type="button" class="btn btn-primary me-1" data-bs-toggle="modal"
+                    data-bs-target="#kt_modal_add_customer">
+                Özel Saat Ekle
+            </button>
+        @endcan
 
         <!--begin::Export-->
         <!--begin::Export dropdown-->

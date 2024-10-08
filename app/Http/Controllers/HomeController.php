@@ -21,6 +21,7 @@ use App\Models\MaingPage;
 use App\Models\Page;
 use App\Models\Propartie;
 use App\Models\ServiceCategory;
+use App\Models\ServiceCut;
 use App\Models\Sponsor;
 use App\Services\SendMail;
 use Illuminate\Http\Request;

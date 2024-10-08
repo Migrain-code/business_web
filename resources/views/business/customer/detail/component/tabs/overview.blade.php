@@ -1,8 +1,8 @@
 <!--begin:::Tab pane-->
 <div class="tab-pane fade show active" id="kt_ecommerce_customer_overview" role="tabpanel">
     <div class="row row-cols-1 row-cols-md-2 mb-6 mb-xl-9">
-        @can('cashPoint.view')
-            <div class="col">
+
+        <div class="col">
                 <!--begin::Card-->
                 <div class="card pt-4 h-md-100 mb-6 mb-md-0" style=" background-color: #132c3d;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg'); background-size: cover">
                     <!--begin::Card header-->
@@ -36,7 +36,7 @@
                 </div>
                 <!--end::Card-->
             </div>
-        @endcan
+
         <div class="col">
             <!--begin::Reward Tier-->
             <a href="#" class="card hoverable h-md-100" style=" background-color: #484286;background-image:url('/business/assets/media/svg/shapes/wave-bg-purple.svg'); background-size: cover">
@@ -59,68 +59,74 @@
     </div>
     <!--begin::Card-->
     <div class="card pt-4 mb-6 mb-xl-9">
-        <!--begin::Card header-->
-        <div class="card-header border-0">
-            <!--begin::Card title-->
-            <div class="card-title">
-                <h2>Randevu Geçmişi</h2>
+        @can('customer.appointment.history')
+            <!--begin::Card header-->
+            <div class="card-header border-0">
+                <!--begin::Card title-->
+                <div class="card-title">
+                    <h2>Randevu Geçmişi</h2>
+                </div>
+                <!--end::Card title-->
             </div>
-            <!--end::Card title-->
-        </div>
-        <!--end::Card header-->
-        <!--begin::Card body-->
-        <div class="card-body pt-0 pb-5">
-            <!--begin::Table-->
-            <table class="table align-middle table-row-dashed gy-5" id="datatable_appointment">
-                <!--begin::Table head-->
-                <thead class="border-bottom border-gray-200 fs-7 fw-bold">
-                <!--begin::Table row-->
-                <tr class="text-start text-muted text-uppercase gs-0">
-                    <th class="min-w-100px">Rand No.</th>
-                    <th class="min-w-100px">İşletme</th>
-                    <th>Status</th>
-                    <th>Fiyat</th>
-                    <th class="min-w-100px">Tarih</th>
-                </tr>
-                <!--end::Table row-->
-                </thead>
-                <!--end::Table head-->
-                <!--begin::Table body-->
-                <tbody class="fs-6 fw-semibold text-gray-600">
-                    @forelse($customer->appointments as $appointment)
-                        <tr>
-                            <!--begin::order=-->
-                            <td>
-                                <a href="{{route('business.appointment.show', $appointment->id)}}" class="text-gray-600 text-hover-primary mb-1">#{{$appointment->id}}</a>
-                            </td>
-                            <!--end::order=-->
-                            <!--begin::Business=-->
-                            <td>
-                                <a href="#" class="text-gray-600 text-hover-primary mb-1">#{{$appointment->business->name}}</a>
-                            </td>
-                            <!--end::Business=-->
-                            <!--begin::Status=-->
-                            <td>
-                                {!! $appointment->status("html") !!}
-                            </td>
-                            <!--end::Status=-->
-                            <!--begin::Amount=-->
-                            <td>₺{{number_format(calculateTotal($appointment->services), 2)}}</td>
-                            <!--end::Amount=-->
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0 pb-5">
+                <!--begin::Table-->
+                <table class="table align-middle table-row-dashed gy-5" id="datatable_appointment">
+                    <!--begin::Table head-->
+                    <thead class="border-bottom border-gray-200 fs-7 fw-bold">
+                    <!--begin::Table row-->
+                    <tr class="text-start text-muted text-uppercase gs-0">
+                        <th class="min-w-100px">Rand No.</th>
+                        <th class="min-w-100px">İşletme</th>
+                        <th>Status</th>
+                        <th>Fiyat</th>
+                        <th class="min-w-100px">Tarih</th>
+                    </tr>
+                    <!--end::Table row-->
+                    </thead>
+                    <!--end::Table head-->
+                    <!--begin::Table body-->
+                    <tbody class="fs-6 fw-semibold text-gray-600">
+                        @forelse($customer->appointments as $appointment)
+                            <tr>
+                                <!--begin::order=-->
+                                <td>
+                                    <a href="{{route('business.appointment.show', $appointment->id)}}" class="text-gray-600 text-hover-primary mb-1">#{{$appointment->id}}</a>
+                                </td>
+                                <!--end::order=-->
+                                <!--begin::Business=-->
+                                <td>
+                                    <a href="#" class="text-gray-600 text-hover-primary mb-1">#{{$appointment->business->name}}</a>
+                                </td>
+                                <!--end::Business=-->
+                                <!--begin::Status=-->
+                                <td>
+                                    {!! $appointment->status("html") !!}
+                                </td>
+                                <!--end::Status=-->
+                                <!--begin::Amount=-->
+                                <td>₺{{number_format(calculateTotal($appointment->services), 2)}}</td>
+                                <!--end::Amount=-->
 
-                            <!--begin::Date=-->
-                            <td>{{\Illuminate\Support\Carbon::parse($appointment->services->first()->start_time)->translatedFormat('d.m.Y, H:i')}}</td>
-                            <!--end::Date=-->
-                        </tr>
-                    @empty
+                                <!--begin::Date=-->
+                                <td>{{\Illuminate\Support\Carbon::parse($appointment->services->first()->start_time)->translatedFormat('d.m.Y, H:i')}}</td>
+                                <!--end::Date=-->
+                            </tr>
+                        @empty
 
-                    @endforelse
-                </tbody>
-                <!--end::Table body-->
-            </table>
-            <!--end::Table-->
-        </div>
-        <!--end::Card body-->
+                        @endforelse
+                    </tbody>
+                    <!--end::Table body-->
+                </table>
+                <!--end::Table-->
+            </div>
+            <!--end::Card body-->
+        @else
+            <div class="card-body">
+                <x-forbidden-component title="Yetkisiz Erişim" message="Randevu geçmişini görüntülemek için yetkiniz bulunmamaktadır"></x-forbidden-component>
+            </div>
+        @endcan
     </div>
     <!--end::Card-->
 </div>

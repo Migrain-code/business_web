@@ -178,3 +178,44 @@ $(document).on('change', '.ajax-switch', function () {
     });
 })
 
+document.addEventListener("DOMContentLoaded", function() {
+    const contextMenu = document.getElementById("context-menu");
+
+    // Sağ tıklama olayını yakalama
+    document.addEventListener("contextmenu", function(e) {
+        e.preventDefault();
+        contextMenu.style.top = `${e.pageY}px`;
+        contextMenu.style.left = `${e.pageX}px`;
+        contextMenu.style.display = "block";
+    });
+
+    // Sol tıklama olayını yakalama
+    document.addEventListener("click", function() {
+        contextMenu.style.display = "none";
+    });
+
+    // Uzun tıklama olayını yakalama (Mobil cihazlar için)
+    let touchTimer;
+    document.addEventListener("touchstart", function(e) {
+        touchTimer = setTimeout(function() {
+            contextMenu.style.top = `${e.touches[0].pageY}px`;
+            contextMenu.style.left = `${e.touches[0].pageX}px`;
+            contextMenu.style.display = "block";
+        }, 500); // 500ms uzun tıklama süresi
+    });
+
+    document.addEventListener("touchend", function() {
+        clearTimeout(touchTimer);
+    });
+
+    // Kısayol tuşları
+    document.addEventListener("keydown", function(e) {
+        if (e.ctrlKey && e.key === 'r') {
+            window.location.href = document.getElementById("create-appointment").href;
+        } else if (e.ctrlKey && e.key === 'a') {
+            window.location.href = document.getElementById("create-bill").href;
+        } else if (e.ctrlKey && e.key === 'g') {
+            window.open(document.getElementById("go-salon").href, '_blank');
+        }
+    });
+});

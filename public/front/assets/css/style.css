@@ -1,6 +1,6 @@
 @charset "UTF-8";
 :root {
-  --pink: #f22969;
+  --pink: #56467d;
   --gray: #fbfafd;
   --darkgray: #f1f1f1;
   --lightblue: #43506e;
@@ -1415,7 +1415,7 @@ footer .footerBottom .bottom .social a + a {
 }
 .timePickers .timePickerRadio input:disabled + span {
   background: rgba(242, 41, 105, 0.1);
-  color: #f22969;
+  color: #56467d;
 }
 
 .form-control {
