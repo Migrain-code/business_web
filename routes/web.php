@@ -312,6 +312,7 @@ Route::prefix('isletme')->as('business.')->group(function (){
             Route::get('/paket/basarili', [PacketOrderController::class, 'success'])->name('payment.success');
             Route::get('/paket/hata', [PacketOrderController::class, 'fail'])->name('payment.fail');
         });
+        /* -------------------- Faturalar --------------------------*/
         Route::resource('invoice', \App\Http\Controllers\InvoiceController::class)->only([
             'index', 'show', 'datatable'
         ]);

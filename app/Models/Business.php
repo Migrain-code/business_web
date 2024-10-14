@@ -161,7 +161,7 @@ class Business extends Model
 
     public function invoices()
     {
-        return $this->hasMany(PacketOrder::class, 'business_id', 'id');
+        return $this->hasMany(PacketOrder::class, 'business_id', 'id')->where('status', 1);
     }
     public function workTimes()
     {
