@@ -23,6 +23,7 @@ use App\Models\Propartie;
 use App\Models\ServiceCategory;
 use App\Models\ServiceCut;
 use App\Models\Sponsor;
+use App\Services\NotificationService;
 use App\Services\SendMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -209,7 +210,11 @@ class HomeController extends Controller
         $contactInfo->salon_name = $request->input('salon_name');
         $contactInfo->phone = $request->input('phone');
         $contactInfo->ip_address = $request->ip();
+
         if ($contactInfo->save()) {
+            $message = "Talep Bilgileri => Ad Soyad: ".$contactInfo->name. " Salon Adı: ". $contactInfo->salon_name. " Telefon : ".$contactInfo->phone;
+            NotificationService::sendPushNotification('ExponentPushToken[QH16C6HAvJ9pFaVKJ8WKxu]', 'Yeni talep var', $message);
+
             return back()->with('response', [
                 'status' => "success",
                 'message' => "Ön Bilgilendirme Talebiniz Gönderildi"

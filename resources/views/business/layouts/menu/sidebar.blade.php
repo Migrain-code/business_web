@@ -483,7 +483,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="{{route('business.business-official.edit', authUser()->id)}}">
+                            <a class="menu-link" href="{{route('business.official.setting')}}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

@@ -8,6 +8,7 @@ use App\Models\BusinessOfficial;
 use App\Services\UploadFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 class OfficialSettingController extends Controller
 {

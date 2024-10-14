@@ -43,7 +43,6 @@ class BusinessOfficialController extends Controller
     public function index()
     {
         $branches = Business::where("company_id", $this->business->company_id)->get();
-
         return view('business.official.index', compact('branches'));
     }
 
