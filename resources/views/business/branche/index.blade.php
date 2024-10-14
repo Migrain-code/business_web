@@ -77,11 +77,9 @@
             <!--end::Card body-->
         </div>
         <!--end::Card-->
-
-        <!--begin::Modals-->
-        <!--begin::Modal - Customers - Add-->
-        @include('business.branche.parts.add-customer')
-
+        @can('branche.create')
+         @include('business.branche.parts.add-customer')
+        @endcan
     </div>
 
 @endsection

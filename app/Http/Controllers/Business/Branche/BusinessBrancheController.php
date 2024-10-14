@@ -24,7 +24,8 @@ class BusinessBrancheController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['permission:branche.view']);
+        $this->middleware(['permission:branche.list'])->only('index');
+        $this->middleware(['permission:branche.update'])->only('show');
         $this->middleware(function ($request, $next) {
             $this->business = auth()->user()->business;
             $this->user = auth()->user();
