@@ -795,7 +795,7 @@
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
-                @endcan
+
                 <!--begin:Menu item-->
                 @if(authUser()->hasAnyPermission(['business.gallery.index', 'business.customer-gallery.index']))
 
