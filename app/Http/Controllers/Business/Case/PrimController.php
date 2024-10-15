@@ -24,7 +24,7 @@ class PrimController extends Controller
             'productPrice' => 0,
             'total' => 0,
         ];
-        $this->middleware(["permission:prim.view"]);
+        //$this->middleware(["permission:prim.list"])->only(['index']);
         $this->middleware(function ($request, $next) {
             $this->business = auth()->user()->business;
             return $next($request);
