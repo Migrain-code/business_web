@@ -676,7 +676,7 @@
                     <!--end:Menu item-->
                 @endcan
                 <!--begin:Menu item-->
-                @can('customRoom.view')
+
                 <div class="menu-item">
                     <!--begin:Menu link-->
                     <a class="menu-link" href="{{route('business.room.index')}}">
@@ -694,9 +694,9 @@
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
-                @endcan
 
-                @can('case.view')
+
+
                 <!--begin:Menu item-->
                 <div class="menu-item pt-5">
                     <!--begin:Menu content-->
@@ -724,7 +724,7 @@
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
-                @can('prim.view')
+
                 <!--begin:Menu item-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
@@ -739,7 +739,7 @@
                     </a>
                     <!--end:Menu link-->
                 </div>
-                @endcan
+
                 <!--end:Menu item-->
                 <!--begin:Menu item-->
                 <div class="menu-item">
