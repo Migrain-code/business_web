@@ -28,7 +28,7 @@ class SetupControlMiddleWare
                 }
             } else {
 
-                if (!isset($user->package) && $user->packet_end_date < now()){ // Paket Tanımlı Değilse
+                /*if (!isset($user->package) && $user->packet_end_date < now()){ // Paket Tanımlı Değilse
                     if ($request->routeIs('business.subscription.index')){
                         return $next($request);
                     }
@@ -57,7 +57,7 @@ class SetupControlMiddleWare
                         return $next($request);
                     }
 
-                }
+                }*/
                 /*if ($user->personels->count() > 0 && $user->services->count() > 0){
                     if ($request->routeIs('business.setup.*') || $request->routeIs('business.payment.*') || $request->routeIs('business.detailSetup.*')) {
                         // Kullanıcı setup sayfalarına veya ödeme sayfalarına erişmeye çalışıyorsa
