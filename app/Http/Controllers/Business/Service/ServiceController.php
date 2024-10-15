@@ -174,7 +174,7 @@ class ServiceController extends Controller
             ->where('sub_category', $request->input('subCategoryId'))
             ->where('category', $request->input('categoryId'))
             ->where('type', $request->input('typeId'))->first();
-        if ($findService->id != $service->id) { // bulunan hizmet geçerli hizmet ile aynı değilse
+        /*if ($findService->id != $service->id) { // bulunan hizmet geçerli hizmet ile aynı değilse
             if ($findService->is_delete == 1) {//hizmet silinmiş mi kontrol et 1 silinmiş
                 $findService->is_delete = 0;
                 $findService->save();
@@ -191,7 +191,7 @@ class ServiceController extends Controller
                 ]);
             }
 
-        } else {
+        } else {*/
             if ($service) {
                 $service->type = $request->typeId;
                 $service->category = $request->input('categoryId');
@@ -218,7 +218,7 @@ class ServiceController extends Controller
                     'message' => "Hizmet Bulunamadı",
                 ]);
             }
-        }
+        /*}*/
 
     }
 
