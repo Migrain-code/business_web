@@ -198,13 +198,13 @@ class HomeController extends Controller
 
     public function informationRequest(InformationAddRequest $request)
     {
-        $findContact = ContactInfo::where('ip_address', $request->ip())->whereStatus(0)->first();
+       /* $findContact = ContactInfo::where('ip_address', $request->ip())->whereStatus(0)->first();
         if ($findContact) {
             return back()->with('response', [
                 'status' => "error",
                 'message' => "Ön Bilgilendirme Talebini Daha Önce Gönderdiniz"
             ]);
-        }
+        }*/
         $contactInfo = new ContactInfo();
         $contactInfo->name = $request->input('name');
         $contactInfo->salon_name = $request->input('salon_name');
