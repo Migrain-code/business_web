@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Jobs\SendReminderJob;
+use App\Services\NotificationService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  *
@@ -128,7 +130,7 @@ class Appointment extends Model
 
     public function services()
     {
-        return $this->hasMany(AppointmentServices::class, 'appointment_id', 'id');
+        return $this->hasMany(AppointmentServices::class, 'appointment_id', 'id')->orderBy('start_time');
     }
 
     public function payments()
@@ -179,6 +181,164 @@ class Appointment extends Model
         }
     }
 
+    public function scheduleReminder()
+    {
+        // Randevu başlangıç saatinden hatırlatma zamanını hesaplayın
+        $reminderTime = $this->start_time->subMinutes($this->business->reminder_time);
+
+        // Job'u dispatch et ve job ID'sini alın
+        $job = new SendReminderJob($this);
+        $jobId = app('queue')->push($job->delay($reminderTime));
+
+        // Job ID'sini randevu kaydına kaydedin
+        $this->job_id = $jobId;
+        $this->save();
+    }
+
+    public function setStatus($statusCode = 1)
+    {
+        $appointment = $this;
+        $appointment->status = $statusCode;
+        $appointment->save();
+        foreach ($appointment->services as $service) {
+            $service->status = $statusCode;
+            $service->save();
+        }
+    }
+
+    public function setClocks()
+    {
+        $appointment = $this;
+        //randevular tablosunda hizmetlerin başlangıç ve bitiş süresini hesaplayıp ekliyoruz.
+        $appointment->start_time = $appointment->services()->first()->start_time;
+        //hizmetlerdeki son hizmeti alıyoruz ve kayıt ediyoruz.
+        $appointment->end_time = $appointment->services()->skip($appointment->services()->count() - 1)->first()->end_time;
+        $appointment->save();
+    }
+
+    public function setStartTime($request)
+    {
+        if ($request->appointment_type == "addissionCreate"){ // tür adisyon oluşturma ise
+            // randevu tarihi ile seçilen saati birleştirip başlangıç tarihi ve saati oluştur
+            $appointmentStartTime = Carbon::parse($request->appointment_date." ".$request->start_time);
+        } else{
+            // normal randevu ise formdan seçilen start_time verisini kullan
+            $appointmentStartTime = Carbon::parse($request->start_time);
+        }
+        return $appointmentStartTime;
+    }
+    public function setApproveType($request)
+    {
+        if ($request->appointment_type == "addissionCreate"){
+            $this->setStatus(5);
+        } else{
+            // Manuel onay ve saat kapatma ise randevu onay bekliyor durumuna gelir
+            if ($this->business->approve_type == 1 && $request->appointment_type == "closeClock") {
+                $this->setStatus(0); // Onay bekliyor durumu
+            } else {
+                // randevu otomatik onay ise direk onaylanır
+                $this->setStatus(1); // onaylandı durumu
+            }
+        }
+    }
+
+    public function sendMessages($sendCustomerSms = true, $sendCustomerNotification = true, $sendPersonelNotification = true, $sendBusinessNotification = true)
+    {
+        $title = "Randevunuz başarılı bir şekilde oluşturuldu";
+        $message = $this->business->name . " İşletmesine " . $this->start_time->format('d.m.Y H:i') . " tarihine randevunuz oluşturuldu.";
+
+        if ($sendCustomerSms) {
+            $this->customer->sendSms($message);
+        }
+
+        if ($sendCustomerNotification) {
+            $this->customer->sendNotification($title, $message);
+        }
+
+        if ($sendPersonelNotification) {
+            $this->sendPersonelNotification();
+        }
+
+        if ($sendBusinessNotification) {
+            // Business notification fonksiyonunuzu burada çağırın
+            // Örneğin:
+            // $this->business->sendNotification($title, $message);
+        }
+    }
+
+    public function setServices($request, $personel, $appointmentStartTime)
+    {
+        $appointment = $this;
+        foreach ($request->service_id as $serviceId) {//seçilen hizmetleri döngüye al
+            $findService = BusinessService::find($serviceId); //seçilen hizmeti tabloda bul
+            $appointmentService = new AppointmentServices(); // randevunun hizmet kaydını başlat
+            $appointmentService->personel_id = $personel->id; // hangi personel seçilmişse fonksiyonun ilk parametresi
+            $appointmentService->service_id = $serviceId; // dizideki index hizmet id'si
+            $appointmentService->start_time = $appointmentStartTime->toDateTimeString(); // yukarıda belirlediğimiz başlangıç saati
+            $appointmentService->appointment_id = $appointment->id; // yukarıda kaydını aldığımız randevu id ' si
+            if ($request->appointment_type == "closeClock") { // saat kapatma ise
+                //burada belirli saat aralığı kapatılacağı için direk seçilen bitiş süresini atama yapıyoruz
+                $appointmentService->end_time = Carbon::parse($request->end_time)->toDateTimeString();
+                if ($appointmentService->start_time >= $appointmentService->end_time) {
+                    // başlngıç tarihi bitiş tarihinden büyükse randevuyu kaldırıyoruz. ve uyarı basıyoruz.
+                    $appointment->delete();
+                    $appointment->services()->delete();
+                    return [
+                        'status' => "error",
+                        'message' => "Başlangıç saati bitiş saatinden küçük olmalıdır",
+                    ];
+                }
+                $result = $this->checkPersonelClock($personel->id, $appointmentService->start_time, $appointmentService->end_time);
+                // randevu türü saat kapatma olduğundan başlangıç ve bitiş aralığında başka randevu varmı diye sisteme kontrol yapıtıyoruz
+                if ($result) {
+                    $appointment->services()->delete();
+                    $appointment->delete();
+                    return [
+                        'status' => "error",
+                        'message' => "Seçmiş olduğunuz saat aralığında randevu bulunmaktadır."
+                    ];
+                } else {
+                    //yoksa saat kapatmada hizmetleri kayıt ediyoruz
+                    $appointmentService->save();
+                }
+            } else { // normal randevu ise
+                // hizmetin bitiş süresine yukarıda arttırma yaptığımız başlangıç saatine hizmetin süresi kadar ekleme yapıyoruz.
+                $appointmentService->end_time = $appointmentStartTime->addMinutes($findService->time)->toDateTimeString();
+                $appointmentService->save();
+            }
+
+        }
+    }
+
+    public function sendPersonelNotification($title = "Yeni Bir Ranevunuz var", $message = "Müşteriniz %s, %s tarihinde %s hizmetiniz için bir randevu aldı.")
+    {
+        foreach ($this->services as $service){
+            $personelNotification = new PersonelNotification();
+            $personelNotification->business_id = $this->business_id;
+            $personelNotification->personel_id = $service->personel_id;
+            $personelNotification->title = $service->personel->name. " ". $title;
+            $personelNotification->message = sprintf(
+                $message,
+                $this->customer->name,
+                $service->start_time->format('d.m.Y H:i'),
+                $service->service->subCategory->getName()
+            );
+            $personelNotification->link = uniqid();
+            $personelNotification->save();
+
+            if (isset($service->personel->device)){
+                NotificationService::sendPushNotification($service->personel->device->token, $personelNotification->title, $personelNotification->message);
+            }
+        }
+    }
+
+    /** ------------------------- Calculate Area ----------------------------- **/
+    public function setPrice()
+    {
+        $calculateTotal = $this->totalServiceAndProduct();
+        $this->total = $calculateTotal;
+        $this->save();
+    }
     public function calculateAppointmentEarnedPoint()
     {
         $promossion = $this->business->promossions;
@@ -197,6 +357,7 @@ class Appointment extends Model
         $rangePrice = false;
         foreach ($this->services as $service) {
             $servicePrice = $service->servicePrice();
+
             if (is_numeric($servicePrice) && is_numeric($total)){
                 $total+= $servicePrice;
             } else{
@@ -233,19 +394,5 @@ class Appointment extends Model
     public function remainingTotal() //kalan  tutar
     {
         return ($this->calculateCollectedTotal() - $this->payments->sum("price")) - $this->receivables()->whereStatus(1)->sum('price');
-    }
-
-    public function scheduleReminder()
-    {
-        // Randevu başlangıç saatinden hatırlatma zamanını hesaplayın
-        $reminderTime = $this->start_time->subMinutes($this->business->reminder_time);
-
-        // Job'u dispatch et ve job ID'sini alın
-        $job = new SendReminderJob($this);
-        $jobId = app('queue')->push($job->delay($reminderTime));
-
-        // Job ID'sini randevu kaydına kaydedin
-        $this->job_id = $jobId;
-        $this->save();
     }
 }

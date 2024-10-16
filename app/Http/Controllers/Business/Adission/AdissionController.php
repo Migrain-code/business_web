@@ -3,10 +3,7 @@
 namespace App\Http\Controllers\Business\Adission;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Appointment\AppointmentDetailResoruce;
-use App\Http\Resources\Appointment\AppointmentResource;
 use App\Models\Appointment;
-use App\Models\Personel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Yajra\DataTables\DataTables;
@@ -55,7 +52,7 @@ class AdissionController extends Controller
         $personels = $this->business->personels;
         // collection olarak hizmetleri al
         $services = $this->business->services()->whereNotIn('id', $appointmentServiceIds)->get();
-
+       // dd($adission->calculateTotal());
         return view('business.adission.edit.index', compact('appointment', 'personels', 'services'));
 
     }
@@ -187,7 +184,7 @@ class AdissionController extends Controller
                 return Carbon::parse($q->start_time)->format('H:i');
             })
             ->addColumn('servicePrice', function ($q) use ($business) {
-                return $q->calculateTotal(). "₺";
+                return $q->total;
             })
             ->editColumn('status', function ($q) {
                 return $q->status('html');

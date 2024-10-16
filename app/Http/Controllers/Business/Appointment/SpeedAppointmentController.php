@@ -132,12 +132,12 @@ class SpeedAppointmentController extends Controller
     {
         $business = $this->business;
         $roomId = null;
-        if ($personel->rooms->count() > 0){
-            if ($personel->rooms->count() == 1){
-                $roomId = $personel->rooms->first()->room_id;
+        if ($personel->rooms->count() > 0){ //personel oda sayısı varsa
+            if ($personel->rooms->count() == 1){ // oda sayısı 1 ise 0 default index çünkü
+                $roomId = $personel->rooms->first()->room_id;// burada oda seçimi aşamasında 1 oda varsa direk ilk odayı alıyoruz
             } else{
-                $roomId = $request->room_id;
-                if (!isset($roomId)){
+                $roomId = $request->room_id; //1 den fazla oda kaydı varsa formdan seçilen oda id alıyoruz
+                if (!isset($roomId)){ // eğer boşsa oda seçimi uyarısı döndür
                     return response()->json([
                         'status' => "error",
                         'message' => "Oda Seçimi Alanı Gereklidir"
@@ -146,92 +146,30 @@ class SpeedAppointmentController extends Controller
             }
         }
 
-        if ($request->appointment_type == "appointmentCreate") {
+        if ($request->appointment_type == "appointmentCreate") { //tür randevu oluşturma ise saat kontrolü yap
             $result = $this->checkClock($personel, $request->start_time, $request->service_id, $roomId);
             if ($result["status"] == "error"){
                 return response()->json($result);
             }
         }
-        $appointment = new Appointment();
-        $appointment->customer_id = $request->customer_id;
-        $appointment->business_id = $business->id;
-        $appointment->room_id = $roomId;
-        $appointment->save();
+        $appointment = new Appointment(); // yeni randevu kaydı başlat
+        $appointment->customer_id = $request->customer_id; //müşteri bilgisi
+        $appointment->business_id = $business->id; // işletme bilgisi
+        $appointment->room_id = $roomId; // oda bilgisi
+        $appointment->save(); // kaydet
 
-
-        if ($request->appointment_type == "addissionCreate"){
-            $appointmentStartTime = Carbon::parse($request->appointment_date." ".$request->start_time);
-        } else{
-            $appointmentStartTime = Carbon::parse($request->start_time);
-        }
-        foreach ($request->service_id as $serviceId) {
-            $findService = BusinessService::find($serviceId);
-            $appointmentService = new AppointmentServices();
-            $appointmentService->personel_id = $personel->id;
-            $appointmentService->service_id = $serviceId;
-            $appointmentService->start_time = $appointmentStartTime->toDateTimeString();
-            $appointmentService->appointment_id = $appointment->id;
-            if ($request->appointment_type == "closeClock") { // saat kapatma ise
-                $appointmentService->end_time = Carbon::parse($request->end_time)->toDateTimeString();
-                if ($appointmentService->start_time >= $appointmentService->end_time) {
-                    $appointment->delete();
-                    $appointment->services()->delete();
-                    return response()->json([
-                        'status' => "error",
-                        'message' => "Başlangıç saati bitiş saatinden küçük olmalıdır",
-                    ]);
-                }
-                $result = $this->checkPersonelClock($personel->id, $appointmentService->start_time, $appointmentService->end_time);
-
-                if ($result) {
-                    $appointment->services()->delete();
-                    $appointment->delete();
-                    return response()->json([
-                        'status' => "error",
-                        'message' => "Seçmiş olduğunuz saat aralığında randevu bulunmaktadır."
-                    ]);
-                } else {
-                    $appointmentService->save();
-                }
-            } else {
-                $appointmentService->end_time = $appointmentStartTime->addMinutes($findService->time)->toDateTimeString();
-                $appointmentService->save();
-            }
-
+        $appointmentStartTime = $appointment->setStartTime($request); //randevu başlagnıç saatlerini setle
+        $serviceResult = $appointment->setServices($request, $personel, $appointmentStartTime); // randevu hizmetlerini setle
+        if (isset($serviceResult["status"]) && $serviceResult["status"] == "error"){
+            return response()->json($serviceResult);
         }
 
-        $appointment->start_time = $appointment->services()->first()->start_time;
-        $appointment->end_time = $appointment->services()->skip($appointment->services()->count() - 1)->first()->end_time;
-        $calculateTotal = $appointment->calculateTotal();
-        $appointment->total = $calculateTotal;
-
-        if ($request->appointment_type == "addissionCreate"){
-            $appointment->status = 5;
-            $appointment->save();
-            foreach ($appointment->services as $service) {
-                $service->status = 5;
-                $service->save();
-            }
-        } else{
-            if ($business->approve_type == 1 && $request->appointment_type == "closeClock") {// Manuel onay ve saat kapatma ise
-                $appointment->status = 0; // Onay bekliyor durumu
-            } else {
-                $appointment->status = 1; // onaylandı durumu
-
-                foreach ($appointment->services as $service) {
-                    $service->status = 1;
-                    $service->save();
-                }
-            }
-        }
-
+        $appointment->setClocks(); //randevu saatlerini kayıt et
+        $appointment->setApproveType($request); // onay durumunu kayıt et
+        $appointment->setPrice();
         if ($appointment->save()) {
-            $title = "Randevunuz başarılı bir şekilde oluşturuldu";
-            $message = $business->name . " İşletmesine " . $appointment->start_time->format('d.m.Y H:i') . " tarihine randevunuz oluşturuldu.";
-            //$appointment->customer->sendSms($message);
-
-            $appointment->customer->sendNotification($title, $message);
-            $appointment->scheduleReminder();
+            $appointment->scheduleReminder(); // hatırlatma işi ekle
+            $appointment->sendMessages(false); // bildirimleri ve smsleri gönder
             return response()->json([
                 'status' => "success",
                 'message' => "Randevunuz başarılı bir şekilde oluşturuldu",

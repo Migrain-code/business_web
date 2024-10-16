@@ -80,9 +80,8 @@
                                 @if($service->service->price_type_id == 1 && $service->total == 0)
                                 <td class="d-flex flex-column align-items-center justify-content-center">
                                     {{$service->servicePrice()}}
-
-                                        {{$calculateTotal = false}}
-                                        <input type="number" class="form-control form-control-solid" placeholder="Net Fiyatını Giriniz" style="max-width: 150px" name="prices[{{$service->id}}]">
+                                    {{$calculateTotal = false}}
+                                    <input type="number" class="form-control form-control-solid" placeholder="Net Fiyatını Giriniz" style="max-width: 150px" name="prices[{{$service->id}}]">
 
                                 </td>
                                 @else

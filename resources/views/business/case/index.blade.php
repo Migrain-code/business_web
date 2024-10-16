@@ -182,7 +182,7 @@
                     'Bugün': [moment(), moment()],
                     'Dün': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
                     'Son 7 gün': [moment().subtract(6, 'days'), moment()],
-                    'Son Ömür Boyu': [moment().subtract(29, 'days'), moment()],
+                    'Son 30 Gün': [moment().subtract(29, 'days'), moment()],
                     'Bu ay': [moment().startOf('month'), moment().endOf('month')],
                     'Geçen ay': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
                 },

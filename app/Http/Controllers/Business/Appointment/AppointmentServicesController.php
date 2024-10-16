@@ -65,6 +65,8 @@ class AppointmentServicesController extends Controller
                 $findService->save();
             }
         }
+
+        $appointment->setPrice();
         return back()->with('response',[
             'status' => "success",
             'message' => "Randevu Hizmet Fiyatı Güncellendi"

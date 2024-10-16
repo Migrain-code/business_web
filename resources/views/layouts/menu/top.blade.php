@@ -214,12 +214,10 @@
                     </ul>
                 </div>
             </div>
-            <div
-                class="col-8 col-xl-3 d-flex align-items-center justify-content-end"
-            >
+            <div class="col-8 col-xl-3 d-flex align-items-center justify-content-end">
                 <div class="headerRight">
-                    <a href="{{route('loginTypes')}}" class="btn-outline-white"> Giriş Yap </a>
-                    <a href="{{route('business.register')}}" class="btn-white d-none d-sm-block">Ücretsiz Dene</a>
+                    <a href="{{route('loginTypes')}}" class="customMenuButton"> Giriş Yap </a>
+                    <a href="{{route('business.register')}}" class="customMenuButtonWhite d-none d-sm-block">Ücretsiz Dene</a>
                     <a href="javascript:;" class="toggle"><span></span></a>
                 </div>
             </div>

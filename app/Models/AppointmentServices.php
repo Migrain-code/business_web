@@ -95,53 +95,52 @@ class AppointmentServices extends Model
     {
         return $this->hasOne(PersonelCustomerPriceList::class ,'business_service_id', 'service_id')->where('personel_id', $this->personel_id);
     }
+
+    public function personel()
+    {
+        return $this->hasOne(Personel::class, 'id', 'personel_id');
+    }
+
     public function servicePrice()
     {
         $service = $this->service;
-        $personelPrice = $this->getPersonelPrice;
+        $personnelPrice = $this->getPersonelPrice;
+        $room = $this->appointment->room ?? null;
 
-        if ($service->price_type_id == 1 && $this->total == 0){ // aralıklı fiyatsa
-            return $service->price. " TL - ". $service->max_price. " TL";
-        } else{
-
-            if ($this->total > 0){
-                if (isset($this->appointment->room_id) && $this->appointment->room_id > 0) {
-                    $room = $this->appointment->room;
-                    if ($room->increase_type == 0) { // tl fiyat arttırma
-                        $servicePrice = $this->total + $room->price;
-                    } else { // yüzde fiyat arttırma
-                        $servicePrice = $this->total + (($this->total * $room->price) / 100);
-
-                    }
-                } else {
-                    $servicePrice = $this->total;
-                }
-            } else{
-                if (isset($this->appointment->room_id) && $this->appointment->room_id > 0) {
-                    $room = $this->appointment->room;
-
-                    if ($room->increase_type == 0) { // tl fiyat arttırma
-                        $servicePrice = $service->price + $room->price;
-                    } else { // yüzde fiyat arttırma
-
-                        if (isset($personelPrice)){
-                            $servicePrice = $personelPrice->price + (($personelPrice->price * $room->price) / 100);
-                        } else{
-                            $servicePrice = $service->price + (($service->price * $room->price) / 100);
-                        }
-                    }
-                } else {
-                    $servicePrice = $service->price;
-                }
+        if ($this->isIntervalPrice($service)) {
+            return $this->formatPriceRange($service);
+        } else {
+            if ($this->total > 0) {
+                $servicePrice = $this->adjustPriceByRoom($this->total, $room);
+            } else {
+                $basePrice = $personnelPrice->price ?? $service->price;
+                $servicePrice = $this->adjustPriceByRoom($basePrice, $room);
             }
-
         }
 
         return $servicePrice;
     }
 
-    public function personel()
+    private function isIntervalPrice($service)
     {
-        return $this->hasOne(Personel::class, 'id', 'personel_id');
+        return $service->price_type_id == 1 && $this->total == 0;
+    }
+
+    private function formatPriceRange($service)
+    {
+        return $service->price . " - ". $service->max_price;
+    }
+
+    private function adjustPriceByRoom($basePrice, $room)
+    {
+        if ($room && $room->increase_type !== null) {
+            if ($room->increase_type == 0) {
+                return $basePrice + $room->price; // TL fiyat arttırma
+            } else {
+                return $basePrice + (($basePrice * $room->price) / 100); // Yüzde fiyat arttırma
+            }
+        }
+
+        return $basePrice;
     }
 }

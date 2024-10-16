@@ -145,7 +145,7 @@
                         <th class="min-w-125px">Tarih</th>
                         <th class="min-w-125px">Saat</th>
                         <th class="min-w-125px">Durum</th>
-                        <th class="min-w-125px">Toplam Hizmet Fiyatı</th>
+                        <th class="min-w-125px">Toplam Tutar</th>
                         <th class="text-end min-w-70px">İşlemler</th>
                     </tr>
                     </thead>

@@ -38,7 +38,7 @@ class CaseController extends Controller
             'eftTotal' => 0,
             'otherTotal' => 0,
         ];
-        $this->middleware(['permission:case.view']);
+        //$this->middleware(['permission:case.view']);
         $this->middleware(function ($request, $next) {
             $this->business = auth()->user()->business;
             return $next($request);
