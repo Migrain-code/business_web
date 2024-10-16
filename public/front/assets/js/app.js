@@ -1,7 +1,5 @@
 $(document).ready(function () {
-  $(".topMenu").hover(function () {
-    $("header").toggleClass("open");
-  });
+
   $(".megaMenu").hover(function () {
     $("header").toggleClass("openMegaMenu");
   });

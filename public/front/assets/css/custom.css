@@ -195,7 +195,7 @@ footer {
 }
 
 .hc-nav-original li svg {
-  display: none !important;
+  /*display: none !important;*/
 }
 
 .hc-offcanvas-nav li a {
@@ -226,6 +226,7 @@ footer {
 
 header .logo img {
   max-width: 210px !important;
+    width: 100%;
 }
 
 .breadcrumb .breadcrumb-item {
@@ -267,7 +268,11 @@ header .logo img {
 .js-photo-gallery .owl-dots {
   margin: 0 !important;
 }
-
+@media (max-width: 1500px) {
+    .hc-nav-original li svg {
+        display: none !important;
+    }
+}
 @media (max-width: 768px) {
   .servicesSuccess {
     padding: 20px !important;
@@ -764,11 +769,51 @@ header .logo img {
 .contact-page .contact-form .map iframe {
   filter: grayscale();
 }
-
+.customMenuButton{
+    border: 1px solid white;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: white;
+    border-radius: 6px;
+    font-size: 14px;
+}
+.customMenuButtonWhite{
+    border: 1px solid white;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #56467d;
+    border-radius: 6px;
+    font-size: 14px;
+    background: white;
+    font-weight: 500;
+}
 @media (max-width: 768px) {
   .contact-page .info-box .info-item {
     margin-bottom: 20px;
   }
+
+    header .logo img {
+        max-width: 210px !important;
+        width: 174px;
+    }
+    .customMenuButton{
+        border: 1px solid white;
+        padding: 7px 20px;
+        text-decoration: none;
+        color: white;
+        border-radius: 6px;
+        font-size: 13px;
+    }
+    .customMenuButtonWhite{
+        border: 1px solid white;
+        padding: 7px 20px;
+        text-decoration: none;
+        color: #56467d;
+        border-radius: 6px;
+        font-size: 13px;
+        background: white;
+        font-weight: 500;
+    }
 }
 
 .sss-page .sss-categories ul li.tab.active {
