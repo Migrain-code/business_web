@@ -115,10 +115,10 @@ class PersonelController extends Controller
         $personel->food_start = $request->food_start_time;
         $personel->food_end = $request->food_end_time;
         $personel->gender = $request->gender_type;
-        if (authUser()->hasPermissionTo('case.view')) {
+
             $personel->product_rate = $request->product_rate;
             $personel->rate = $request->rate;
-        }
+
         $personel->range = $request->range;
         $personel->description = $request->description;
         $personel->rest_day = 0;
