@@ -35,8 +35,10 @@ class SendReminderJob implements ShouldQueue
             $customer = $this->appointment->customer;
             $business = $this->appointment->business;
             $message = "Değerli Müşterimiz, {$business->name} işletmesinden aldığınız {$this->appointment->start_time->format('d.m.Y H:i')} randevusu için bir hatırlatma mesajıdır. Zamanında gelmenizi rica ederiz. Teşekkürler.";
+            if ($business->id == 39){
+                $customer->sendSms($message);
+            }
 
-            // Sms::send($customer->phone, $message);
             $customer->sendNotification('Randevu Hatırlatma', $message);
         } catch (\Exception $e) {
             // Hata durumunda loglama yapabilir ve job'un fail durumuna düşmesini engelleyebilirsiniz
