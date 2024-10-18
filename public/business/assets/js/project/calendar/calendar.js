@@ -60,7 +60,7 @@ const KTAppCalendar = (() => {
                 titleFormat: {year: 'numeric', month: 'long', day: 'numeric'} // Gün görünümünün başlığını Türkçe yapmak için
             }
         },
-        initialView: 'timeGridWeek',
+        initialView: 'dayGridMonth',
         timeZone: 'Europe/Istanbul',
         locale: 'tr',
 

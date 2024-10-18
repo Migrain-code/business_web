@@ -73,7 +73,12 @@ class AppointmentController extends Controller
     }
     public function calendar()
     {
-        $appointments = $this->business->appointments()->whereDate('start_time', now())->get();
+        $appointments = $this->business->appointments()->whereIn('status', [0, 1])
+            ->whereBetween('start_time', [
+                now()->subDays(10)->startOfDay(),
+                now()->addMonth()->endOfDay()
+            ])
+            ->get();
         return view('business.appointment.calender', compact('appointments'));
     }
 
