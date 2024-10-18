@@ -25,7 +25,7 @@ class PersonalAddRequest extends FormRequest
      */
     public function rules()
     {
-        if (authUser()->hasPermissionTo('case.view')){
+        /*if (authUser()->hasPermissionTo('case.view')){
             return [
                 'name' => 'required',
                 //'email' => 'required|unique:personels',
@@ -45,7 +45,7 @@ class PersonalAddRequest extends FormRequest
                 'product_rate' => 'required',
                 //'is_case' => 'required',
             ];
-        }
+        }*/
         return [
             'name' => 'required',
             //'email' => 'required|unique:personels',
