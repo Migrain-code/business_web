@@ -31,6 +31,7 @@
         <span class="shortcut">*</span>
     </a>
     <a href="{{env('REMOTE_URL').authUser()->business->slug}}" target="_parent" id="go-salon">
-        <i class="fa fa-globe"></i> Salona Git <span class="shortcut">Ctrl+G</span>
+        <i class="fa fa-globe"></i> Salona Git
+        <span class="shortcut">*</span>
     </a>
 </div>
