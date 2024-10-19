@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Kısayol tuşları
-    document.addEventListener("keydown", function(e) {
+   /* document.addEventListener("keydown", function(e) {
         if (e.ctrlKey && e.key === 'r') {
             window.location.href = document.getElementById("create-appointment").href;
         } else if (e.ctrlKey && e.key === 'a') {
@@ -217,5 +217,5 @@ document.addEventListener("DOMContentLoaded", function() {
         } else if (e.ctrlKey && e.key === 'g') {
             window.open(document.getElementById("go-salon").href, '_blank');
         }
-    });
+    });*/
 });
