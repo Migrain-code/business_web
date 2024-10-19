@@ -170,7 +170,7 @@
                         <!--begin::Col-->
                         <div class="col">
                             <!--begin::Option-->
-                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4">
+                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4 @if($business->personal_count == "1-1") active @endif">
                                 <input type="radio" class="btn-check" name="team_size" @checked($business->personal_count == "1-1") value="1-1">
                                 <span class="fw-bold fs-3">1-1</span>
                             </label>
@@ -181,7 +181,7 @@
                         <!--begin::Col-->
                         <div class="col">
                             <!--begin::Option-->
-                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4 active">
+                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4 @if($business->personal_count == "2-10") active @endif">
                                 <input type="radio" class="btn-check" name="team_size" @checked($business->personal_count == "2-10") value="2-10">
                                 <span class="fw-bold fs-3">2-10</span>
                             </label>
@@ -192,7 +192,7 @@
                         <!--begin::Col-->
                         <div class="col">
                             <!--begin::Option-->
-                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4">
+                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4 @if($business->personal_count == "10-50") active @endif">
                                 <input type="radio" class="btn-check" name="team_size" @checked($business->personal_count == "10-50") value="10-50">
                                 <span class="fw-bold fs-3">10-50</span>
                             </label>
