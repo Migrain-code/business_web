@@ -21,7 +21,7 @@ class AppointmentController extends Controller
 {
     private $business;
 
-
+    
     public function __construct()
     {
         $this->middleware(['permission:appointment.list'])->only('index');
@@ -78,7 +78,9 @@ class AppointmentController extends Controller
                 now()->subDays(10)->startOfDay(),
                 now()->addMonth()->endOfDay()
             ])
+            ->take(6)
             ->get();
+
         return view('business.appointment.calender', compact('appointments'));
     }
 
