@@ -42,6 +42,7 @@ class AppointmentCreateController extends Controller
     {
         $business = $this->business;
         //kadın türündeki hizmetleri
+
         $womanServicesArray = $business->services()->where('type', 1)->with('categorys')->get();
         $womanServiceCategories = $womanServicesArray->groupBy('categorys.name');
         $womanServices = $this->transformServices($womanServiceCategories);
@@ -716,6 +717,7 @@ class AppointmentCreateController extends Controller
         }
         if ($appointment->save()) {
             $appointment->customer->sendSms($message);
+            $appointment->sendPersonelCreateNotification();
             return to_route('personel.appointment.index')->with('response', [
                 'status' => "success",
                 'message' => "Randevunuz başarılı bir şekilde oluşturuldu",

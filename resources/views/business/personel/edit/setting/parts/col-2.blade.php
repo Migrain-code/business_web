@@ -118,7 +118,7 @@
 
                 </div>
                 <!--end::Input group-->
-                @can('case.view')
+
                 <!--begin::Input group-->
                 <div class="mb-4 fv-row">
                     <!--begin::Label-->
@@ -154,7 +154,7 @@
                     </select>
                     <!--end::Select2-->
                 </div>
-                @endcan
+
                 <!--end::Input group-->
 
                 @if($personel->business->rooms->where('status', 1)->count() > 0)

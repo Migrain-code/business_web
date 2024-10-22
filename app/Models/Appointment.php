@@ -332,6 +332,28 @@ class Appointment extends Model
         }
     }
 
+    public function sendPersonelCreateNotification() //personel randevu oluştuduğunda işletme sahibine bildirim gönder
+    {
+        $official = $this->business->official;
+        if (isset($official) && isset($official->devicePermission)){
+
+            if ($official->devicePermission->is_personel == 1){
+                //herkese alınan randevular için bildirimler
+                foreach ($this->services as $service){
+                    $title = "Personeliniz Bir Randevu Oluşturdu";
+                    $message = sprintf(
+                        '%s adlı Personeliniz %s adlı müşterinize, %s tarihine %s hizmetine randevu oluşturdu.',
+                        $service->personel->name,
+                        $this->customer->name,
+                        $service->start_time->format('d.m.Y H:i'),
+                        $service->service->subCategory->getName()
+                    );
+                    $official->sendNotification($title, $message);
+                }
+            }
+        }
+
+    }
     /** ------------------------- Calculate Area ----------------------------- **/
     public function setPrice()
     {

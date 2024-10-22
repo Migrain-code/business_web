@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\NotificationService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -71,7 +72,14 @@ class BusinessOfficial extends Authenticatable
     {
         return $this->hasOne(BusinessNotificationPermission::class, 'business_id', 'id');
     }
-
+    public function devicePermission()
+    {
+        return $this->hasOne(BusinessDeviceNotificationPermission::class, 'business_id', 'id');
+    }
+    public function device()
+    {
+        return $this->hasOne(Device::class, 'customer_id', 'id')->where('type', 3);
+    }
     public function notifications()
     {
         return $this->hasMany(BusinessNotification::class, 'business_id', 'id');
@@ -101,7 +109,22 @@ class BusinessOfficial extends Authenticatable
         $notification->link = uniqid();
         $notification->save();
     }
+    public function sendNotification($title, $message)
+    {
+        $notification = new BusinessNotification();
+        $notification->business_id = $this->id;
+        $notification->type = 0;
+        $notification->title = $title;
+        $notification->message = $message;
+        $notification->status = 0;
+        $notification->link = uniqid();
+        $notification->save();
 
+        if (isset($this->device)){
+           // NotificationService::sendPushNotification($this->device->token, $title, $message);
+        }
+        return true;
+    }
     public function setPermission($roleId)
     {
         $role = Role::findById($roleId);

@@ -161,6 +161,8 @@ class SpeedAppointmentController extends Controller
         if ($appointment->save()) {
             $message = $business->name . " İşletmesine " . $appointment->start_time->format('d.m.Y H:i') . " tarihine randevunuz oluşturuldu.";
             $appointment->customer->sendSms($message);
+            $appointment->sendPersonelNotification();
+            $appointment->sendPersonelCreateNotification();
             return response()->json([
                 'status' => "success",
                 'message' => "Randevunuz başarılı bir şekilde oluşturuldu",
