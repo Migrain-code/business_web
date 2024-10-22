@@ -121,7 +121,7 @@ class BusinessOfficial extends Authenticatable
         $notification->save();
 
         if (isset($this->device)){
-           // NotificationService::sendPushNotification($this->device->token, $title, $message);
+            NotificationService::sendPushNotification($this->device->token, $title, $message);
         }
         return true;
     }
