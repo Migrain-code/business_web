@@ -72,7 +72,7 @@ class CustomerController extends Controller
                         İyi günler dileriz
                         ".$this->business->name."
                         (Hızlı Randevu)";
-            Sms::send($customer->phone, $message);
+            //Sms::send($customer->phone, $message);
             $this->addPermission($customer->id);
             $this->addBusinessCustomerList($customer->id);
             return response()->json([
