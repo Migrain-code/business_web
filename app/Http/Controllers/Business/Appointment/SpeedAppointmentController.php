@@ -88,11 +88,12 @@ class SpeedAppointmentController extends Controller
                 ], 200);
             } else {
                 //personel kapalı değilse personel izin gün kontrolü
-                if ($personel->checkDateIsOff($getDate)) {
-                    return response()->json([
-                        "status" => "error",
-                        "message" => "Personel bu tarihte hizmet vermemektedir"
-                    ], 200);
+                $personelRestDay = $personel->checkDateIsOff($getDate);
+                if (isset($personelRestDay) && ($personelRestDay->end_time->format("Y-m-d") != $getDate->format('Y-m-d'))) {
+                        return response()->json([
+                            "status" => "error",
+                            "message" => "Personel bu tarihte hizmet vermemektedir"
+                        ], 200);
                 } else {
                     //tüm koşullar sağlanmış ise personel saat takvimi
                     for ($i = Carbon::parse($personel->start_time); $i < Carbon::parse($personel->end_time); $i->addMinute($personel->appointmentRange->time)) {
@@ -107,8 +108,6 @@ class SpeedAppointmentController extends Controller
 
 
                     }
-
-
                 }
 
             }
@@ -251,8 +250,22 @@ class SpeedAppointmentController extends Controller
                 $currentDateTime->addMinutes(intval($personel->appointmentRange->time));
             }
         }
+        // Personelin izinli olduğu saat aralıklarını kontrol et ve disableds dizisine ekle
+        $offDays = $personel->stayOffDays()
+            ->whereDate('start_time', '<=', Carbon::parse($appointment_date))
+            ->whereDate('end_time', '>=', Carbon::parse($appointment_date))->get();
 
-        // randevu almaya 30 dk öncesine kadar izin ver
+        foreach ($offDays as $offDay) {
+            $leaveStart = Carbon::parse($offDay->start_time);
+            $leaveEnd = Carbon::parse($offDay->end_time);
+
+            $leaveDateTime = $leaveStart->copy();
+            while ($leaveDateTime < $leaveEnd) {
+                $disableds[] = $leaveDateTime->format('d.m.Y H:i');
+                $leaveDateTime->addMinutes(intval($personel->appointmentRange->time));
+            }
+        }
+        // randevu almaya 5 dk öncesine kadar izin ver
         $startTime = Carbon::parse($personel->start_time);
         $endTime = Carbon::parse($personel->end_time);
         for ($i = $startTime; $i < $endTime; $i->addMinutes(intval($personel->appointmentRange->time))) {
